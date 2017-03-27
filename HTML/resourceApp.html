@@ -34,13 +34,12 @@
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-                        <a class="navbar-brand" href="index.html"><img src="/Images/htr_FullLogo.png" alt="Dispute Bills">
-                        </a>
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html"><img src="/Images/htr_FullLogo.png" alt="Dispute Bills"></a>
                     </div>
                     <div id="navbar3" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -58,33 +57,35 @@
 
     </header>
 
-    <div class="container paragraph" id="resourceAppParagraph">
+    <div class="container applyContainer" id="resourceAppParagraph">
         <div class="panel panel-default" id="applicationPanel">
             <div class="panel-body">
                 <h2>Apply Now!</h2>
+                <br/>
                 <p>If your organization provides services to victims of human trafficking and you would like to be included in our Resource Hub, fill out an application by clicking the button below. After filling in your organization's information and submitting
                     the form, an e-mail will be sent to the Kent County Human Trafficking Task Force for review. You will be notified if your organization is approved.</p>
                 <br/>
                 <p>If your organization is approved, you will need to update your organization with the Kent County Human Trafficking Task Force at least once a year.</p>
                 <br/>
                 <p>If you have any questions about the application process, contact a YWCA associate advocate.</p>
+                <br/>
+                <div class="row">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createModal">
+                            Apply Now!
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#updateModal">
+                            Update Resource
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-2 col-md-offset-4">
-            <button type="button" class="btn btn-primary btn-lg btn-enter" data-toggle="modal" data-target="#createModal">
-                Apply Now!
-            </button>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-primary btn-lg btn-enter" data-toggle="modal" data-target="#updateModal">
-                Update Resource
-            </button>
-        </div>
 
-    </div>
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="lblCreateModal">
         <div class="modal-dialog modal-lg" role="document">
@@ -98,11 +99,11 @@
                         <div class="tabbable">
                             <!-- Only required for left/right tabs -->
                             <ul class="nav nav-tabs">
-                                <li class="active"><a class="redLink" href="#orgInfoCreate" data-toggle="tab">Organization Info</a></li>
-                                <li><a class="redLink" href="#orgResourcesCreate" data-toggle="tab">Resources Offered</a></li>
-                                <li><a class="redLink" href="#orgAddConsiderationsCreate" data-toggle="tab">Additional Considerations</a></li>
-                                <li><a class="redLink" href="#orgDemographicsServedCreate" data-toggle="tab">Demographics Served</a></li>
-                                <li><a class="redLink" href="#orgNotesCreate" data-toggle="tab">Notes</a></li>
+                                <li class="active"><a href="#orgInfoCreate" data-toggle="tab">Organization Info</a></li>
+                                <li><a href="#orgResourcesCreate" data-toggle="tab">Resources Offered</a></li>
+                                <li><a href="#orgAddConsiderationsCreate" data-toggle="tab">Additional Considerations</a></li>
+                                <li><a href="#orgDemographicsServedCreate" data-toggle="tab">Demographics Served</a></li>
+                                <li><a href="#orgNotesCreate" data-toggle="tab">Notes</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="orgInfoCreate">
@@ -159,6 +160,7 @@
                                                         <div class="col-md-3">
                                                             <label>Main Phone </label>
                                                             <input id="txtMainPhoneCreate" type="text" placeholder="main phone (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtMainPhoneExtCreate" type="text" placeholder="main phone ext." />
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label>Hotline Number </label>
@@ -183,6 +185,7 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input id="txtConfPhoneCreate" type="text" placeholder="confidential phone (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtConfPhoneExtCreate" type="text" placeholder="confidential phone ext." />
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -223,6 +226,7 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input id="txtPrimaryContactPhoneCreate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtPrimaryContactExtCreate" type="text" placeholder="contact phone ext." />
                                                         </div>
                                                         <div class="col-md-3">
                                                             <input class="form-control" id="txtPrimaryContactEmailCreate" placeholder="email">
@@ -287,129 +291,187 @@
                                                             <input class="form-control" placeholder="county" id="txtAddress1CountyCreate">
                                                         </div>
                                                         <div class="col-md-2">
+                                                            <input class="form-control" placeholder="state" id="txtAddress1StateCreate">
+                                                        </div>
+                                                        <!--<div class="col-md-2">
                                                             <select class="form-control" id="txtAddress1StateCreate">
-																	<option>12:00 AM</option>
-																	<option>1:00 AM</option>
-																	<option>2:00 AM</option>
-																	<option>3:00 AM</option>
-																	<option>4:00 AM</option>
-																	<option>5:00 AM</option>
-																	<option>6:00 AM</option>
-																	<option>7:00 AM</option>
-																	<option>8:00 AM</option>
-																	<option>9:00 AM</option>
-																	<option>10:00 AM</option>
-																	<option>11:00 AM</option>
-																	<option>12:00 PM</option>
-																	<option>1:00 PM</option>
-																	<option>2:00 PM</option>
-																	<option>3:00 PM</option>
-																	<option>4:00 PM</option>
-																	<option>5:00 PM</option>
-																	<option>6:00 PM</option>
-																	<option>7:00 PM</option>
-																	<option>8:00 PM</option>
-																	<option>9:00 PM</option>
-																	<option>10:00 PM</option>
-																	<option>11:00 PM</option>
-																</select>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>-->
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="zip" placeholder="zip" id="txtAddress1ZipCreate">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <input class="form-control" id="txtAddress1ZipCreate">
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Address 2</label>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Street</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-md-offset-1">
+                                                            <label>City</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress2StreetCreate">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="city" id="txtAddress2CityCreate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>County</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>State</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Zip</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="county" id="txtAddress2CountyCreate">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="state" id="txtAddress2StateCreate">
+                                                        </div>
+                                                        <!--<div class="col-md-2">
+                                                            <select class="form-control" id="txtAddress2StateCreate">
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>-->
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="zip" id="txtAddress2ZipCreate">
+                                                        </div>
+                                                    </div>
                                                 <br/>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label class="underline">Address 2</label>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Confidential Address</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label>Street</label>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Street</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-md-offset-1">
+                                                            <label>City</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-2 col-md-offset-1">
-                                                        <label>City</label>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" placeholder="street address" id="txtConfAddressStreetCreate">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="city" id="txtConfAddressCityCreate">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <input class="form-control" id="txtAddress2StreetCreate">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>County</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>State</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Zip</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" id="txtAddress2CityCreate">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label>County</label>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <label>State</label>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <label>Zip</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" id="txtAddress2CountyCreate">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input class="form-control" id="txtAddress2StateCreate">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input class="form-control" id="txtAddress2ZipCreate">
-                                                    </div>
-                                                </div>
-                                                <br/>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label class="underline">Confidential Address</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label>Street</label>
-                                                    </div>
-                                                    <div class="col-md-2 col-md-offset-1">
-                                                        <label>City</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <input class="form-control" id="txtConfAddressStreetCreate">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" id="txtConfAddressCityCreate">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label>County</label>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <label>State</label>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <label>Zip</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" id="txtConfAddressCountyCreate">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input class="form-control" id="txtConfAddressStateCreate">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input class="form-control" id="txtConfAddressZipCreate">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="county" id="txtConfAddressCountyCreate">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="state" id="txtConfAddressStateCreate">
+                                                        </div>
+                                                        <!--<div class="col-md-2">
+                                                            <select class="form-control" id="txtConfAddressStateCreate">
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>-->
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="zip" id="txtConfAddressZipCreate">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
@@ -421,7 +483,7 @@
                                             <div class="panel-body">
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <label>24/7 &nbsp;</label><input type="checkbox" value="24Hours" id="cbIs247Create">
+                                                        <label>24/7: &nbsp;</label><input type="checkbox" value="24Hours" id="cbIs247Create">
                                                     </div>
                                                 </div>
                                                 <br/>
@@ -440,6 +502,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFullWeekStartTimeCreate" name="ddlGenFullWeekStartTimeCreate">
+                                                                    <option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -471,6 +534,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFullWeekEndTimeCreate" name="ddlGenFullWeekEndTimeCreate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -508,6 +572,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFullWeekSatStartTimeCreate" name="ddlGenFullWeekSatStartTimeCreate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -539,6 +604,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFullWeekSatEndTimeCreate" name="ddlGenFullWeekSatEndTimeCreate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -576,6 +642,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFullWeekSunStartTimeCreate" name="ddlGenFullWeekSunStartTimeCreate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -607,6 +674,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFullWeekSunEndTimeCreate" name="ddlGenFullWeekSunEndTimeCreate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -650,6 +718,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenMondayStartTimeCreate" name="ddlGenMondayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -681,6 +750,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenMondayEndTimeCreate" name="ddlGenMondayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -718,6 +788,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenTuesdayStartTimeCreate" name="ddlGenTuesdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -749,6 +820,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenTuesdayEndTimeCreate" name="ddlGenTuesdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -786,6 +858,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenWednesdayStartTimeCreate" name="ddlGenWednesdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -817,6 +890,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenWednesdayEndTimeCreate" name="ddlGenWednesdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -854,6 +928,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenThursdayStartTimeCreate" name="ddlGenThursdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -885,6 +960,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenThursdayEndTimeCreate" name="ddlGenThursdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -922,6 +998,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFridayStartTimeCreate" name="ddlGenFridayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -953,6 +1030,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenFridayEndTimeCreate" mame="ddlGenFridayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -990,6 +1068,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenSaturdayStartTimeCreate" name="ddlGenSaturdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1021,6 +1100,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenSaturdayEndTimeCreate" name="ddlGenSaturdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1058,6 +1138,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenSundayStartTimeCreate" name="ddlGenSundayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1089,6 +1170,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlGenSundayEndTimeCreate" name="ddlGenSundayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1143,6 +1225,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFullWeekStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1174,6 +1257,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFullWeekEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1211,6 +1295,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFullWeekSatStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1242,6 +1327,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFullWeekSatEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1279,6 +1365,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFullWeekSunStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1310,6 +1397,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFullWeekSunEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1353,6 +1441,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddMondayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1384,6 +1473,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddMondayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1421,6 +1511,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddTuesdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1452,6 +1543,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddTuesdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1489,6 +1581,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddWednesdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1520,6 +1613,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddWednesdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1557,6 +1651,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddThursdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1588,6 +1683,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddThursdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1625,6 +1721,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFridayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1656,6 +1753,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddFridayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1693,6 +1791,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddSaturdayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1724,6 +1823,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddSaturdayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1761,6 +1861,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddSundayStartTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -1792,6 +1893,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <select class="form-control" id="ddlAddSundayEndTimeCreate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -2567,6 +2669,53 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse35">
+                                            Advocacy</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse35" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <label>Service:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-2">
+                                                        <input type="checkbox" id="cbAdvocacyServCreate">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <label>Supply:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-2">
+                                                        <input type="checkbox" id="cbAdvocacySupplyCreate">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label>Emergency Response:</label>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <input type="checkbox" id="cbAdvocacyEmergRespCreate">
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <label>Description of resource provided:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <textarea class="form-control" rows="6" id="txtAdvocacyDescCreate"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse21">
                                             Other</a>
                                             </h4>
@@ -2635,9 +2784,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-inline">
-                                                            <label>Associated Fee: $<input class="form-control" type="text" placeholder="fee $0.00" id="txtAssociatedFeeCreate"></label>
+                                                    <div class="col-md-4">
+                                                        <label>Associated Fee:</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="number" value="0" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="txtAssociatedFeeCreate" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2944,6 +3095,14 @@
                                                         <input type="checkbox" id="cbIslandCreate" value="Native Hawaiian or Other Pacific Islander">
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label>Native American:</label>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <input type="checkbox" id="cbNativeCreate" value="Native American">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -3014,9 +3173,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" name="btnSubmitCreate">Submit</button>
                 <button type="button" class="btn btn-primary" id="btnSubmitCreate" onclick="insertOrganization()">ajax submit</button> </div>
-
             </form>
-
         </div>
     </div>
     </div>
@@ -3096,6 +3253,7 @@
                                                         <div class="col-md-3">
                                                             <label>Main Phone </label>
                                                             <input id="txtMainPhoneUpdate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtMainPhoneExtUpdate" type="text" placeholder="main phone ext." />
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label>Hotline Number </label>
@@ -3120,6 +3278,7 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input id="txtConfPhoneUpdate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtConfExtCreate" type="text" placeholder="confidential phone ext." />
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -3160,6 +3319,7 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input id="txtPrimaryContactPhoneUpdate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtPrimaryContactExtCreate" type="text" placeholder="contact ext." />
                                                         </div>
                                                         <div class="col-md-3">
                                                             <input class="form-control" placeholder="email" id="txtPrimaryContactEmailUpdate" placeholder="email">
@@ -3202,10 +3362,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <input class="form-control" id="txtAddress1StreetUpdate">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress1StreetUpdate">
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input class="form-control" id="txtAddress1CityUpdate">
+                                                            <input class="form-control" placeholder="city" id="txtAddress1CityUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3221,13 +3381,38 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input class="form-control" id="txtAddress1CountyUpdate">
+                                                            <input class="form-control" placeholder="county" id="txtAddress1CountyUpdate">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input class="form-control" id="txtAddress1CityUpdate">
+                                                            <select class="form-control" id="txtAddress1StateUpdate">
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input class="form-control" id="txtAddress1ZipUpdate">
+                                                            <input class="form-control" placeholder="zip" id="txtAddress1ZipUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -3246,10 +3431,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <input class="form-control" id="txtAddress2StreetUpdate">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress2StreetUpdate">
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input class="form-control" id="txtAddress2CityUpdate">
+                                                            <input class="form-control" placeholder="city" id="txtAddress2CityUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3265,13 +3450,38 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input class="form-control" id="txtAddress2CountyUpdate">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress2CountyUpdate">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input class="form-control" id="txtAddress2CityUpdate">
+                                                            <select class="form-control" id="txtAddress2StateUpdate">
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input class="form-control" id="txtAddress2ZipUpdate">
+                                                            <input class="form-control" placeholder="zip" id="txtAddress2ZipUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -3290,10 +3500,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <input class="form-control" id="txtConfAddressStreetUpdate">
+                                                            <input class="form-control" placeholder="street address" id="txtConfAddressStreetUpdate">
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input class="form-control" id="txtConfAddressCityUpdate">
+                                                            <input class="form-control" placeholder="city" id="txtConfAddressCityUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3309,13 +3519,38 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input class="form-control" id="txtConfAddressCountyUpdate">
+                                                            <input class="form-control" placeholder="county" id="txtConfAddressCountyUpdate">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input class="form-control" id="txtConfAddressCityUpdate">
+                                                            <select class="form-control" id="txtConfAddressStateUpdate">
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input class="form-control" id="txtConfAddressZipUpdate">
+                                                            <input class="form-control" placeholder="zip" id="txtConfAddressZipUpdate">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3337,7 +3572,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-2">
-                                                            <label>24/7 &nbsp;</label><input type="checkbox" id="cbIs247Update" />
+                                                            <label>24/7: &nbsp;</label><input type="checkbox" id="cbIs247Update" />
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -3356,6 +3591,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFullWeekStartTimeUpdate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -3387,6 +3623,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFullWeekEndTimeUpdate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -3424,6 +3661,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFullWeekSatStartTimeUpdate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -3455,6 +3693,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFullWeekSatEndTimeUpdate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -3492,6 +3731,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFullWeekSunStartTimeUpdate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -3523,6 +3763,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFullWeekSunEndTimeUpdate">
+																	<option>-----</option>
 																	<option>12:00 AM</option>
 																	<option>1:00 AM</option>
 																	<option>2:00 AM</option>
@@ -3565,6 +3806,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenMondayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3596,6 +3838,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenMondayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3633,6 +3876,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenTuesdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3664,6 +3908,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenTuesdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3701,6 +3946,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenWednesdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3732,6 +3978,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenWednesdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3769,6 +4016,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenThursdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3800,6 +4048,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenThursdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3837,6 +4086,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFridayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3868,6 +4118,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenFridayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3905,6 +4156,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenSaturdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3936,6 +4188,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenSaturdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -3973,6 +4226,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenSundayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4004,6 +4258,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlGenSundayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4058,6 +4313,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFullWeekStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4089,6 +4345,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFullWeekEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4126,6 +4383,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFullWeekSatStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4157,6 +4415,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFullWeekSatEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4194,6 +4453,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFullWeekSunStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4225,6 +4485,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFullWeekSunEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4268,6 +4529,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddMondayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4299,6 +4561,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddMondayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4336,6 +4599,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddTuesdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4367,6 +4631,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddTuesdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4404,6 +4669,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddWednesdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4435,6 +4701,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddWednesdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4472,6 +4739,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddThursdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4503,6 +4771,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddThursdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4540,6 +4809,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFridayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4571,6 +4841,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddFridayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4608,6 +4879,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddSaturdayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4639,6 +4911,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddSaturdayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4676,6 +4949,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddSundayStartTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -4707,6 +4981,7 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddSundayEndTimeUpdate">
+																<option>-----</option>
 																<option>12:00 AM</option>
 																<option>1:00 AM</option>
 																<option>2:00 AM</option>
@@ -5483,6 +5758,53 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse35u">
+                                                    Advocacy</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse35u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbAdvocacyServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbAdvocacySupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbAdvocacyEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtAdvocacyDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse21u">
                                             Other</a>
                                                 </h4>
@@ -5551,12 +5873,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group form-inline">
-                                                                <label>Associated Fee: $<input class="form-control" type="text" placeholder="fee $0.00" id="txtAssociatedFeeUpdate"></label>
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <label>Associated Fee:</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="number" value="0" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="txtAssociatedFeeUpdate" />
                                                         </div>
                                                     </div>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -5867,6 +6191,14 @@
                                                         </div>
                                                         <div class="col-md-1">
                                                             <input type="checkbox" id="cbIslandUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Native American:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbNativeUpdate" value="Native American">
                                                         </div>
                                                     </div>
                                                 </div>

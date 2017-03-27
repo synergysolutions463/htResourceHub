@@ -209,3 +209,56 @@ INSERT INTO Nationality (NatID, OrgID)
             
             INSERT INTO Nationality (NatID, OrgID)
             VALUES (4, 4);
+            
+--Mike Data
+
+INSERT INTO Organizations (OrgName, ProgramStatement, WebLink, Email, isConf, PhoneNum, isShelter, Fees, FaithID, Notes)
+            VALUES
+            ('Kent County Alcoholics Anonymous','Serve Kent County and surrounding areas to carry out the AA Message and inform memebers of other servies available. Provide a forum, for discussion of AA principles and provice service opportunites for AA members.','www.grandrapidsaa.org','graaweb@sbcglobal.net',0,'6169139216',0,0,4,'');
+            
+INSERT INTO Addresses (OrgID, StreetInfo, City, StateID, ZipCode, County, isConf)
+            VALUES
+            (5,'4920 Plainfield NE','Grand Rapids',23,'49525','Kent',0);
+            
+INSERT INTO Contacts (OrgID, Email, FirstName, LastName, Position, isConf, PhoneNum)
+            VALUES
+            (5,'graaweb@sbcgobal.net','Sharron','Saigeon','Office Manager',0,'6169139216');
+            
+INSERT INTO OfficeUse (OrgID, DateChanged, PersonEmail)
+            VALUES
+            (5,'2017-02-15 14:36:21','stutsmam@mail.gvsu.com');
+            
+INSERT INTO Service (OrgID, Service, SerID, SerDesc)
+            VALUES
+            (5,1,13,'Info about Alcoholics Anonymous.');
+        
+INSERT INTO Requirements (OrgID, ReqID, Description)
+            VALUES
+            (5,1,'The only requirement is for memebers is a desire to stop drinking.');
+            
+INSERT INTO Gender (OrgID, GenID)
+            VALUES
+            (5,1);
+            
+INSERT INTO Ethnicity (OrgID, EthID)
+            VALUES
+            (5,1);
+            
+INSERT INTO Nationality (OrgID, NatID)
+            VALUES
+            (5,1);
+            
+INSERT INTO Race (OrgID, RaceID)
+            VALUES
+            (5,2);
+            
+INSERT INTO Age (OrgID, AgeID)
+            VALUES
+            (5,3);
+            
+INSERT INTO Age (OrgID, AgeID)
+            VALUES
+            (5,4);
+            
+
+INSERT INTO Hours(DayID, OrgID, StartTime, EndTime) VALUES (1, 5, '00:00:00', '23:59:00');

@@ -35,3 +35,9 @@ Logan -
     Start manual with technical writing
     
 
+GIT HUB:
+git add .
+git commit -m "notes about commit"
+git push -u origin master
+username: synergysolutionsteam@outlook.com
+password: MaltMilkshake463

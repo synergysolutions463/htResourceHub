@@ -20,28 +20,28 @@ body {
     background-color: #f2f2f2;
 }
 
-.redLink:link {
+a:link {
     color: #990c0c;
 }
 
 
 /* visited link */
 
-.redLink:visited {
+a:visited {
     color: #990c0c;
 }
 
 
 /* mouse over link */
 
-.redLink:hover {
+a:hover {
     color: #720808;
 }
 
 
 /* selected link */
 
-.redLink:active {
+a:active {
     color: #990c0c;
 }
 
@@ -81,6 +81,8 @@ body {
     float: none;
     padding-top: 50%;
 }
+
+/*button formatting*/
 
 .btn-primary {
     background-color: hsl(0, 76%, 31%) !important;

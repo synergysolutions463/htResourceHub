@@ -301,8 +301,10 @@ function insertOrganization() {
 	var weblink = document.getElementById("txtOrgWebsiteCreate").value;
 	var email = document.getElementById("txtOrgEmailCreate").value;
 	var phoneNum = document.getElementById("txtMainPhoneCreate").value;
+	var phoneExt = document.getElementById("txtMainPhoneExtCreate").value;
 	var hotlineNum = document.getElementById("txtHotlineCreate").value;
 	var confNum = document.getElementById("txtConfPhoneCreate").value;
+	var confExt = document.getElementById("txtConfPhoneExtCreate").value;
 	var isShelter = document.getElementById("cbShelterCreate").checked;
 	var isTransHousing = document.getElementById("cbTransitionalHousingCreate").checked;
 	var isAsstLoc = document.getElementById("cbAssistLocateHousingCreate").checked;
@@ -352,6 +354,7 @@ function insertOrganization() {
 	var lastName = document.getElementById("txtPrimaryContactLastNameCreate").value;
 	var position = document.getElementById("txtPrimaryContactPosCreate").value;
 	var contactPhoneNum = document.getElementById("txtPrimaryContactPhoneCreate").value;
+	var contactPhoneExt = document.getElementById("txtPrimaryContactExtCreate").value;
 	var contactIsConf = document.getElementById("cbContactIsConfCreate").checked;
 
 	/**Ethnicity Table Insert Data**/
@@ -407,6 +410,7 @@ function insertOrganization() {
 	var saturdaySingleCloseAdd = document.getElementById("ddlAddSaturdayEndTimeCreate").value;
 	var sundaySingleOpenAdd = document.getElementById("ddlAddSundayStartTimeCreate").value;
 	var sundaySingleCloseAdd = document.getElementById("ddlAddSundayEndTimeCreate").value;
+	var addHoursDesc = document.getElementById("txtAddHoursDescCreate").value;
 
 
 	/**Nationality Table Insert Data **/
@@ -419,6 +423,7 @@ function insertOrganization() {
 	var black = document.getElementById("cbBlackCreate").checked;
 	var asian = document.getElementById("cbAsianCreate").checked;
 	var hawaiian = document.getElementById("cbIslandCreate").checked;
+	var native = document.getElementById("cbNativeCreate").checked;
 
 	/**Requirements Table Insert Data **/
 	var membership = document.getElementById("cbMembershipCreate").checked;
@@ -501,6 +506,11 @@ function insertOrganization() {
 	var substanceAbuseSupply = document.getElementById("cbSubstanceAbuseSupplyCreate").checked;
 	var substanceAbuseEmergResp = document.getElementById("cbSubstanceAbuseEmergRespCreate").checked;
 	var substanceAbuseDesc = document.getElementById("txtSubstanceAbuseDescCreate").value;
+	
+	var advocacyService = document.getElementById("cbAdvocacyServCreate").checked;
+	var advocacySupply = document.getElementById("cbAdvocacySupplyCreate").checked;
+	var advocacyEmergResp = document.getElementById("cbAdvocacyEmergRespCreate").checked;
+	var advocacyDesc = document.getElementById("txtAdvocacyDescCreate").value;
 
 	var otherService = document.getElementById("cbOtherServCreate").checked;
 	var otherSupply = document.getElementById("cbOtherSupplyCreate").checked;
@@ -526,8 +536,10 @@ function insertOrganization() {
 			weblink: weblink,
 			email: email,
 			phoneNum: phoneNum,
+			phoneExt: phoneExt,
 			hotlineNum: hotlineNum,
 			confNum: confNum,
+			confExt: confExt,
 			isShelter: isShelter.toString(),
 			isTransHousing: isTransHousing.toString(),
 			isAsstLoc: isAsstLoc.toString(),
@@ -559,7 +571,7 @@ function insertOrganization() {
 
 			/**Age Table Insert Data**/
 			infantsAge: infantsAge.toString(),
-			childrenAge: childrensAge.toString(),
+			childrenAge: childrenAge.toString(),
 			youthAge: youthAge.toString(),
 			adultsAge: adultsAge.toString(),
 
@@ -569,6 +581,7 @@ function insertOrganization() {
 			lastName: lastName,
 			position: position,
 			contactPhoneNum: contactPhoneNum,
+			contactPhoneExt: contactPhoneExt,
 			contactIsConf: contactIsConf.toString(),
 
 			/**Ethnicity Table Insert Data**/
@@ -624,6 +637,8 @@ function insertOrganization() {
 			saturdaySingleCloseAdd: saturdaySingleCloseAdd,
 			sundaySingleOpenAdd: sundaySingleOpenAdd,
 			sundaySingleCloseAdd: sundaySingleCloseAdd,
+			addHoursDesc: addHoursDesc,
+		
 
 
 			/**Nationality Table Insert Data **/
@@ -636,6 +651,7 @@ function insertOrganization() {
 			black: black.toString(),
 			asian: asian.toString(),
 			hawaiian: hawaiian.toString(),
+			native: native.toString(),
 
 			/**Requirements Table Insert Data **/
 			membership: membership.toString(),
@@ -718,6 +734,11 @@ function insertOrganization() {
 			substanceAbuseSupply: substanceAbuseSupply.toString(),
 			substanceAbuseEmergResp: substanceAbuseEmergResp.toString(),
 			substanceAbuseDesc: substanceAbuseDesc,
+			
+			advocacyService: advocacyService.toString(),
+			advocacySupply: advocacySupply.toString(),
+			advocacyEmergResp: advocacyEmergResp.toString(),
+			advocacyDesc: advocacyDesc,
 
 			otherService: otherService.toString(),
 			otherSupply: otherSupply.toString(),

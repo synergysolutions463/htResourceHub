@@ -17,14 +17,16 @@ CREATE TABLE States (
 USE htResourceHub
 CREATE TABLE Organizations (
     OrgID INT NOT NULL AUTO_INCREMENT,
-    OrgName VARCHAR(200) NOT NULL,
-    AgencyName VARCHAR(200), 
+    OrgName VARCHAR(200) NOT NULL, 
+    AgencyName VARCHAR(200),
     ProgramStatement VARCHAR(2000),
     WebLink VARCHAR(50),
     Email VARCHAR(50),
     PhoneNum VARCHAR(11),
+    phoneExt VARCHAR(10),
     HotlineNum VARCHAR(11),
     ConfNum VARCHAR(11),
+    confPhoneExt VARCHAR(10),
     isShelter TINYINT,
     isTransitionalHousing TINYINT,
     isAssistanceLocatingHousing TINYINT,
@@ -67,6 +69,7 @@ CREATE TABLE Contacts (
     LastName VARCHAR(25),
     Position VARCHAR(25),
     PhoneNum VARCHAR(11),
+    phoneExt VARCHAR(10),
     IsConf TINYINT, 
     PRIMARY KEY(OrgID, Email),
     FOREIGN KEY (OrgID)
