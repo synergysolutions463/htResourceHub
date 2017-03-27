@@ -1,0 +1,37 @@
+** Spot for general notes about the project as a whole **
+
+Link for companies that provide free web hosting to 501(c)3 non-profits:
+
+http://forums.techsoup.org/cs/community/f/24/t/30974.aspx
+
+http://codepen.io/bootstrapped/pen/KwYGwq
+
+TO DO:
+
+Mike - 
+    Displaying short results on main search page
+    Keep the same width as advanced search bar
+    use pagenation, 5 results per page
+    have update and delete buttons for each result
+    
+Tyler - 
+    HTML page for full results
+    have update and delete buttons for result
+    finish advanced search query
+        - split into separate functions
+        
+Matt - 
+    Update
+    Create
+    Delete
+    
+Amanda -
+    Login logic
+    Admin page
+    update database
+    simple search auto search  - DONE
+
+Logan - 
+    Start manual with technical writing
+    
+

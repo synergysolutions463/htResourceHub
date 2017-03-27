@@ -1,0 +1,90 @@
+** Spot for notes about the database schema and test data **
+
+
+DATA TYPES:
+-This MySql server doesn't support VARCHAR2, so use VARCHAR
+-Use INT for any IDs that user input will be incrementing
+-Use SMALLINT for any IDs that are for predefined types
+-Any Boolean Flag variable, 0 == false, 1 == true
+
+GENERAL NOTES:
+-just write out your tables in the DB_Schema.sql file and we will run them in the mysql server when it is complete. 
+-if you have tables that have preset data (TYPES), please add "insert" code to the DB_GeneralData.sql
+-DB_SeedData is where our intro dummy data will be inserted. This will be used to make sure basic functionality is working. 
+-DB_TestData is where our full testing data will be inserted. This will be used for our final testing phase where we will test EVERYTHING in depth
+
+
+NAMING CONVENTION:
+- Use pascal case for fields and tables
+    - example: AgeTypes or AgeId
+- Use consistent names for PK - FK fields
+- Prefix each ID with the table it's representing
+
+
+TO CONNECT TO DATABASE:
+1. Go to the bash console
+2. Type: "mysql-ctl cli" 
+3. (after db is made) USE htResourceHub;
+
+
+
+
+
+Query:
+
+SELECT o.OrgID, o.PhoneNum, o.HotlineNum, o.WebLink,
+       o.email, o.isShelter, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+       st.StateName, GROUP_CONCAT(sert.SerType) AS SerType
+FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
+JOIN States st ON (st.StateID = a.StateID)
+JOIN Service se ON (se.OrgId = o.OrgId)
+JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+WHERE (sert.SerType='Employement') AND (sert.SerType='Medical')
+GROUP BY o.OrgID;
+
+SELECT o.OrgID, o.PhoneNum, o.HotlineNum, o.WebLink,
+       o.email, o.isShelter, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+       st.StateName, GROUP_CONCAT(sert.SerType) AS SerType
+FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
+JOIN States st ON (st.StateID = a.StateID)
+JOIN Service se ON (se.OrgId = o.OrgId)
+JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+WHERE (sert.SerType LIKE '%Employement%')
+GROUP BY o.OrgID;
+
+
+SELECT o.OrgID, sert.SerType
+FROM Organizations o
+JOIN Service se ON (se.OrgId = o.OrgId)
+JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+WHERE SerType='Employement' OR SerType='Medical';
+
+SELECT o.OrgID, o.PhoneNum, o.HotlineNum, o.WebLink,
+       o.email, o.isShelter, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+       st.StateName, sert.SerType
+FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
+JOIN States st ON (st.StateID = a.StateID)
+JOIN Service se ON (se.OrgId = o.OrgId)
+JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+WHERE SerType='Employement' AND SerType='Medical';
+
+
+THIS IS WORKING MAYBE:
+SELECT s2.OrgID
+FROM Service s2
+WHERE s2.SerID=7
+AND s2.OrgID IN
+   (SELECT s1.orgID
+    FROM Service s1
+    WHERE s1.SerID=3);
+    
+    
+    SELECT o.OrgID, o.OrgName, o.PhoneNum, o.HotlineNum, o.WebLink,
+                                            o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                            FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
+                                            JOIN States st ON (st.StateID = a.StateID)
+                                            JOIN Service se ON (se.OrgId = o.OrgID)
+                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+                                            JOIN Hours h ON (h.OrgID = o.OrgID)
+                                            GROUP BY o.OrgID;
