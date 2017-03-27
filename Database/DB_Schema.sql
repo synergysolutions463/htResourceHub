@@ -18,7 +18,7 @@ USE htResourceHub
 CREATE TABLE Organizations (
     OrgID INT NOT NULL AUTO_INCREMENT,
     OrgName VARCHAR(200) NOT NULL,
-    AgencyID INT, 
+    AgencyName VARCHAR(200), 
     ProgramStatement VARCHAR(2000),
     WebLink VARCHAR(50),
     Email VARCHAR(50),
@@ -35,8 +35,6 @@ CREATE TABLE Organizations (
     isConf TINYINT,
     isApproved TINYINT,
     PRIMARY KEY(OrgID),
-    FOREIGN KEY (AgencyID)
-    REFERENCES Organizations(OrgID)
     ON DELETE CASCADE,
     FOREIGN KEY (FaithID)
     REFERENCES FaithTypes(FaithID)
