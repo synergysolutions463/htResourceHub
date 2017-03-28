@@ -69,14 +69,13 @@ function insertOrganization () {
     		while($getFaithIdQuery->fetch()){
         		$faithId = $id;
     		}
-			
+
 	
-			
 			$insertOrgQuery = $connLibrary->prepare("INSERT INTO Organizations (OrgName, AgencyName, ProgramStatement, WebLink, Email, PhoneNum, phoneExt,
 			                                           HotlineNum, ConfNum, confPhoneExt, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees,
 			                                           FaithID, Notes, ConfNotes, isConf) VALUES ('" . $orgName . "','" . $agencyName . "','"
 			                                            . $missionStmt . "','" . $weblink . "','" . $email . "','" . $phoneNum . "','" . $phoneExt . "','"
-			                                             . $hotlineNum . "','" . $confNum . "'," . $confExt . "'," . $isShelter . "," . $isTransHousing . ","
+			                                             . $hotlineNum . "','" . $confNum . "','" . $confExt . "'," . $isShelter . "," . $isTransHousing . ","
 			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ");");
             $insertOrgQuery->execute();
             $insertOrgQuery->close();
@@ -91,9 +90,11 @@ function insertOrganization () {
         		$orgId = $id;
     		}
     		
-    		
+    		echo $orgId;
     		
     		/**Addresses Insert**/
+    		
+    		
     		$streetInfo1 = $_POST['streetInfo1'];
 			$city1 = $_POST['city1'];
 			$zipcode1 = $_POST['zipcode1'];
@@ -192,19 +193,26 @@ function insertOrganization () {
 			
 		
     		/**Age Insert**/
+    		
+    		
     		$infantsAge = $_POST['infantsAge'];
-			$childrenAge = $_POST['childrensAge'];
+			$childrenAge = $_POST['childrenAge'];
 			$youthAge = $_POST['youthAge'];
 			$adultsAge = $_POST['adultsAge'];
 			
+		
+	
+			
 				/**get age type id's**/
+
 			$allAgeId = 0;
 			$infantsId = 0;
 			$childrensId = 0;
 			$youthId = 0;
 			$adultId = 0;
 			
-				/**get all age type id**/
+			/**get all age type id**/
+	
 			$getAllAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'All';");
 			$getAllAgeId->execute();
 			$getAllAgeId->bind_result($id);
@@ -215,7 +223,10 @@ function insertOrganization () {
     			}
 			
 			
+			
 				/**get infants age type id**/
+				
+
 			$getInfantsAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Infants/Toddlers';");
 			$getInfantsAgeId->execute();
 			$getInfantsAgeId->bind_result($id);
@@ -225,8 +236,10 @@ function insertOrganization () {
         			$infantsId = $id;
     			}
 			
+		
 			
 				/**get childrens age type id**/
+	
 			$getChildrensAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Children';");
 			$getChildrensAgeId->execute();
 			$getChildrensAgeId->bind_result($id);
@@ -235,9 +248,11 @@ function insertOrganization () {
     		while($getChildrensAgeId->fetch()){
         			$childrenId = $id;
     			}
+    		
 			
-			
+		
 				/**get youth age type id**/
+	
 			$getYouthAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Youth/Young Adults';");
 			$getYouthAgeId->execute();
 			$getYouthAgeId->bind_result($id);
@@ -247,8 +262,10 @@ function insertOrganization () {
         			$youthId = $id;
     			}
 			
+		
 			
 				/**get adults age type id**/
+				
 			$getAdultsAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Adults';");
 			$getAdultsAgeId->execute();
 			$getAdultsAgeId->bind_result($id);
@@ -260,7 +277,7 @@ function insertOrganization () {
 			
 
 			
-			
+		
 			if($infantsAge == "true" && $childrenAge == "true" && $youthAge == "true" && $adultsAge == "true") {
 				
 					$insertAllAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $allAgeId . ");");
@@ -297,8 +314,9 @@ function insertOrganization () {
 				
 				}
 			}
-    		
+    	
     		/**Contact Insert**/
+    	
     		$contactEmail = $_POST['contactEmail'];
 			$firstName = $_POST['firstName'];
 			$lastName = $_POST['lastName'];
@@ -317,18 +335,21 @@ function insertOrganization () {
 			
 			$insertContactQuery = $connLibrary->prepare("INSERT INTO Contacts (OrgID, Email, FirstName, LastName, Position, PhoneNum, phoneExt,IsConf)
 														VALUES (" . $orgId . ", '" . $contactEmail . "' , '" . $firstName . "' , '" . 
-														$lastName . "' , '" . $position . "' , '" . $contactPhoneNum . "' , " . $contactPhoneExt . "' , ". $contactIsConf);
+														$lastName . "' , '" . $position . "' , '" . $contactPhoneNum . "' , '" . $contactPhoneExt . "' , ". $contactIsConf . ");");
             
             $insertContactQuery->execute();
             $insertContactQuery->close();
-			
+
 			
     		
     		/**Ethnicity Insert**/
+
     		$hispanic = $_POST['hispanic'];
 			$nonhispanic = $_POST['nonhispanic'];
 			
+		
 				/**set ethnicity type ids**/
+		
 				$allEthnicityId = 0;
 				$nonhispanicId = 0;
 				$hispanicId = 0;
@@ -342,6 +363,7 @@ function insertOrganization () {
 				while($getAllEthnicityId->fetch()){
         			$allEthnicityId = $id;
     			}
+			
 				
 				/**get nonhispanic id **/
 				
@@ -352,16 +374,19 @@ function insertOrganization () {
 				while($getNonhispanicEthnicityId->fetch()){
         			$nonhispanicId = $id;
     			}
+			
 				
 				/**get hispanic id **/
-							
+						
 				$getHispanicEthnicityId = $connLibrary->prepare("SELECT EthID from EthnicityTypes WHERE EthType like 'Latino/Hispanic';");
 				$getHispanicEthnicityId->execute();
 				$getHispanicEthnicityId->bind_result($id);
 				
-				while($getNonhispanicEthnicityId->fetch()){
+				while($getHispanicEthnicityId->fetch()){
         			$hispanicId = $id;
     			}
+    			
+    	
     			
     		
     		if($hispanic == "true" && $nonhispanic == "true") {
@@ -387,18 +412,20 @@ function insertOrganization () {
 
     		
     		/**Gender Insert**/
+
     		$male = $_POST['male'];
 			$female = $_POST['female'];
 			$transgender = $_POST['transgender'];
-			
+	
 				/**set gender type ids**/
+		
 				$allGenderId = 0;
 				$maleId = 0;
 				$femaleId = 0;
 				$transgenderId = 0;
-				
+			
 				/**get all gender type id **/
-				
+			
 				$getAllGenderId = $connLibrary->prepare("SELECT GenID from GenderTypes WHERE GenType like 'All';");
 				$getAllGenderId ->execute();
 				$getAllGenderId ->bind_result($id);
@@ -468,6 +495,7 @@ function insertOrganization () {
     		}
     		
     		/**Hours Insert**/
+    	
     		$is24Hours = $_POST['is24Hours'];
 
 			$mondayToFridayFullOpen = $_POST['mondayToFridayFullOpen'];
@@ -497,7 +525,7 @@ function insertOrganization () {
 			$saturdayFullOpenAdd = $_POST['saturdayFullOpenAdd'];
 			$saturdayFullCloseAdd = $_POST['saturdayFullCloseAdd'];
 			$sundayFullOpenAdd = $_POST['sundayFullOpenAdd'];
-			$sundayFullCloseAdd = $_POST['sundayFullOpenAdd'];
+			$sundayFullCloseAdd = $_POST['sundayFullCloseAdd'];
 		
 			$mondaySingleOpenAdd = $_POST['mondaySingleOpenAdd'];
 			$mondaySingleCloseAdd = $_POST['mondaySingleCloseAdd'];
@@ -514,6 +542,9 @@ function insertOrganization () {
 			$sundaySingleOpenAdd = $_POST['sundaySingleOpenAdd'];
 			$sundaySingleCloseAdd = $_POST['sundaySingleCloseAdd'];
 			
+		
+
+			
 			if($is24Hours == "true") {
 				
 					$insert24Hours = $connLibrary->prepare("INSERT INTO Hours (OrgID, Is24Hours) VALUES (" . $orgId . ", 1);");
@@ -521,6 +552,7 @@ function insertOrganization () {
             		$insert24Hours->close();
 				
 			}
+		
 			else {
 				
 					if($mondayToFridayFullOpen == "-----" && $mondayToFridayFullClose == "-----" && $saturdayFullOpen == "-----" 
@@ -528,66 +560,69 @@ function insertOrganization () {
 							
 							$insertGenHours = $connLibrary->prepare("INSERT INTO Hours (OrgID, MondayStart, MondayEnd, TuesdayStart, TuesdayEnd,
 															WednesdayStart, WednesdayEnd, ThursdayStart, ThursdayEnd, FridayStart, 
-															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd) VALUES
+															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd, Is24Hours, IsAdditional) VALUES
 															(" . $orgId . ", '" . $mondaySingleOpen . "' , '" . $mondaySingleClose . "' , '"
 															. $tuesdaySingleOpen . "' , '" . $tuesdaySingleClose . "' , '" 
 															. $wednesdaySingleOpen . "' , '" . $wednesdaySingleClose . "' , '"
 															. $thursdaySingleOpen . "' , '" . $thursdaySingleClose . "' , '"
 															. $fridaySingleOpen . "' , '" . $fridaySingleClose . "' , '"
 															. $saturdaySingleOpen . "' , '" . $saturdaySingleClose . "' , '"
-															. $sundaySingleOpen . "' , '" . $sundaySingleClose . "');");
+															. $sundaySingleOpen . "' , '" . $sundaySingleClose . "', 0, 0);");
 											
             				$insertGenHours->execute();
             				$insertGenHours->close();
 						
 					}
+					
+				
 					else {
 		
             				$insertFullGenHours = $connLibrary->prepare("INSERT INTO Hours (OrgID, MondayStart, MondayEnd, TuesdayStart, TuesdayEnd,
 															WednesdayStart, WednesdayEnd, ThursdayStart, ThursdayEnd, FridayStart, 
-															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd) VALUES
+															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd, Is24Hours, IsAdditional) VALUES
 															(" . $orgId . ", '" . $mondayToFridayFullOpen . "' , '" . $mondayToFridayFullClose . "' , '"
 															. $mondayToFridayFullOpen . "' , '" . $mondayToFridayFullClose . "' , '" 
 															. $mondayToFridayFullOpen . "' , '" . $mondayToFridayFullClose . "' , '"
 															. $mondayToFridayFullOpen . "' , '" . $mondayToFridayFullClose . "' , '"
 															. $mondayToFridayFullOpen . "' , '" . $mondayToFridayFullClose . "' , '"
 															. $saturdayFullOpen . "' , '" . $saturdayFullClose . "' , '"
-															. $sundayFullOpen . "' , '" . $sundayFullClose . "');");
+															. $sundayFullOpen . "' , '" . $sundayFullClose . "', 0, 0);");
 											
             				$insertFullGenHours->execute();
             				$insertFullGenHours->close();
 				}
-				
+		
 				if($mondayToFridayFullOpenAdd == "-----" && $mondayToFridayFullCloseAdd == "-----" && $saturdayFullOpenAdd == "-----" 
 					&& $saturdayFullCloseAdd == "-----" && $sundayFullOpenAdd == "-----" && $sundayFullCloseAdd == "-----") {
 											
 							$insertAddGenHours = $connLibrary->prepare("INSERT INTO Hours (OrgID, MondayStart, MondayEnd, TuesdayStart, TuesdayEnd,
 															WednesdayStart, WednesdayEnd, ThursdayStart, ThursdayEnd, FridayStart, 
-															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd) VALUES
+															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd, Is24Hours, IsAdditional) VALUES
 															(" . $orgId . ", '" . $mondaySingleOpenAdd . "' , '" . $mondaySingleCloseAdd . "' , '"
 															. $tuesdaySingleOpenAdd . "' , '" . $tuesdaySingleCloseAdd . "' , '" 
 															. $wednesdaySingleOpenAdd . "' , '" . $wednesdaySingleCloseAdd . "' , '"
 															. $thursdaySingleOpenAdd . "' , '" . $thursdaySingleCloseAdd . "' , '"
 															. $fridaySingleOpenAdd . "' , '" . $fridaySingleCloseAdd . "' , '"
 															. $saturdaySingleOpenAdd . "' , '" . $saturdaySingleCloseAdd . "' , '"
-															. $sundaySingleOpenAdd . "' , '" . $sundaySingleCloseAdd . "');");
+															. $sundaySingleOpenAdd . "' , '" . $sundaySingleCloseAdd . "', 0, 1);");
 											
             				$insertAddGenHours->execute();
             				$insertAddGenHours->close();
 						
 					}
+				
 					else {
 		
             				$insertAddFullGenHours = $connLibrary->prepare("INSERT INTO Hours (OrgID, MondayStart, MondayEnd, TuesdayStart, TuesdayEnd,
 															WednesdayStart, WednesdayEnd, ThursdayStart, ThursdayEnd, FridayStart, 
-															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd) VALUES
+															FridayEnd, SaturdayStart, SaturdayEnd, SundayStart, SundayEnd, Is24Hours, IsAdditional) VALUES
 															(" . $orgId . ", '" . $mondayToFridayFullOpenAdd . "' , '" . $mondayToFridayFullCloseAdd . "' , '"
 															. $mondayToFridayFullOpenAdd . "' , '" . $mondayToFridayFullCloseAdd . "' , '" 
 															. $mondayToFridayFullOpenAdd . "' , '" . $mondayToFridayFullCloseAdd . "' , '"
 															. $mondayToFridayFullOpenAdd . "' , '" . $mondayToFridayFullCloseAdd . "' , '"
 															. $mondayToFridayFullOpenAdd . "' , '" . $mondayToFridayFullCloseAdd . "' , '"
 															. $saturdayFullOpenAdd . "' , '" . $saturdayFullCloseAdd . "' , '"
-															. $sundayFullOpenAdd . "' , '" . $sundayFullCloseAdd . "');");
+															. $sundayFullOpenAdd . "' , '" . $sundayFullCloseAdd . "', 0, 1);");
 											
             				$insertAddFullGenHours->execute();
             				$insertAddFullGenHours->close();
@@ -596,19 +631,23 @@ function insertOrganization () {
 				
 				
 			}
-    		
+  		
     		/**Nationality Insert**/
+    	
     		$domesticBorn = $_POST['domesticBorn'];
 			$foreignBorn = $_POST['foreignBorn'];
 			$undocumented = $_POST['undocumented'];
 			
+			
 				/**set nationality type ids**/
+		
 				$allNatId = 0;
 				$domesticBornId = 0;
 				$foreignBornId = 0;
 				$undocumentedId = 0;
 				
 				/**get all nationality id**/
+		
 				$getAllNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'All';");
 				$getAllNationalityId ->execute();
 				$getAllNationalityId->bind_result($id);
@@ -619,6 +658,7 @@ function insertOrganization () {
 				
 				
 				/**get domestic born nationality id**/
+		
 				$getDomesticNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Domestic-Born';");
 				$getDomesticNationalityId  ->execute();
 				$getDomesticNationalityId ->bind_result($id);
@@ -628,6 +668,7 @@ function insertOrganization () {
     			}
 				
 				/**get foreign nationality id**/
+		
 				$getForeignNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Foreign-Born';");
 				$getForeignNationalityId ->execute();
 				$getForeignNationalityId->bind_result($id);
@@ -637,6 +678,7 @@ function insertOrganization () {
     			}
 				
 				/**get undocumented nationality id**/
+		
 				$getUndocumentedNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Undocumented';");
 				$getUndocumentedNationalityId  ->execute();
 				$getUndocumentedNationalityId ->bind_result($id);
@@ -645,6 +687,7 @@ function insertOrganization () {
         			$undocumentedId = $id;
     			}
     			
+		
     		if($domesticBorn == "true" && $foreignBorn == "true" && $undocumented == "true") {
     				$insertAllNationality = $connLibrary->prepare("INSERT INTO Nationality (OrgID, NatID) VALUES (" . $orgId . ", " . $allNatId . ");");
             		$insertAllNationality ->execute();
@@ -673,6 +716,7 @@ function insertOrganization () {
     		
     		
     		/**Race Insert**/
+    	
     		$white = $_POST['white'];
 			$black = $_POST['black'];
 			$asian = $_POST['asian'];
@@ -680,6 +724,7 @@ function insertOrganization () {
 			$native = $_POST['native'];
 			
 				/**set race type ids**/
+		
 				$allRaceId = 0;
 				$whiteId = 0;
 				$blackId = 0;
@@ -688,6 +733,7 @@ function insertOrganization () {
 				$nativeId = 0;
 				
 				/**get all race id**/
+		
 				$getAllRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'All';");
 				$getAllRaceId ->execute();
 				$getAllRaceId->bind_result($id);
@@ -695,8 +741,9 @@ function insertOrganization () {
 				while($getAllRaceId->fetch()){
         			$allRaceId = $id;
     			}
-				
+
 				/**get white race id**/
+		
 				$getWhiteRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'White';");
 				$getWhiteRaceId ->execute();
 				$getWhiteRaceId->bind_result($id);
@@ -704,8 +751,9 @@ function insertOrganization () {
 				while($getWhiteRaceId->fetch()){
         			$whiteId = $id;
 				}
-				
+			
 				/**get black race id**/
+		
 				$getBlackRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Black or African American';");
 				$getBlackRaceId ->execute();
 				$getBlackRaceId->bind_result($id);
@@ -715,6 +763,7 @@ function insertOrganization () {
 				}
 				
 				/**get asian race id**/
+		
 				$getAsianRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Asian';");
 				$getAsianRaceId ->execute();
 				$getAsianRaceId->bind_result($id);
@@ -724,6 +773,7 @@ function insertOrganization () {
 				}
 				
 				/**get hawaiian race id**/
+		
 				$getHawaiianRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Native Hawaiian or Other Pacific Islander';");
 				$getHawaiianRaceId->execute();
 				$getHawaiianRaceId->bind_result($id);
@@ -733,6 +783,7 @@ function insertOrganization () {
 				}
 				
 				/**get native race id**/
+		
 				$getNativeRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'American Indian or Alaska Native';");
 				$getNativeRaceId ->execute();
 				$getNativeRaceId->bind_result($id);
@@ -741,6 +792,7 @@ function insertOrganization () {
         			$nativeId = $id;
 				}
 				
+		
 			if($white == "true" && $black == "true" && $asian == "true" && $hawaiian == "true" && $native == "true") {
 					$insertAllRace = $connLibrary->prepare("INSERT INTO Race (OrgID, RaceID) VALUES (" . $orgId . ", " . $allRaceId . ");");
             		$insertAllRace ->execute();
@@ -777,6 +829,7 @@ function insertOrganization () {
 				
     		
     		/**Requirements Insert**/
+    	
     		$membership = $_POST['membership'];
 			$membershipDesc = $_POST['membershipDesc'];
 			$training = $_POST['training'];
@@ -787,12 +840,14 @@ function insertOrganization () {
 			$waitingDesc = $_POST['waitingDesc'];
 			
 				/**set requirements ids**/
+		
 				$membershipId = 0;
 				$trainingId = 0;
 				$applicationId = 0;
 				$waitingId = 0;
 				
 				/**get membership id**/
+		
 				$getMembershipId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Membership';");
 				$getMembershipId ->execute();
 				$getMembershipId->bind_result($id);
@@ -802,6 +857,7 @@ function insertOrganization () {
 				}
 				
 				/**get training id**/
+		
 				$getTrainingId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Training';");
 				$getTrainingId ->execute();
 				$getTrainingId->bind_result($id);
@@ -811,6 +867,7 @@ function insertOrganization () {
 				}
 				
 				/**get application id**/
+		
 				$getApplicationId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Application';");
 				$getApplicationId ->execute();
 				$getApplicationId->bind_result($id);
@@ -820,6 +877,7 @@ function insertOrganization () {
 				}
 				
 				/**get waiting id**/
+		
 				$getWaitingId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Possible Waiting List/Referral Required/Other Entry Restrictions';");
 				$getWaitingId ->execute();
 				$getWaitingId->bind_result($id);
@@ -860,57 +918,58 @@ function insertOrganization () {
     		
     		
     		/**Service Insert**/
-			$clothingService = $_POST["providesClothingServ"];
+    	
+			$clothingService = $_POST["providesClothingService"];
 			$clothingSupply = $_POST["providesClothingSupply"];
 			$clothingEmergResp = $_POST["providesClothingEmergResp"];
 			$clothingDesc = $_POST["providesClothingDesc"];
-			$foodService = $_POST["providesFoodServ"];
+			$foodService = $_POST["providesFoodService"];
 			$foodSupply = $_POST["providesFoodSupply"];
 			$foodEmergResp = $_POST["providesFoodEmergResp"];
 			$foodDesc = $_POST["providesFoodDesc"];
-			$govService = $_POST["providesGovServ"];
+			$govService = $_POST["providesGovService"];
 			$govSupply = $_POST["providesGovSupply"];
 			$govEmergResp = $_POST["providesGovEmergResp"];
 			$govDesc = $_POST["providesGovDesc"];
-			$mentoringService = $_POST["providesMentoringServ"];
+			$mentoringService = $_POST["providesMentoringService"];
 			$mentoringSupply = $_POST["providesMentoringSupply"];
 			$mentoringEmergResp = $_POST["providesMentoringEmergResp"];
 			$mentoringDesc = $_POST["providesMentoringDesc"];
-			$employmentService = $_POST["providesEmploymentServ"];
+			$employmentService = $_POST["providesEmploymentService"];
 			$employmentSupply = $_POST["providesEmploymentSupply"];
 			$employmentEmergResp = $_POST["providesEmploymentEmergResp"];
 			$employmentDesc = $_POST["providesEmploymentDesc"];
-			$counselingTherapyService = $_POST["providesCounselServ"];
-			$counselingTherapySupply = $_POST["providesCounselSupply"];
-			$counselingTherapyEmergResp = $_POST["providesCounselEmergResp"];
-			$counselingTherapyDesc = $_POST["providesCounselingTherapyDesc"];
-			$pregnancyService = $_POST["providesPregnancyServ"];
+			$counselingTherapyService = $_POST["providesCounsTherapyService"];
+			$counselingTherapySupply = $_POST["providesCounsTherapySupply"];
+			$counselingTherapyEmergResp = $_POST["providesCounsTherapyEmergResp"];
+			$counselingTherapyDesc = $_POST["providesCounsTherapyDesc"];
+			$pregnancyService = $_POST["providesPregnancyService"];
 			$pregnancySupply = $_POST["providesPregnancySupply"];
 			$pregnancyEmergResp = $_POST["providesPregnancyEmergResp"];
 			$pregnancyDesc = $_POST["providesPregnancyDesc"];
-			$medicalService = $_POST["providesMedicalServ"];
+			$medicalService = $_POST["providesMedicalService"];
 			$medicalSupply = $_POST["providesMedicalSupply"];
 			$medicalEmergResp = $_POST["providesMedicalEmergResp"];
 			$medicalDesc = $_POST["providesMedicalDesc"];
-			$legalService = $_POST["providesLegalServ"];
+			$legalService = $_POST["providesLegalService"];
 			$legalSupply = $_POST["providesLegalSupply"];
 			$legalEmergResp = $_POST["providesLegalEmergResp"];
 			$legalDesc = $_POST["providesLegalDesc"];
-			$investigationService = $_POST["providesInvestigationServ"];
+			$investigationService = $_POST["providesInvestigationService"];
 			$investigationSupply = $_POST["providesInvestigationSupply"];
 			$investigationEmergResp = $_POST["providesInvestigationEmergResp"];
 			$investigationDesc = $_POST["providesInvestigationDesc"];
-			$fosterCareService = $_POST["providesFosterServ"];
+			$fosterCareService = $_POST["providesFosterService"];
 			$fosterCareSupply = $_POST["providesFosterSupply"];
 			$fosterCareEmergResp = $_POST["providesFosterEmergResp"];
-			$fosterCareDesc = $_POST["providesFosterCareDesc"];
-			$awarenessEdService = $_POST["providesAwarenessEdServ"];
-			$awarenessEdSupply = $_POST["providesAwarenessEdSupply"];
-			$awarenessEdEmergResp = $_POST["providesAwarenessEdSEmergResp"];
-			$awarenessEdDesc = $_POST["providesAwarenessEdDesc"];
-			$responseTrainingService = $_POST["providesResponseTrainServ"];
-			$responseTrainingSupply = $_POST["providesResponseTrainSupply"];
-			$responseTrainingEmergResp = $_POST["providesResponseTrainEmergResp"];
+			$fosterCareDesc = $_POST["providesFosterDesc"];
+			$awarenessEdService = $_POST["providesAwarenessService"];
+			$awarenessEdSupply = $_POST["providesAwarenessSupply"];
+			$awarenessEdEmergResp = $_POST["providesAwarenessEmergResp"];
+			$awarenessEdDesc = $_POST["providesAwarenessDesc"];
+			$responseTrainingService = $_POST["providesResponseTrainingService"];
+			$responseTrainingSupply = $_POST["providesResponseTrainingSupply"];
+			$responseTrainingEmergResp = $_POST["providesResponseTrainingEmergResp"];
 			$responseTrainingDesc = $_POST["providesResponseTrainingDesc"];
 			$advocacyService = $_POST['advocacyService'];
 			$advocacySupply = $_POST['advocacySupply'];
@@ -920,7 +979,7 @@ function insertOrganization () {
 			$substanceAbuseSupply = $_POST["substanceAbuseSupply"];
 			$substanceAbuseEmergResp = $_POST["substanceAbuseEmergResp"];
 			$substanceAbuseDesc = $_POST["substanceAbuseDesc"];
-			$otherService = $_POST["otherServ"];
+			$otherService = $_POST["otherService"];
 			$otherSupply = $_POST["otherSupply"];
 			$otherEmergResp = $_POST["otherEmergResp"];
 			$otherDesc = $_POST["otherDesc"];
@@ -941,8 +1000,9 @@ function insertOrganization () {
 			$substanceAbuseID = 0;
 			$otherID = 0;
 			$advocacyID = 0;
-    			
-    		$getClothingResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Clothing';");
+
+  			
+    		$getClothingResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Clothing';");
     		$getClothingResourceID->execute();
     		$getClothingResourceID->bind_result($id);
     		
@@ -950,15 +1010,16 @@ function insertOrganization () {
     			$clothingID = $id;
     		}
     		
-    		$getFoodResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Food';");
+    		$getFoodResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Food';");
     		$getFoodResourceID->execute();
     		$getFoodResourceID->bind_result($id);
     		
     		while ($getFoodResourceID->fetch()) {
     			$foodID = $id;
     		}
+    	
     		
-    		$getEmploymentResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Employment';");
+    		$getEmploymentResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Employment';");
     		$getEmploymentResourceID->execute();
     		$getEmploymentResourceID->bind_result($id);
     		
@@ -966,7 +1027,7 @@ function insertOrganization () {
     			$employmentID = $id;
     		}
     		
-    		$getMentoringResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Mentoring';");
+    		$getMentoringResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Mentoring';");
     		$getMentoringResourceID->execute();
     		$getMentoringResourceID->bind_result($id);
     		
@@ -974,7 +1035,7 @@ function insertOrganization () {
     			$mentoringID = $id;
     		}
     		
-    		$getCounselingResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Counseling/Therapy';");
+    		$getCounselingResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Counseling/Therapy';");
     		$getCounselingResourceID->execute();
     		$getCounselingResourceID->bind_result($id);
     		
@@ -982,7 +1043,7 @@ function insertOrganization () {
     			$counselingID = $id;
     		}
     		
-    		$getPregnancyResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Pregnancy';");
+    		$getPregnancyResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Pregnancy';");
     		$getPregnancyResourceID->execute();
     		$getPregnancyResourceID->bind_result($id);
     		
@@ -990,7 +1051,7 @@ function insertOrganization () {
     			$pregnancyID = $id;
     		}
     		
-    		$getMedicalResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Medical';");
+    		$getMedicalResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Medical';");
     		$getMedicalResourceID->execute();
     		$getMedicalResourceID->bind_result($id);
     		
@@ -998,7 +1059,7 @@ function insertOrganization () {
     			$medicalID = $id;
     		}
     		
-    		$getLegalResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Legal';");
+    		$getLegalResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Legal';");
     		$getLegalResourceID->execute();
     		$getLegalResourceID->bind_result($id);
     		
@@ -1006,7 +1067,7 @@ function insertOrganization () {
     			$legalID = $id;
     		}
     		
-    		$getGovResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Governmental';");
+    		$getGovResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Governmental';");
     		$getGovResourceID->execute();
     		$getGovResourceID->bind_result($id);
     		
@@ -1014,7 +1075,7 @@ function insertOrganization () {
     			$govID = $id;
     		}
     		
-    		$getInvestigationResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Investigation';");
+    		$getInvestigationResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Investigation';");
     		$getInvestigationResourceID->execute();
     		$getInvestigationResourceID->bind_result($id);
     		
@@ -1022,7 +1083,7 @@ function insertOrganization () {
     			$investigationID = $id;
     		}
     		
-    		$getFosterResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Foster Care';");
+    		$getFosterResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Foster Care';");
     		$getFosterResourceID->execute();
     		$getFosterResourceID->bind_result($id);
     		
@@ -1030,7 +1091,7 @@ function insertOrganization () {
     			$fosterID = $id;
     		}
     		
-    		$getAwarenessEdResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Awareness/Education';");
+    		$getAwarenessEdResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Awareness/Education';");
     		$getAwarenessEdResourceID->execute();
     		$getAwarenessEdResourceID->bind_result($id);
     		
@@ -1038,15 +1099,15 @@ function insertOrganization () {
     			$awarenessEdID = $id;
     		}
     		
-    		$getResponseTrainingResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Response Training';");
+    		$getResponseTrainingResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Response Training';");
     		$getResponseTrainingResourceID->execute();
     		$getResponseTrainingResourceID->bind_result($id);
     		
     		while ($getResponseTrainingResourceID->fetch()) {
-    			$foodID = $id;
+    			$responseTrainingID = $id;
     		}
     		
-    		$getSubstanceAbuseResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Substance Abuse';");
+    		$getSubstanceAbuseResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Substance Abuse';");
     		$getSubstanceAbuseResourceID->execute();
     		$getSubstanceAbuseResourceID->bind_result($id);
     		
@@ -1054,7 +1115,7 @@ function insertOrganization () {
     			$substanceAbuseID = $id;
     		}
     		
-    		$getOtherResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Other';");
+    		$getOtherResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Other';");
     		$getOtherResourceID->execute();
     		$getOtherResourceID->bind_result($id);
     		
@@ -1062,14 +1123,18 @@ function insertOrganization () {
     			$otherID = $id;
     		}
     		
-    		$getAdvocacyResourceID = $connLibrary->("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Advocacy';");
+    		$getAdvocacyResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Advocacy';");
     		$getAdvocacyResourceID->execute();
     		$getAdvocacyResourceID->bind_result($id);
     		
     		while ($getAdvocacyResourceID->fetch()) {
     			$advocacyID = $id;
     		}
-    		
+
+			
+	
+	
+		
 			if (($clothingService == "true") || ($clothingSupply == "true") || ($clothingEmergResp == "true")) {
 				if ($clothingService == "true") {
 	    			$clothingService = 1;
@@ -1089,14 +1154,17 @@ function insertOrganization () {
 	    		else {
 	    			$clothingEmergResp = 0;
 	    		}
+	    		
+
+	   
+				$insertClothingResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+																VALUES (" . $orgId . ", " . $clothingID . " , " . $clothingService . " , 
+														" . $clothingSupply . " , " . $clothingEmergResp . " , '" . $clothingDesc . "');");
 				
-				$insertResourceQuery1 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $clothingID . "' , '" . $clothingService . "' , 
-															   '" . $clothingSupply . "' , '" . $clothingEmerg . "' , '" . $clothingDesc . ");");
-				
-				$insertResourceQuery1->execute();
-				$insertResourceQuery1->close();
+				$insertClothingResource ->execute();
+				$insertClothingResource ->close();
 			}
+
 			
 			if (($foodService == "true") || ($foodSupply == "true") || ($foodEmergResp == "true")) {
 				if ($foodService == "true") {
@@ -1117,15 +1185,16 @@ function insertOrganization () {
 	    		else {
 	    			$foodEmergResp = 0;
 	    		}
+	    		
+
+				$insertFoodResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $foodID . " , " . $foodService . " , 
+															   " . $foodSupply . " , " . $foodEmergResp . " , '" . $foodDesc . "');");
 				
-				$insertResourceQuery2 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $foodID . "' , '" . $foodService . "' , 
-															   '" . $foodSupply . "' , '" . $foodEmerg . "' , '" . $foodDesc . ");");
-				
-				$insertResourceQuery2->execute();
-				$insertResourceQuery2->close();
+				$insertFoodResource->execute();
+				$insertFoodResource->close(); 
 			}
-			
+		
 			if (($employmentService == "true") || ($employmentSupply == "true") || ($employmentEmergResp == "true")) {
 				if ($employmentService == "true") {
 	    			$employmentService = 1;
@@ -1146,12 +1215,12 @@ function insertOrganization () {
 	    			$employmentEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery3 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $employmentID . "' , '" . $employmentService . "' , 
-															   '" . $employmentSupply . "' , '" . $employmentEmerg . "' , '" . $employmentDesc . ");");
+				$insertEmploymentResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $employmentID . " , " . $employmentService . " , 
+															   " . $employmentSupply . " , " . $employmentEmergResp . " , '" . $employmentDesc . "');");
 				
-				$insertResourceQuery3->execute();
-				$insertResourceQuery3->close();
+				$insertEmploymentResource->execute();
+				$insertEmploymentResource->close();
 			}
 			
 			if (($mentoringService == "true") || ($mentoringSupply == "true") || ($mentoringEmergResp == "true")) {
@@ -1174,14 +1243,15 @@ function insertOrganization () {
 	    			$mentoringEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery4 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $mentoringID . "' , '" . $mentoringService . "' , 
-															   '" . $mentoringSupply . "' , '" . $mentoringEmerg . "' , '" . $mentoringDesc . ");");
+				$insertMentoringResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $mentoringID . " , " . $mentoringService . " , 
+															   " . $mentoringSupply . " , " . $mentoringEmergResp . " , '" . $mentoringDesc . "');");
 				
-				$insertResourceQuery4->execute();
-				$insertResourceQuery4->close();
+				$insertMentoringResource->execute();
+				$insertMentoringResource->close();
 			}
 			
+		
 			if (($counselingTherapyService == "true") || ($counselingTherapySupply == "true") || ($counselingTherapyEmergResp == "true")) {
 				if ($counselingTherapyService == "true") {
 	    			$counselingTherapyService = 1;
@@ -1202,12 +1272,13 @@ function insertOrganization () {
 	    			$counselingTherapyEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery5 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $counselingID . "' , '" . $counselingTherapyService . "' , 
-															   '" . $counselingTherapySupply . "' , '" . $counselingTherapyEmerg . "' , '" . $counselingTherapyDesc . ");");
+		
+				$insertCounselingResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $counselingID . " , " . $counselingTherapyService . " , 
+															   " . $counselingTherapySupply . " , " . $counselingTherapyEmergResp . " , '" . $counselingTherapyDesc . "');");
 				
-				$insertResourceQuery5->execute();
-				$insertResourceQuery5->close();
+				$insertCounselingResource->execute();
+				$insertCounselingResource->close();
 			}
 			
 			if (($pregnancyService == "true") || ($pregnancySupply == "true") || ($pregnancyEmergResp == "true")) {
@@ -1230,12 +1301,12 @@ function insertOrganization () {
 	    			$pregnancyEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery6 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $pregnancyID . "' , '" . $pregnancyService . "' , 
-															   '" . $pregnancySupply . "' , '" . $pregnancyEmerg . "' , '" . $pregnancyDesc . ");");
+				$insertPregnancyResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $pregnancyID . " , " . $pregnancyService . " , 
+															   " . $pregnancySupply . " , " . $pregnancyEmergResp . " , '" . $pregnancyDesc . "');");
 				
-				$insertResourceQuery6->execute();
-				$insertResourceQuery6->close();
+				$insertPregnancyResource->execute();
+				$insertPregnancyResource->close();
 			}
 			
 			if (($medicalService == "true") || ($medicalSupply == "true") || ($medicalEmergResp == "true")) {
@@ -1258,12 +1329,12 @@ function insertOrganization () {
 	    			$medicalEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery7 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $medicalID . "' , '" . $medicalService . "' , 
-															   '" . $medicalSupply . "' , '" . $medicalEmerg . "' , '" . $medicalDesc . ");");
+				$insertMedicalResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $medicalID . " , " . $medicalService . " , 
+															   " . $medicalSupply . " , " . $medicalEmergResp . " , '" . $medicalDesc . "');");
 				
-				$insertResourceQuery7->execute();
-				$insertResourceQuery7->close();
+				$insertMedicalResource->execute();
+				$insertMedicalResource->close();
 			}
 			
 			if (($legalService == "true") || ($legalSupply == "true") || ($legalEmergResp == "true")) {
@@ -1286,12 +1357,12 @@ function insertOrganization () {
 	    			$legalEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery8 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $legalID . "' , '" . $legalService . "' , 
-															   '" . $legalSupply . "' , '" . $legalEmerg . "' , '" . $legalDesc . ");");
+				$insertLegalResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $legalID . " , " . $legalService . " , 
+															   " . $legalSupply . " , " . $legalEmergResp . " , '" . $legalDesc . "');");
 				
-				$insertResourceQuery8->execute();
-				$insertResourceQuery8->close();
+				$insertLegalResource->execute();
+				$insertLegalResource->close();
 			}
 			
 			if (($govService == "true") || ($govSupply == "true") || ($govEmergResp == "true")) {
@@ -1314,12 +1385,13 @@ function insertOrganization () {
 	    			$govEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery9 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $govID . "' , '" . $govService . "' , 
-															   '" . $govSupply . "' , '" . $govEmerg . "' , '" . $govDesc . ");");
+				$insertGovResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $govID . " , " . $govService . " , 
+															   " . $govSupply . " , " . $govEmergResp . " , '" . $govDesc . "');");
 				
-				$insertResourceQuery9->execute();
-				$insertResourceQuery9->close();
+				$insertGovResource->execute();
+				
+				$insertGovResource->close();
 			}
 			
 			if (($investigationService == "true") || ($investigationSupply == "true") || ($investigationEmergResp == "true")) {
@@ -1342,14 +1414,14 @@ function insertOrganization () {
 	    			$investigationEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery10 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $investigationID . "' , '" . $investigationService . "' , 
-															   '" . $investigationSupply . "' , '" . $investigationEmerg . "' , '" . $investigationDesc . ");");
+				$insertInvestigationResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $investigationID . " , " . $investigationService . " , 
+															   " . $investigationSupply . " , " . $investigationEmergResp . " , '" . $investigationDesc . "');");
 				
-				$insertResourceQuery10->execute();
-				$insertResourceQuery10->close();
+				$insertInvestigationResource->execute();
+				$insertInvestigationResource->close();
 			}
-			
+		
 			if (($fosterCareService == "true") || ($fosterCareSupply == "true") || ($fosterCareEmergResp == "true")) {
 				if ($fosterCareService == "true") {
 	    			$fosterCareService = 1;
@@ -1370,40 +1442,12 @@ function insertOrganization () {
 	    			$fosterCareEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery11 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $fosterID . "' , '" . $fosterCareService . "' , 
-															   '" . $fosterCareSupply . "' , '" . $fosterCareEmerg . "' , '" . $fosterCareDesc . ");");
+				$insertFosterResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $fosterID . " , " . $fosterCareService . " , 
+															   " . $fosterCareSupply . " , " . $fosterCareEmergResp . " , '" . $fosterCareDesc . "');");
 				
-				$insertResourceQuery11->execute();
-				$insertResourceQuery11->close();
-			}
-			
-			if (($substanceAbuseService == "true") || ($substanceAbuseSupply == "true") || ($substanceAbuseEmergResp == "true")) {
-				if ($substanceAbuseService == "true") {
-	    			$substanceAbuseService = 1;
-	    		}
-	    		else {
-	    			$substanceAbuseService = 0;
-	    		}
-	    		if ($substanceAbuseSupply == "true") {
-	    			$substanceAbuseSupply = 1;
-	    		}
-	    		else {
-	    			$substanceAbuseSupply = 0;
-	    		}
-	    		if ($substanceAbuseEmergResp == "true") {
-	    			$substanceAbuseEmergResp = 1;
-	    		}
-	    		else {
-	    			$substanceAbuseEmergResp = 0;
-	    		}
-				
-				$insertResourceQuery12 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $substanceAbuseID . "' , '" . $substanceAbuseService . "' , 
-															   '" . $substanceAbuseSupply . "' , '" . $substanceAbuseEmerg . "' , '" . $substanceAbuseDesc . ");");
-				
-				$insertResourceQuery12->execute();
-				$insertResourceQuery12->close();
+				$insertFosterResource->execute();
+				$insertFosterResource->close();
 			}
 			
 			if (($awarenessEdService == "true") || ($awarenessEdSupply == "true") || ($awarenessEdEmergResp == "true")) {
@@ -1426,14 +1470,14 @@ function insertOrganization () {
 	    			$awarenessEdEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery13 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $awarenessEdID . "' , '" . $awarenessEdService . "' , 
-															   '" . $awarenessEdSupply . "' , '" . $awarenessEdEmerg . "' , '" . $awarenessEdDesc . ");");
+				$insertAwarenessEdResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $awarenessEdID . " , " . $awarenessEdService . " , 
+															   " . $awarenessEdSupply . " , " . $awarenessEdEmergResp . " , '" . $awarenessEdDesc . "');");
 				
-				$insertResourceQuery13->execute();
-				$insertResourceQuery13->close();
+				$insertAwarenessEdResource->execute();
+				$insertAwarenessEdResource->close();
 			}
-			
+		
 			if (($responseTrainingService == "true") || ($responseTrainingSupply == "true") || ($responseTrainingEmergResp == "true")) {
 				if ($responseTrainingService == "true") {
 	    			$responseTrainingService = 1;
@@ -1454,40 +1498,40 @@ function insertOrganization () {
 	    			$responseTrainingEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery14 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $responseTrainingID . "' , '" . $responseTrainingService . "' , 
-															   '" . $responseTrainingSupply . "' , '" . $responseTrainingEmerg . "' , '" . $responseTrainingDesc . ");");
+				$insertResponseResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $responseTrainingID . " , " . $responseTrainingService . " , 
+															   " . $responseTrainingSupply . " , " . $responseTrainingEmergResp . " , '" . $responseTrainingDesc . "');");
 				
-				$insertResourceQuery14->execute();
-				$insertResourceQuery14->close();
+				$insertResponseResource->execute();
+				$insertResponseResource->close();
 			}
-			
-			if (($advocacyService == "true") || ($advocacySupply == "true") || ($advocacyEmergResp == "true")) {
-				if ($advocacyService == "true") {
-	    			$advocacyService = 1;
+
+			if (($substanceAbuseService == "true") || ($substanceAbuseSupply == "true") || ($substanceAbuseEmergResp == "true")) {
+				if ($substanceAbuseService == "true") {
+	    			$substanceAbuseService = 1;
 	    		}
 	    		else {
-	    			$advocacyService = 0;
+	    			$substanceAbuseService = 0;
 	    		}
-	    		if ($advocacySupply == "true") {
-	    			$advocacySupply = 1;
-	    		}
-	    		else {
-	    			$advocacySupply = 0;
-	    		}
-	    		if ($advocacyEmergResp == "true") {
-	    			$advocacyEmergResp = 1;
+	    		if ($substanceAbuseSupply == "true") {
+	    			$substanceAbuseSupply = 1;
 	    		}
 	    		else {
-	    			$advocacyEmergResp = 0;
+	    			$substanceAbuseSupply = 0;
+	    		}
+	    		if ($substanceAbuseEmergResp == "true") {
+	    			$substanceAbuseEmergResp = 1;
+	    		}
+	    		else {
+	    			$substanceAbuseEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery15 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $advocacyID . "' , '" . $advocacyService . "' , 
-															   '" . $advocacySupply . "' , '" . $advocacyEmerg . "' , '" . $advocacyDesc . ");");
+				$insertSubstanceAbuseResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $substanceAbuseID . " , " . $substanceAbuseService . " , 
+															   " . $substanceAbuseSupply . " , " . $substanceAbuseEmergResp . " , '" . $substanceAbuseDesc . "');");
 				
-				$insertResourceQuery15->execute();
-				$insertResourceQuery15->close();
+				$insertSubstanceAbuseResource->execute();
+				$insertSubstanceAbuseResource->close();
 			}
 			
 			if (($otherService == "true") || ($otherSupply == "true") || ($otherEmergResp == "true")) {
@@ -1510,13 +1554,43 @@ function insertOrganization () {
 	    			$otherEmergResp = 0;
 	    		}
 				
-				$insertResourceQuery16 = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
-															   VALUES (" . $orgId . ", '" . $otherID . "' , '" . $otherService . "' , 
-															   '" . $otherSupply . "' , '" . $otherEmerg . "' , '" . $otherDesc . ");");
+				$insertOtherResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $otherID . " , " . $otherService . " , 
+															   " . $otherSupply . " , " . $otherEmergResp . " , '" . $otherDesc . "');");
 				
-				$insertResourceQuery16->execute();
-				$insertResourceQuery16->close();
+				$insertOtherResource->execute();
+				$insertOtherResource->close();
+			} 
+			
+			if (($advocacyService == "true") || ($advocacySupply == "true") || ($advocacyEmergResp == "true")) {
+				if ($advocacyService == "true") {
+	    			$advocacyService = 1;
+	    		}
+	    		else {
+	    			$advocacyService = 0;
+	    		}
+	    		if ($advocacySupply == "true") {
+	    			$advocacySupply = 1;
+	    		}
+	    		else {
+	    			$advocacySupply = 0;
+	    		}
+	    		if ($advocacyEmergResp == "true") {
+	    			$advocacyEmergResp = 1;
+	    		}
+	    		else {
+	    			$advocacyEmergResp = 0;
+	    		}
+				
+				$insertAdvocacyResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $advocacyID . " , " . $advocacyService . " , 
+															   " . $advocacySupply . " , " . $advocacyEmergResp . " , '" . $advocacyDesc . "');");
+				
+				$insertAdvocacyResource->execute();
+				$insertAdvocacyResource->close();
 			}
+		
+			
 }
 
 ?>

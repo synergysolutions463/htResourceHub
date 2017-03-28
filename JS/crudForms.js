@@ -746,7 +746,7 @@ function insertOrganization() {
 			otherDesc: otherDesc
 		},
 		success: function(data) {
-			console.log("connection to php worked with simple search");
+			console.log("connection to php for insert working");
 			console.log(data);
 
 		}
