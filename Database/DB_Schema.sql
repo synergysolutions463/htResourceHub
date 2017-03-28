@@ -237,8 +237,8 @@ CREATE TABLE OfficeUse (
 
 CREATE TABLE Hours (
     OrgID INT NOT NULL,
-    Is24Hours SMALLINT,
-    IsAdditional SMALLINT, 
+    Is24Hours SMALLINT NOT NULL,
+    IsAdditional SMALLINT NOT NULL,
     MondayStart VARCHAR(10),
     MondayEnd VARCHAR(10),
     TuesdayStart VARCHAR(10),
@@ -253,7 +253,11 @@ CREATE TABLE Hours (
     SaturdayEnd VARCHAR(10),
     SundayStart VARCHAR(10),
     SundayEnd VARCHAR(10),
-    ReasonForAdditionalHours VARCHAR(100)
+    ReasonForAdditionalHours VARCHAR(100),
+    PRIMARY KEY(OrgID, IsAdditional),
+    FOREIGN KEY(OrgID)
+    REFERENCES Organizations(OrgID)
+    ON DELETE CASCADE
 );
 
 USE htResourceHub

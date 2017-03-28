@@ -164,3 +164,27 @@ AND Nationality.OrgID IN
 	(SELECT Nationality.OrgID
 	FROM Nationality
 	WHERE Nationality.NatID=2);
+
+
+/* Selects all of the info needed for the full org info page */
+SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, 
+	o.HotlineNum, o.ConfNum, o.WebLink, o.email, o.ProgramStatement, 
+	o.isShelter, o.isTransitionalHousing, o.isAssistanceLocatingHousing,
+	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
+	a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
+    st.StateName, 
+	AgeTypes.AgeType,
+	
+GROUP_CONCAT(sert.SerType) AS SerType
+FROM Organizations o 
+JOIN Contacts c ON (c.OrgID = o.OrgID)
+JOIN FaithTypes ft ON (o.FaithID = ft.FaithID)
+JOIN Addresses a ON (o.OrgID = a.OrgID)
+JOIN States st ON (st.StateID = a.StateID)
+JOIN Service se ON (se.OrgId = o.OrgId)
+JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+JOIN Age ON (o.OrgID = Age.OrgID)
+JOIN AgeTypes ON (Age.AgeID = AgeTypes.AgeID)
+
+WHERE (o.OrgID = 1);
