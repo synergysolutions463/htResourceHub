@@ -11,7 +11,7 @@ function updateOrganization () {
           die("There was an error connecting to the database");
     }
     
-    		$oldOrgId = 176;
+    		$rgId = 176;
     		
     		$deleteOrgQuery = $connLibrary->prepare("DELETE FROM Organizations WHERE OrgID = " . $oldOrgId . ";");
             $deleteOrgQuery->execute();
@@ -78,9 +78,9 @@ function updateOrganization () {
     		}
 
 	
-			$insertOrgQuery = $connLibrary->prepare("INSERT INTO Organizations (OrgName, AgencyName, ProgramStatement, WebLink, Email, PhoneNum, phoneExt,
+			$insertOrgQuery = $connLibrary->prepare("INSERT INTO Organizations (OrgId, OrgName, AgencyName, ProgramStatement, WebLink, Email, PhoneNum, phoneExt,
 			                                           HotlineNum, ConfNum, confPhoneExt, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees,
-			                                           FaithID, Notes, ConfNotes, isConf) VALUES ('" . $orgName . "','" . $agencyName . "','"
+			                                           FaithID, Notes, ConfNotes, isConf) VALUES (" . $orgId . ",'" . $orgName . "','" . $agencyName . "','"
 			                                            . $missionStmt . "','" . $weblink . "','" . $email . "','" . $phoneNum . "','" . $phoneExt . "','"
 			                                             . $hotlineNum . "','" . $confNum . "','" . $confExt . "'," . $isShelter . "," . $isTransHousing . ","
 			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ");");
@@ -92,12 +92,6 @@ function updateOrganization () {
             $selectOrgQuery->execute();
             $selectOrgQuery->bind_result($id);
 			
-			$orgId = 0;
-    		while($selectOrgQuery->fetch()){
-        		$orgId = $id;
-    		}
-    		
-    		echo $orgId;
     		
     		/**Addresses Insert**/
     		

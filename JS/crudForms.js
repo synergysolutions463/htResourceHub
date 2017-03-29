@@ -1,4 +1,4 @@
-var loggedIn = false;
+var loggedIn = true;
 
 function testAjax() {
 	console.log("test ajax worked")
@@ -204,86 +204,110 @@ function loadSimpleData(orgs) {
 	text = "";
 
 	for (i = 0; i < oLen; i++) {
-
-		if (loggedIn == false) {
-			//		if (orgs[i][7] == 0) {
-			//			if (orgs[i][8] == 1) {
-			text += "<div class=\"panel\" id=\"indiPanel\">" +
-				"<div class=\"row\">" +
-				"<div class=\"col-md-4 col-md-offset-2\">";
-
-			text += "<div class=\"organization-info " + orgs[i][0] + "\">";
-
-			text += "<h2><a href=\"orgInfo.html\" style=\"cursor: pointer;\ class=\"orgLink\">";
-			text += orgs[i][1];
-			text += "</a></h2>";
-
-
-			if (orgs[i][15] == 1) {
-				text += "<h3>Open 24-Hours</h3>";
-			}
-
-			text += "<p>Phone: ";
-
-			if (orgs[i][2] == "" || orgs[i][2] == null) {
-				text += "N/A</p>";
-			}
-			else {
-				text += orgs[i][2] + "</p>";
-			}
-
-			text += "<h5>Hotline: ";
-
-			if (orgs[i][3] == "" || orgs[i][3] == null) {
-				text += "N/A</h5>";
+	
+		text += "<div class=\"panel\" id=\"indiPanel\">";
+		text +=  "<div class=\"row\">";
+		text += "<div class=\"col-md-4 col-md-offset-2\">";
+		text += "<div class=\"organization-info\">";
+		text += "<h2><a href=\"orgInfo.html\" onclick=\"loadComplexData(this.id)\" style=\"cursor: pointer;\">";
+		text += orgs[i][1] + "</a></h2>";
+		
+		if(orgs[i][18] == 1) {
+			text += "<h4>Open 24-Hours</h4>";
+		}
+		
+		var myNum = orgs[i][2];
+		if(myNum != null) {
+			myNum = myNum.replace(/\D/g,'');
+		}
+		
+		var myHotline = orgs[i][2];
+		if(myHotline != null) {
+			myHotline = myHotline.replace(/\D/g,'');
+		}
+		 
+		
+		
+		text += "<p><a href=\"tel:" + myNum + "\">Phone: ";
+			if(orgs[i][2] == null || orgs[i][2] == "" || orgs[i][2] == "+1 ") {
+				text += "N/A";
 			}
 			else {
-				text += orgs[i][3] + "</h5>";
+				text += orgs[i][2];
+				
+					if(orgs[i][3] == null || orgs[i][3] == "") {
+						text += "";
+					}
+					else {
+						text += " Ext. " + orgs[i][3];
+					}
+				
 			}
-
-			text += "<p>Email: ";
-
-			if (orgs[i][5] == "" || orgs[i][5] == null) {
-				text += "N/A</p>";
+		text += "</a></p>";
+		
+		text += "<h5><a href=\"tel:" + myHotline + "\">24-Hour Hotline: ";
+			if(orgs[i][4] == null || orgs[i][4] == "" || orgs[i][4] == "+1 ") {
+				text += "N/A";
 			}
 			else {
-				text += orgs[i][5] + "</p>";
+				text += orgs[i][4];
 			}
-			text += "</div> </div> ";
+		text += "</a></h5>"
+		
+		text += "<p>Website: " 
+			if(orgs[i][7] == null || orgs[i][7] == "") {
+				text += "N/A";	
+			}
+			else {
+				text += "<a href=\"" + orgs[i][7] + "\" target=\"_blank\">" + orgs[i][7] + "</a>";
+			}
+		text += "</p>";
+		
+		text += "<p>Email: ";
+			if(orgs[i][8] == null || orgs[i][8] == "") {
+				text += "N/A";
+			}
+			else {
+				text += orgs[i][8];
+			}
+		text += "</p>";
+		
+		text += "</div> </div>";
+		text += "<div class=\"col-md-4\">";
+        text += "<div class=\"resource-info\">";
+        text += "<br>";
+        text += "<p>OFFERED RESOURCES</p>";
+        text += "<ul>";
+        
+        var offeredResource = orgs[i][17].split(',');
+        
+        rLen = offeredResource.length;
+        for (j = 0; j < rLen; j++) {
+        	text += "<li>" + offeredResource[j] + "</li>";
+        	
+        }
 
-			text += " <div class=\"col-md-4\">" +
-				"<div class=\"resource-info\">" +
-				"<br>" +
-				"<p>OFFERED RESOURCES</p>" +
-				"<ul>" +
-				"<li>Housing</li>" +
-				"<li>Mentoring</li>" +
-				"<li>Awareness/Education</li>" +
-				"<li>Other</li>" +
-				"</ul>" +
-				"</div> </div> </div> </div>";
-
-			document.getElementById("resultPanel").innerHTML = text;
-
-			//			}
-			//		}
-
+        text += "</ul>";
+        text += "</div> </div>";
+        
+        text += "<div class=\"col-md-2\">";
+        text += "<div class=\"vcenter\">";
+        
+        text += "<button id=" + orgs[i][0] + " type=\"button\">Update</button>";
+        text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
+        
+        text += "</div> </div> </div> </div>";
+        
+		document.getElementById("resultPanel").innerHTML = text;
+		
+		
 		}
 
 
 
 	}
 
-
-
-
-
-
-
-
-}
-
-function loadComplexData() {
+function loadComplexData(orgId) {
 
 }
 
@@ -1222,6 +1246,48 @@ function updateOrganization() {
 
 
 
+}
+
+function populateStates()
+{
+	$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "getStates"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var states = parsedData;
+			
+			$("#ddlAddress1StateCreate").get(0).options.length = 0;
+			$("#ddlAddress2StateCreate").get(0).options.length = 0;
+			$("#ddlConfAddressStateCreate").get(0).options.length = 0;
+			
+			for (i = 0; i < states.length; i++){
+				var option = document.createElement("option");
+				option.text = states[i];
+				$("#ddlAddress1StateCreate").add(option);
+				$("#ddlAddress2StateCreate").add(option);
+				$("#ddlConfAddressStateCreate").add(option);
+			}
+		}
+	});
+}
+
+function populateFaiths()
+{
+	$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "getFaiths"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var faiths = parsedData;
+		}
+	});
 }
 
 

@@ -33,7 +33,7 @@ function readAllOrgs() {
     }
    
 
-    $allOrgQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.HotlineNum, o.WebLink,
+    $allOrgQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
                                             st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
                                             FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
@@ -43,11 +43,11 @@ function readAllOrgs() {
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
                                             GROUP BY o.OrgID;"); 
     $allOrgQuery->execute();
-    $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+    $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
     $allOrgData = array();
     while($allOrgQuery->fetch()){
-        $allOrgData[] = array($orgID, $orgName, $phoneNum, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConf, $stateName, $serType, $is24Hours);
+        $allOrgData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
     
     
@@ -148,21 +148,21 @@ function simpleSearchOrgs() {
     if ($simpleQueryString != "") {
     
 
-    $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.HotlineNum, o.WebLink,
-                    o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                    st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
-                    FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
-                    JOIN States st ON (st.StateID = a.StateID)
-                    JOIN Service se ON (se.OrgId = o.OrgId)
-                    JOIN Hours h ON (h.OrgID = o.OrgID)
-                    JOIN ServiceTypes sert ON (sert.SerID = se.SerID)" . $simpleQueryString .
-                    "GROUP BY o.OrgID;"); 
+    $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
+                                            o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                            FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
+                                            JOIN States st ON (st.StateID = a.StateID)
+                                            JOIN Service se ON (se.OrgId = o.OrgId)
+                                            JOIN Hours h ON (h.OrgID = o.OrgID)
+                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID)" . $simpleQueryString .
+                                            "GROUP BY o.OrgID;"); 
     $simpleSearchQuery->execute();
-    $simpleSearchQuery->bind_result($orgID, $orgName, $phoneNum, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+    $simpleSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
     $simpleSearchData = array();
     while($simpleSearchQuery->fetch()){
-        $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+        $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
 
    echo json_encode($simpleSearchData); 
@@ -245,9 +245,9 @@ function advSearchOrgs() {
                                     
                                         
                                     
-                                     $advSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.HotlineNum, o.WebLink,
-                                        o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                                        st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                     $advSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
+                                            o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
                                         FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                         JOIN States st ON (st.StateID = a.StateID)
                                         JOIN Service se ON (se.OrgId = o.OrgId)
@@ -255,11 +255,11 @@ function advSearchOrgs() {
                                         JOIN ServiceTypes sert ON (sert.SerID = se.SerID) WHERE " . $freeFeeAppend .
                                         " GROUP BY o.OrgID;"); 
                         $advSearchQuery->execute();
-                        $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+                        $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
     $advSearchData = array();
     while($advSearchQuery->fetch()){
-        $advSearchData[] = array($orgID, $orgName, $phoneNum, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+        $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
 
     echo json_encode($advSearchData); 
@@ -985,6 +985,45 @@ function logout() {
     
 }
 
+function getStates()
+{
+    $connLibrary = db_connect();
+    if($connLibrary == null || $connLibrary == null) {
+          die("There was an error connecting to the database");
+          
+    }
+    
+    $statesQuery = $connLibrary->prepare("SELECT StateName FROM States");
+    $statesQuery->execute();
+    $statesQuery->bind_result($stateName);
+    
+    $statesData = array();
+    
+    while($statesQuery->fetch()){
+        $statesData[] = array($stateName);
+    }
+        
+    echo json_encode($statesData);
+}
 
+function getFaiths()
+{
+    $connLibrary = db_connect();
+    if($connLibrary == null || $connLibrary == null) {
+          die("There was an error connecting to the database");
+          
+    }
 
+    $faithsQuery = $connLibrary->prepare("SELECT FaithType FROM FaithTypes");
+    $faithsQuery->execute();
+    $faithsQuery->bind_result($faithType);
+    
+    $faithsData = array();
+    
+    while($faithsQuery->fetch()){
+        $faithsData[] = array($faithType);
+    }
+    
+    echo json_encode($faithsData);
+}
 ?>
