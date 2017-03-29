@@ -167,16 +167,18 @@ AND Nationality.OrgID IN
 
 
 /* Selects all of the info needed for the full org info page */
-SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, 
-	o.HotlineNum, o.ConfNum, o.WebLink, o.email, o.ProgramStatement, 
+SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, o.phoneExt,
+	o.HotlineNum, o.ConfNum, o.confPhoneExt, o.WebLink, o.email, o.ProgramStatement, 
 	o.isShelter, o.isTransitionalHousing, o.isAssistanceLocatingHousing,
 	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
-	a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
+	a.StreetInfo, a.City, a.ZipCode, a.IsConf, States.StateName,
 	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
-    st.StateName, 
-	AgeTypes.AgeType,
-	
-GROUP_CONCAT(sert.SerType) AS SerType
+    st.StateName, AgeTypes.AgeType, rt.RaceType, nt.NatType, et.EthType,
+    h.Is24Hours, h.IsAdditional, h.MondayStart, h.MondayEnd, h.TuesdayStart, h.TuesdayEnd,
+    h.WednesdayStart, h.WednesdayEnd, h.ThursdayStart, h.ThursdayEnd, h.FridayStart,
+    h.FridayEnd, h.SaturdayStart, h.SaturdayEnd, h.SundayStart, h.SundayEnd, h.ReasonForAdditionalHours,
+    reqt.ReqType, req.Description,
+    GROUP_CONCAT(sert.SerType) AS SerType
 FROM Organizations o 
 JOIN Contacts c ON (c.OrgID = o.OrgID)
 JOIN FaithTypes ft ON (o.FaithID = ft.FaithID)
@@ -186,5 +188,14 @@ JOIN Service se ON (se.OrgId = o.OrgId)
 JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
 JOIN Age ON (o.OrgID = Age.OrgID)
 JOIN AgeTypes ON (Age.AgeID = AgeTypes.AgeID)
-
+JOIN Race r ON (r.OrgID = o.OrgID)
+JOIN RaceTypes rt ON (r.RaceID = rt.RaceID)
+JOIN Nationality n ON (n.OrgID = o.OrgID)
+JOIN NationalityTypes nt ON (nt.NatID = n.NatID)
+JOIN Ethnicity e ON (e.OrgID = o.OrgID)
+JOIN EthnicityTypes et ON (e.EthID = et.EthID)
+JOIN States ON (States.StateID = a.StateID)
+JOIN Hours h ON (o.OrgID = h.OrgID)
+JOIN Requirements req ON (o.OrgID = req.OrgID)
+JOIN RequirementsTypes reqt ON (req.ReqID = reqt.ReqID)
 WHERE (o.OrgID = 1);

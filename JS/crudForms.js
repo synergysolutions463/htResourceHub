@@ -64,15 +64,15 @@ function simpleSearchOrgs() {
 		success: function(data) {
 			console.log("connection to php worked with simple search");
 			console.log(data);
-			
-			if(data == "No results found") {
+
+			if (data == "No results found") {
 				var text = "<h2>No results found</h2>";
 				document.getElementById("resultPanel").innerHTML = text;
 			}
-			else { 
+			else {
 				var parsedData = JSON.parse(data);
 				var orgs = parsedData;
-				loadSimpleData(orgs);	
+				loadSimpleData(orgs);
 			}
 
 		}
@@ -209,110 +209,134 @@ function loadSimpleData(orgs) {
 	text = "";
 
 	for (i = 0; i < oLen; i++) {
-	
+
 		text += "<div class=\"panel\" id=\"indiPanel\">";
-		text +=  "<div class=\"row\">";
+		text += "<div class=\"row\">";
 		text += "<div class=\"col-md-4 col-md-offset-2\">";
 		text += "<div class=\"organization-info\">";
 		text += "<h2><a href=\"orgInfo.html\" onclick=\"loadComplexData(this.id)\" style=\"cursor: pointer;\">";
 		text += orgs[i][1] + "</a></h2>";
-		
-		if(orgs[i][18] == 1) {
+
+		if (orgs[i][18] == 1) {
 			text += "<h4>Open 24-Hours</h4>";
 		}
-		
+
 		var myNum = orgs[i][2];
-		if(myNum != null) {
-			myNum = myNum.replace(/\D/g,'');
+		if (myNum != null) {
+			myNum = myNum.replace(/\D/g, '');
 		}
-		
+
 		var myHotline = orgs[i][2];
-		if(myHotline != null) {
-			myHotline = myHotline.replace(/\D/g,'');
+		if (myHotline != null) {
+			myHotline = myHotline.replace(/\D/g, '');
 		}
-		 
-		
-		
+
+
+
 		text += "<p><a href=\"tel:" + myNum + "\">Phone: ";
-			if(orgs[i][2] == null || orgs[i][2] == "" || orgs[i][2] == "+1 ") {
-				text += "N/A";
+		if (orgs[i][2] == null || orgs[i][2] == "" || orgs[i][2] == "+1 ") {
+			text += "N/A";
+		}
+		else {
+			text += orgs[i][2];
+
+			if (orgs[i][3] == null || orgs[i][3] == "") {
+				text += "";
 			}
 			else {
-				text += orgs[i][2];
-				
-					if(orgs[i][3] == null || orgs[i][3] == "") {
-						text += "";
-					}
-					else {
-						text += " Ext. " + orgs[i][3];
-					}
-				
+				text += " Ext. " + orgs[i][3];
 			}
+
+		}
 		text += "</a></p>";
-		
+
 		text += "<h5><a href=\"tel:" + myHotline + "\">24-Hour Hotline: ";
-			if(orgs[i][4] == null || orgs[i][4] == "" || orgs[i][4] == "+1 ") {
-				text += "N/A";
-			}
-			else {
-				text += orgs[i][4];
-			}
+		if (orgs[i][4] == null || orgs[i][4] == "" || orgs[i][4] == "+1 ") {
+			text += "N/A";
+		}
+		else {
+			text += orgs[i][4];
+		}
 		text += "</a></h5>"
-		
-		text += "<p>Website: " 
-			if(orgs[i][7] == null || orgs[i][7] == "") {
-				text += "N/A";	
-			}
-			else {
-				text += "<a href=\"" + orgs[i][7] + "\" target=\"_blank\">" + orgs[i][7] + "</a>";
-			}
+
+		text += "<p>Website: "
+		if (orgs[i][7] == null || orgs[i][7] == "") {
+			text += "N/A";
+		}
+		else {
+			text += "<a href=\"" + orgs[i][7] + "\" target=\"_blank\">" + orgs[i][7] + "</a>";
+		}
 		text += "</p>";
-		
+
 		text += "<p>Email: ";
-			if(orgs[i][8] == null || orgs[i][8] == "") {
-				text += "N/A";
-			}
-			else {
-				text += orgs[i][8];
-			}
+		if (orgs[i][8] == null || orgs[i][8] == "") {
+			text += "N/A";
+		}
+		else {
+			text += orgs[i][8];
+		}
 		text += "</p>";
-		
+
 		text += "</div> </div>";
 		text += "<div class=\"col-md-4\">";
-        text += "<div class=\"resource-info\">";
-        text += "<br>";
-        text += "<p>OFFERED RESOURCES</p>";
-        text += "<ul>";
-        
-        var offeredResource = orgs[i][17].split(',');
-        
-        rLen = offeredResource.length;
-        for (j = 0; j < rLen; j++) {
-        	text += "<li>" + offeredResource[j] + "</li>";
-        	
-        }
+		text += "<div class=\"resource-info\">";
+		text += "<br>";
+		text += "<p>OFFERED RESOURCES</p>";
+		text += "<ul>";
 
-        text += "</ul>";
-        text += "</div> </div>";
-        
-        text += "<div class=\"col-md-2\">";
-        text += "<div class=\"vcenter\">";
-        
-        text += "<button id=" + orgs[i][0] + " type=\"button\">Update</button>";
-        text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
-        
-        text += "</div> </div> </div> </div>";
-        
-		document.getElementById("resultPanel").innerHTML = text;
-		
-		
+		var offeredResource = orgs[i][17].split(',');
+
+		rLen = offeredResource.length;
+		for (j = 0; j < rLen; j++) {
+			text += "<li>" + offeredResource[j] + "</li>";
+
 		}
 
+		text += "</ul>";
+		text += "</div> </div>";
+
+		text += "<div class=\"col-md-2\">";
+		text += "<div class=\"vcenter\">";
+
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();\">Update</button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
+		
+
+
+		text += "</div> </div> </div> </div>";
+
+		document.getElementById("resultPanel").innerHTML = text;
 
 
 	}
 
-function loadComplexData(orgId) {
+
+
+}
+
+function loadComplexData() {
+
+	var test = 1;
+
+	$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "complexSingleOrg",
+			orgId: test
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var org = parsedData;
+
+			/* insert text here */
+
+
+
+		}
+	});
+
 
 }
 
@@ -334,8 +358,7 @@ function insertOrganization() {
 	var isTransHousing = document.getElementById("cbTransitionalHousingCreate").checked;
 	var isAsstLoc = document.getElementById("cbAssistLocateHousingCreate").checked;
 	var fee = 0;
-	/*change to faith dropdown */
-	var faith = document.getElementById("txtFaithCreate").value;
+	var faith = document.getElementById("ddlFaithCreate").value;
 	var notes = document.getElementById("txtNoteCreate").value;
 	var confNotes = document.getElementById("txtConfidentialNoteCreate").value;
 	var isConf = document.getElementById("cbIsConfCreate").checked;
@@ -352,19 +375,19 @@ function insertOrganization() {
 	var city1 = document.getElementById("txtAddress1CityCreate").value;
 	var zipcode1 = document.getElementById("txtAddress1ZipCreate").value;
 	var county1 = document.getElementById("txtAddress1CountyCreate").value;
-	var state1 = document.getElementById("txtAddress1StateCreate").value;
+	var state1 = document.getElementById("ddlAddress1StateCreate").value;
 
 	var streetInfo2 = document.getElementById("txtAddress2StreetCreate").value;
 	var city2 = document.getElementById("txtAddress2CityCreate").value;
 	var zipcode2 = document.getElementById("txtAddress2ZipCreate").value;
 	var county2 = document.getElementById("txtAddress2CountyCreate").value;
-	var state2 = document.getElementById("txtAddress2StateCreate").value;
+	var state2 = document.getElementById("ddlAddress2StateCreate").value;
 
 	var streetInfo3 = document.getElementById("txtConfAddressStreetCreate").value;
 	var city3 = document.getElementById("txtConfAddressCityCreate").value;
 	var zipcode3 = document.getElementById("txtConfAddressZipCreate").value;
 	var county3 = document.getElementById("txtConfAddressCountyCreate").value;
-	var state3 = document.getElementById("txtConfAddressStateCreate").value;
+	var state3 = document.getElementById("ddlConfAddressStateCreate").value;
 
 
 	/**Age Table Insert Data**/
@@ -531,7 +554,7 @@ function insertOrganization() {
 	var substanceAbuseSupply = document.getElementById("cbSubstanceAbuseSupplyCreate").checked;
 	var substanceAbuseEmergResp = document.getElementById("cbSubstanceAbuseEmergRespCreate").checked;
 	var substanceAbuseDesc = document.getElementById("txtSubstanceAbuseDescCreate").value;
-	
+
 	var advocacyService = document.getElementById("cbAdvocacyServCreate").checked;
 	var advocacySupply = document.getElementById("cbAdvocacySupplyCreate").checked;
 	var advocacyEmergResp = document.getElementById("cbAdvocacyEmergRespCreate").checked;
@@ -663,7 +686,7 @@ function insertOrganization() {
 			sundaySingleOpenAdd: sundaySingleOpenAdd,
 			sundaySingleCloseAdd: sundaySingleCloseAdd,
 			addHoursDesc: addHoursDesc,
-		
+
 
 
 			/**Nationality Table Insert Data **/
@@ -759,7 +782,7 @@ function insertOrganization() {
 			substanceAbuseSupply: substanceAbuseSupply.toString(),
 			substanceAbuseEmergResp: substanceAbuseEmergResp.toString(),
 			substanceAbuseDesc: substanceAbuseDesc,
-			
+
 			advocacyService: advocacyService.toString(),
 			advocacySupply: advocacySupply.toString(),
 			advocacyEmergResp: advocacyEmergResp.toString(),
@@ -786,7 +809,7 @@ function insertOrganization() {
 }
 
 function updateOrganization() {
-		/**Organization Table Insert Data **/
+	/**Organization Table Insert Data **/
 
 	var orgName = document.getElementById("txtOrgNameUpdate").value;
 	var agencyName = document.getElementById("txtOrgProgramUpdate").value;
@@ -999,7 +1022,7 @@ function updateOrganization() {
 	var substanceAbuseSupply = document.getElementById("cbSubstanceAbuseSupplyUpdate").checked;
 	var substanceAbuseEmergResp = document.getElementById("cbSubstanceAbuseEmergRespUpdate").checked;
 	var substanceAbuseDesc = document.getElementById("txtSubstanceAbuseDescUpdate").value;
-	
+
 	var advocacyService = document.getElementById("cbAdvocacyServUpdate").checked;
 	var advocacySupply = document.getElementById("cbAdvocacySupplyUpdate").checked;
 	var advocacyEmergResp = document.getElementById("cbAdvocacyEmergRespUpdate").checked;
@@ -1131,7 +1154,7 @@ function updateOrganization() {
 			sundaySingleOpenAdd: sundaySingleOpenAdd,
 			sundaySingleCloseAdd: sundaySingleCloseAdd,
 			addHoursDesc: addHoursDesc,
-		
+
 
 
 			/**Nationality Table Insert Data **/
@@ -1227,7 +1250,7 @@ function updateOrganization() {
 			substanceAbuseSupply: substanceAbuseSupply.toString(),
 			substanceAbuseEmergResp: substanceAbuseEmergResp.toString(),
 			substanceAbuseDesc: substanceAbuseDesc,
-			
+
 			advocacyService: advocacyService.toString(),
 			advocacySupply: advocacySupply.toString(),
 			advocacyEmergResp: advocacyEmergResp.toString(),
@@ -1253,8 +1276,7 @@ function updateOrganization() {
 
 }
 
-function populateStates()
-{
+function populateCreateStates() {
 	$.ajax({
 		url: '/PHP/htResourceHub.php',
 		type: 'POST',
@@ -1264,28 +1286,21 @@ function populateStates()
 		success: function(data) {
 			var parsedData = JSON.parse(data);
 			var states = parsedData;
-			
+
 			$("#ddlAddress1StateCreate").get(0).options.length = 0;
 			$("#ddlAddress2StateCreate").get(0).options.length = 0;
 			$("#ddlConfAddressStateCreate").get(0).options.length = 0;
-			$("#ddlAddress1StateUpdate").get(0).options.length = 0;
-			$("#ddlAddress2StateUpdate").get(0).options.length = 0;
-			$("#ddlConfAddressStateUpdate").get(0).options.length = 0;
-			
-			for (i = 0; i < states.length; i++){
-				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress1StateCreate");
-				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress2StateCreate");
-				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlConfAddressStateCreate");
-				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress1StateUpdate");
-				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress2StateUpdate");
-				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlConfAddressStateUpdate");
+
+			for (i = 0; i < states.length; i++) {
+				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress1StateCreate");
+				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress2StateCreate");
+				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlConfAddressStateCreate");
 			}
 		}
 	});
 }
 
-function populateFaiths()
-{
+function populateCreateFaiths() {
 	$.ajax({
 		url: '/PHP/htResourceHub.php',
 		type: 'POST',
@@ -1295,16 +1310,337 @@ function populateFaiths()
 		success: function(data) {
 			var parsedData = JSON.parse(data);
 			var faiths = parsedData;
-			
+
 			$("#ddlFaithCreate").get(0).options.length = 0;
-			$("#ddlFaithUpdate").get(0).options.length = 0;
-			
-			for (i = 0; i < faiths.length; i++){
-				$('<option/>').val(i +1).html(faiths[i]).appendTo("#ddlFaithCreate");
-				$('<option/>').val(i +1).html(faiths[i]).appendTo("#ddlFaithUpdate");
+
+			for (i = 0; i < faiths.length; i++) {
+				$('<option/>').val(i + 1).html(faiths[i]).appendTo("#ddlFaithCreate");
 			}
 		}
 	});
 }
 
+function populateUpdateStates() {
+	$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "getStates"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var states = parsedData;
 
+			$("#ddlAddress1StateUpdate").get(0).options.length = 0;
+			$("#ddlAddress2StateUpdate").get(0).options.length = 0;
+			$("#ddlConfAddressStateUpdate").get(0).options.length = 0;
+
+			for (i = 0; i < states.length; i++) {
+				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress1StateUpdate");
+				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress2StateUpdate");
+				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlConfAddressStateUpdate");
+			}
+		}
+	});
+}
+
+function populateUpdateFaiths() {
+	$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "getFaiths"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var faiths = parsedData;
+
+			$("#ddlFaithUpdate").get(0).options.length = 0;
+
+			for (i = 0; i < faiths.length; i++) {
+				$('<option/>').val(i + 1).html(faiths[i]).appendTo("#ddlFaithUpdate");
+			}
+		}
+	});
+}
+
+function loadUpdateData(orgId) {
+
+	/*load addresses table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getAddressUpdateData", orgId: orgId
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var addresses = parsedData;
+		}
+	});
+
+	/*load age table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getAgeUpdateData", orgId: orgId
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var ages = parsedData;
+		}
+	});
+
+	/*load contacts table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getContactsUpdateData", orgId: orgId
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var contacts = parsedData;
+		}
+	});
+
+	/*load ethnicity table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getEthnicityUpdateData", orgId: orgId
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var ethnicities = parsedData;
+		}
+	});
+
+	/*load gender table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getGenderUpdateData", orgId: orgId
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var genders = parsedData;
+		}
+	});
+
+	/*load hours table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getHoursUpdateData", orgId: orgId
+		},
+		success: function(data) {
+			console.log(data);
+			var parsedData = JSON.parse(data);
+			var hours = parsedData;
+		}
+	});
+
+	/*load nationality table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getNationalityUpdateData"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var nationalityData = parsedData;
+
+
+		}
+	});
+
+	/*load organizations table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getOrganizationUpdateData"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var organizationData = parsedData;
+
+		}
+	});
+
+	/*load race table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getRaceUpdateData"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var raceData = parsedData;
+
+		}
+	});
+
+	/*load requirements table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getRequirementsUpdateData"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var requirementsData = parsedData;
+		}
+	});
+
+	/*load service table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getServiceUpdateData"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var serviceData = parsedData;
+
+		}
+	});
+}
+
+function validateOrgName(searchText) {
+	if (searchText == "" || searchText == null) {
+		document.getElementById("searchText").placeholder = "Please name an organization";
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function validateInsertData(orgName, ProgramStatement, WebLink, Email, PhoneNum, isShelter, Fee, FaithID) {
+	if (orgName == "" || orgName == null) {
+		document.getElementById("errorMsg").innerHTML = "Please enter an organization name";
+		return false;
+	}
+	else if (WebLink == "" || WebLink == null) {
+		document.getElementById("errorMsg").innerHTML = "Please enter a weblink address";
+		return false;
+	}
+	else if (Email == "" || Email == null) {
+		document.getElementById("errorMsg").innerHTML = "Please enter an email address";
+		return false;
+	}
+	else if (PhoneNum == "" || PhoneNum == null) {
+		document.getElementById("errorMsg").innerHTML = "Please enter a phone number";
+		return false;
+	}
+	else if (isShelter == "" || isShelter == null) {
+		document.getElementById("errorMsg").innerHTML = "Please specifiy if shelter";
+		return false;
+	}
+	else if (Fee == "" || Fee == null) {
+		document.getElementById("errorMsg").innerHTML = "Please enter a fee price. 0 if free";
+		return false;
+	}
+	else if (FaithID == "" || FaithID == null) {
+		document.getElementById("errorMsg").innerHTML = "Please speicify faiths served";
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function checkFor24() {
+	$("#cbIs247Create").click(function (){
+		document.getElementById("ddlGenFullWeekStartTimeUpdate").disable = true;
+		document.getElementById("ddlGenFullWeekStartTimeCreate").disable = true;
+		document.getElementById("ddlGenFullWeekEndTimeCreate").disable = true;
+		document.getElementById("ddlGenFullWeekSatStartTimeCreate").disable = true;
+		document.getElementById("ddlGenFullWeekSatEndTimeCreate").disable = true;
+		document.getElementById("ddlGenFullWeekSunStartTimeCreate").disable = true;
+		document.getElementById("ddlGenFullWeekSunEndTimeCreate").disable = true;
+		document.getElementById("ddlGenMondayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenMondayEndTimeCreate").disable = true;
+		document.getElementById("ddlGenTuesdayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenTuesdayEndTimeCreate").disable = true;
+		document.getElementById("ddlGenWednesdayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenWednesdayEndTimeCreate").disable = true;
+		document.getElementById("ddlGenThursdayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenThursdayEndTimeCreate").disable = true;
+		document.getElementById("ddlGenFridayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenFridayEndTimeCreate").disable = true;
+		document.getElementById("ddlGenSaturdayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenSaturdayEndTimeCreate").disable = true;
+		document.getElementById("ddlGenSundayStartTimeCreate").disable = true;
+		document.getElementById("ddlGenSundayEndTimeCreate").disable = true;
+
+		document.getElementById("ddlAddFullWeekStartTimeCreate").disable = true;
+		document.getElementById("ddlAddFullWeekEndTimeCreate").disable = true;
+		document.getElementById("ddlAddFullWeekSatStartTimeCreate").disable = true;
+		document.getElementById("ddlAddFullWeekSatEndTimeCreate").disable = true;
+		document.getElementById("ddlAddFullWeekSunStartTimeCreate").disable = true;
+		document.getElementById("ddlAddFullWeekSunEndTimeCreate").disable = true;
+		document.getElementById("ddlAddMondayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddMondayEndTimeCreate").disable = true;
+		document.getElementById("ddlAddTuesdayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddTuesdayEndTimeCreate").disable = true;
+		document.getElementById("ddlAddWednesdayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddWednesdayEndTimeCreate").disable = true;
+		document.getElementById("ddlAddThursdayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddThursdayEndTimeCreate").disable = true;
+		document.getElementById("ddlAddFridayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddFridayEndTimeCreate").disable = true;
+		document.getElementById("ddlAddSaturdayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddSaturdayEndTimeCreate").disable = true;
+		document.getElementById("ddlAddSundayStartTimeCreate").disable = true;
+		document.getElementById("ddlAddSundayEndTimeCreate").disable = true;
+		document.getElementById("txtAddHoursDescCreate").disable = true;
+	}
+}
+
+
+
+
+function loadUpdateModal() {
+
+}
+
+function checkAll() {
+	$("#cbHousingAllCreate").click(function () {
+     $("#cbShelterCreate").not(this).prop('checked', this.checked);
+     $("#cbTransitionalHousingCreate").not(this).prop('checked', this.checked);
+     $("#cbAssistLocateHousingCreate").not(this).prop('checked', this.checked);
+ });
+ 
+ $("#cbHousingAllCreate").click(function () {
+     $("#cbShelterCreate").not(this).prop('checked', this.checked);
+     $("#cbTransitionalHousingCreate").not(this).prop('checked', this.checked);
+     $("#cbAssistLocateHousingCreate").not(this).prop('checked', this.checked);
+ });
+}

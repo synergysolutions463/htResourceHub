@@ -27,7 +27,7 @@
 
 </head>
 
-<body onload="populateStates(), populateFaiths()">
+<body>
     <header>
         <div class="example3">
             <nav class="navbar navbar-inverse navbar-static-top">
@@ -71,12 +71,12 @@
                 <br/>
                 <div class="row">
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createModal">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createModal" onclick="populateCreateFaiths();populateCreateStates()">
                             Apply Now!
                         </button>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#updateModal">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#updateModal" onclick="populateUpdateStates();populateUpdateFaiths()">
                             Update Resource
                         </button>
                     </div>
@@ -402,7 +402,7 @@
                                             <div class="panel-body">
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <label>24/7: &nbsp;</label><input type="checkbox" value="24Hours" id="cbIs247Create">
+                                                        <label>24/7: &nbsp;</label><input type="checkbox" value="24Hours" id="cbIs247Create" onclick="checkFor24()">
                                                     </div>
                                                 </div>
                                                 <br/>
@@ -1868,6 +1868,15 @@
                                         <div id="collapse5" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-2">
+                                                        <input type="checkbox" value="" id="cbHousingAllCreate" onclick="checkAll()">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Shelter:</label>
                                                     </div>
@@ -1937,6 +1946,15 @@
                                         <div id="collapse7" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbClothingAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -1983,6 +2001,15 @@
                                         </div>
                                         <div id="collapse8" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbFoodAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2031,6 +2058,15 @@
                                         <div id="collapse9" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbMentoringAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2077,6 +2113,15 @@
                                         </div>
                                         <div id="collapse10" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbEmploymentAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2125,6 +2170,15 @@
                                         <div id="collapse11" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbCounselAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2171,6 +2225,15 @@
                                         </div>
                                         <div id="collapse12" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbPregnancyAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2219,6 +2282,15 @@
                                         <div id="collapse13" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbMedicalAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2265,6 +2337,15 @@
                                         </div>
                                         <div id="collapse14" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbLegalAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2313,6 +2394,15 @@
                                         <div id="collapse15" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbGovAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2359,6 +2449,15 @@
                                         </div>
                                         <div id="collapse16" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbInvestigationAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2407,6 +2506,15 @@
                                         <div id="collapse17" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbFosterAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2453,6 +2561,15 @@
                                         </div>
                                         <div id="collapse18" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbAwarenessAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2501,6 +2618,15 @@
                                         <div id="collapse19" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbResponseTrainAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2547,6 +2673,15 @@
                                         </div>
                                         <div id="collapse20" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbSubstanceAbuseAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
@@ -2595,6 +2730,15 @@
                                         <div id="collapse35" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-1">
+                                                        <input type="checkbox" value="" id="cbAdvocacyAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
+                                                <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>
                                                     </div>
@@ -2641,6 +2785,15 @@
                                         </div>
                                         <div id="collapse21" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="checkAllLabel">Check All:</label>
+                                                    </div>
+                                                    <div class="col-md-1 col-md-offset-2">
+                                                        <input type="checkbox" value="" id="cbOtherAllCreate">
+                                                    </div>
+                                                </div>
+                                                <hr class="checkAllLine">
                                                 <div class="row">
                                                     <div class="col-md-1">
                                                         <label>Service:</label>

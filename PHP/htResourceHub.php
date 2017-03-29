@@ -952,7 +952,57 @@ function freeFeeIDs($feeFree, $housingResourcesAppend) {
      return  $feesOrgAppend;
 }
 
-function complexSingleOrg() {
+function complexSingleOrg($orgId) {
+    $connLibrary = db_connect();
+    if($connLibrary == null || $connLibrary == null) {
+          die("There was an error connecting to the database");
+    }
+   
+
+    $complexQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, o.phoneExt,
+                                                	o.HotlineNum, o.ConfNum, o.confPhoneExt, o.WebLink, o.email, o.ProgramStatement, 
+                                                	o.isShelter, o.isTransitionalHousing, o.isAssistanceLocatingHousing,
+                                                	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
+                                                	a.StreetInfo, a.City, a.ZipCode, a.IsConf, States.StateName,
+                                                	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
+                                                    st.StateName, AgeTypes.AgeType, rt.RaceType, nt.NatType, et.EthType,
+                                                    h.Is24Hours, h.IsAdditional, h.MondayStart, h.MondayEnd, h.TuesdayStart, h.TuesdayEnd,
+                                                    h.WednesdayStart, h.WednesdayEnd, h.ThursdayStart, h.ThursdayEnd, h.FridayStart,
+                                                    h.FridayEnd, h.SaturdayStart, h.SaturdayEnd, h.SundayStart, h.SundayEnd, h.ReasonForAdditionalHours,
+                                                    reqt.ReqType, req.Description,
+                                                    GROUP_CONCAT(sert.SerType) AS SerType
+                                            FROM Organizations o 
+                                            JOIN Contacts c ON (c.OrgID = o.OrgID)
+                                            JOIN FaithTypes ft ON (o.FaithID = ft.FaithID)
+                                            JOIN Addresses a ON (o.OrgID = a.OrgID)
+                                            JOIN States st ON (st.StateID = a.StateID)
+                                            JOIN Service se ON (se.OrgId = o.OrgId)
+                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+                                            JOIN Age ON (o.OrgID = Age.OrgID)
+                                            JOIN AgeTypes ON (Age.AgeID = AgeTypes.AgeID)
+                                            JOIN Race r ON (r.OrgID = o.OrgID)
+                                            JOIN RaceTypes rt ON (r.RaceID = rt.RaceID)
+                                            JOIN Nationality n ON (n.OrgID = o.OrgID)
+                                            JOIN NationalityTypes nt ON (nt.NatID = n.NatID)
+                                            JOIN Ethnicity e ON (e.OrgID = o.OrgID)
+                                            JOIN EthnicityTypes et ON (e.EthID = et.EthID)
+                                            JOIN States ON (States.StateID = a.StateID)
+                                            JOIN Hours h ON (o.OrgID = h.OrgID)
+                                            JOIN Requirements req ON (o.OrgID = req.OrgID)
+                                            JOIN RequirementsTypes reqt ON (req.ReqID = reqt.ReqID)
+                                            WHERE (o.OrgID = 1);"); 
+    $complexQuery->execute();
+    $complexQuery->bind_result($OrgID, $OrgName, $AgencyName, $OrgMainPhone, $OrgPhoneExt, $OrgHotline, $OrgConfNumber, $OrgConfExt,
+                                $Website, $OrgEmail, $OrgProgramStatement, $isShelter, $isTransHousing, $isAssistLocHousing, $Fees, $FaithID,
+                                $Notes, $ConfNotes, $OrgIsConf, $FaithType, $StreetInfo, $City, $Zip, $AddressIsConf, $State, $ContactFirstName,
+                                $ContactLastName, $ContactEmail, $ContactPosition, $ContactPhone, $ContactPhoneExt, );
+
+    $data = array();
+    while($complexQuery->fetch()){
+        $data[] = array($ID, $natType);
+    }
+    
+    echo json_encode($data);
     
 }
 
@@ -989,8 +1039,7 @@ function logout() {
     
 }
 
-function getStates()
-{
+function getStates() {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
@@ -1010,8 +1059,7 @@ function getStates()
     echo json_encode($statesData);
 }
 
-function getFaiths()
-{
+function getFaiths() {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
@@ -1030,4 +1078,5 @@ function getFaiths()
     
     echo json_encode($faithsData);
 }
+
 ?>

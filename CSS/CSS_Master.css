@@ -104,3 +104,7 @@ a:active {
 .underline {
     text-decoration: underline;
 }
+
+hr{
+    margin: -100px;
+}

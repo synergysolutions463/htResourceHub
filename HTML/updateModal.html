@@ -1,0 +1,3060 @@
+ <!-- Update Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="lblUpdateModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form role="form" name="frmUpdateOrg" action="/PHP/UpdateOrg.php" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="lblUpdateModal">Update Organization</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tabbable">
+                            <!-- Only required for left/right tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#orgInfoUpdate" data-toggle="tab">Organization Info</a></li>
+                                <li><a href="#orgResourcesUpdate" data-toggle="tab">Resources Offered</a></li>
+                                <li><a href="#orgAddConsiderationsUpdate" data-toggle="tab">Additional Considerations</a></li>
+                                <li><a href="#orgDemographicsServedUpdate" data-toggle="tab">Demographics Served</a></li>
+                                <li><a href="#orgNotesUpdate" data-toggle="tab">Notes</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="orgInfoUpdate">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse0u">
+													General Organization Information</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse0u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label>Entire Program is Confidential: &nbsp;</label><input type="checkbox" value="" id="cbIsConfUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Organization Name</label>
+                                                            <input class="form-control" type="text" placeholder="organization name" id="txtOrgNameUpdate" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>Program</label>
+                                                            <input class="form-control" type="text" placeholder="program" id="txtOrgProgramUpdate" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Mission Statement </label>
+                                                            <input class="form-control" rows="2" id="txtMissionStatementUpdate" type="text" placeholder="mission statement" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1u">
+													Contact Information</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse1u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Organization Contact</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Main Phone </label>
+                                                            <input id="txtMainPhoneUpdate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtMainPhoneExtUpdate" type="text" placeholder="main phone ext." />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>Hotline Number </label>
+                                                            <input id="txtHotlineUpdate" type="text" placeholder="hotline (555)555-5555" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Website </label>
+                                                            <input class="form-control" type="text" placeholder="website" id="txtOrgWebsiteUpdate" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>Email </label>
+                                                            <input type="email" class="form-control" id="txtOrgEmailUpdate" placeholder="email" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Confidential Phone Number</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input id="txtConfPhoneUpdate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtConfExtUpdate" type="text" placeholder="confidential phone ext." />
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Primary Contact</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Contact is Confidential: &nbsp;</label><input type="checkbox" value="" id="cbContactIsConfUpdate" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>First Name</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>Last Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="first name" id="txtPrimaryContactFirstNameUpdate">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="last name" id="txtPrimaryContactLastNameUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Phone</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>Email</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input id="txtPrimaryContactPhoneUpdate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input class="form-control" id="txtPrimaryContactExtUpdate" type="text" placeholder="contact ext." />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="email" id="txtPrimaryContactEmailUpdate" placeholder="email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Position</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="position" id="txtPrimaryContactPosUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2u">
+													Address Information</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse2u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Address 1</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Street</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-md-offset-1">
+                                                            <label>City</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress1StreetUpdate">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="city" id="txtAddress1CityUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>County</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>State</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Zip</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="county" id="txtAddress1CountyUpdate">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddress1StateUpdate">
+															</select>
+                                                        </div>    
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="zip" id="txtAddress1ZipUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Address 2</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Street</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-md-offset-1">
+                                                            <label>City</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress2StreetUpdate">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="city" id="txtAddress2CityUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>County</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>State</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Zip</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="street address" id="txtAddress2CountyUpdate">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddress2StateUpdate">
+															</select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="zip" id="txtAddress2ZipUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label class="underline">Confidential Address</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Street</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-md-offset-1">
+                                                            <label>City</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" placeholder="street address" id="txtConfAddressStreetUpdate">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="city" id="txtConfAddressCityUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>County</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>State</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Zip</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" placeholder="county" id="txtConfAddressCountyUpdate">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlConfAddressStateUpdate">
+															</select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input class="form-control" placeholder="zip" id="txtConfAddressZipUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3u">
+													General Hours of Operation </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse3u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Hours of Operation</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>24/7: &nbsp;</label><input type="checkbox" id="cbIs247Update" />
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <label class="underline">Full Week Entry (If all of your weekday hours are the same)</label>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Monday-Friday</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFullWeekStartTimeUpdate">
+																	<option>-----</option>
+																	<option>12:00 AM</option>
+																	<option>1:00 AM</option>
+																	<option>2:00 AM</option>
+																	<option>3:00 AM</option>
+																	<option>4:00 AM</option>
+																	<option>5:00 AM</option>
+																	<option>6:00 AM</option>
+																	<option>7:00 AM</option>
+																	<option>8:00 AM</option>
+																	<option>9:00 AM</option>
+																	<option>10:00 AM</option>
+																	<option>11:00 AM</option>
+																	<option>12:00 PM</option>
+																	<option>1:00 PM</option>
+																	<option>2:00 PM</option>
+																	<option>3:00 PM</option>
+																	<option>4:00 PM</option>
+																	<option>5:00 PM</option>
+																	<option>6:00 PM</option>
+																	<option>7:00 PM</option>
+																	<option>8:00 PM</option>
+																	<option>9:00 PM</option>
+																	<option>10:00 PM</option>
+																	<option>11:00 PM</option>
+																</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFullWeekEndTimeUpdate">
+																	<option>-----</option>
+																	<option>12:00 AM</option>
+																	<option>1:00 AM</option>
+																	<option>2:00 AM</option>
+																	<option>3:00 AM</option>
+																	<option>4:00 AM</option>
+																	<option>5:00 AM</option>
+																	<option>6:00 AM</option>
+																	<option>7:00 AM</option>
+																	<option>8:00 AM</option>
+																	<option>9:00 AM</option>
+																	<option>10:00 AM</option>
+																	<option>11:00 AM</option>
+																	<option>12:00 PM</option>
+																	<option>1:00 PM</option>
+																	<option>2:00 PM</option>
+																	<option>3:00 PM</option>
+																	<option>4:00 PM</option>
+																	<option>5:00 PM</option>
+																	<option>6:00 PM</option>
+																	<option>7:00 PM</option>
+																	<option>8:00 PM</option>
+																	<option>9:00 PM</option>
+																	<option>10:00 PM</option>
+																	<option>11:00 PM</option>
+																</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Saturday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFullWeekSatStartTimeUpdate">
+																	<option>-----</option>
+																	<option>12:00 AM</option>
+																	<option>1:00 AM</option>
+																	<option>2:00 AM</option>
+																	<option>3:00 AM</option>
+																	<option>4:00 AM</option>
+																	<option>5:00 AM</option>
+																	<option>6:00 AM</option>
+																	<option>7:00 AM</option>
+																	<option>8:00 AM</option>
+																	<option>9:00 AM</option>
+																	<option>10:00 AM</option>
+																	<option>11:00 AM</option>
+																	<option>12:00 PM</option>
+																	<option>1:00 PM</option>
+																	<option>2:00 PM</option>
+																	<option>3:00 PM</option>
+																	<option>4:00 PM</option>
+																	<option>5:00 PM</option>
+																	<option>6:00 PM</option>
+																	<option>7:00 PM</option>
+																	<option>8:00 PM</option>
+																	<option>9:00 PM</option>
+																	<option>10:00 PM</option>
+																	<option>11:00 PM</option>
+																</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFullWeekSatEndTimeUpdate">
+																	<option>-----</option>
+																	<option>12:00 AM</option>
+																	<option>1:00 AM</option>
+																	<option>2:00 AM</option>
+																	<option>3:00 AM</option>
+																	<option>4:00 AM</option>
+																	<option>5:00 AM</option>
+																	<option>6:00 AM</option>
+																	<option>7:00 AM</option>
+																	<option>8:00 AM</option>
+																	<option>9:00 AM</option>
+																	<option>10:00 AM</option>
+																	<option>11:00 AM</option>
+																	<option>12:00 PM</option>
+																	<option>1:00 PM</option>
+																	<option>2:00 PM</option>
+																	<option>3:00 PM</option>
+																	<option>4:00 PM</option>
+																	<option>5:00 PM</option>
+																	<option>6:00 PM</option>
+																	<option>7:00 PM</option>
+																	<option>8:00 PM</option>
+																	<option>9:00 PM</option>
+																	<option>10:00 PM</option>
+																	<option>11:00 PM</option>
+																</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Sunday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFullWeekSunStartTimeUpdate">
+																	<option>-----</option>
+																	<option>12:00 AM</option>
+																	<option>1:00 AM</option>
+																	<option>2:00 AM</option>
+																	<option>3:00 AM</option>
+																	<option>4:00 AM</option>
+																	<option>5:00 AM</option>
+																	<option>6:00 AM</option>
+																	<option>7:00 AM</option>
+																	<option>8:00 AM</option>
+																	<option>9:00 AM</option>
+																	<option>10:00 AM</option>
+																	<option>11:00 AM</option>
+																	<option>12:00 PM</option>
+																	<option>1:00 PM</option>
+																	<option>2:00 PM</option>
+																	<option>3:00 PM</option>
+																	<option>4:00 PM</option>
+																	<option>5:00 PM</option>
+																	<option>6:00 PM</option>
+																	<option>7:00 PM</option>
+																	<option>8:00 PM</option>
+																	<option>9:00 PM</option>
+																	<option>10:00 PM</option>
+																	<option>11:00 PM</option>
+																</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFullWeekSunEndTimeUpdate">
+																	<option>-----</option>
+																	<option>12:00 AM</option>
+																	<option>1:00 AM</option>
+																	<option>2:00 AM</option>
+																	<option>3:00 AM</option>
+																	<option>4:00 AM</option>
+																	<option>5:00 AM</option>
+																	<option>6:00 AM</option>
+																	<option>7:00 AM</option>
+																	<option>8:00 AM</option>
+																	<option>9:00 AM</option>
+																	<option>10:00 AM</option>
+																	<option>11:00 AM</option>
+																	<option>12:00 PM</option>
+																	<option>1:00 PM</option>
+																	<option>2:00 PM</option>
+																	<option>3:00 PM</option>
+																	<option>4:00 PM</option>
+																	<option>5:00 PM</option>
+																	<option>6:00 PM</option>
+																	<option>7:00 PM</option>
+																	<option>8:00 PM</option>
+																	<option>9:00 PM</option>
+																	<option>10:00 PM</option>
+																	<option>11:00 PM</option>
+																</select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <label class="underline">Single Day Entry (If your hours differ from day to day)</label>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Monday</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenMondayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenMondayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Tuesday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenTuesdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenTuesdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Wednesday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenWednesdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenWednesdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Thursday</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenThursdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenThursdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Friday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFridayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenFridayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Saturday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenSaturdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenSaturdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Sunday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenSundayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlGenSundayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4u">
+													Additional Hours of Operation </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse4u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <label class="underline">Full Week Entry (If all of your weekday hours are the same)</label>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Monday-Friday</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFullWeekStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFullWeekEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Saturday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFullWeekSatStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFullWeekSatEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Sunday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFullWeekSunStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFullWeekSunEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <label class="underline">Single Day Entry (If your hours differ from day to day)</label>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Monday</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddMondayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddMondayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Tuesday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddTuesdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddTuesdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Wednesday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddWednesdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddWednesdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Thursday</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddThursdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddThursdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Friday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFridayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddFridayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Saturday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddSaturdayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddSaturdayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Sunday</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <label>Opens:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddSundayStartTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label>Closes:</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddSundayEndTimeUpdate">
+																<option>-----</option>
+																<option>12:00 AM</option>
+																<option>1:00 AM</option>
+																<option>2:00 AM</option>
+																<option>3:00 AM</option>
+																<option>4:00 AM</option>
+																<option>5:00 AM</option>
+																<option>6:00 AM</option>
+																<option>7:00 AM</option>
+																<option>8:00 AM</option>
+																<option>9:00 AM</option>
+																<option>10:00 AM</option>
+																<option>11:00 AM</option>
+																<option>12:00 PM</option>
+																<option>1:00 PM</option>
+																<option>2:00 PM</option>
+																<option>3:00 PM</option>
+																<option>4:00 PM</option>
+																<option>5:00 PM</option>
+																<option>6:00 PM</option>
+																<option>7:00 PM</option>
+																<option>8:00 PM</option>
+																<option>9:00 PM</option>
+																<option>10:00 PM</option>
+																<option>11:00 PM</option>
+															</select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Reason for Additional Hours:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" rows="4" id="txtAddHoursDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="orgResourcesUpdate">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5u">
+                                                        Housing Resources</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse5u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Shelter:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-3">
+                                                            <input type="checkbox" id="cbShelterUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Transitional Housing:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbTransitionalHousingUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label>Assistance in Locating Housing:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbAssistLocateHousingUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6u">
+                                                        Note</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse6u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <p>
+                                                                <b>Services: </b>Something is done for the need, e.g. legal advice, training, therapy session
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <p>
+                                                                <b>Supplies: </b>There are items or provisions given to meet a need, e.g. A first aid kit, a meal, a speaker.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <p>
+                                                                <b>Emergency Supplies: </b> e.g. Is this a 24-hour shelter, does this include urgent medical care?
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7u">
+                                            Clothing</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse7u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbClothingServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbClothingSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbClothingEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtClothingDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8u">
+                                            Food</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse8u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbFoodServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbFoodSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbFoodEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtFoodDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9u">
+                                            Mentoring</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse9u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbMentoringServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbMentoringSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbMentoringEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtMentoringDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10u">
+                                            Employment</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse10u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbEmploymentServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbEmploymentSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbEmploymentEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtEmploymentDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse11u">
+                                            Counseling/Therapy</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse11u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbCounselServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbCounselSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbCounselEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtCounselDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse12u">
+                                            Pregnancy</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse12u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbPregnancyServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbPregnancySupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbPregnancyEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtPregnancyDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse13u">
+                                            Medical</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse13u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbMedicalServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbMedicalSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbMedicalEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtMedicalDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse14u">
+                                            Legal</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse14u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbLegalServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbLegalSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbLegalEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtLegalDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse15u">
+                                            Governmental</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse15u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbGovServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbGovSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbGovEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtGovDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse16u">
+                                            Investigation</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse16u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbInvestigationServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbInvestigationSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbInvestigationEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtInvestigationDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse17u">
+                                            Foster Care</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse17u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbFosterServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbFosterSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbFosterEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtFosterDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse18u">
+                                            Awareness/Education</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse18u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbAwarenessEdServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbAwarenessEdSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbAwarenessEdEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtAwarenessEdDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse19u">
+                                            Response Training</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse19u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbResponseTrainServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbResponseTrainSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbResponseTrainEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtResponseTrainDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse20u">
+                                            Substance Abuse</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse20u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbSubstanceAbuseServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbSubstanceAbuseSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbSubstanceAbuseEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtSubstanceAbuseDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse35u">
+                                                    Advocacy</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse35u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbAdvocacyServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbAdvocacySupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbAdvocacyEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtAdvocacyDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse21u">
+                                            Other</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse21u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Service:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbOtherServUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Supply:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbOtherSupplyUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Emergency Response:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbOtherEmergRespUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Description of resource provided:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="6" id="txtOtherDescUpdate"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Additional Considerations Modal  -->
+                                <div class="tab-pane" id="orgAddConsiderationsUpdate">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse22u">
+													Cost</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse22u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Free: &nbsp;</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" id="cbFreeUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Associated Fee:</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="number" value="0" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="txtAssociatedFeeUpdate" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse23u">
+													Faith</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse23u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Faith Based: </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" value="" id="cbFaithUpdate"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group form-inline">
+                                                                <label>Associated Faith: <select class="form-control" id="ddlFaithUpdate"></select></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse24u">
+													Membership</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse24u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Membership: </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" value="" id="cbMembershipUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            If so, please explain:
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <textarea class="form-control" id="txtMembershipUpdate" rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse25u">
+													Training</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse25u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Training: </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" value="" id="cbTrainingUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            If so, please explain:
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <textarea class="form-control" id="txtTrainingUpdate" rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse26u">
+													Application</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse26u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Application: </label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" value="" id="cbApplicationUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            If so, please explain:
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <textarea class="form-control" id="txtApplicationUpdate" rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse27u">
+													Possible waiting list/referral required/other entry restrictions</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse27u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-7">
+                                                            <label>Possible waiting list/referral required/other entry restrictions: &nbsp;</label>
+                                                        </div>
+                                                        <div class>
+                                                            <input type="checkbox" value="" id="cbRestrictionUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            If so, please explain:
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <textarea class="form-control" id="txtRestrictionUpdate" rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="orgDemographicsServedUpdate">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse28u">
+                                                    Gender</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse28u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Male:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbMaleUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label>Female:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-2">
+                                                            <input type="checkbox" id="cbFemaleUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Transgender:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbTransUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse29u">
+                                                    Age</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse29u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label>Infants/Toddlers (Ages: Birth-4):</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbInfantUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label>Children (Ages: 5-12):</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbChildUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label>Youth/Young Adults (Ages: 13-17):</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbYouthUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label>Adults (Ages: 18+):</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbAdultUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse30u">
+                                                    Nationality</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse30u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Domestic-Born:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbDomesticUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Foreign-Born:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbForeignUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Undocumented:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbUndocumentedUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse31u">
+                                                    Race</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse31u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>White:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbWhiteUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Black:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbBlackUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Asian:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbAsianUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Hawaiian/Pacific Islander:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbIslandUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Native American:</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="checkbox" id="cbNativeUpdate" value="Native American">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse32u">
+                                                    Ethnicity</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse32u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Hispanic:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbHispanicUpdate">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Non-Hispanic:</label>
+                                                        </div>
+                                                        <div class="col-md-1 col-md-offset-1">
+                                                            <input type="checkbox" id="cbNonHispanicUpdate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="orgNotesUpdate">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse33u">
+													Notes:</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse33u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <textarea class="form-control" rows="10" id="txtNoteUpdate" id="txtNoteUpdate"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse34u">
+													Confidential Notes:</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse34u" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <textarea class="form-control" rows="10" id="txtConfidentialNoteUpdate" id="txtConfidentialNoteUpdate"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" onclick="updateOrganization()">testAjax Submit</button>
+                        <button type="Submit" class="btn btn-primary" id="btnSubmitUpdate" name="btnSubmitUpdate"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myLoginModal">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <label>Username</label>
+                            <input class="form-control" type="text" id="usernameTxt" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <label>Password </label>
+                            <input class="form-control" type="text" id="passwordTxt" />
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="login();">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
