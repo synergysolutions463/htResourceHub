@@ -27,7 +27,7 @@
 
 </head>
 
-<body onload="readAllOrgs()">
+<body onload="populateStates(), populateFaiths()">
     <header>
         <div class="example3">
             <nav class="navbar navbar-inverse navbar-static-top">
@@ -289,9 +289,6 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input class="form-control" placeholder="county" id="txtAddress1CountyCreate">
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input class="form-control" placeholder="state" id="txtAddress1StateCreate">
                                                         </div>
                                                         <div class="col-md-2">
                                                             <select class="form-control" id="ddlAddress1StateCreate">
@@ -2729,7 +2726,7 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group form-inline">
-                                                            <label>Associated Faith (if faith-based): <input class="form-control" type="text" placeholder="faith" id="txtFaithCreate"></label>
+                                                            <label>Associated Faith (if faith-based): <select class="form-control" id="ddlFaithCreate"></select></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3305,37 +3302,10 @@
                                                         <div class="col-md-3">
                                                             <input class="form-control" placeholder="county" id="txtAddress1CountyUpdate">
                                                         </div>
-                                                         <div class="col-md-2">
-                                                            <input class="form-control" placeholder="state" id="txtAddress1StateUpdate">
-                                                        </div>
-                                                        <!--<div class="col-md-2">
-                                                            <select class="form-control" id="txtAddress1StateUpdate">
-																<option>12:00 AM</option>
-																<option>1:00 AM</option>
-																<option>2:00 AM</option>
-																<option>3:00 AM</option>
-																<option>4:00 AM</option>
-																<option>5:00 AM</option>
-																<option>6:00 AM</option>
-																<option>7:00 AM</option>
-																<option>8:00 AM</option>
-																<option>9:00 AM</option>
-																<option>10:00 AM</option>
-																<option>11:00 AM</option>
-																<option>12:00 PM</option>
-																<option>1:00 PM</option>
-																<option>2:00 PM</option>
-																<option>3:00 PM</option>
-																<option>4:00 PM</option>
-																<option>5:00 PM</option>
-																<option>6:00 PM</option>
-																<option>7:00 PM</option>
-																<option>8:00 PM</option>
-																<option>9:00 PM</option>
-																<option>10:00 PM</option>
-																<option>11:00 PM</option>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddress1StateUpdate">
 															</select>
-                                                        </div>-->
+                                                        </div>    
                                                         <div class="col-md-2">
                                                             <input class="form-control" placeholder="zip" id="txtAddress1ZipUpdate">
                                                         </div>
@@ -3377,37 +3347,10 @@
                                                         <div class="col-md-3">
                                                             <input class="form-control" placeholder="street address" id="txtAddress2CountyUpdate">
                                                         </div>
-                                                       <div class="col-md-2">
-                                                            <input class="form-control" placeholder="state" id="txtAddress2StateUpdate">
-                                                        </div>
-                                                        <!--<div class="col-md-2">
-                                                            <select class="form-control" id="txtAddress2StateUpdate">
-																<option>12:00 AM</option>
-																<option>1:00 AM</option>
-																<option>2:00 AM</option>
-																<option>3:00 AM</option>
-																<option>4:00 AM</option>
-																<option>5:00 AM</option>
-																<option>6:00 AM</option>
-																<option>7:00 AM</option>
-																<option>8:00 AM</option>
-																<option>9:00 AM</option>
-																<option>10:00 AM</option>
-																<option>11:00 AM</option>
-																<option>12:00 PM</option>
-																<option>1:00 PM</option>
-																<option>2:00 PM</option>
-																<option>3:00 PM</option>
-																<option>4:00 PM</option>
-																<option>5:00 PM</option>
-																<option>6:00 PM</option>
-																<option>7:00 PM</option>
-																<option>8:00 PM</option>
-																<option>9:00 PM</option>
-																<option>10:00 PM</option>
-																<option>11:00 PM</option>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlAddress2StateUpdate">
 															</select>
-                                                        </div>-->
+                                                        </div>
                                                         <div class="col-md-2">
                                                             <input class="form-control" placeholder="zip" id="txtAddress2ZipUpdate">
                                                         </div>
@@ -3449,37 +3392,10 @@
                                                         <div class="col-md-3">
                                                             <input class="form-control" placeholder="county" id="txtConfAddressCountyUpdate">
                                                         </div>
-                                                       <div class="col-md-2">
-                                                            <input class="form-control" placeholder="state" id="txtConfAddressStateUpdate">
-                                                        </div>
-                                                        <!--<div class="col-md-2">
-                                                            <select class="form-control" id="txtConfAddressStateUpdate">
-																<option>12:00 AM</option>
-																<option>1:00 AM</option>
-																<option>2:00 AM</option>
-																<option>3:00 AM</option>
-																<option>4:00 AM</option>
-																<option>5:00 AM</option>
-																<option>6:00 AM</option>
-																<option>7:00 AM</option>
-																<option>8:00 AM</option>
-																<option>9:00 AM</option>
-																<option>10:00 AM</option>
-																<option>11:00 AM</option>
-																<option>12:00 PM</option>
-																<option>1:00 PM</option>
-																<option>2:00 PM</option>
-																<option>3:00 PM</option>
-																<option>4:00 PM</option>
-																<option>5:00 PM</option>
-																<option>6:00 PM</option>
-																<option>7:00 PM</option>
-																<option>8:00 PM</option>
-																<option>9:00 PM</option>
-																<option>10:00 PM</option>
-																<option>11:00 PM</option>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="ddlConfAddressStateUpdate">
 															</select>
-                                                        </div>-->
+                                                        </div>
                                                         <div class="col-md-2">
                                                             <input class="form-control" placeholder="zip" id="txtConfAddressZipUpdate">
                                                         </div>
@@ -5835,7 +5751,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group form-inline">
-                                                                <label>Associated Faith: <input class="form-control" type="text" placeholder="faith" id="txtFaithUpdate"></label>
+                                                                <label>Associated Faith: <select class="form-control" id="ddlFaithUpdate"></select></label>
                                                             </div>
                                                         </div>
                                                     </div>

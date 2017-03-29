@@ -64,11 +64,16 @@ function simpleSearchOrgs() {
 		success: function(data) {
 			console.log("connection to php worked with simple search");
 			console.log(data);
-
-			var parsedData = JSON.parse(data);
-			var orgs = parsedData;
-
-			loadSimpleData(orgs);
+			
+			if(data == "No results found") {
+				var text = "<h2>No results found</h2>";
+				document.getElementById("resultPanel").innerHTML = text;
+			}
+			else { 
+				var parsedData = JSON.parse(data);
+				var orgs = parsedData;
+				loadSimpleData(orgs);	
+			}
 
 		}
 	});
@@ -1263,13 +1268,17 @@ function populateStates()
 			$("#ddlAddress1StateCreate").get(0).options.length = 0;
 			$("#ddlAddress2StateCreate").get(0).options.length = 0;
 			$("#ddlConfAddressStateCreate").get(0).options.length = 0;
+			$("#ddlAddress1StateUpdate").get(0).options.length = 0;
+			$("#ddlAddress2StateUpdate").get(0).options.length = 0;
+			$("#ddlConfAddressStateUpdate").get(0).options.length = 0;
 			
 			for (i = 0; i < states.length; i++){
-				var option = document.createElement("option");
-				option.text = states[i];
-				$("#ddlAddress1StateCreate").add(option);
-				$("#ddlAddress2StateCreate").add(option);
-				$("#ddlConfAddressStateCreate").add(option);
+				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress1StateCreate");
+				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress2StateCreate");
+				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlConfAddressStateCreate");
+				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress1StateUpdate");
+				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlAddress2StateUpdate");
+				$('<option/>').val(i +1).html(states[i]).appendTo("#ddlConfAddressStateUpdate");
 			}
 		}
 	});
@@ -1286,6 +1295,14 @@ function populateFaiths()
 		success: function(data) {
 			var parsedData = JSON.parse(data);
 			var faiths = parsedData;
+			
+			$("#ddlFaithCreate").get(0).options.length = 0;
+			$("#ddlFaithUpdate").get(0).options.length = 0;
+			
+			for (i = 0; i < faiths.length; i++){
+				$('<option/>').val(i +1).html(faiths[i]).appendTo("#ddlFaithCreate");
+				$('<option/>').val(i +1).html(faiths[i]).appendTo("#ddlFaithUpdate");
+			}
 		}
 	});
 }

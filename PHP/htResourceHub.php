@@ -145,10 +145,12 @@ function simpleSearchOrgs() {
         }
     }
     
-    if ($simpleQueryString != "") {
+    if ($simpleQueryString == "" || $simpleQueryString == ") AND o.isShelter = 1 ") {
+         echo "No results found";
     
-
-    $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
+    }
+    else {
+            $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
                                             st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
                                             FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
@@ -165,13 +167,15 @@ function simpleSearchOrgs() {
         $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
 
-   echo json_encode($simpleSearchData); 
+
+  echo json_encode($simpleSearchData); 
+        
     }
-    else {
-        echo "No results found";
-    }
-    
+
+
+
 }
+
 
 function advSearchOrgs() {
     $connLibrary = db_connect();
