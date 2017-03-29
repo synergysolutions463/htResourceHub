@@ -1000,6 +1000,7 @@ function insertOrganization () {
 			$substanceAbuseID = 0;
 			$otherID = 0;
 			$advocacyID = 0;
+			$noneID = 0;
 
   			
     		$getClothingResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Clothing';");
@@ -1129,6 +1130,14 @@ function insertOrganization () {
     		
     		while ($getAdvocacyResourceID->fetch()) {
     			$advocacyID = $id;
+    		}
+    		
+    		$getNoneResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Advocacy';");
+    		$getNoneResourceID->execute();
+    		$getNoneResourceID->bind_result($id);
+    		
+    		while ($getNoneResourceID->fetch()) {
+    			$noneID = $id;
     		}
 
 			
@@ -1589,7 +1598,26 @@ function insertOrganization () {
 				$insertAdvocacyResource->execute();
 				$insertAdvocacyResource->close();
 			}
-		
+			
+			
+		 	$getResourceNull = $connLibrary->prepare("SELECT OrgID FROM Service WHERE OrgID = " . $orgId .  " GROUP BY OrgID;");
+    		$getResourceNull->execute();
+    		$getResourceNull->bind_result($id);
+    		
+    		$hasService = -1;
+    		while ($getResourceNull->fetch()) {
+    			$hasService = $id;
+    		}
+    		
+    		if ($hasService == "" || $hasService == null || $hasService == -1) {
+    	
+    			$insertNoneResource = $connLibrary->prepare("INSERT INTO Service (OrgID, SerID, Service, Supply, Emergency, SerDesc)
+															   VALUES (" . $orgId . ", " . $noneID . ", 0,0,0,'No resources');");
+				
+				$insertNoneResource->execute();
+				$insertNoneResource->close();
+    			
+    		}
 			
 }
 

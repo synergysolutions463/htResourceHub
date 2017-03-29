@@ -768,7 +768,7 @@ function updateOrganization() {
 	var phoneExt = document.getElementById("txtMainPhoneExtUpdate").value;
 	var hotlineNum = document.getElementById("txtHotlineUpdate").value;
 	var confNum = document.getElementById("txtConfPhoneUpdate").value;
-	var confExt = document.getElementById("txtConfPhoneExtUpdate").value;
+	var confExt = document.getElementById("txtConfExtUpdate").value;
 	var isShelter = document.getElementById("cbShelterUpdate").checked;
 	var isTransHousing = document.getElementById("cbTransitionalHousingUpdate").checked;
 	var isAsstLoc = document.getElementById("cbAssistLocateHousingUpdate").checked;
