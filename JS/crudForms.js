@@ -1367,7 +1367,6 @@ function populateUpdateFaiths() {
 function loadUpdateModalData(orgId) {
 
 	/*load addresses table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -1379,6 +1378,8 @@ function loadUpdateModalData(orgId) {
 			console.log("addresses: " + data);
 			var parsedData = JSON.parse(data);
 			var addresses = parsedData;
+			
+		
 		}
 	});
 
@@ -1475,25 +1476,27 @@ function loadUpdateModalData(orgId) {
 			console.log("nationality: " + data);
 			var parsedData = JSON.parse(data);
 			var nationalityData = parsedData;
-/*						
+						
 			for (int i; i < nationalityData.length; i++){
 				if (nationalityData[i] == "ALL") {
 					document.getElementById("cbDomesticUpdate").checked = true;
 					document.getElementById("cbForeignUpdate").checked = true;
 					document.getElementById("cbUndocumentedUpdate").checked = true;
+					break;
 				}
 				
-				if () {
-					
+				if (nationality[i] == "Domestic-Born") {
+					document.getElementById("cbDomesticUpdate").checked = true;
 				}
 				
-				if () {
-					
+				if (nationality[i] == "Foreign-Born") {
+					document.getElementById("cbForeignUpdate").checked = true;
+				}
+				
+				if (nationality[i] == "Undocumented") {
+					document.getElementById("cbUndocumentedUpdate").checked = true;
 				}
 			}
-			
-*/			
-			
 		} 
 	});
 
@@ -1510,6 +1513,8 @@ function loadUpdateModalData(orgId) {
 			console.log("organizations: " + data);
 			var parsedData = JSON.parse(data);
 			var organizationData = parsedData;
+			
+			
 
 		}
 	});
@@ -1527,6 +1532,29 @@ function loadUpdateModalData(orgId) {
 			console.log("race: " + data);
 			var parsedData = JSON.parse(data);
 			var raceData = parsedData;
+			
+			for (int i; i < raceData.length; i++){
+				if (nationalityData[i] == "ALL") {
+					document.getElementById("cbWhiteUpdate").checked = true;
+					document.getElementById("cbFUpdate").checked = true;
+					document.getElementById("cbUndocumentedUpdate").checked = true;
+					break;
+				}
+				
+				if (nationality[i] == "Domestic-Born") {
+					document.getElementById("cbDomesticUpdate").checked = true;
+				}
+				
+				if (nationality[i] == "Foreign-Born") {
+					document.getElementById("cbForeignUpdate").checked = true;
+				}
+				
+				if (nationality[i] == "Undocumented") {
+					document.getElementById("cbUndocumentedUpdate").checked = true;
+				}
+			}
+			
+			
 
 		}
 	});
@@ -1563,6 +1591,8 @@ function loadUpdateModalData(orgId) {
 
 			}
 		}); 
+		
+		
 }
 
 function checkHours() {
@@ -1766,4 +1796,202 @@ function displayUpdateModal() {
 	document.getElementById("insertUpdateModal").innerHTML = data;
   }
 });
+}
+
+function getComplexData() {
+	
+	var addresses;
+	//
+	
+		/*load addresses table*/
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getAddressUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("addresses: " + data);
+			var parsedData = JSON.parse(data);
+			var addresses = parsedData;
+			
+		
+		}
+	});
+
+	/*load age table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getAgeUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("ages: " + data);
+			var parsedData = JSON.parse(data);
+			var ages = parsedData;
+		}
+	});
+
+	/*load contacts table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getContactsUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("contacts: " + data);
+			var parsedData = JSON.parse(data);
+			var contacts = parsedData;
+		}
+	});
+
+	/*load ethnicity table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getEthnicityUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("ethnicity: " + data);
+			var parsedData = JSON.parse(data);
+			var ethnicities = parsedData;
+		}
+	});
+
+	/*load gender table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getGenderUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("gender: " + data);
+			var parsedData = JSON.parse(data);
+			var genders = parsedData;
+		}
+	});
+
+	/*load hours table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getHoursUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("hours: " + data);
+			var parsedData = JSON.parse(data);
+			var hours = parsedData;
+		}
+	});
+
+	/*load nationality table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getNationalityUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("nationality: " + data);
+			var parsedData = JSON.parse(data);
+			var nationalityData = parsedData;
+						
+		} 
+	});
+
+	/*load organizations table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getOrganizationUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("organizations: " + data);
+			var parsedData = JSON.parse(data);
+			var organizationData = parsedData;
+			
+			
+
+		}
+	});
+
+	/*load race table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getRaceUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("race: " + data);
+			var parsedData = JSON.parse(data);
+			var raceData = parsedData;
+
+			
+
+		}
+	});
+
+	/*load requirements table*/
+
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getRequirementsUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("requirements: " + data);
+			var parsedData = JSON.parse(data);
+			var requirementsData = parsedData;
+		}
+	});
+
+	/*load service table*/
+	
+		$.ajax({
+			url: '/PHP/loadUpdateData.php',
+			type: 'POST',
+			data: {
+				method: "getServiceUpdateData",
+				orgId: orgId
+			},
+			success: function(data) {
+				console.log("service: " + data);
+				var parsedData = JSON.parse(data);
+				var serviceData = parsedData;
+
+			}
+		}); 
+		
+		setComplexData(add)
+	
+}
+
+function setComplexData(addresses, ages, kfdjslfasj) {
+	
 }
