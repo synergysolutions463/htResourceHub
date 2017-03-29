@@ -28,7 +28,7 @@
 
 </head>
 
-<body onload="readAllOrgs(), show('advSearch'), loadUpdateModal();">
+<body onload="readAllOrgs(), show('advSearch'), displayUpdateModal();">
 
     <header>
         <div class="example3">
@@ -59,7 +59,9 @@
         </div>
 
     </header>
-
+ <button type="button" class="btn btn-primary btn-lg" onclick="loadUpdateModalData(1);">
+                           test update modal data 
+                        </button>
 
     <div class="container simpleSearchBar">
         <div class="row text-center">

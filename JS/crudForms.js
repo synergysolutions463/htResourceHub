@@ -300,7 +300,7 @@ function loadSimpleData(orgs) {
 
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();\">Update</button>";
 		text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
-		
+
 
 
 		text += "</div> </div> </div> </div>";
@@ -1364,7 +1364,7 @@ function populateUpdateFaiths() {
 	});
 }
 
-function loadUpdateData(orgId) {
+function loadUpdateModalData(orgId) {
 
 	/*load addresses table*/
 
@@ -1372,10 +1372,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getAddressUpdateData", orgId: orgId
+			method: "getAddressUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
-			console.log(data);
+			console.log("addresses: " + data);
 			var parsedData = JSON.parse(data);
 			var addresses = parsedData;
 		}
@@ -1387,10 +1388,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getAgeUpdateData", orgId: orgId
+			method: "getAgeUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
-			console.log(data);
+			console.log("ages: " + data);
 			var parsedData = JSON.parse(data);
 			var ages = parsedData;
 		}
@@ -1402,10 +1404,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getContactsUpdateData", orgId: orgId
+			method: "getContactsUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
-			console.log(data);
+			console.log("contacts: " + data);
 			var parsedData = JSON.parse(data);
 			var contacts = parsedData;
 		}
@@ -1417,10 +1420,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getEthnicityUpdateData", orgId: orgId
+			method: "getEthnicityUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
-			console.log(data);
+			console.log("ethnicity: " + data);
 			var parsedData = JSON.parse(data);
 			var ethnicities = parsedData;
 		}
@@ -1432,10 +1436,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getGenderUpdateData", orgId: orgId
+			method: "getGenderUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
-			console.log(data);
+			console.log("gender: " + data);
 			var parsedData = JSON.parse(data);
 			var genders = parsedData;
 		}
@@ -1447,10 +1452,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getHoursUpdateData", orgId: orgId
+			method: "getHoursUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
-			console.log(data);
+			console.log("hours: " + data);
 			var parsedData = JSON.parse(data);
 			var hours = parsedData;
 		}
@@ -1462,14 +1468,33 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getNationalityUpdateData"
+			method: "getNationalityUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
+			console.log("nationality: " + data);
 			var parsedData = JSON.parse(data);
 			var nationalityData = parsedData;
-
-
-		}
+/*						
+			for (int i; i < nationalityData.length; i++){
+				if (nationalityData[i] == "ALL") {
+					document.getElementById("cbDomesticUpdate").checked = true;
+					document.getElementById("cbForeignUpdate").checked = true;
+					document.getElementById("cbUndocumentedUpdate").checked = true;
+				}
+				
+				if () {
+					
+				}
+				
+				if () {
+					
+				}
+			}
+			
+*/			
+			
+		} 
 	});
 
 	/*load organizations table*/
@@ -1478,9 +1503,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getOrganizationUpdateData"
+			method: "getOrganizationUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
+			console.log("organizations: " + data);
 			var parsedData = JSON.parse(data);
 			var organizationData = parsedData;
 
@@ -1493,9 +1520,11 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getRaceUpdateData"
+			method: "getRaceUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
+			console.log("race: " + data);
 			var parsedData = JSON.parse(data);
 			var raceData = parsedData;
 
@@ -1508,139 +1537,233 @@ function loadUpdateData(orgId) {
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
 		data: {
-			method: "getRequirementsUpdateData"
+			method: "getRequirementsUpdateData",
+			orgId: orgId
 		},
 		success: function(data) {
+			console.log("requirements: " + data);
 			var parsedData = JSON.parse(data);
 			var requirementsData = parsedData;
 		}
 	});
 
 	/*load service table*/
+	
+		$.ajax({
+			url: '/PHP/loadUpdateData.php',
+			type: 'POST',
+			data: {
+				method: "getServiceUpdateData",
+				orgId: orgId
+			},
+			success: function(data) {
+				console.log("service: " + data);
+				var parsedData = JSON.parse(data);
+				var serviceData = parsedData;
 
-	$.ajax({
-		url: '/PHP/loadUpdateData.php',
-		type: 'POST',
-		data: {
-			method: "getServiceUpdateData"
-		},
-		success: function(data) {
-			var parsedData = JSON.parse(data);
-			var serviceData = parsedData;
+			}
+		}); 
+}
 
+function checkHours() {
+	$("#cbIs247Create").click(function() {
+		if ($(this).is(":checked")) 
+		{
+			$("#ddlGenFullWeekStartTimeCreate").prop("disabled", true);
+			$("ddlGenFullWeekStartTimeCreate").prop("disabled", true);
+			$("ddlGenFullWeekEndTimeCreate").prop("disabled", true);
+			$("ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
+			$("ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
+			$("ddlGenFullWeekSunStartTimeCreate").prop("disabled", true);
+			$("ddlGenFullWeekSunEndTimeCreate").prop("disabled", true);
+			$("ddlGenMondayStartTimeCreate").prop("disabled", true);
+			$("ddlGenMondayEndTimeCreate").prop("disabled", true);
+			$("ddlGenTuesdayStartTimeCreate").prop("disabled", true);
+			$("ddlGenTuesdayEndTimeCreate").prop("disabled", true);
+			$("ddlGenWednesdayStartTimeCreate").prop("disabled", true);
+			$("ddlGenWednesdayEndTimeCreate").prop("disabled", true);
+			$("ddlGenThursdayStartTimeCreate").prop("disabled", true);
+			$("ddlGenThursdayEndTimeCreate").prop("disabled", true);
+			$("ddlGenFridayStartTimeCreate").prop("disabled", true);
+			$("ddlGenFridayEndTimeCreate").prop("disabled", true);
+			$("ddlGenSaturdayStartTimeCreate").prop("disabled", true);
+			$("ddlGenSaturdayEndTimeCreate").prop("disabled", true);
+			$("ddlGenSundayStartTimeCreate").prop("disabled", true);
+			$("ddlGenSundayEndTimeCreate").prop("disabled", true);
+
+			$("ddlAddFullWeekStartTimeCreate").prop("disabled", true);
+			$("ddlAddFullWeekEndTimeCreate").prop("disabled", true);
+			$("ddlAddFullWeekSatStartTimeCreate").prop("disabled", true);
+			$("ddlAddFullWeekSatEndTimeCreate").prop("disabled", true);
+			$("ddlAddFullWeekSunStartTimeCreate").prop("disabled", true);
+			$("ddlAddFullWeekSunEndTimeCreate").prop("disabled", true);
+			$("ddlAddMondayStartTimeCreate").prop("disabled", true);
+			$("ddlAddMondayEndTimeCreate").prop("disabled", true);
+			$("ddlAddTuesdayStartTimeCreate").prop("disabled", true);
+			$("ddlAddTuesdayEndTimeCreate").prop("disabled", true);
+			$("ddlAddWednesdayStartTimeCreate").prop("disabled", true);
+			$("ddlAddWednesdayEndTimeCreate").prop("disabled", true);
+			$("ddlAddThursdayStartTimeCreate").prop("disabled", true);
+			$("ddlAddThursdayEndTimeCreate").prop("disabled", true);
+			$("ddlAddFridayStartTimeCreate").prop("disabled", true);
+			$("ddlAddFridayEndTimeCreate").prop("disabled", true);
+			$("ddlAddSaturdayStartTimeCreate").prop("disabled", true);
+			$("ddlAddSaturdayEndTimeCreate").prop("disabled", true);
+			$("ddlAddSundayStartTimeCreate").prop("disabled", true);
+			$("ddlAddSundayEndTimeCreate").prop("disabled", true);
+			
+		}
+		else {
+			$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
+			$("ddlGenFullWeekStartTimeCreate").prop("disabled", false);
+			$("ddlGenFullWeekEndTimeCreate").prop("disabled", false);
+			$("ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
+			$("ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);
+			$("ddlGenFullWeekSunStartTimeCreate").prop("disabled", false);
+			$("ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);
+			$("ddlGenMondayStartTimeCreate").prop("disabled", false);
+			$("ddlGenMondayEndTimeCreate").prop("disabled", false);
+			$("ddlGenTuesdayStartTimeCreate").prop("disabled", false);
+			$("ddlGenTuesdayEndTimeCreate").prop("disabled", false);
+			$("ddlGenWednesdayStartTimeCreate").prop("disabled", false);
+			$("ddlGenWednesdayEndTimeCreate").prop("disabled", false);
+			$("ddlGenThursdayStartTimeCreate").prop("disabled", false);
+			$("ddlGenThursdayEndTimeCreate").prop("disabled", false);
+			$("ddlGenFridayStartTimeCreate").prop("disabled", false);
+			$("ddlGenFridayEndTimeCreate").prop("disabled", false);
+			$("ddlGenSaturdayStartTimeCreate").prop("disabled", false);
+			$("ddlGenSaturdayEndTimeCreate").prop("disabled", false);
+			$("ddlGenSundayStartTimeCreate").prop("disabled", false);
+			$("ddlGenSundayEndTimeCreate").prop("disabled", false);
+
+			$("ddlAddFullWeekStartTimeCreate").prop("disabled", false);
+			$("ddlAddFullWeekEndTimeCreate").prop("disabled", false);
+			$("ddlAddFullWeekSatStartTimeCreate").prop("disabled", false);
+			$("ddlAddFullWeekSatEndTimeCreate").prop("disabled", false);
+			$("ddlAddFullWeekSunStartTimeCreate").prop("disabled", false);
+			$("ddlAddFullWeekSunEndTimeCreate").prop("disabled", false);
+			$("ddlAddMondayStartTimeCreate").prop("disabled", false);
+			$("ddlAddMondayEndTimeCreate").prop("disabled", false);
+			$("ddlAddTuesdayStartTimeCreate").prop("disabled", false);
+			$("ddlAddTuesdayEndTimeCreate").prop("disabled", false);
+			$("ddlAddWednesdayStartTimeCreate").prop("disabled", false);
+			$("ddlAddWednesdayEndTimeCreate").prop("disabled", false);
+			$("ddlAddThursdayStartTimeCreate").prop("disabled", false);
+			$("ddlAddThursdayEndTimeCreate").prop("disabled", false);
+			$("ddlAddFridayStartTimeCreate").prop("disabled", false);
+			$("ddlAddFridayEndTimeCreate").prop("disabled", false);
+			$("ddlAddSaturdayStartTimeCreate").prop("disabled", false);
+			$("ddlAddSaturdayEndTimeCreate").prop("disabled", false);
+			$("ddlAddSundayStartTimeCreate").prop("disabled", false);
+			$("ddlAddSundayEndTimeCreate").prop("disabled", false);
 		}
 	});
 }
 
-function validateOrgName(searchText) {
-	if (searchText == "" || searchText == null) {
-		document.getElementById("searchText").placeholder = "Please name an organization";
-		return false;
-	}
-	else {
-		return true;
-	}
-}
-
-function validateInsertData(orgName, ProgramStatement, WebLink, Email, PhoneNum, isShelter, Fee, FaithID) {
-	if (orgName == "" || orgName == null) {
-		document.getElementById("errorMsg").innerHTML = "Please enter an organization name";
-		return false;
-	}
-	else if (WebLink == "" || WebLink == null) {
-		document.getElementById("errorMsg").innerHTML = "Please enter a weblink address";
-		return false;
-	}
-	else if (Email == "" || Email == null) {
-		document.getElementById("errorMsg").innerHTML = "Please enter an email address";
-		return false;
-	}
-	else if (PhoneNum == "" || PhoneNum == null) {
-		document.getElementById("errorMsg").innerHTML = "Please enter a phone number";
-		return false;
-	}
-	else if (isShelter == "" || isShelter == null) {
-		document.getElementById("errorMsg").innerHTML = "Please specifiy if shelter";
-		return false;
-	}
-	else if (Fee == "" || Fee == null) {
-		document.getElementById("errorMsg").innerHTML = "Please enter a fee price. 0 if free";
-		return false;
-	}
-	else if (FaithID == "" || FaithID == null) {
-		document.getElementById("errorMsg").innerHTML = "Please speicify faiths served";
-		return false;
-	}
-	else {
-		return true;
-	}
-}
-
-function checkFor24() {
-	$("#cbIs247Create").click(function (){
-		document.getElementById("ddlGenFullWeekStartTimeUpdate").disable = true;
-		document.getElementById("ddlGenFullWeekStartTimeCreate").disable = true;
-		document.getElementById("ddlGenFullWeekEndTimeCreate").disable = true;
-		document.getElementById("ddlGenFullWeekSatStartTimeCreate").disable = true;
-		document.getElementById("ddlGenFullWeekSatEndTimeCreate").disable = true;
-		document.getElementById("ddlGenFullWeekSunStartTimeCreate").disable = true;
-		document.getElementById("ddlGenFullWeekSunEndTimeCreate").disable = true;
-		document.getElementById("ddlGenMondayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenMondayEndTimeCreate").disable = true;
-		document.getElementById("ddlGenTuesdayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenTuesdayEndTimeCreate").disable = true;
-		document.getElementById("ddlGenWednesdayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenWednesdayEndTimeCreate").disable = true;
-		document.getElementById("ddlGenThursdayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenThursdayEndTimeCreate").disable = true;
-		document.getElementById("ddlGenFridayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenFridayEndTimeCreate").disable = true;
-		document.getElementById("ddlGenSaturdayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenSaturdayEndTimeCreate").disable = true;
-		document.getElementById("ddlGenSundayStartTimeCreate").disable = true;
-		document.getElementById("ddlGenSundayEndTimeCreate").disable = true;
-
-		document.getElementById("ddlAddFullWeekStartTimeCreate").disable = true;
-		document.getElementById("ddlAddFullWeekEndTimeCreate").disable = true;
-		document.getElementById("ddlAddFullWeekSatStartTimeCreate").disable = true;
-		document.getElementById("ddlAddFullWeekSatEndTimeCreate").disable = true;
-		document.getElementById("ddlAddFullWeekSunStartTimeCreate").disable = true;
-		document.getElementById("ddlAddFullWeekSunEndTimeCreate").disable = true;
-		document.getElementById("ddlAddMondayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddMondayEndTimeCreate").disable = true;
-		document.getElementById("ddlAddTuesdayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddTuesdayEndTimeCreate").disable = true;
-		document.getElementById("ddlAddWednesdayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddWednesdayEndTimeCreate").disable = true;
-		document.getElementById("ddlAddThursdayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddThursdayEndTimeCreate").disable = true;
-		document.getElementById("ddlAddFridayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddFridayEndTimeCreate").disable = true;
-		document.getElementById("ddlAddSaturdayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddSaturdayEndTimeCreate").disable = true;
-		document.getElementById("ddlAddSundayStartTimeCreate").disable = true;
-		document.getElementById("ddlAddSundayEndTimeCreate").disable = true;
-		document.getElementById("txtAddHoursDescCreate").disable = true;
-	}
-}
-
-
-
-
-function loadUpdateModal() {
-
-}
-
 function checkAll() {
-	$("#cbHousingAllCreate").click(function () {
-     $("#cbShelterCreate").not(this).prop('checked', this.checked);
-     $("#cbTransitionalHousingCreate").not(this).prop('checked', this.checked);
-     $("#cbAssistLocateHousingCreate").not(this).prop('checked', this.checked);
- });
- 
- $("#cbHousingAllCreate").click(function () {
-     $("#cbShelterCreate").not(this).prop('checked', this.checked);
-     $("#cbTransitionalHousingCreate").not(this).prop('checked', this.checked);
-     $("#cbAssistLocateHousingCreate").not(this).prop('checked', this.checked);
- });
+	$("#cbHousingAllCreate").click(function() {
+		$("#cbShelterCreate").not(this).prop('checked', this.checked);
+		$("#cbTransitionalHousingCreate").not(this).prop('checked', this.checked);
+		$("#cbAssistLocateHousingCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbClothingAllCreate").click(function() {
+		$("#cbClothingServCreate").not(this).prop('checked', this.checked);
+		$("#cbClothingSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbClothingEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbFoodAllCreate").click(function() {
+		$("#cbFoodServCreate").not(this).prop('checked', this.checked);
+		$("#cbFoodSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbFoodEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbMentoringAllCreate").click(function() {
+		$("#cbMentoringServCreate").not(this).prop('checked', this.checked);
+		$("#cbMentoringSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbMentoringEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbEmploymentAllCreate").click(function() {
+		$("#cbEmploymentServCreate").not(this).prop('checked', this.checked);
+		$("#cbEmploymentSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbEmploymentEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbCounselAllCreate").click(function() {
+		$("#cbCounselServCreate").not(this).prop('checked', this.checked);
+		$("#cbCounselSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbCounselEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbPregnancyAllCreate").click(function() {
+		$("#cbPregnancyServCreate").not(this).prop('checked', this.checked);
+		$("#cbPregnancySupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbPregnancyEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbMedicalAllCreate").click(function() {
+		$("#cbMedicalServCreate").not(this).prop('checked', this.checked);
+		$("#cbMedicalSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbMdeicalEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbLegalAllCreate").click(function() {
+		$("#cbLegalServCreate").not(this).prop('checked', this.checked);
+		$("#cbLegalSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbLegalEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbGovAllCreate").click(function() {
+		$("#cbGovServCreate").not(this).prop('checked', this.checked);
+		$("#cbGovSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbGovEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbInvestigationAllCreate").click(function() {
+		$("#cbInvestigationServCreate").not(this).prop('checked', this.checked);
+		$("#cbInvestigationSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbInvestigationEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbFosterAllCreate").click(function() {
+		$("#cbFosterServCreate").not(this).prop('checked', this.checked);
+		$("#cbFosterSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbFosterEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbAwarenessAllCreate").click(function() {
+		$("#cbAwarenessServCreate").not(this).prop('checked', this.checked);
+		$("#cbAwarenessSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbAwarenessEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbResponseTrainAllCreate").click(function() {
+		$("#cbResponseTrainServCreate").not(this).prop('checked', this.checked);
+		$("#cbResponseTrainSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbResponseTrainEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbSubstaceAbuseAllCreate").click(function() {
+		$("#cbSubstanceAbuseServCreate").not(this).prop('checked', this.checked);
+		$("#cbSubstanceAbuseSupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbSubstanceAbuseEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+
+	$("#cbAdvocacyAllCreate").click(function() {
+		$("#cbAdvocacyServCreate").not(this).prop('checked', this.checked);
+		$("#cbAdvocacySupplyCreate").not(this).prop('checked', this.checked);
+		$("#cbAdvocacyEmergRespCreate").not(this).prop('checked', this.checked);
+	});
+}
+
+function displayUpdateModal() {
+	$.ajax({
+  url: '/HTML/updateModal.html',
+  dataType: 'text',
+  success: function(data) {
+	document.getElementById("insertUpdateModal").innerHTML = data;
+  }
+});
 }

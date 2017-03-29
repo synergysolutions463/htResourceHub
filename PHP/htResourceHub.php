@@ -960,22 +960,21 @@ function complexSingleOrg($orgId) {
    
 
     $complexQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, o.phoneExt,
-                                                	o.HotlineNum, o.ConfNum, o.confPhoneExt, o.WebLink, o.email, o.ProgramStatement, 
-                                                	o.isShelter, o.isTransitionalHousing, o.isAssistanceLocatingHousing,
-                                                	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
-                                                	a.StreetInfo, a.City, a.ZipCode, a.IsConf, States.StateName,
-                                                	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
-                                                    st.StateName, AgeTypes.AgeType, rt.RaceType, nt.NatType, et.EthType,
-                                                    h.Is24Hours, h.IsAdditional, h.MondayStart, h.MondayEnd, h.TuesdayStart, h.TuesdayEnd,
-                                                    h.WednesdayStart, h.WednesdayEnd, h.ThursdayStart, h.ThursdayEnd, h.FridayStart,
-                                                    h.FridayEnd, h.SaturdayStart, h.SaturdayEnd, h.SundayStart, h.SundayEnd, h.ReasonForAdditionalHours,
-                                                    reqt.ReqType, req.Description,
-                                                    GROUP_CONCAT(sert.SerType) AS SerType
+                                            	o.HotlineNum, o.ConfNum, o.confPhoneExt, o.WebLink, o.email, o.ProgramStatement, 
+                                            	o.isShelter, o.isTransitionalHousing, o.isAssistanceLocatingHousing,
+                                            	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
+                                            	a.StreetInfo, a.City, a.ZipCode, a.IsConf, States.StateName,
+                                            	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
+                                                AgeTypes.AgeType, rt.RaceType, nt.NatType, et.EthType,
+                                                h.Is24Hours, h.IsAdditional, h.MondayStart, h.MondayEnd, h.TuesdayStart, h.TuesdayEnd,
+                                                h.WednesdayStart, h.WednesdayEnd, h.ThursdayStart, h.ThursdayEnd, h.FridayStart,
+                                                h.FridayEnd, h.SaturdayStart, h.SaturdayEnd, h.SundayStart, h.SundayEnd, h.ReasonForAdditionalHours,
+                                                reqt.ReqType, req.Description,
+                                                GROUP_CONCAT(sert.SerType) AS SerType
                                             FROM Organizations o 
                                             JOIN Contacts c ON (c.OrgID = o.OrgID)
                                             JOIN FaithTypes ft ON (o.FaithID = ft.FaithID)
                                             JOIN Addresses a ON (o.OrgID = a.OrgID)
-                                            JOIN States st ON (st.StateID = a.StateID)
                                             JOIN Service se ON (se.OrgId = o.OrgId)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Age ON (o.OrgID = Age.OrgID)
@@ -995,7 +994,10 @@ function complexSingleOrg($orgId) {
     $complexQuery->bind_result($OrgID, $OrgName, $AgencyName, $OrgMainPhone, $OrgPhoneExt, $OrgHotline, $OrgConfNumber, $OrgConfExt,
                                 $Website, $OrgEmail, $OrgProgramStatement, $isShelter, $isTransHousing, $isAssistLocHousing, $Fees, $FaithID,
                                 $Notes, $ConfNotes, $OrgIsConf, $FaithType, $StreetInfo, $City, $Zip, $AddressIsConf, $State, $ContactFirstName,
-                                $ContactLastName, $ContactEmail, $ContactPosition, $ContactPhone, $ContactPhoneExt, );
+                                $ContactLastName, $ContactEmail, $ContactPosition, $ContactPhone, $ContactPhoneExt, $AgeTypes, $RaceTypes, $NatType,
+                                $EthType, $is24Hours, $IsAdditionalHours, $MondayStart, $MondayEnd, $TuesdayStart, $TuesdayEnd, $WednesdayStart,
+                                $WednesdayEnd, $ThursdayStart, $ThursdayEnd, $FridayStart, $FridayEnd, $SaturdayStart, $SaturdayEnd, $SundayStart,
+                                $SundayEnd, $ReasonForAdditionalHours, $RequirementTypes, $RequirementDescription, $ServiceTypes);
 
     $data = array();
     while($complexQuery->fetch()){

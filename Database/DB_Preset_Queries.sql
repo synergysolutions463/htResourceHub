@@ -173,7 +173,7 @@ SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, o.phoneExt,
 	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
 	a.StreetInfo, a.City, a.ZipCode, a.IsConf, States.StateName,
 	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
-    st.StateName, AgeTypes.AgeType, rt.RaceType, nt.NatType, et.EthType,
+    AgeTypes.AgeType, rt.RaceType, nt.NatType, et.EthType,
     h.Is24Hours, h.IsAdditional, h.MondayStart, h.MondayEnd, h.TuesdayStart, h.TuesdayEnd,
     h.WednesdayStart, h.WednesdayEnd, h.ThursdayStart, h.ThursdayEnd, h.FridayStart,
     h.FridayEnd, h.SaturdayStart, h.SaturdayEnd, h.SundayStart, h.SundayEnd, h.ReasonForAdditionalHours,
@@ -183,7 +183,6 @@ FROM Organizations o
 JOIN Contacts c ON (c.OrgID = o.OrgID)
 JOIN FaithTypes ft ON (o.FaithID = ft.FaithID)
 JOIN Addresses a ON (o.OrgID = a.OrgID)
-JOIN States st ON (st.StateID = a.StateID)
 JOIN Service se ON (se.OrgId = o.OrgId)
 JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
 JOIN Age ON (o.OrgID = Age.OrgID)
@@ -199,3 +198,35 @@ JOIN Hours h ON (o.OrgID = h.OrgID)
 JOIN Requirements req ON (o.OrgID = req.OrgID)
 JOIN RequirementsTypes reqt ON (req.ReqID = reqt.ReqID)
 WHERE (o.OrgID = 1);
+
+SELECT o.OrgID, o.OrgName, o.AgencyName, o.PhoneNum, o.phoneExt,
+	o.HotlineNum, o.ConfNum, o.confPhoneExt, o.WebLink, o.email, o.ProgramStatement, 
+	o.isShelter, o.isTransitionalHousing, o.isAssistanceLocatingHousing,
+	o.Fees, o.FaithID, o.Notes, o.ConfNotes, o.isConf, ft.FaithType,
+	GROUP_CONCAT(a.StreetInfo), GROUP_CONCAT(a.City), GROUP_CONCAT(a.ZipCode), a.IsConf, GROUP_CONCAT(States.StateName),
+	c.FirstName, c.LastName, c.Email, c.Position, c.PhoneNum, c.IsConf, c.phoneExt,
+	GROUP_CONCAT(AgeTypes.AgeType), GROUP_CONCAT(rt.RaceType), GROUP_CONCAT(nt.NatType), GROUP_CONCAT(et.EthType),
+	GROUP_CONCAT(h.Is24Hours), GROUP_CONCAT(h.IsAdditional), GROUP_CONCAT(h.MondayStart), GROUP_CONCAT(h.MondayEnd), GROUP_CONCAT(h.TuesdayStart), GROUP_CONCAT(h.TuesdayEnd),
+	GROUP_CONCAT(h.WednesdayStart), GROUP_CONCAT(h.WednesdayEnd), GROUP_CONCAT(h.ThursdayStart), GROUP_CONCAT(h.ThursdayEnd), GROUP_CONCAT(h.FridayStart),
+	GROUP_CONCAT(h.FridayEnd), GROUP_CONCAT(h.SaturdayStart), GROUP_CONCAT(h.SaturdayEnd), GROUP_CONCAT(h.SundayStart), GROUP_CONCAT(h.SundayEnd), GROUP_CONCAT(h.ReasonForAdditionalHours),
+	GROUP_CONCAT(reqt.ReqType), GROUP_CONCAT(req.Description),
+	GROUP_CONCAT(sert.SerType) AS SerType
+FROM Organizations o 
+JOIN Contacts c ON (c.OrgID = o.OrgID)
+JOIN FaithTypes ft ON (o.FaithID = ft.FaithID)
+JOIN Addresses a ON (o.OrgID = a.OrgID)
+JOIN Service se ON (se.OrgId = o.OrgId)
+JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
+JOIN Age ON (o.OrgID = Age.OrgID)
+JOIN AgeTypes ON (Age.AgeID = AgeTypes.AgeID)
+JOIN Race r ON (r.OrgID = o.OrgID)
+JOIN RaceTypes rt ON (r.RaceID = rt.RaceID)
+JOIN Nationality n ON (n.OrgID = o.OrgID)
+JOIN NationalityTypes nt ON (nt.NatID = n.NatID)
+JOIN Ethnicity e ON (e.OrgID = o.OrgID)
+JOIN EthnicityTypes et ON (e.EthID = et.EthID)
+JOIN States ON (States.StateID = a.StateID)
+JOIN Hours h ON (o.OrgID = h.OrgID)
+JOIN Requirements req ON (o.OrgID = req.OrgID)
+JOIN RequirementsTypes reqt ON (req.ReqID = reqt.ReqID)
+WHERE (o.OrgID = 170);
