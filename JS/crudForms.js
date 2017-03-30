@@ -298,7 +298,7 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"col-md-2\">";
 		text += "<div class=\"vcenter\">";
 
-		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();\">Update</button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\">Update</button>";
 		text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
 
 
@@ -1292,9 +1292,9 @@ function populateCreateStates() {
 			$("#ddlConfAddressStateCreate").get(0).options.length = 0;
 
 			for (i = 0; i < states.length; i++) {
-				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress1StateCreate");
-				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress2StateCreate");
-				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlConfAddressStateCreate");
+				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress1StateCreate");
+				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress2StateCreate");
+				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlConfAddressStateCreate");
 			}
 		}
 	});
@@ -1314,7 +1314,7 @@ function populateCreateFaiths() {
 			$("#ddlFaithCreate").get(0).options.length = 0;
 
 			for (i = 0; i < faiths.length; i++) {
-				$('<option/>').val(i + 1).html(faiths[i]).appendTo("#ddlFaithCreate");
+				$('<option/>').val(faiths[i]).html(faiths[i]).appendTo("#ddlFaithCreate");
 			}
 		}
 	});
@@ -1336,9 +1336,9 @@ function populateUpdateStates() {
 			$("#ddlConfAddressStateUpdate").get(0).options.length = 0;
 
 			for (i = 0; i < states.length; i++) {
-				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress1StateUpdate");
-				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlAddress2StateUpdate");
-				$('<option/>').val(i + 1).html(states[i]).appendTo("#ddlConfAddressStateUpdate");
+				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress1StateUpdate");
+				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress2StateUpdate");
+				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlConfAddressStateUpdate");
 			}
 		}
 	});
@@ -1358,7 +1358,7 @@ function populateUpdateFaiths() {
 			$("#ddlFaithUpdate").get(0).options.length = 0;
 
 			for (i = 0; i < faiths.length; i++) {
-				$('<option/>').val(i + 1).html(faiths[i]).appendTo("#ddlFaithUpdate");
+				$('<option/>').val(faiths[i]).html(faiths[i]).appendTo("#ddlFaithUpdate");
 			}
 		}
 	});
@@ -1379,11 +1379,60 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var addresses = parsedData;
 			
-		
+					document.getElementById("txtConfAddressStreetUpdate").value = "";
+					document.getElementById("txtConfAddressCityUpdate").value = "";
+					document.getElementById("txtConfAddressZipUpdate").value = "";
+					document.getElementById("txtConfAddressCountyUpdate").value = "";
+					document.getElementById("ddlConfAddressStateUpdate").value = "";
+					
+					document.getElementById("txtAddress2StreetUpdate").value = "";
+					document.getElementById("txtAddress2CityUpdate").value = "";
+					document.getElementById("txtAddress2ZipUpdate").value = "";
+					document.getElementById("txtAddress2CountyUpdate").value = ""; 
+					document.getElementById("ddlAddress2StateUpdate").value = "";
+						
+					document.getElementById("txtAddress1StreetUpdate").value = "";
+					document.getElementById("txtAddress1CityUpdate").value = "";
+					document.getElementById("txtAddress1ZipUpdate").value = "";
+					document.getElementById("txtAddress1CountyUpdate").value = "";
+					document.getElementById("ddlAddress1StateUpdate").value = "";
+					
+					
+			
+			aLen = addresses.length;
+			var lastStreet = "xxx";
+			for (i = 0; i < aLen; i++) {
+				if(addresses[i][5] == 1) {
+					document.getElementById("txtConfAddressStreetUpdate").value = addresses[i][0];
+					document.getElementById("txtConfAddressCityUpdate").value = addresses[i][1];
+					document.getElementById("txtConfAddressZipUpdate").value = addresses[i][2];
+					document.getElementById("txtConfAddressCountyUpdate").value = addresses[i][3];
+					document.getElementById("ddlConfAddressStateUpdate").value = addresses[i][4];
+				}
+				else {
+					if(document.getElementById("txtAddress1StreetUpdate").value == lastStreet) {
+						document.getElementById("txtAddress2StreetUpdate").value = addresses[i][0];
+						document.getElementById("txtAddress2CityUpdate").value = addresses[i][1];
+						document.getElementById("txtAddress2ZipUpdate").value = addresses[i][2];
+						document.getElementById("txtAddress2CountyUpdate").value = addresses[i][3];
+						document.getElementById("ddlAddress2StateUpdate").value = addresses[i][4];
+					}
+					else{
+						document.getElementById("txtAddress1StreetUpdate").value = addresses[i][0];
+						document.getElementById("txtAddress1CityUpdate").value = addresses[i][1];
+						document.getElementById("txtAddress1ZipUpdate").value = addresses[i][2];
+						document.getElementById("txtAddress1CountyUpdate").value = addresses[i][3];
+						document.getElementById("ddlAddress1StateUpdate").value = addresses[i][4];
+					}
+				}
+				lastStreet = addresses[i][0];
+			
+			}
+			
 		}
 	});
 
-	/*load age table*/
+	/*load age table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1397,9 +1446,9 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var ages = parsedData;
 		}
-	});
+	}); */
 
-	/*load contacts table*/
+	/*load contacts table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1413,9 +1462,9 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var contacts = parsedData;
 		}
-	});
+	}); */
 
-	/*load ethnicity table*/
+	/*load ethnicity table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1429,9 +1478,9 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var ethnicities = parsedData;
 		}
-	});
+	}); */
 
-	/*load gender table*/
+	/*load gender table 
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1445,9 +1494,9 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var genders = parsedData;
 		}
-	});
+	}); */
 
-	/*load hours table*/
+	/*load hours table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1461,9 +1510,9 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var hours = parsedData;
 		}
-	});
+	}); */
 
-	/*load nationality table*/
+	/*load nationality table 
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1477,7 +1526,7 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var nationalityData = parsedData;
 						
-			for (int i; i < nationalityData.length; i++){
+			for (i; i < nationalityData.length; i++){
 				if (nationalityData[i] == "ALL") {
 					document.getElementById("cbDomesticUpdate").checked = true;
 					document.getElementById("cbForeignUpdate").checked = true;
@@ -1498,9 +1547,9 @@ function loadUpdateModalData(orgId) {
 				}
 			}
 		} 
-	});
+	}); */
 
-	/*load organizations table*/
+	/*load organizations table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1517,9 +1566,9 @@ function loadUpdateModalData(orgId) {
 			
 
 		}
-	});
+	}); */
 
-	/*load race table*/
+	/*load race table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1533,33 +1582,38 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var raceData = parsedData;
 			
-			for (int i; i < raceData.length; i++){
-				if (nationalityData[i] == "ALL") {
+			for (i; i < raceData.length; i++){
+				if (raceData[i] == "ALL") {
 					document.getElementById("cbWhiteUpdate").checked = true;
-					document.getElementById("cbFUpdate").checked = true;
-					document.getElementById("cbUndocumentedUpdate").checked = true;
+					document.getElementById("cbBlackUpdate").checked = true;
+					document.getElementById("cbAsianUpdate").checked = true;
+					document.getElementById("cbIslandUpdate").checked = true;
+					document.getElementById("cbNativeUpdate").checked = true;
 					break;
 				}
 				
-				if (nationality[i] == "Domestic-Born") {
-					document.getElementById("cbDomesticUpdate").checked = true;
+				if (nationality[i] == "White") {
+					document.getElementById("cbWhiteUpdate").checked = true;
 				}
 				
-				if (nationality[i] == "Foreign-Born") {
-					document.getElementById("cbForeignUpdate").checked = true;
+				if (nationality[i] == "Black or African American") {
+					document.getElementById("cbBlackUpdate").checked = true;
 				}
 				
-				if (nationality[i] == "Undocumented") {
-					document.getElementById("cbUndocumentedUpdate").checked = true;
+				if (nationality[i] == "Asian") {
+					document.getElementById("cbAsianUpdate").checked = true;
+				}
+				if (nationality[i] == "Native Hawaiian or Other Pacific Islander") {
+					document.getElementById("cbIslandUpdate").checked = true;
+				}
+				if (nationality[i] == "American Indian or Alaska Native") {
+					document.getElementById("cbNativeUpdate").checked = true;
 				}
 			}
-			
-			
-
 		}
-	});
+	}); */
 
-	/*load requirements table*/
+	/*load requirements table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1573,9 +1627,9 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var requirementsData = parsedData;
 		}
-	});
+	}); */
 
-	/*load service table*/
+	/*load service table
 	
 		$.ajax({
 			url: '/PHP/loadUpdateData.php',
@@ -1590,7 +1644,7 @@ function loadUpdateModalData(orgId) {
 				var serviceData = parsedData;
 
 			}
-		}); 
+		});  */
 		
 		
 }
@@ -1690,11 +1744,26 @@ function checkHours() {
 	});
 }
 
-function checkAll() {
+function checkAllDisable() {
+	$("#cbHousingAllCreate").click(function(){
+        if(this.checked){
+            $("#cbShelterCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbShelterCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbTransitionalHousingCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAssistLocateHousingCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
 	$("#cbHousingAllCreate").click(function() {
-		$("#cbShelterCreate").not(this).prop('checked', this.checked);
-		$("#cbTransitionalHousingCreate").not(this).prop('checked', this.checked);
-		$("#cbAssistLocateHousingCreate").not(this).prop('checked', this.checked);
+		if(this.checked){
+			$("#cbShelterCreate").prop('checked', true).prop('disabled', true);
+			$("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);
+			$("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);
+		}
 	});
 
 	$("#cbClothingAllCreate").click(function() {
@@ -1788,6 +1857,14 @@ function checkAll() {
 	});
 }
 
+function disableCheckBoxes() {
+	$("#cbHousingAllCreate").click(function() {
+    	$("#cbAdvocacyServCreate").not(this).prop('disabled', this.disabled);
+		$("#cbAdvocacySupplyCreate").not(this).prop('disabled', this.disabled);
+		$("#cbAdvocacyEmergRespCreate").not(this).prop('disabled', this.disabled);
+	});
+}
+
 function displayUpdateModal() {
 	$.ajax({
   url: '/HTML/updateModal.html',
@@ -1798,12 +1875,14 @@ function displayUpdateModal() {
 });
 }
 
+/*
+
 function getComplexData() {
 	
 	var addresses;
 	//
 	
-		/*load addresses table*/
+		/*load addresses table
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -1820,7 +1899,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load age table*/
+	/*load age table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1836,7 +1915,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load contacts table*/
+	/*load contacts table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1852,7 +1931,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load ethnicity table*/
+	/*load ethnicity table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1868,7 +1947,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load gender table*/
+	/*load gender table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1884,7 +1963,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load hours table*/
+	/*load hours table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1900,7 +1979,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load nationality table*/
+	/*load nationality table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1917,7 +1996,7 @@ function getComplexData() {
 		} 
 	});
 
-	/*load organizations table*/
+	/*load organizations table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1936,7 +2015,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load race table*/
+	/*load race table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1955,7 +2034,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load requirements table*/
+	/*load requirements table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1971,7 +2050,7 @@ function getComplexData() {
 		}
 	});
 
-	/*load service table*/
+	/*load service table
 	
 		$.ajax({
 			url: '/PHP/loadUpdateData.php',
@@ -1988,10 +2067,12 @@ function getComplexData() {
 			}
 		}); 
 		
-		setComplexData(add)
+		setComplexData();
 	
 }
 
-function setComplexData(addresses, ages, kfdjslfasj) {
+function setComplexData() {
 	
 }
+
+*/

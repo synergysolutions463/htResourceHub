@@ -35,7 +35,7 @@ function readAllOrgs() {
 
     $allOrgQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                            st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
                                             FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                             JOIN States st ON (st.StateID = a.StateID)
                                             JOIN Service se ON (se.OrgId = o.OrgID)
@@ -152,7 +152,7 @@ function simpleSearchOrgs() {
     else {
             $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                            st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
                                             FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                             JOIN States st ON (st.StateID = a.StateID)
                                             JOIN Service se ON (se.OrgId = o.OrgId)
@@ -251,7 +251,7 @@ function advSearchOrgs() {
                                     
                                      $advSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                            st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
                                         FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                         JOIN States st ON (st.StateID = a.StateID)
                                         JOIN Service se ON (se.OrgId = o.OrgId)
