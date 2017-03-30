@@ -1649,102 +1649,195 @@ function loadUpdateModalData(orgId) {
 		
 }
 
-function checkHours() {
+function checkHoursCreate() {
 	$("#cbIs247Create").click(function() {
 		if ($(this).is(":checked")) 
 		{
 			$("#ddlGenFullWeekStartTimeCreate").prop("disabled", true);
-			$("ddlGenFullWeekStartTimeCreate").prop("disabled", true);
-			$("ddlGenFullWeekEndTimeCreate").prop("disabled", true);
-			$("ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
-			$("ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
-			$("ddlGenFullWeekSunStartTimeCreate").prop("disabled", true);
-			$("ddlGenFullWeekSunEndTimeCreate").prop("disabled", true);
-			$("ddlGenMondayStartTimeCreate").prop("disabled", true);
-			$("ddlGenMondayEndTimeCreate").prop("disabled", true);
-			$("ddlGenTuesdayStartTimeCreate").prop("disabled", true);
-			$("ddlGenTuesdayEndTimeCreate").prop("disabled", true);
-			$("ddlGenWednesdayStartTimeCreate").prop("disabled", true);
-			$("ddlGenWednesdayEndTimeCreate").prop("disabled", true);
-			$("ddlGenThursdayStartTimeCreate").prop("disabled", true);
-			$("ddlGenThursdayEndTimeCreate").prop("disabled", true);
-			$("ddlGenFridayStartTimeCreate").prop("disabled", true);
-			$("ddlGenFridayEndTimeCreate").prop("disabled", true);
-			$("ddlGenSaturdayStartTimeCreate").prop("disabled", true);
-			$("ddlGenSaturdayEndTimeCreate").prop("disabled", true);
-			$("ddlGenSundayStartTimeCreate").prop("disabled", true);
-			$("ddlGenSundayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenFullWeekStartTimeCreate").prop("disabled", true);
+			$("#ddlGenFullWeekEndTimeCreate").prop("disabled", true);
+			$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
+			$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
+			$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", true);
+			$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", true);
+			$("#ddlGenMondayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenMondayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenTuesdayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenTuesdayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenWednesdayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenWednesdayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenThursdayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenThursdayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenFridayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenFridayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenSaturdayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenSaturdayEndTimeCreate").prop("disabled", true);
+			$("#ddlGenSundayStartTimeCreate").prop("disabled", true);
+			$("#ddlGenSundayEndTimeCreate").prop("disabled", true);
 
-			$("ddlAddFullWeekStartTimeCreate").prop("disabled", true);
-			$("ddlAddFullWeekEndTimeCreate").prop("disabled", true);
-			$("ddlAddFullWeekSatStartTimeCreate").prop("disabled", true);
-			$("ddlAddFullWeekSatEndTimeCreate").prop("disabled", true);
-			$("ddlAddFullWeekSunStartTimeCreate").prop("disabled", true);
-			$("ddlAddFullWeekSunEndTimeCreate").prop("disabled", true);
-			$("ddlAddMondayStartTimeCreate").prop("disabled", true);
-			$("ddlAddMondayEndTimeCreate").prop("disabled", true);
-			$("ddlAddTuesdayStartTimeCreate").prop("disabled", true);
-			$("ddlAddTuesdayEndTimeCreate").prop("disabled", true);
-			$("ddlAddWednesdayStartTimeCreate").prop("disabled", true);
-			$("ddlAddWednesdayEndTimeCreate").prop("disabled", true);
-			$("ddlAddThursdayStartTimeCreate").prop("disabled", true);
-			$("ddlAddThursdayEndTimeCreate").prop("disabled", true);
-			$("ddlAddFridayStartTimeCreate").prop("disabled", true);
-			$("ddlAddFridayEndTimeCreate").prop("disabled", true);
-			$("ddlAddSaturdayStartTimeCreate").prop("disabled", true);
-			$("ddlAddSaturdayEndTimeCreate").prop("disabled", true);
-			$("ddlAddSundayStartTimeCreate").prop("disabled", true);
-			$("ddlAddSundayEndTimeCreate").prop("disabled", true);
-			
+			$("#ddlAddFullWeekStartTimeCreate").prop("disabled", true);
+			$("#ddlAddFullWeekEndTimeCreate").prop("disabled", true);
+			$("#ddlAddFullWeekSatStartTimeCreate").prop("disabled", true);
+			$("#ddlAddFullWeekSatEndTimeCreate").prop("disabled", true);
+			$("#ddlAddFullWeekSunStartTimeCreate").prop("disabled", true);
+			$("#ddlAddFullWeekSunEndTimeCreate").prop("disabled", true);
+			$("#ddlAddMondayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddMondayEndTimeCreate").prop("disabled", true);
+			$("#ddlAddTuesdayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddTuesdayEndTimeCreate").prop("disabled", true);
+			$("#ddlAddWednesdayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddWednesdayEndTimeCreate").prop("disabled", true);
+			$("#ddlAddThursdayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddThursdayEndTimeCreate").prop("disabled", true);
+			$("#ddlAddFridayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddFridayEndTimeCreate").prop("disabled", true);
+			$("#ddlAddSaturdayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddSaturdayEndTimeCreate").prop("disabled", true);
+			$("#ddlAddSundayStartTimeCreate").prop("disabled", true);
+			$("#ddlAddSundayEndTimeCreate").prop("disabled", true);
 		}
 		else {
 			$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
-			$("ddlGenFullWeekStartTimeCreate").prop("disabled", false);
-			$("ddlGenFullWeekEndTimeCreate").prop("disabled", false);
-			$("ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
-			$("ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);
-			$("ddlGenFullWeekSunStartTimeCreate").prop("disabled", false);
-			$("ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);
-			$("ddlGenMondayStartTimeCreate").prop("disabled", false);
-			$("ddlGenMondayEndTimeCreate").prop("disabled", false);
-			$("ddlGenTuesdayStartTimeCreate").prop("disabled", false);
-			$("ddlGenTuesdayEndTimeCreate").prop("disabled", false);
-			$("ddlGenWednesdayStartTimeCreate").prop("disabled", false);
-			$("ddlGenWednesdayEndTimeCreate").prop("disabled", false);
-			$("ddlGenThursdayStartTimeCreate").prop("disabled", false);
-			$("ddlGenThursdayEndTimeCreate").prop("disabled", false);
-			$("ddlGenFridayStartTimeCreate").prop("disabled", false);
-			$("ddlGenFridayEndTimeCreate").prop("disabled", false);
-			$("ddlGenSaturdayStartTimeCreate").prop("disabled", false);
-			$("ddlGenSaturdayEndTimeCreate").prop("disabled", false);
-			$("ddlGenSundayStartTimeCreate").prop("disabled", false);
-			$("ddlGenSundayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
+			$("#ddlGenFullWeekEndTimeCreate").prop("disabled", false);
+			$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
+			$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);
+			$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", false);
+			$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);
+			$("#ddlGenMondayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenMondayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenTuesdayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenTuesdayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenWednesdayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenWednesdayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenThursdayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenThursdayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenFridayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenFridayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenSaturdayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenSaturdayEndTimeCreate").prop("disabled", false);
+			$("#ddlGenSundayStartTimeCreate").prop("disabled", false);
+			$("#ddlGenSundayEndTimeCreate").prop("disabled", false);
 
-			$("ddlAddFullWeekStartTimeCreate").prop("disabled", false);
-			$("ddlAddFullWeekEndTimeCreate").prop("disabled", false);
-			$("ddlAddFullWeekSatStartTimeCreate").prop("disabled", false);
-			$("ddlAddFullWeekSatEndTimeCreate").prop("disabled", false);
-			$("ddlAddFullWeekSunStartTimeCreate").prop("disabled", false);
-			$("ddlAddFullWeekSunEndTimeCreate").prop("disabled", false);
-			$("ddlAddMondayStartTimeCreate").prop("disabled", false);
-			$("ddlAddMondayEndTimeCreate").prop("disabled", false);
-			$("ddlAddTuesdayStartTimeCreate").prop("disabled", false);
-			$("ddlAddTuesdayEndTimeCreate").prop("disabled", false);
-			$("ddlAddWednesdayStartTimeCreate").prop("disabled", false);
-			$("ddlAddWednesdayEndTimeCreate").prop("disabled", false);
-			$("ddlAddThursdayStartTimeCreate").prop("disabled", false);
-			$("ddlAddThursdayEndTimeCreate").prop("disabled", false);
-			$("ddlAddFridayStartTimeCreate").prop("disabled", false);
-			$("ddlAddFridayEndTimeCreate").prop("disabled", false);
-			$("ddlAddSaturdayStartTimeCreate").prop("disabled", false);
-			$("ddlAddSaturdayEndTimeCreate").prop("disabled", false);
-			$("ddlAddSundayStartTimeCreate").prop("disabled", false);
-			$("ddlAddSundayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddFullWeekStartTimeCreate").prop("disabled", false);
+			$("#ddlAddFullWeekEndTimeCreate").prop("disabled", false);
+			$("#ddlAddFullWeekSatStartTimeCreate").prop("disabled", false);
+			$("#ddlAddFullWeekSatEndTimeCreate").prop("disabled", false);
+			$("#ddlAddFullWeekSunStartTimeCreate").prop("disabled", false);
+			$("#ddlAddFullWeekSunEndTimeCreate").prop("disabled", false);
+			$("#ddlAddMondayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddMondayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddTuesdayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddTuesdayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddWednesdayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddWednesdayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddThursdayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddThursdayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddFridayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddFridayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddSaturdayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddSaturdayEndTimeCreate").prop("disabled", false);
+			$("#ddlAddSundayStartTimeCreate").prop("disabled", false);
+			$("#ddlAddSundayEndTimeCreate").prop("disabled", false);
 		}
 	});
 }
 
-function checkAllDisable() {
+function checkHoursUpdate() {
+	$("#cbIs247Update").click(function() {
+		if ($(this).is(":checked")) 
+		{
+			$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenMondayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenMondayEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenThursdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenThursdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenFridayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenFridayEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlGenSundayStartTimeUpdate").prop("disabled", true);
+			$("#ddlGenSundayEndTimeUpdate").prop("disabled", true);
+
+			$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddMondayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddMondayEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddThursdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddThursdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddFridayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddFridayEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", true);
+			$("#ddlAddSundayStartTimeUpdate").prop("disabled", true);
+			$("#ddlAddSundayEndTimeUpdate").prop("disabled", true);
+		}
+		else {
+			$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenMondayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenMondayEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenThursdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenThursdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenFridayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenFridayEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlGenSundayStartTimeUpdate").prop("disabled", false);
+			$("#ddlGenSundayEndTimeUpdate").prop("disabled", false);
+
+			$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddMondayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddMondayEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddThursdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddThursdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddFridayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddFridayEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", false);
+			$("#ddlAddSundayStartTimeUpdate").prop("disabled", false);
+			$("#ddlAddSundayEndTimeUpdate").prop("disabled", false);
+		}
+	});
+}
+
+function checkAllDisableCreate() {
 	$("#cbHousingAllCreate").click(function(){
         if(this.checked){
             $("#cbShelterCreate").prop('checked', true).prop('disabled', true);;
@@ -1758,110 +1851,593 @@ function checkAllDisable() {
         }
     });
     
-	$("#cbHousingAllCreate").click(function() {
-		if(this.checked){
-			$("#cbShelterCreate").prop('checked', true).prop('disabled', true);
-			$("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);
-			$("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);
-		}
-	});
+    $("#cbClothingAllCreate").click(function(){
+        if(this.checked){
+            $("#cbClothingServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbClothingSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbClothingEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbClothingServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbClothingSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbClothingEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbClothingAllCreate").click(function() {
-		$("#cbClothingServCreate").not(this).prop('checked', this.checked);
-		$("#cbClothingSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbClothingEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbFoodAllCreate").click(function(){
+        if(this.checked){
+            $("#cbFoodServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFoodSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFoodEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbFoodServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFoodSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFoodEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbFoodAllCreate").click(function() {
-		$("#cbFoodServCreate").not(this).prop('checked', this.checked);
-		$("#cbFoodSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbFoodEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbMentoringAllCreate").click(function(){
+        if(this.checked){
+            $("#cbMentoringServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMentoringSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMentoringEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbMentoringServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMentoringSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMentoringEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbMentoringAllCreate").click(function() {
-		$("#cbMentoringServCreate").not(this).prop('checked', this.checked);
-		$("#cbMentoringSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbMentoringEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbEmploymentAllCreate").click(function(){
+        if(this.checked){
+            $("#cbEmploymentServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbEmploymentSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbEmploymentEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbEmploymentServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbEmploymentSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbEmploymentEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbEmploymentAllCreate").click(function() {
-		$("#cbEmploymentServCreate").not(this).prop('checked', this.checked);
-		$("#cbEmploymentSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbEmploymentEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbCounselAllCreate").click(function(){
+        if(this.checked){
+            $("#cbCounselServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbCounselSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbCounselEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbCounselServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbCounselSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbCounselEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbCounselAllCreate").click(function() {
-		$("#cbCounselServCreate").not(this).prop('checked', this.checked);
-		$("#cbCounselSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbCounselEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbPregnancyAllCreate").click(function(){
+        if(this.checked){
+            $("#cbPregnancyServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbPregnancySupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbPregnancyEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbPregnancyServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbPregnancySupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbPregnancyEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbPregnancyAllCreate").click(function() {
-		$("#cbPregnancyServCreate").not(this).prop('checked', this.checked);
-		$("#cbPregnancySupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbPregnancyEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbMedicalAllCreate").click(function(){
+        if(this.checked){
+            $("#cbMedicalServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMedicalSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMedicalEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbMedicalServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMedicalSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMedicalEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbMedicalAllCreate").click(function() {
-		$("#cbMedicalServCreate").not(this).prop('checked', this.checked);
-		$("#cbMedicalSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbMdeicalEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbLegalAllCreate").click(function(){
+        if(this.checked){
+            $("#cbLegalServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbLegalSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbLegalEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbLegalServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbLegalSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbLegalEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbLegalAllCreate").click(function() {
-		$("#cbLegalServCreate").not(this).prop('checked', this.checked);
-		$("#cbLegalSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbLegalEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbGovAllCreate").click(function(){
+        if(this.checked){
+            $("#cbGovServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbGovSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbGovEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbGovServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbGovSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbGovEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbGovAllCreate").click(function() {
-		$("#cbGovServCreate").not(this).prop('checked', this.checked);
-		$("#cbGovSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbGovEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbInvestigationAllCreate").click(function(){
+        if(this.checked){
+            $("#cbInvestigationServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbInvestigationSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbInvestigationEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbInvestigationServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbInvestigationSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbInvestigationEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbInvestigationAllCreate").click(function() {
-		$("#cbInvestigationServCreate").not(this).prop('checked', this.checked);
-		$("#cbInvestigationSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbInvestigationEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbFosterAllCreate").click(function(){
+        if(this.checked){
+            $("#cbFosterServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFosterSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFosterEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbFosterServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFosterSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFosterEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbFosterAllCreate").click(function() {
-		$("#cbFosterServCreate").not(this).prop('checked', this.checked);
-		$("#cbFosterSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbFosterEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbAwarenessAllCreate").click(function(){
+        if(this.checked){
+            $("#cbAwarenessEdServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAwarenessEdSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAwarenessEdEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbAwarenessEdServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAwarenessEdSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAwarenessEdEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbAwarenessAllCreate").click(function() {
-		$("#cbAwarenessServCreate").not(this).prop('checked', this.checked);
-		$("#cbAwarenessSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbAwarenessEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbResponseTrainAllCreate").click(function(){
+        if(this.checked){
+            $("#cbResponseTrainServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbResponseTrainSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbResponseTrainEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbResponseTrainServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbResponseTrainSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbResponseTrainEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbResponseTrainAllCreate").click(function() {
-		$("#cbResponseTrainServCreate").not(this).prop('checked', this.checked);
-		$("#cbResponseTrainSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbResponseTrainEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbSubstanceAbuseAllCreate").click(function(){
+        if(this.checked){
+            $("#cbSubstanceAbuseServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbSubstanceAbuseSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbSubstanceAbuseEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbSubstanceAbuseServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbSubstanceAbuseSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbSubstanceAbuseEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 
-	$("#cbSubstaceAbuseAllCreate").click(function() {
-		$("#cbSubstanceAbuseServCreate").not(this).prop('checked', this.checked);
-		$("#cbSubstanceAbuseSupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbSubstanceAbuseEmergRespCreate").not(this).prop('checked', this.checked);
-	});
-
-	$("#cbAdvocacyAllCreate").click(function() {
-		$("#cbAdvocacyServCreate").not(this).prop('checked', this.checked);
-		$("#cbAdvocacySupplyCreate").not(this).prop('checked', this.checked);
-		$("#cbAdvocacyEmergRespCreate").not(this).prop('checked', this.checked);
-	});
+	$("#cbAdvocacyAllCreate").click(function(){
+        if(this.checked){
+            $("#cbAdvocacyServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdvocacySupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdvocacyEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbAdvocacyServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdvocacySupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdvocacyEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbOtherAllCreate").click(function(){
+        if(this.checked){
+            $("#cbOtherServCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbOtherSupplyCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbOtherEmergRespCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbOtherServCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbOtherSupplyCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbOtherEmergRespCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbGenderAllCreate").click(function(){
+        if(this.checked){
+            $("#cbMaleCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFemaleCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbTransCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbMaleCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFemaleCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbTransCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbAgeAllCreate").click(function(){
+        if(this.checked){
+            $("#cbInfantCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbChildCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbYouthCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdultCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbInfantCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbChildCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbYouthCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdultCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbNatAllCreate").click(function(){
+        if(this.checked){
+            $("#cbDomesticCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbForeignCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbUndocumentedCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbDomesticCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbForeignCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbUndocumentedCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbRaceAllCreate").click(function(){
+        if(this.checked){
+            $("#cbWhiteCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbBlackCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAsianCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbIslandCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbNativeCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbWhiteCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbBlackCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAsianCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbIslandCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbNativeCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbEthnicityAllCreate").click(function(){
+        if(this.checked){
+            $("#cbHispanicCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbNonHispanicCreate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbHispanicCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbNonHispanicCreate").prop('disabled',false).prop('checked', false);;
+        }
+    });
 }
 
-function disableCheckBoxes() {
-	$("#cbHousingAllCreate").click(function() {
-    	$("#cbAdvocacyServCreate").not(this).prop('disabled', this.disabled);
-		$("#cbAdvocacySupplyCreate").not(this).prop('disabled', this.disabled);
-		$("#cbAdvocacyEmergRespCreate").not(this).prop('disabled', this.disabled);
+function checkAllDisableUpdate() {
+	$("#cbHousingAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbShelterUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbTransitionalHousingUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAssistLocateHousingUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbShelterUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbTransitionalHousingUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAssistLocateHousingUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbClothingAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbClothingServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbClothingSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbClothingEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbClothingServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbClothingSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbClothingEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbFoodAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbFoodServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFoodSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFoodEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbFoodServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFoodSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFoodEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbMentoringAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbMentoringServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMentoringSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMentoringEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbMentoringServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMentoringSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMentoringEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbEmploymentAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbEmploymentServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbEmploymentSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbEmploymentEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbEmploymentServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbEmploymentSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbEmploymentEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbCounselAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbCounselServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbCounselSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbCounselEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbCounselServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbCounselSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbCounselEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbPregnancyAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbPregnancyServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbPregnancySupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbPregnancyEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbPregnancyServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbPregnancySupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbPregnancyEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbMedicalAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbMedicalServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMedicalSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMedicalEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbMedicalServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMedicalSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMedicalEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbLegalAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbLegalServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbLegalSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbLegalEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbLegalServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbLegalSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbLegalEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbGovAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbGovServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbGovSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbGovEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbGovServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbGovSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbGovEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbInvestigationAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbInvestigationServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbInvestigationSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbInvestigationEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbInvestigationServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbInvestigationSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbInvestigationEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbFosterAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbFosterServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFosterSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFosterEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbFosterServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFosterSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFosterEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbAwarenessAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbAwarenessEdServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAwarenessEdSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAwarenessEdEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbAwarenessEdServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAwarenessEdSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAwarenessEdEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbResponseTrainAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbResponseTrainServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbResponseTrainSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbResponseTrainEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbResponseTrainServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbResponseTrainSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbResponseTrainEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbSubstanceAbuseAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbSubstanceAbuseServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbSubstanceAbuseSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbSubstanceAbuseEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbSubstanceAbuseServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbSubstanceAbuseSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbSubstanceAbuseEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+
+	$("#cbAdvocacyAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbAdvocacyServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdvocacySupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdvocacyEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbAdvocacyServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdvocacySupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdvocacyEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbOtherAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbOtherServUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbOtherSupplyUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbOtherEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbOtherServUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbOtherSupplyUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbOtherEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbGenderAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbMaleUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFemaleUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbTransUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbMaleUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFemaleUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbTransUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbAgeAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbInfantUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbChildUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbYouthUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdultUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbInfantUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbChildUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbYouthUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdultUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbNatAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbDomesticUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbForeignUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbUndocumentedUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbDomesticUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbForeignUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbUndocumentedUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbRaceAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbWhiteUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbBlackUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAsianUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbIslandUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbNativeUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbWhiteUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbBlackUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAsianUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbIslandUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbNativeUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+    
+    $("#cbEthnicityAllUpdate").click(function(){
+        if(this.checked){
+            $("#cbHispanicUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbNonHispanicUpdate").prop('checked', true).prop('disabled', true);;
+        }
+        else{
+           $("#cbHispanicUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbNonHispanicUpdate").prop('disabled',false).prop('checked', false);;
+        }
+    });
+}
+
+function disableFee(){
+	$("#cbFreeCreate").click(function(){
+		if(this.checked){
+			$("#txtAssociatedFeeCreate").prop('disabled', true);
+		}	
+		else{
+			$("#txtAssociatedFeeCreate").prop('disabled', false);
+		}
+	});
+	
+	$("#cbFreeUpdate").click(function(){
+		if(this.checked){
+			$("#txtAssociatedFeeUpdate").prop('disabled', true);
+		}	
+		else{
+			$("#txtAssociatedFeeUpdatee").prop('disabled', false);
+		}
 	});
 }
 
