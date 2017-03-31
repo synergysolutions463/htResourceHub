@@ -270,5 +270,29 @@ function getServiceUpdateData() {
     echo json_encode($servicesData);
 }
 
+function getStateData(){
+    $connLibrary = db_connect();
+    if($connLibrary == null || $connLibrary == null) {
+          die("There was an error connecting to the database");
+    }
+    
+    $orgId = $_POST['orgId'];
+    
+    $stateQuery = $connLibrary->prepare("SELECT StateName
+                                        FROM Organizations o
+                                        JOIN Addresses ON (o.OrgID = Addresses.OrgID)
+                                        JOIN States ON (Addresses.StateID = States.StateID)
+                                        WHERE o.OrgID = " . $orgId);
+    $stateQuery->execute();
+    $stateQuery->bind_result($stateName);
+    
+    $stateData = array();
+    
+    while($stateQuery->fetch()){
+        $stateData[] = array($stateName);
+    }
+    
+    echo json_encode($stateData);
+}
 
 ?>

@@ -214,7 +214,7 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"row\">";
 		text += "<div class=\"col-md-4 col-md-offset-2\">";
 		text += "<div class=\"organization-info\">";
-		text += "<h2><a href=\"orgInfo.html\" onclick=\"loadComplexData(this.id)\" style=\"cursor: pointer;\">";
+		text += "<h2><a href=\"orgInfo.html\" onclick=\"getComplexData(" + orgs[i][0] + ")\" style=\"cursor: pointer;\">";
 		text += orgs[i][1] + "</a></h2>";
 
 		if (orgs[i][18] == 1) {
@@ -1432,7 +1432,7 @@ function loadUpdateModalData(orgId) {
 		}
 	});
 
-	/*load age table
+	/*load age table */
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1445,8 +1445,50 @@ function loadUpdateModalData(orgId) {
 			console.log("ages: " + data);
 			var parsedData = JSON.parse(data);
 			var ages = parsedData;
+			
+				document.getElementById("cbAgeAllUpdate").checked = false;
+				document.getElementById("cbInfantUpdate").checked = false;
+				document.getElementById("cbChildUpdate").checked = false;
+				document.getElementById("cbYouthUpdate").checked = false;
+				document.getElementById("cbAdultUpdate").checked = false;
+				document.getElementById("cbInfantUpdate").disabled = false;
+				document.getElementById("cbChildUpdate").disabled = false;
+				document.getElementById("cbYouthUpdate").disabled = false;
+				document.getElementById("cbAdultUpdate").disabled = false;
+				
+				aLen = ages.length;
+				
+				for (i = 0; i < aLen; i++) { 
+					if (ages[i][0] == "All") {
+						document.getElementById("cbAgeAllUpdate").checked = true;
+						document.getElementById("cbInfantUpdate").checked = true;
+						document.getElementById("cbChildUpdate").checked = true;
+						document.getElementById("cbYouthUpdate").checked = true;
+						document.getElementById("cbAdultUpdate").checked = true;
+						document.getElementById("cbInfantUpdate").disabled = true;
+						document.getElementById("cbChildUpdate").disabled = true;
+						document.getElementById("cbYouthUpdate").disabled = true;
+						document.getElementById("cbAdultUpdate").disabled = true;
+					}
+					else {
+						if(ages[i][0] == "Infants/Toddlers") {
+							document.getElementById("cbInfantUpdate").checked = true;
+						}
+						if(ages[i][0] == "Children") {
+							document.getElementById("cbChildUpdate").checked = true;
+						}
+						if(ages[i][0] == "Youth/Young Adults") {
+							document.getElementById("cbYouthUpdate").checked = true;
+						}
+						if(ages[i][0] == "Adults") {
+							document.getElementById("cbAdultUpdate").checked = true;
+						}
+					}
+				}
+				
+
 		}
-	}); */
+	}); 
 
 	/*load contacts table
 
@@ -1528,6 +1570,7 @@ function loadUpdateModalData(orgId) {
 						
 			for (i; i < nationalityData.length; i++){
 				if (nationalityData[i] == "ALL") {
+					document.getElementById("cbNatAllUpdate").checked = true;
 					document.getElementById("cbDomesticUpdate").checked = true;
 					document.getElementById("cbForeignUpdate").checked = true;
 					document.getElementById("cbUndocumentedUpdate").checked = true;
@@ -1549,8 +1592,8 @@ function loadUpdateModalData(orgId) {
 		} 
 	}); */
 
-	/*load organizations table
-
+	/*load organizations table */
+/*	
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -1563,11 +1606,52 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var organizationData = parsedData;
 			
+			if (organizationData[16] == 1) {
+				document.getElementById("CBIsConfUpdate").checked = true;
+			}
+			else {
+				document.getElementById("CBIsConfUpdate").checked = false;
+			}
 			
-
+			document.getElementById("txtOrgNameUpdate").value = organizationData[1];
+			document.getElementById("txtOrgProgramUpdate").value = organizationData[18];
+			document.getElementById("txtMissionStatementUpdate").value = organizationData[3];
+			document.getElementById("txtOrgWebsiteUpdate").value = organizationData[4];
+			document.getElementById("txtOrgEmailUpdate").value = organizationData[5];
+			document.getElementById("txtMainPhoneUpdate").value = organizationData[6];   
+			document.getElementById("txtHotlineUpdate").value = organizationData[7];
+			document.getElementById("txtConfPhoneUpdate").value = organizationData[8];   
+			
+			if (organizationData[9] == 1) {
+				document.getElementById("cbShelterUpdate").checked = true;
+			}
+			else {
+				document.getElementById("cbShelterUpdate").checked = false;
+			}
+			
+			if (organizationData[10] == 1) {
+				document.getElementById("cbTransitionalHousingUpdate").checked = true;
+			}
+			else {
+				document.getElementById("cbTransitionalHousingUpdate").checked = false;
+			}
+			
+			if (organizationData[11] == 1) {
+				document.getElementById("cbAssistLocateHousingUpdate").checked = true;
+			}
+			else {
+				document.getElementById("cbAssistLocateHousingUpdate").checked = false;
+			}
+			
+			document.getElementById("txtAssociatedFeeUpdate").value = organizationData[12];
+			document.getElementById("ddlFaithUpdate").value = organizationData[13];
+			document.getElementById("txtNoteUpdate").value = organizationData[14];
+			document.getElementById("txtConfidentialNoteUpdate").value = organizationData[15];
+			document.getElementById("txtMainPhoneExtUpdate").value = organizationData[19];
+			document.getElementById("txtConfExtUpdate").value = organizationData[20];
 		}
-	}); */
-
+	}); 
+*/
 	/*load race table
 
 	$.ajax({
@@ -1584,6 +1668,7 @@ function loadUpdateModalData(orgId) {
 			
 			for (i; i < raceData.length; i++){
 				if (raceData[i] == "ALL") {
+					document.getElementById("cbRaceAllUpdate").checked = true;
 					document.getElementById("cbWhiteUpdate").checked = true;
 					document.getElementById("cbBlackUpdate").checked = true;
 					document.getElementById("cbAsianUpdate").checked = true;
@@ -1613,8 +1698,8 @@ function loadUpdateModalData(orgId) {
 		}
 	}); */
 
-	/*load requirements table
-
+	/* load requirements table */
+/*
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -1626,10 +1711,33 @@ function loadUpdateModalData(orgId) {
 			console.log("requirements: " + data);
 			var parsedData = JSON.parse(data);
 			var requirementsData = parsedData;
+			
+			for (i = 0; i < requirementsData.length; i++) {
+				
+				if (requirementsData[i][0] == "Membership") {
+					document.getElementById("cbMembershipUpdate").checked = true;
+					document.getElementById("txtMembershipUpdate").value = requirementsData[i][1];
+				}
+				
+				if (requirementsData[i][0] == "Training") {
+					document.getElementById("cbTrainingUpdate").checked = true;
+					document.getElementById("txtTrainingUpdate").value = requirementsData[i][1];
+				}
+				
+				if (requirementsData[i][0] == "Application") {
+					document.getElementById("cbApplicationUpdate").checked = true;
+					document.getElementById("txtApplicationUpdate").value = requirementsData[i][1];
+				}
+				
+				if (requirementsData[i][0] == "Possible Waiting List/Referral Required/Other Entry Restrictions") {
+					document.getElementById("cbRestrictionUpdate").checked = true;
+					document.getElementById("txtRestrictionUpdate").value = requirementsData[i][1];
+				}
+			}
 		}
-	}); */
-
-	/*load service table
+	}); 
+*/
+	/* load service table */
 	
 		$.ajax({
 			url: '/PHP/loadUpdateData.php',
@@ -1642,11 +1750,432 @@ function loadUpdateModalData(orgId) {
 				console.log("service: " + data);
 				var parsedData = JSON.parse(data);
 				var serviceData = parsedData;
-
+				
+				for (i = 0; i < serviceData.length; i++) {
+					
+					if (serviceData[i][1] == "Clothing") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							
+							document.getElementById("cbClothingAllUpdate").checked = true;
+							document.getElementById("cbClothingServUpdate").checked = true;
+							document.getElementById("cbClothingSupplyUpdate").checked = true;
+							document.getElementById("cbClothingEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbClothingServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbClothingSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbClothingEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtClothingDescUpdate").value = serviceData[i][5];
+						}
+						
+					}
+					
+					if (serviceData[i][1] == "Food") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+						
+							document.getElementById("cbFoodAllUpdate").checked = true;
+							document.getElementById("cbFoodServUpdate").checked = true;
+							document.getElementById("cbFoodSupplyUpdate").checked = true;
+							document.getElementById("cbFoodEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbFoodServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbFoodSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbFoodEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtFoodDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Employment") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							
+							document.getElementById("cbEmploymentAllUpdate").checked = true;
+							document.getElementById("cbEmploymentServUpdate").checked = true;
+							document.getElementById("cbEmploymentSupplyUpdate").checked = true;
+							document.getElementById("cbEmploymentEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbEmploymentServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbEmploymentSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbEmploymentEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtEmploymentDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Mentoring") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							
+							document.getElementById("cbMentoringAllUpdate").checked = true;
+							document.getElementById("cbMentoringServUpdate").checked = true;
+							document.getElementById("cbMentoringSupplyUpdate").checked = true;
+							document.getElementById("cbMentoringEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbMentoringServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbMentoringSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbMentoringEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtMentoringDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Counseling/Therapy") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbCounselAllUpdate").checked = true;
+							document.getElementById("cbCounselServUpdate").checked = true;
+							document.getElementById("cbCounselSupplyUpdate").checked = true;
+							document.getElementById("cbCounselEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbCounselServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbCounselSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbCounselEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtCounselDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Pregnancy") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbPregnancyAllUpdate").checked = true;
+							document.getElementById("cbPregnancyServUpdate").checked = true;
+							document.getElementById("cbPregnancySupplyUpdate").checked = true;
+							document.getElementById("cbPregnancyEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbPregnancyServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbPregnancySupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbPregnancyEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtPregnancyDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Medical") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbMedicalAllUpdate").checked = true;
+							document.getElementById("cbMedicalServUpdate").checked = true;
+							document.getElementById("cbMedicalSupplyUpdate").checked = true;
+							document.getElementById("cbMedicalEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbMedicalServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbMedicalSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbMedicalEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtMedicalDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Legal") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbLegalAllUpdate").checked = true;
+							document.getElementById("cbLegalServUpdate").checked = true;
+							document.getElementById("cbLegalSupplyUpdate").checked = true;
+							document.getElementById("cbLegalEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbLegalServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbLegalSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbLegalEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtLegalDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Governmental") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbGovAllUpdate").checked = true;
+							document.getElementById("cbGovServUpdate").checked = true;
+							document.getElementById("cbGovSupplyUpdate").checked = true;
+							document.getElementById("cbGovEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbGovServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbGovSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbGovEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtGovDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Investigation") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbInvestigationAllUpdate").checked = true;
+							document.getElementById("cbInvestigationServUpdate").checked = true;
+							document.getElementById("cbInvestigationSupplyUpdate").checked = true;
+							document.getElementById("cbInvestigationEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbInvestigationServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbInvestigationSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbInvestigationEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtInvestigationDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Foster Care") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbFosterAllUpdate").checked = true;
+							document.getElementById("cbFosterServUpdate").checked = true;
+							document.getElementById("cbFosterSupplyUpdate").checked = true;
+							document.getElementById("cbFosterEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbFosterServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbFosterSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbFosterEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtFosterDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Awareness/Education") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbAwarenessEdAllUpdate").checked = true;
+							document.getElementById("cbAwarenessEdServUpdate").checked = true;
+							document.getElementById("cbAwarenessEdSupplyUpdate").checked = true;
+							document.getElementById("cbAwarenessEdEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbAwarenessEdServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbAwarenessEdSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbAwarenessEdEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtAwarenessEdDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Response Training") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbResponseTrainAllUpdate").checked = true;
+							document.getElementById("cbResponseTrainServUpdate").checked = true;
+							document.getElementById("cbResponseTrainSupplyUpdate").checked = true;
+							document.getElementById("cbResponseTrainEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbResponseTrainServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbResponseTrainSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbResponseTrainEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtResponseTrainDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Substance Abuse") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbSubstanceAbuseAllUpdate").checked = true;
+							document.getElementById("cbSubstanceAbuseServUpdate").checked = true;
+							document.getElementById("cbSubstanceAbuseSupplyUpdate").checked = true;
+							document.getElementById("cbSubstanceAbuseEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbSubstanceAbuseServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbSubstanceAbuseSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbSubstanceAbuseEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtSubstanceAbuseDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Other") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbOtherAllUpdate").checked = true;
+							document.getElementById("cbOtherServUpdate").checked = true;
+							document.getElementById("cbOtherSupplyUpdate").checked = true;
+							document.getElementById("cbOtherEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbOtherServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbOtherSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbOtherEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtOtherDescUpdate").value = serviceData[i][5];
+						}
+					}
+					
+					if (serviceData[i][1] == "Advocacy") {
+						
+						if (serviceData[i][2] == 1 && serviceData[i][3] == 1 && serviceData[i][4] == 1) {
+							document.getElementById("cbAdvocacyAllUpdate").checked = true;
+							document.getElementById("cbAdvocacyServUpdate").checked = true;
+							document.getElementById("cbAdvocacySupplyUpdate").checked = true;
+							document.getElementById("cbAdvocacyEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][2] == 1) {
+							document.getElementById("cbAdvocacServUpdate").checked = true;
+						}
+						
+						if (serviceData[i][3] == 1) {
+							document.getElementById("cbAdvocacSupplyUpdate").checked = true;
+						}
+						
+						if (serviceData[i][4] == 1) {
+							document.getElementById("cbAdvocacEmergRespUpdate").checked = true;
+						}
+						
+						if (serviceData[i][5] != null && serviceData[i][5] != "") {
+							document.getElementById("txtAdvocacDescUpdate").value = serviceData[i][5];
+						}
+					}
+				}
 			}
-		});  */
-		
-		
+		});  
 }
 
 function checkHoursCreate() {
@@ -1838,293 +2367,295 @@ function checkHoursUpdate() {
 }
 
 function checkAllDisableCreate() {
+	
 	$("#cbHousingAllCreate").click(function(){
         if(this.checked){
-            $("#cbShelterCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbShelterCreate").prop('checked', true).prop('disabled', true);
+            $("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);
+            
         }
         else{
-           $("#cbShelterCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbTransitionalHousingCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAssistLocateHousingCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbShelterCreate").prop('disabled',false).prop('checked', false);
+           $("#cbTransitionalHousingCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAssistLocateHousingCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbClothingAllCreate").click(function(){
         if(this.checked){
-            $("#cbClothingServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbClothingSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbClothingEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbClothingServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbClothingSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbClothingEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbClothingServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbClothingSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbClothingEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbClothingServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbClothingSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbClothingEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbFoodAllCreate").click(function(){
         if(this.checked){
-            $("#cbFoodServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbFoodSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbFoodEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFoodServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbFoodSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbFoodEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbFoodServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbFoodSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbFoodEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFoodServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbFoodSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbFoodEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbMentoringAllCreate").click(function(){
         if(this.checked){
-            $("#cbMentoringServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbMentoringSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbMentoringEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMentoringServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbMentoringSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbMentoringEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbMentoringServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbMentoringSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbMentoringEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMentoringServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbMentoringSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbMentoringEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbEmploymentAllCreate").click(function(){
         if(this.checked){
-            $("#cbEmploymentServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbEmploymentSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbEmploymentEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbEmploymentServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbEmploymentSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbEmploymentEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbEmploymentServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbEmploymentSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbEmploymentEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbEmploymentServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbEmploymentSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbEmploymentEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbCounselAllCreate").click(function(){
         if(this.checked){
-            $("#cbCounselServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbCounselSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbCounselEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbCounselServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbCounselSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbCounselEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbCounselServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbCounselSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbCounselEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbCounselServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbCounselSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbCounselEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbPregnancyAllCreate").click(function(){
         if(this.checked){
-            $("#cbPregnancyServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbPregnancySupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbPregnancyEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbPregnancyServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbPregnancySupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbPregnancyEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbPregnancyServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbPregnancySupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbPregnancyEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbPregnancyServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbPregnancySupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbPregnancyEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbMedicalAllCreate").click(function(){
         if(this.checked){
-            $("#cbMedicalServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbMedicalSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbMedicalEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMedicalServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbMedicalSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbMedicalEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbMedicalServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbMedicalSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbMedicalEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMedicalServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbMedicalSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbMedicalEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbLegalAllCreate").click(function(){
         if(this.checked){
-            $("#cbLegalServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbLegalSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbLegalEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbLegalServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbLegalSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbLegalEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbLegalServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbLegalSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbLegalEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbLegalServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbLegalSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbLegalEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbGovAllCreate").click(function(){
         if(this.checked){
-            $("#cbGovServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbGovSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbGovEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbGovServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbGovSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbGovEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbGovServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbGovSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbGovEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbGovServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbGovSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbGovEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbInvestigationAllCreate").click(function(){
         if(this.checked){
-            $("#cbInvestigationServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbInvestigationSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbInvestigationEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbInvestigationServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbInvestigationSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbInvestigationEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbInvestigationServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbInvestigationSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbInvestigationEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbInvestigationServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbInvestigationSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbInvestigationEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbFosterAllCreate").click(function(){
         if(this.checked){
-            $("#cbFosterServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbFosterSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbFosterEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbFosterServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbFosterSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbFosterEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbFosterServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbFosterSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbFosterEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbFosterServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbFosterSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbFosterEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbAwarenessAllCreate").click(function(){
         if(this.checked){
-            $("#cbAwarenessEdServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAwarenessEdSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAwarenessEdEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAwarenessEdServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAwarenessEdSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAwarenessEdEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbAwarenessEdServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAwarenessEdSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAwarenessEdEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAwarenessEdServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAwarenessEdSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAwarenessEdEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbResponseTrainAllCreate").click(function(){
         if(this.checked){
-            $("#cbResponseTrainServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbResponseTrainSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbResponseTrainEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbResponseTrainServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbResponseTrainSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbResponseTrainEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbResponseTrainServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbResponseTrainSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbResponseTrainEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbResponseTrainServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbResponseTrainSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbResponseTrainEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbSubstanceAbuseAllCreate").click(function(){
         if(this.checked){
-            $("#cbSubstanceAbuseServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbSubstanceAbuseSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbSubstanceAbuseEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbSubstanceAbuseServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbSubstanceAbuseSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbSubstanceAbuseEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbSubstanceAbuseServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbSubstanceAbuseSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbSubstanceAbuseEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbSubstanceAbuseServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbSubstanceAbuseSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbSubstanceAbuseEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbAdvocacyAllCreate").click(function(){
         if(this.checked){
-            $("#cbAdvocacyServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAdvocacySupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAdvocacyEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdvocacyServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAdvocacySupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAdvocacyEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbAdvocacyServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAdvocacySupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAdvocacyEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdvocacyServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAdvocacySupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAdvocacyEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbOtherAllCreate").click(function(){
         if(this.checked){
-            $("#cbOtherServCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbOtherSupplyCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbOtherEmergRespCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbOtherServCreate").prop('checked', true).prop('disabled', true);
+            $("#cbOtherSupplyCreate").prop('checked', true).prop('disabled', true);
+            $("#cbOtherEmergRespCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbOtherServCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbOtherSupplyCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbOtherEmergRespCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbOtherServCreate").prop('disabled',false).prop('checked', false);
+           $("#cbOtherSupplyCreate").prop('disabled',false).prop('checked', false);
+           $("#cbOtherEmergRespCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbGenderAllCreate").click(function(){
         if(this.checked){
-            $("#cbMaleCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbFemaleCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbTransCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbMaleCreate").prop('checked', true).prop('disabled', true);
+            $("#cbFemaleCreate").prop('checked', true).prop('disabled', true);
+            $("#cbTransCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbMaleCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbFemaleCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbTransCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbMaleCreate").prop('disabled',false).prop('checked', false);
+           $("#cbFemaleCreate").prop('disabled',false).prop('checked', false);
+           $("#cbTransCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbAgeAllCreate").click(function(){
         if(this.checked){
-            $("#cbInfantCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbChildCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbYouthCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAdultCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbInfantCreate").prop('checked', true).prop('disabled', true);
+            $("#cbChildCreate").prop('checked', true).prop('disabled', true);
+            $("#cbYouthCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAdultCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbInfantCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbChildCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbYouthCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAdultCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbInfantCreate").prop('disabled',false).prop('checked', false);
+           $("#cbChildCreate").prop('disabled',false).prop('checked', false);
+           $("#cbYouthCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAdultCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbNatAllCreate").click(function(){
         if(this.checked){
-            $("#cbDomesticCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbForeignCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbUndocumentedCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbDomesticCreate").prop('checked', true).prop('disabled', true);
+            $("#cbForeignCreate").prop('checked', true).prop('disabled', true);
+            $("#cbUndocumentedCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbDomesticCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbForeignCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbUndocumentedCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbDomesticCreate").prop('disabled',false).prop('checked', false);
+           $("#cbForeignCreate").prop('disabled',false).prop('checked', false);
+           $("#cbUndocumentedCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbRaceAllCreate").click(function(){
         if(this.checked){
-            $("#cbWhiteCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbBlackCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbAsianCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbIslandCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbNativeCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbWhiteCreate").prop('checked', true).prop('disabled', true);
+            $("#cbBlackCreate").prop('checked', true).prop('disabled', true);
+            $("#cbAsianCreate").prop('checked', true).prop('disabled', true);
+            $("#cbIslandCreate").prop('checked', true).prop('disabled', true);
+            $("#cbNativeCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbWhiteCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbBlackCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbAsianCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbIslandCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbNativeCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbWhiteCreate").prop('disabled',false).prop('checked', false);
+           $("#cbBlackCreate").prop('disabled',false).prop('checked', false);
+           $("#cbAsianCreate").prop('disabled',false).prop('checked', false);
+           $("#cbIslandCreate").prop('disabled',false).prop('checked', false);
+           $("#cbNativeCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbEthnicityAllCreate").click(function(){
         if(this.checked){
-            $("#cbHispanicCreate").prop('checked', true).prop('disabled', true);;
-            $("#cbNonHispanicCreate").prop('checked', true).prop('disabled', true);;
+            $("#cbHispanicCreate").prop('checked', true).prop('disabled', true);
+            $("#cbNonHispanicCreate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbHispanicCreate").prop('disabled',false).prop('checked', false);;
-           $("#cbNonHispanicCreate").prop('disabled',false).prop('checked', false);;
+           $("#cbHispanicCreate").prop('disabled',false).prop('checked', false);
+           $("#cbNonHispanicCreate").prop('disabled',false).prop('checked', false);
         }
     });
 }
@@ -2132,291 +2663,291 @@ function checkAllDisableCreate() {
 function checkAllDisableUpdate() {
 	$("#cbHousingAllUpdate").click(function(){
         if(this.checked){
-            $("#cbShelterUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbTransitionalHousingUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAssistLocateHousingUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbShelterUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbTransitionalHousingUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAssistLocateHousingUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbShelterUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbTransitionalHousingUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAssistLocateHousingUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbShelterUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbTransitionalHousingUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAssistLocateHousingUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbClothingAllUpdate").click(function(){
         if(this.checked){
-            $("#cbClothingServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbClothingSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbClothingEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbClothingServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbClothingSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbClothingEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbClothingServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbClothingSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbClothingEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbClothingServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbClothingSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbClothingEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbFoodAllUpdate").click(function(){
         if(this.checked){
-            $("#cbFoodServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbFoodSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbFoodEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFoodServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbFoodSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbFoodEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbFoodServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbFoodSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbFoodEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFoodServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbFoodSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbFoodEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbMentoringAllUpdate").click(function(){
         if(this.checked){
-            $("#cbMentoringServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbMentoringSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbMentoringEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMentoringServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbMentoringSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbMentoringEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbMentoringServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbMentoringSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbMentoringEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMentoringServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbMentoringSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbMentoringEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbEmploymentAllUpdate").click(function(){
         if(this.checked){
-            $("#cbEmploymentServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbEmploymentSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbEmploymentEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbEmploymentServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbEmploymentSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbEmploymentEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbEmploymentServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbEmploymentSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbEmploymentEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbEmploymentServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbEmploymentSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbEmploymentEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbCounselAllUpdate").click(function(){
         if(this.checked){
-            $("#cbCounselServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbCounselSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbCounselEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbCounselServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbCounselSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbCounselEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbCounselServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbCounselSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbCounselEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbCounselServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbCounselSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbCounselEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbPregnancyAllUpdate").click(function(){
         if(this.checked){
-            $("#cbPregnancyServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbPregnancySupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbPregnancyEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbPregnancyServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbPregnancySupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbPregnancyEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbPregnancyServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbPregnancySupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbPregnancyEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbPregnancyServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbPregnancySupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbPregnancyEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbMedicalAllUpdate").click(function(){
         if(this.checked){
-            $("#cbMedicalServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbMedicalSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbMedicalEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMedicalServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbMedicalSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbMedicalEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbMedicalServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbMedicalSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbMedicalEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMedicalServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbMedicalSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbMedicalEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbLegalAllUpdate").click(function(){
         if(this.checked){
-            $("#cbLegalServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbLegalSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbLegalEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbLegalServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbLegalSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbLegalEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbLegalServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbLegalSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbLegalEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbLegalServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbLegalSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbLegalEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbGovAllUpdate").click(function(){
         if(this.checked){
-            $("#cbGovServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbGovSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbGovEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbGovServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbGovSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbGovEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbGovServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbGovSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbGovEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbGovServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbGovSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbGovEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbInvestigationAllUpdate").click(function(){
         if(this.checked){
-            $("#cbInvestigationServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbInvestigationSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbInvestigationEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbInvestigationServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbInvestigationSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbInvestigationEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbInvestigationServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbInvestigationSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbInvestigationEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbInvestigationServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbInvestigationSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbInvestigationEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbFosterAllUpdate").click(function(){
         if(this.checked){
-            $("#cbFosterServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbFosterSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbFosterEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbFosterServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbFosterSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbFosterEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbFosterServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbFosterSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbFosterEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbFosterServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbFosterSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbFosterEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbAwarenessAllUpdate").click(function(){
         if(this.checked){
-            $("#cbAwarenessEdServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAwarenessEdSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAwarenessEdEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAwarenessEdServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAwarenessEdSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAwarenessEdEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbAwarenessEdServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAwarenessEdSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAwarenessEdEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAwarenessEdServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAwarenessEdSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAwarenessEdEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbResponseTrainAllUpdate").click(function(){
         if(this.checked){
-            $("#cbResponseTrainServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbResponseTrainSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbResponseTrainEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbResponseTrainServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbResponseTrainSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbResponseTrainEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbResponseTrainServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbResponseTrainSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbResponseTrainEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbResponseTrainServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbResponseTrainSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbResponseTrainEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbSubstanceAbuseAllUpdate").click(function(){
         if(this.checked){
-            $("#cbSubstanceAbuseServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbSubstanceAbuseSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbSubstanceAbuseEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbSubstanceAbuseServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbSubstanceAbuseSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbSubstanceAbuseEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbSubstanceAbuseServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbSubstanceAbuseSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbSubstanceAbuseEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbSubstanceAbuseServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbSubstanceAbuseSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbSubstanceAbuseEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 
 	$("#cbAdvocacyAllUpdate").click(function(){
         if(this.checked){
-            $("#cbAdvocacyServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAdvocacySupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAdvocacyEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbAdvocacyServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAdvocacySupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAdvocacyEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbAdvocacyServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAdvocacySupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAdvocacyEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbAdvocacyServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAdvocacySupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAdvocacyEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbOtherAllUpdate").click(function(){
         if(this.checked){
-            $("#cbOtherServUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbOtherSupplyUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbOtherEmergRespUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbOtherServUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbOtherSupplyUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbOtherEmergRespUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbOtherServUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbOtherSupplyUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbOtherEmergRespUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbOtherServUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbOtherSupplyUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbOtherEmergRespUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbGenderAllUpdate").click(function(){
         if(this.checked){
-            $("#cbMaleUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbFemaleUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbTransUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbMaleUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbFemaleUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbTransUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbMaleUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbFemaleUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbTransUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbMaleUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbFemaleUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbTransUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbAgeAllUpdate").click(function(){
         if(this.checked){
-            $("#cbInfantUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbChildUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbYouthUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAdultUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbInfantUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbChildUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbYouthUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAdultUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbInfantUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbChildUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbYouthUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAdultUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbInfantUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbChildUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbYouthUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAdultUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbNatAllUpdate").click(function(){
         if(this.checked){
-            $("#cbDomesticUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbForeignUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbUndocumentedUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbDomesticUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbForeignUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbUndocumentedUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbDomesticUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbForeignUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbUndocumentedUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbDomesticUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbForeignUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbUndocumentedUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbRaceAllUpdate").click(function(){
         if(this.checked){
-            $("#cbWhiteUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbBlackUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbAsianUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbIslandUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbNativeUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbWhiteUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbBlackUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbAsianUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbIslandUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbNativeUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbWhiteUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbBlackUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbAsianUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbIslandUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbNativeUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbWhiteUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbBlackUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbAsianUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbIslandUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbNativeUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
     $("#cbEthnicityAllUpdate").click(function(){
         if(this.checked){
-            $("#cbHispanicUpdate").prop('checked', true).prop('disabled', true);;
-            $("#cbNonHispanicUpdate").prop('checked', true).prop('disabled', true);;
+            $("#cbHispanicUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbNonHispanicUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
-           $("#cbHispanicUpdate").prop('disabled',false).prop('checked', false);;
-           $("#cbNonHispanicUpdate").prop('disabled',false).prop('checked', false);;
+           $("#cbHispanicUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbNonHispanicUpdate").prop('disabled',false).prop('checked', false);
         }
     });
 }
@@ -2424,26 +2955,26 @@ function checkAllDisableUpdate() {
 function disableFee(){
 	$("#cbFreeCreate").click(function(){
 		if(this.checked){
-			$("#txtAssociatedFeeCreate").prop('disabled', true);
+			$("#txtAssociatedFeeCreate").prop('disabled',true);
 		}	
 		else{
-			$("#txtAssociatedFeeCreate").prop('disabled', false);
+			$("#txtAssociatedFeeCreate").prop('disabled',false);
 		}
 	});
 	
 	$("#cbFreeUpdate").click(function(){
 		if(this.checked){
-			$("#txtAssociatedFeeUpdate").prop('disabled', true);
+			$("#txtAssociatedFeeUpdate").prop('disabled',true);
 		}	
 		else{
-			$("#txtAssociatedFeeUpdatee").prop('disabled', false);
+			$("#txtAssociatedFeeUpdatee").prop('disabled',false);
 		}
 	});
 }
 
 function displayUpdateModal() {
 	$.ajax({
-  url: '/HTML/updateModal.html',
+  url: '/HTML/Modals/updateModal.html',
   dataType: 'text',
   success: function(data) {
 	document.getElementById("insertUpdateModal").innerHTML = data;
@@ -2451,14 +2982,57 @@ function displayUpdateModal() {
 });
 }
 
-/*
+function displayCreateModal() {
+	$.ajax({
+  url: '/HTML/Modals/createModal.html',
+  dataType: 'text',
+  success: function(data) {
+	document.getElementById("insertCreateModal").innerHTML = data;
+  }
+});
+}
 
-function getComplexData() {
-	
+function displayLoginModal() {
+	$.ajax({
+  url: '/HTML/Modals/loginModal.html',
+  dataType: 'text',
+  success: function(data) {
+	document.getElementById("insertLoginModal").innerHTML = data;
+  }
+});
+}
+
+function onLoadFunctions() {
+	displayCreateModal();
+	displayUpdateModal();
+	displayLoginModal();
+	disableFee();
+	checkAllDisableCreate();
+	checkAllDisableUpdate();
+	checkHoursCreate();
+	checkHoursUpdate();
+	populateCreateStates();
+	populateCreateFaiths();
+	populateUpdateStates();
+	populateUpdateFaiths();
+}
+
+function getComplexData(orgId) {
+
 	var addresses;
-	//
+	var ages;
+	var contacts;
+	var ethnicities;
+	var genders;
+	var hours;
+	var nationalities;
+	var organizations;
+	var races;
+	var requirements;
+	var services;
+	var stateName;
 	
-		/*load addresses table
+	/*load addresses table*/
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -2469,13 +3043,13 @@ function getComplexData() {
 		success: function(data) {
 			console.log("addresses: " + data);
 			var parsedData = JSON.parse(data);
-			var addresses = parsedData;
+			addresses = parsedData;
 			
 		
 		}
 	});
 
-	/*load age table
+	/*load age table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2487,11 +3061,11 @@ function getComplexData() {
 		success: function(data) {
 			console.log("ages: " + data);
 			var parsedData = JSON.parse(data);
-			var ages = parsedData;
+			ages = parsedData;
 		}
 	});
 
-	/*load contacts table
+	/*load contacts table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2503,11 +3077,11 @@ function getComplexData() {
 		success: function(data) {
 			console.log("contacts: " + data);
 			var parsedData = JSON.parse(data);
-			var contacts = parsedData;
+			contacts = parsedData;
 		}
 	});
 
-	/*load ethnicity table
+	/*load ethnicity table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2519,11 +3093,11 @@ function getComplexData() {
 		success: function(data) {
 			console.log("ethnicity: " + data);
 			var parsedData = JSON.parse(data);
-			var ethnicities = parsedData;
+			ethnicities = parsedData;
 		}
 	});
 
-	/*load gender table
+	/*load gender table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2535,11 +3109,11 @@ function getComplexData() {
 		success: function(data) {
 			console.log("gender: " + data);
 			var parsedData = JSON.parse(data);
-			var genders = parsedData;
+			genders = parsedData;
 		}
 	});
 
-	/*load hours table
+	/*load hours table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2551,11 +3125,11 @@ function getComplexData() {
 		success: function(data) {
 			console.log("hours: " + data);
 			var parsedData = JSON.parse(data);
-			var hours = parsedData;
+			hours = parsedData;
 		}
 	});
 
-	/*load nationality table
+	/*load nationality table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2567,12 +3141,12 @@ function getComplexData() {
 		success: function(data) {
 			console.log("nationality: " + data);
 			var parsedData = JSON.parse(data);
-			var nationalityData = parsedData;
+			nationalities = parsedData;
 						
 		} 
 	});
 
-	/*load organizations table
+	/*load organizations table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2584,14 +3158,14 @@ function getComplexData() {
 		success: function(data) {
 			console.log("organizations: " + data);
 			var parsedData = JSON.parse(data);
-			var organizationData = parsedData;
+			organizations = parsedData;
 			
 			
 
 		}
 	});
 
-	/*load race table
+	/*load race table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2603,14 +3177,14 @@ function getComplexData() {
 		success: function(data) {
 			console.log("race: " + data);
 			var parsedData = JSON.parse(data);
-			var raceData = parsedData;
+			races = parsedData;
 
 			
 
 		}
 	});
 
-	/*load requirements table
+	/*load requirements table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -2622,33 +3196,145 @@ function getComplexData() {
 		success: function(data) {
 			console.log("requirements: " + data);
 			var parsedData = JSON.parse(data);
-			var requirementsData = parsedData;
+			requirements = parsedData;
 		}
 	});
 
-	/*load service table
+	/*load service table*/
 	
-		$.ajax({
-			url: '/PHP/loadUpdateData.php',
-			type: 'POST',
-			data: {
-				method: "getServiceUpdateData",
-				orgId: orgId
-			},
-			success: function(data) {
-				console.log("service: " + data);
-				var parsedData = JSON.parse(data);
-				var serviceData = parsedData;
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getServiceUpdateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("service: " + data);
+			var parsedData = JSON.parse(data);
+			services = parsedData;
 
 			}
 		}); 
 		
-		setComplexData();
+	/*load the state name*/
+	$.ajax({
+		url: '/PHP/loadUpdateData.php',
+		type: 'POST',
+		data: {
+			method: "getStateData",
+			orgId: orgId
+		},
+		success: function(data) {
+			console.log("state: " + data);
+			var parsedData = JSON.parse(data);
+			stateName = parsedData;
+
+			}
+		});
+	
+	//setComplexData(addresses, ages, etc...);
 	
 }
 
-function setComplexData() {
+
+function setComplexData(addresses, ages, contacts, ethnicities, genders, hours, nationalities, organizations, races, requirements, services, stateName){
+	
+	text = "";
+	
+	text += "<div class=\"panel\" id=\"indiPanel\">";
+	text += "<div class=\"row\">";
+	text += "<div class=\"col-md-4 col-md-offset-2\">";
+	text += "<h2>" + organizations[0][1] + "</h2>";
+	text += "<a href=\"" + organizations[0][4] + "\" target=\"_blank\">" + organizations[0][4] + "</a>";
+	text += "</div>";
+	text += "</div>";
+	text += "<div class=\"row\">";
+	text += "<div class=\"col-md-4 col-md-offset-2\" id=\"OrgInfoResult\">";
+	
+	//populates the addresses
+	aLength = addresses.length();
+	for(i = 0; i < aLength; i++){
+	text += "<h4>" + addresses[i][0] + ", " + addresses[i][1] + ", " + stateName[i][0] + " " + addresses[i][2] + "</h4>";
+	}
+	
+	text += "<br>";
+	text += "<p>HOURS OF OPERATION</p>";
+	
+	//populate hours of operation
+	//assumption made is that hours[i][0] will be regular hours, and hours[i][1] will be additional
+	if(hours[0][1] == 1){
+		text += "<p>Open 24 Hours</p>";
+	}
+	//if all weekdays match, prints a condensed version
+	else if(hours[0][2] == 0 & hours[0][3] == hours[0][5] & hours[0][3] == hours[0][7] & hours[0][3] == hours[0][9] & hours[0][3] == hours[0][11]  
+			& hours[0][4] == hours[0][6] & hours[0][4] == hours[0][8] & hours[0][4] == hours[0][10] & hours[0][4] == hours[0][12]){
+		text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
+		text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
+		
+		if(hours[0][13] != null){
+			text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
+		}
+		if(hours[0][15] != null){
+			text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
+		}
+	}
+	//if times don't match, print all days seperately, does not print days without any hours[0]
+	else if(hours[0][2] == 0){
+		if(hours[0][3] != null){
+			text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday)</p>";
+		}
+		if(hours[0][5] != null){
+			text += "<p>" + hours[0][5] + " - " + hours[0][6] + "(Tuesday)</p>";
+		}
+		if(hours[0][7] != null){
+			text += "<p>" + hours[0][7] + " - " + hours[0][7] + "(Wednesday)</p>";
+		}
+		if(hours[0][9] != null){
+			text += "<p>" + hours[0][9] + " - " + hours[0][10] + "(Thursday)</p>";
+		}
+		if(hours[0][11] != null){
+			text += "<p>" + hours[0][11] + " - " + hours[0][12] + "(Friday)</p>";
+		}
+		if(hours[0][13] != null){
+			text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
+		}
+		if(hours[0][15] != null){
+			text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
+		}
+	}
+	//prints additional hours if present
+	if(hours[1][0] != null){
+		if(hours[1][17] != null){
+			text += "<p>Additional Hours: " + hours[1][17] + "</p>"
+		}
+		if(hours[1][3] != null){
+			text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday)</p>";
+		}
+		if(hours[1][5] != null){
+			text += "<p>" + hours[0][5] + " - " + hours[0][6] + "(Tuesday)</p>";
+		}
+		if(hours[1][7] != null){
+			text += "<p>" + hours[0][7] + " - " + hours[0][7] + "(Wednesday)</p>";
+		}
+		if(hours[1][9] != null){
+			text += "<p>" + hours[0][9] + " - " + hours[0][10] + "(Thursday)</p>";
+		}
+		if(hours[1][11] != null){
+			text += "<p>" + hours[0][11] + " - " + hours[0][12] + "(Friday)</p>";
+		}
+		if(hours[1][13] != null){
+			text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
+		}
+		if(hours[1][15] != null){
+			text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
+		}
+		
+	
+	}
+	
 	
 }
 
-*/
+
+

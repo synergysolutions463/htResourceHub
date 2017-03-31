@@ -230,3 +230,9 @@ JOIN Hours h ON (o.OrgID = h.OrgID)
 JOIN Requirements req ON (o.OrgID = req.OrgID)
 JOIN RequirementsTypes reqt ON (req.ReqID = reqt.ReqID)
 WHERE (o.OrgID = 170);
+
+SELECT StateName
+FROM Organizations o
+JOIN Addresses ON (o.OrgID = Addresses.OrgID)
+JOIN States ON (Addresses.StateID = States.StateID)
+WHERE o.OrgID = 1;

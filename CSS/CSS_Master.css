@@ -105,7 +105,6 @@ a:active {
     text-decoration: underline;
 }
 
-.checkAllLine{
-    margin: -10px;
-    padding-top: -10px;
+hr{
+    margin: 3px;
 }

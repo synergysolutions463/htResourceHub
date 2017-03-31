@@ -23,12 +23,12 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 
     <link rel="icon" href="/Images/favicon.ico">
-     <link rel="import" href="updateModal.html">
+    <link rel="import" href="Modals/updateModal.html">
     <title>HT Resource Hub</title>
 
 </head>
 
-<body onload="readAllOrgs(), show('advSearch'), displayUpdateModal();">
+<body onload="readAllOrgs(), show('advSearch'), onLoadFunctions();">
 
     <header>
         <div class="example3">
@@ -59,7 +59,7 @@
         </div>
 
     </header>
- <button type="button" class="btn btn-primary btn-lg" onclick="loadUpdateModalData(1);">
+ <button type="button" class="btn btn-primary btn-lg" onclick="loadUpdateModalData(181);">
                            test update modal data 
                         </button>
 
@@ -288,9 +288,19 @@
         </div>
     </div>
     
-    <div id="insertUpdateModal">
+
+            <div id="insertCreateModal">
+            
+        </div>
+
+    
+        <div id="insertUpdateModal">
         
-    </div>
+        </div>
+        
+        <div id="insertLoginModal">
+            
+        </div>
 
 
 
