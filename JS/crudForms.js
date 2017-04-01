@@ -203,6 +203,7 @@ function logout() {
 }
 
 function loadSimpleData(orgs) {
+	
 
 	oLen = orgs.length;
 
@@ -214,31 +215,37 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"row\">";
 		text += "<div class=\"col-md-4 col-md-offset-2\">";
 		text += "<div class=\"organization-info\">";
-		text += "<h2><a href=\"orgInfo.html\" onclick=\"getComplexData(" + orgs[i][0] + ")\" style=\"cursor: pointer;\">";
+		text += "<h2><a onclick=\"getComplexData(" + orgs[i][0] + ")\" style=\"cursor: pointer;\">";
 		text += orgs[i][1] + "</a></h2>";
 
 		if (orgs[i][18] == 1) {
 			text += "<h4>Open 24-Hours</h4>";
 		}
 
+		
 		var myNum = orgs[i][2];
-		if (myNum != null) {
-			myNum = myNum.replace(/\D/g, '');
+		if(myNum != null) {
+		myNum = myNum.replace(/[^\/\d]/g,'');
+		var formattedMyNum = (""+ myNum).replace(/\D/g, '');
+		var p = formattedMyNum.match(/^(\d{3})(\d{3})(\d{4})$/);
+		var FinalMyNum = (!p) ? null : "(" + p[1] + ") " + p[2] + "-" + p[3];
+		}
+		
+
+		var hotlineNum = orgs[i][6];
+		if(hotlineNum != null) {
+		hotlineNum = hotlineNum.replace(/[^\/\d]/g,'');
+		var formattedHotlineNum = (""+ hotlineNum).replace(/\D/g, '');
+		var p = formattedHotlineNum.match(/^(\d{3})(\d{3})(\d{4})$/);
+		var FinalHotlineNum = (!p) ? null : "(" + p[1] + ") " + p[2] + "-" + p[3];
 		}
 
-		var myHotline = orgs[i][2];
-		if (myHotline != null) {
-			myHotline = myHotline.replace(/\D/g, '');
-		}
-
-
-
-		text += "<p><a href=\"tel:" + myNum + "\">Phone: ";
+		text += "<p><a href=\"tel: 1" + myNum + "\">Phone: ";
 		if (orgs[i][2] == null || orgs[i][2] == "" || orgs[i][2] == "+1 ") {
 			text += "N/A";
 		}
 		else {
-			text += orgs[i][2];
+			text += FinalMyNum;
 
 			if (orgs[i][3] == null || orgs[i][3] == "") {
 				text += "";
@@ -250,13 +257,14 @@ function loadSimpleData(orgs) {
 		}
 		text += "</a></p>";
 
-		text += "<h5><a href=\"tel:" + myHotline + "\">24-Hour Hotline: ";
-		if (orgs[i][4] == null || orgs[i][4] == "" || orgs[i][4] == "+1 ") {
+		text += "<h5><a href=\"tel:" + hotlineNum + "\">24-Hour Hotline: ";
+		if (orgs[i][6] == null || orgs[i][6] == "" || orgs[i][6] == "+1 ") {
 			text += "N/A";
 		}
 		else {
-			text += orgs[i][4];
+			text += FinalHotlineNum;
 		}
+		
 		text += "</a></h5>"
 
 		text += "<p>Website: "
@@ -357,18 +365,12 @@ function insertOrganization() {
 	var isShelter = document.getElementById("cbShelterCreate").checked;
 	var isTransHousing = document.getElementById("cbTransitionalHousingCreate").checked;
 	var isAsstLoc = document.getElementById("cbAssistLocateHousingCreate").checked;
-	var fee = 0;
+	var fee = document.getElementById("txtAssociatedFeeCreate").value;
 	var faith = document.getElementById("ddlFaithCreate").value;
 	var notes = document.getElementById("txtNoteCreate").value;
 	var confNotes = document.getElementById("txtConfidentialNoteCreate").value;
 	var isConf = document.getElementById("cbIsConfCreate").checked;
 
-	if (document.getElementById("cbFreeCreate").checked == true) {
-		var fee = 0;
-	}
-	else {
-		var fee = document.getElementById("txtAssociatedFeeCreate").value;
-	}
 
 	/**Addresses Table Insert Data**/
 	var streetInfo1 = document.getElementById("txtAddress1StreetCreate").value;
@@ -824,19 +826,13 @@ function updateOrganization() {
 	var isShelter = document.getElementById("cbShelterUpdate").checked;
 	var isTransHousing = document.getElementById("cbTransitionalHousingUpdate").checked;
 	var isAsstLoc = document.getElementById("cbAssistLocateHousingUpdate").checked;
-	var fee = 0;
+	var fee = document.getElementById("txtAssociatedFeeUpdate").value;
 	/*change to faith dropdown */
 	var faith = document.getElementById("txtFaithUpdate").value;
 	var notes = document.getElementById("txtNoteUpdate").value;
 	var confNotes = document.getElementById("txtConfidentialNoteUpdate").value;
 	var isConf = document.getElementById("cbIsConfUpdate").checked;
 
-	if (document.getElementById("cbFreeUpdate").checked == true) {
-		var fee = 0;
-	}
-	else {
-		var fee = document.getElementById("txtAssociatedFeeUpdate").value;
-	}
 
 	/**Addresses Table Insert Data**/
 	var streetInfo1 = document.getElementById("txtAddress1StreetUpdate").value;
@@ -1287,9 +1283,9 @@ function populateCreateStates() {
 			var parsedData = JSON.parse(data);
 			var states = parsedData;
 
-			$("#ddlAddress1StateCreate").get(0).options.length = 0;
+		/*	$("#ddlAddress1StateCreate").get(0).options.length = 0;
 			$("#ddlAddress2StateCreate").get(0).options.length = 0;
-			$("#ddlConfAddressStateCreate").get(0).options.length = 0;
+			$("#ddlConfAddressStateCreate").get(0).options.length = 0; */
 
 			for (i = 0; i < states.length; i++) {
 				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress1StateCreate");
@@ -1311,7 +1307,7 @@ function populateCreateFaiths() {
 			var parsedData = JSON.parse(data);
 			var faiths = parsedData;
 
-			$("#ddlFaithCreate").get(0).options.length = 0;
+	//		$("#ddlFaithCreate").get(0).options.length = 0;
 
 			for (i = 0; i < faiths.length; i++) {
 				$('<option/>').val(faiths[i]).html(faiths[i]).appendTo("#ddlFaithCreate");
@@ -1331,9 +1327,9 @@ function populateUpdateStates() {
 			var parsedData = JSON.parse(data);
 			var states = parsedData;
 
-			$("#ddlAddress1StateUpdate").get(0).options.length = 0;
+	/*		$("#ddlAddress1StateUpdate").get(0).options.length = 0;
 			$("#ddlAddress2StateUpdate").get(0).options.length = 0;
-			$("#ddlConfAddressStateUpdate").get(0).options.length = 0;
+			$("#ddlConfAddressStateUpdate").get(0).options.length = 0; */
 
 			for (i = 0; i < states.length; i++) {
 				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress1StateUpdate");
@@ -1355,7 +1351,7 @@ function populateUpdateFaiths() {
 			var parsedData = JSON.parse(data);
 			var faiths = parsedData;
 
-			$("#ddlFaithUpdate").get(0).options.length = 0;
+	//		$("#ddlFaithUpdate").get(0).options.length = 0; 
 
 			for (i = 0; i < faiths.length; i++) {
 				$('<option/>').val(faiths[i]).html(faiths[i]).appendTo("#ddlFaithUpdate");
@@ -1490,7 +1486,7 @@ function loadUpdateModalData(orgId) {
 		}
 	}); 
 
-	/*load contacts table
+	/*load contacts table */
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1503,10 +1499,47 @@ function loadUpdateModalData(orgId) {
 			console.log("contacts: " + data);
 			var parsedData = JSON.parse(data);
 			var contacts = parsedData;
-		}
-	}); */
+			
+		
+				document.getElementById("cbContactIsConfUpdate").checked = false;
+				document.getElementById("txtPrimaryContactFirstNameUpdate").value = "";
+				document.getElementById("txtPrimaryContactLastNameUpdate").value = "";
+				document.getElementById("txtPrimaryContactPhoneUpdate").value = "";
+				document.getElementById("txtPrimaryContactExtUpdate").value = "";
+				document.getElementById("txtPrimaryContactEmailUpdate").value = "";
+				document.getElementById("txtPrimaryContactPosUpdate").value = "";
+				
+				cLen = contacts.length;
+				
+				for (i = 0; i < cLen; i++) { 
+					if(contacts[i][6] == 1) {
+						document.getElementById("cbContactIsConfUpdate").checked = true;
+					}
 
-	/*load ethnicity table
+					document.getElementById("txtPrimaryContactFirstNameUpdate").value = contacts[i][2];
+					document.getElementById("txtPrimaryContactLastNameUpdate").value = contacts[i][3];
+				
+				if(contacts[i][5] != null || contacts[i][5] != "") {
+					var phoneNum = contacts[i][5];
+					phoneNum = phoneNum.replace(/[^\/\d]/g,'');
+					
+					var formattedPhoneNum = (""+ phoneNum).replace(/\D/g, '');
+					var m = formattedPhoneNum.match(/^(\d{3})(\d{3})(\d{4})$/);
+					document.getElementById("txtPrimaryContactPhoneUpdate").value = (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+				
+				}
+					document.getElementById("txtPrimaryContactExtUpdate").value = contacts[i][7];
+					document.getElementById("txtPrimaryContactEmailUpdate").value = contacts[i][1];
+					document.getElementById("txtPrimaryContactPosUpdate").value = contacts[i][4];
+				
+
+
+				}
+				
+		}
+	}); 
+
+	/*load ethnicity table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1519,10 +1552,37 @@ function loadUpdateModalData(orgId) {
 			console.log("ethnicity: " + data);
 			var parsedData = JSON.parse(data);
 			var ethnicities = parsedData;
+			
+				document.getElementById("cbEthnicityAllUpdate").checked = false;
+				document.getElementById("cbHispanicUpdate").checked = false;
+				document.getElementById("cbNonHispanicUpdate").checked = false;
+				document.getElementById("cbHispanicUpdate").disabled = false;
+				document.getElementById("cbNonHispanicUpdate").disabled = false;
+	
+				
+				eLen = ethnicities.length;
+				
+				for (i = 0; i < eLen; i++) { 
+					if (ethnicities[i][0] == "All") {
+					document.getElementById("cbEthnicityAllUpdate").checked = true;
+					document.getElementById("cbHispanicUpdate").checked = true;
+					document.getElementById("cbNonHispanicUpdate").checked = true;
+					document.getElementById("cbHispanicUpdate").disabled = true;
+					document.getElementById("cbNonHispanicUpdate").disabled = true;
+					}
+					else {
+						if(ethnicities[i][0] == "Non-Latino/Hispanic") {
+							document.getElementById("cbNonHispanicUpdate").checked = true;
+						}
+						if(ethnicities[i][0] == "Latino/Hispanic") {
+							document.getElementById("cbHispanicUpdate").checked = true;
+						}
+					}
+				}
 		}
-	}); */
+	}); 
 
-	/*load gender table 
+	/*load gender table */
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1535,10 +1595,45 @@ function loadUpdateModalData(orgId) {
 			console.log("gender: " + data);
 			var parsedData = JSON.parse(data);
 			var genders = parsedData;
+			
+				document.getElementById("cbGenderAllUpdate").checked = false;
+				document.getElementById("cbMaleUpdate").checked = false;
+				document.getElementById("cbFemaleUpdate").checked = false;
+				document.getElementById("cbTransUpdate").checked = false;
+				document.getElementById("cbMaleUpdate").disabled = false;
+				document.getElementById("cbFemaleUpdate").disabled = false;
+				document.getElementById("cbTransUpdate").disabled = false;
+	
+				
+				gLen = genders.length;
+				
+				for (i = 0; i < gLen; i++) { 
+					if (genders[i][0] == "All") {
+						document.getElementById("cbGenderAllUpdate").checked = true;
+						document.getElementById("cbMaleUpdate").checked = true;
+						document.getElementById("cbFemaleUpdate").checked = true;
+						document.getElementById("cbTransUpdate").checked = true;
+						document.getElementById("cbMaleUpdate").disabled = true;
+						document.getElementById("cbFemaleUpdate").disabled = true;
+						document.getElementById("cbTransUpdate").disabled = true;
+					}
+					else {
+						if(genders[i][0] == "Male") {
+							document.getElementById("cbMaleUpdate").checked = true;
+						}
+						if(genders[i][0] == "Female") {
+							document.getElementById("cbFemaleUpdate").checked = true;
+						}
+						if(genders[i][0] == "Transgender") {
+							document.getElementById("cbTransUpdate").checked = true;
+						}
+						
+					}
+				}
 		}
-	}); */
+	}); 
 
-	/*load hours table
+	/*load hours table*/
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1551,10 +1646,192 @@ function loadUpdateModalData(orgId) {
 			console.log("hours: " + data);
 			var parsedData = JSON.parse(data);
 			var hours = parsedData;
+			
+				document.getElementById("cbIs247Update").checked = false;
+			
+				document.getElementById("ddlGenFullWeekStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFullWeekEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value = "-----";
+					
+				document.getElementById("ddlGenMondayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenMondayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenTuesdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenTuesdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenWednesdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenWednesdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenThursdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenThursdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFridayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenFridayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenSaturdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenSaturdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlGenSundayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlGenSundayEndTimeUpdate").value = "-----";
+				
+				document.getElementById("ddlAddFullWeekStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFullWeekEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFullWeekSatStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value = "-----";
+					
+				document.getElementById("ddlAddMondayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddMondayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddTuesdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddTuesdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddWednesdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddWednesdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddThursdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddThursdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFridayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddFridayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddSaturdayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddSaturdayEndTimeUpdate").value = "-----";
+				document.getElementById("ddlAddSundayStartTimeUpdate").value = "-----";
+				document.getElementById("ddlAddSundayEndTimeUpdate").value = "-----";
+				
+				document.getElementById("ddlGenFullWeekStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFullWeekEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFullWeekSatStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFullWeekSatEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFullWeekSunStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFullWeekSunEndTimeUpdate").disabled = false;
+					
+				document.getElementById("ddlGenMondayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenMondayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenTuesdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenTuesdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenWednesdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenWednesdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenThursdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenThursdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFridayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenFridayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenSaturdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenSaturdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlGenSundayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlGenSundayEndTimeUpdate").disabled = false;
+				
+				document.getElementById("ddlAddFullWeekStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFullWeekEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFullWeekSatStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFullWeekSatEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFullWeekSunStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFullWeekSunEndTimeUpdate").disabled = false;
+					
+				document.getElementById("ddlAddMondayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddMondayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddTuesdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddTuesdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddWednesdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddWednesdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddThursdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddThursdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFridayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddFridayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddSaturdayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddSaturdayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddSundayStartTimeUpdate").disabled = false;
+				document.getElementById("ddlAddSundayEndTimeUpdate").disabled = false;
+				
+				document.getElementById("txtAddHoursDescUpdate").value = "";
+				
+				
+				hLen = hours.length;
+				
+				for (i = 0; i < hLen; i++) {
+					
+					if(hours[i][1] == 1) {
+						document.getElementById("cbIs247Update").checked = true;
+					}
+			
+					else {
+						if(hours[i][2] == 0) {
+							
+							var fullWeekSM = hours[i][3]
+							var fullWeekST = hours[i][5]
+							var fullWeekSW = hours[i][7]
+							var fullWeekSR = hours[i][9]
+							var fullWeekSF = hours[i][11]
+							
+							var fullWeekEM = hours[i][4]
+							var fullWeekET = hours[i][6]
+							var fullWeekEW = hours[i][8]
+							var fullWeekER = hours[i][10]
+							var fullWeekEF = hours[i][12]
+							
+							if((fullWeekSM == fullWeekST && fullWeekSM == fullWeekSW && fullWeekSM == fullWeekSR && fullWeekSM == fullWeekSF) && 
+							(fullWeekEM == fullWeekET && fullWeekEM == fullWeekEW && fullWeekEM == fullWeekSR && fullWeekEM == fullWeekEF)) {
+								document.getElementById("ddlGenFullWeekStartTimeUpdate").value = hours[i][3];
+								document.getElementById("ddlGenFullWeekEndTimeUpdate").value = hours[i][4];
+								document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value = hours[i][13];
+								document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value = hours[i][14];
+								document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value = hours[i][15];
+								document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value = hours[i][16];
+							}
+							else {
+								
+								document.getElementById("ddlGenMondayStartTimeUpdate").value = hours[i][3];
+								document.getElementById("ddlGenMondayEndTimeUpdate").value = hours[i][4];
+								document.getElementById("ddlGenTuesdayStartTimeUpdate").value = hours[i][5];
+								document.getElementById("ddlGenTuesdayEndTimeUpdate").value = hours[i][6];
+								document.getElementById("ddlGenWednesdayStartTimeUpdate").value = hours[i][7];
+								document.getElementById("ddlGenWednesdayEndTimeUpdate").value = hours[i][8];
+								document.getElementById("ddlGenThursdayStartTimeUpdate").value = hours[i][9];
+								document.getElementById("ddlGenThursdayEndTimeUpdate").value = hours[i][10];
+								document.getElementById("ddlGenFridayStartTimeUpdate").value = hours[i][11];
+								document.getElementById("ddlGenFridayEndTimeUpdate").value = hours[i][12];
+								document.getElementById("ddlGenSaturdayStartTimeUpdate").value = hours[i][13];
+								document.getElementById("ddlGenSaturdayEndTimeUpdate").value = hours[i][14];
+								document.getElementById("ddlGenSundayStartTimeUpdate").value = hours[i][15];
+								document.getElementById("ddlGenSundayEndTimeUpdate").value = hours[i][16];
+								
+							}
+							
+						}
+						else{
+							if((fullWeekSM == fullWeekST && fullWeekSM == fullWeekSW && fullWeekSM == fullWeekSR && fullWeekSM == fullWeekSF) && 
+							(fullWeekEM == fullWeekET && fullWeekEM == fullWeekEW && fullWeekEM == fullWeekSR && fullWeekEM == fullWeekEF)) {
+								document.getElementById("ddlAddFullWeekStartTimeUpdate").value = hours[i][3];
+								document.getElementById("ddlAddFullWeekEndTimeUpdate").value = hours[i][4];
+								document.getElementById("ddlAddFullWeekSatStartTimeUpdate").value = hours[i][13];
+								document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value = hours[i][14];
+								document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value = hours[i][15];
+								document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value = hours[i][16];
+							}
+							else {
+								
+								document.getElementById("ddlAddMondayStartTimeUpdate").value = hours[i][3];
+								document.getElementById("ddlAddMondayEndTimeUpdate").value = hours[i][4];
+								document.getElementById("ddlAddTuesdayStartTimeUpdate").value = hours[i][5];
+								document.getElementById("ddlAddTuesdayEndTimeUpdate").value = hours[i][6];
+								document.getElementById("ddlAddWednesdayStartTimeUpdate").value = hours[i][7];
+								document.getElementById("ddlAddWednesdayEndTimeUpdate").value = hours[i][8];
+								document.getElementById("ddlAddThursdayStartTimeUpdate").value = hours[i][9];
+								document.getElementById("ddlAddThursdayEndTimeUpdate").value = hours[i][10];
+								document.getElementById("ddlAddFridayStartTimeUpdate").value = hours[i][11];
+								document.getElementById("ddlAddFridayEndTimeUpdate").value = hours[i][12];
+								document.getElementById("ddlAddSaturdayStartTimeUpdate").value = hours[i][13];
+								document.getElementById("ddlAddSaturdayEndTimeUpdate").value = hours[i][14];
+								document.getElementById("ddlAddSundayStartTimeUpdate").value = hours[i][15];
+								document.getElementById("ddlAddSundayEndTimeUpdate").value = hours[i][16];
+								
+							}
+							document.getElementById("txtAddHoursDescUpdate").value = hours[i][17];
+							
+						}
+					}
+				}
+                                      
+                               
+			
 		}
-	}); */
+	}); 
 
-	/*load nationality table 
+	// load nationality table 
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1566,34 +1843,49 @@ function loadUpdateModalData(orgId) {
 		success: function(data) {
 			console.log("nationality: " + data);
 			var parsedData = JSON.parse(data);
-			var nationalityData = parsedData;
+			var nationalities = parsedData;
+			
+				document.getElementById("cbNatAllUpdate").checked = false;
+				document.getElementById("cbDomesticUpdate").checked = false;
+				document.getElementById("cbForeignUpdate").checked = false;
+				document.getElementById("cbUndocumentedUpdate").checked = false;
+				document.getElementById("cbDomesticUpdate").disabled = false;
+				document.getElementById("cbForeignUpdate").disabled = false;
+				document.getElementById("cbUndocumentedUpdate").disabled = false;
+			
+				nLen = nationalities.length;
+			
 						
-			for (i; i < nationalityData.length; i++){
-				if (nationalityData[i] == "ALL") {
+			for (i = 0; i < nLen; i++) { 
+				if (nationalities[i][0] == "All") {
 					document.getElementById("cbNatAllUpdate").checked = true;
 					document.getElementById("cbDomesticUpdate").checked = true;
 					document.getElementById("cbForeignUpdate").checked = true;
 					document.getElementById("cbUndocumentedUpdate").checked = true;
-					break;
+					document.getElementById("cbDomesticUpdate").disabled = true;
+					document.getElementById("cbForeignUpdate").disabled = true;
+					document.getElementById("cbUndocumentedUpdate").disabled = true;
 				}
+				else {
+					if (nationalities[i][0] == "Domestic-Born") {
+						document.getElementById("cbDomesticUpdate").checked = true;
+					}	
 				
-				if (nationality[i] == "Domestic-Born") {
-					document.getElementById("cbDomesticUpdate").checked = true;
-				}
+					if (nationalities[i][0] == "Foreign-Born") {
+						document.getElementById("cbForeignUpdate").checked = true;
+					}
 				
-				if (nationality[i] == "Foreign-Born") {
-					document.getElementById("cbForeignUpdate").checked = true;
-				}
-				
-				if (nationality[i] == "Undocumented") {
-					document.getElementById("cbUndocumentedUpdate").checked = true;
+					if (nationalities[i][0] == "Undocumented") {
+						document.getElementById("cbUndocumentedUpdate").checked = true;
+					}
 				}
 			}
-		} 
-	}); */
+		}
+	}); 
+
 
 	/*load organizations table */
-/*	
+	
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -1604,55 +1896,122 @@ function loadUpdateModalData(orgId) {
 		success: function(data) {
 			console.log("organizations: " + data);
 			var parsedData = JSON.parse(data);
-			var organizationData = parsedData;
+			var orgs = parsedData;
 			
-			if (organizationData[16] == 1) {
-				document.getElementById("CBIsConfUpdate").checked = true;
-			}
-			else {
-				document.getElementById("CBIsConfUpdate").checked = false;
+			document.getElementById("cbIsConfUpdate").checked = false;
+			
+			document.getElementById("txtOrgNameUpdate").value = "";
+			document.getElementById("txtOrgProgramUpdate").value = "";
+			document.getElementById("txtMissionStatementUpdate").value = "";
+	
+			document.getElementById("txtMainPhoneUpdate").value = ""; 
+			document.getElementById("txtMainPhoneExtUpdate").value = "";
+			document.getElementById("txtHotlineUpdate").value = "";
+			document.getElementById("txtOrgWebsiteUpdate").value = "";
+			document.getElementById("txtOrgEmailUpdate").value = "";
+			document.getElementById("txtConfPhoneUpdate").value = "";
+			document.getElementById("txtConfExtUpdate").value = "";
+			
+			document.getElementById("cbHousingAllUpdate").checked = false;
+			document.getElementById("cbShelterUpdate").checked = false;
+			document.getElementById("cbTransitionalHousingUpdate").checked = false;
+			document.getElementById("cbAssistLocateHousingUpdate").checked = false;
+			document.getElementById("cbShelterUpdate").disabled = false;
+			document.getElementById("cbTransitionalHousingUpdate").disabled = false;
+			document.getElementById("cbAssistLocateHousingUpdate").disabled = false;
+			
+			document.getElementById("txtAssociatedFeeUpdate").value = "";
+			
+			document.getElementById("ddlFaithUpdate").value = "";
+		
+			document.getElementById("txtNoteUpdate").value = "";
+			document.getElementById("txtConfidentialNoteUpdate").value = "";
+			
+			oLen = orgs.length;
+			for (i = 0; i < oLen; i++) {
+				
+				if(orgs[i][15] == 1) {
+					document.getElementById("cbIsConfUpdate").checked = true;
+				}
+				
+				document.getElementById("txtOrgNameUpdate").value = orgs[i][1];
+				document.getElementById("txtOrgProgramUpdate").value = orgs[i][17];
+				document.getElementById("txtMissionStatementUpdate").value = orgs[i][2];
+				
+				document.getElementById("txtMainPhoneExtUpdate").value = orgs[i][18];
+				document.getElementById("txtOrgWebsiteUpdate").value = orgs[i][3];
+				document.getElementById("txtOrgEmailUpdate").value = orgs[i][4];
+				document.getElementById("txtConfExtUpdate").value = orgs[i][19];
+				
+				var orgNum = orgs[i][5];
+				if(orgNum !== null) {
+					orgNum = orgNum.replace(/[^\/\d]/g,'');
+					
+					var formattedOrgNum = (""+ orgNum).replace(/\D/g, '');
+					var o = formattedOrgNum.match(/^(\d{3})(\d{3})(\d{4})$/);
+					document.getElementById("txtMainPhoneUpdate").value = (!o) ? null : "(" + o[1] + ") " + o[2] + "-" + o[3];
+					
+				}
+				
+				var hotlineNum = orgs[i][6];
+				if(hotlineNum !== null) {
+					hotlineNum = hotlineNum.replace(/[^\/\d]/g,'');
+					
+					var formattedHotlineNum = (""+ hotlineNum).replace(/\D/g, '');
+					var h = formattedHotlineNum.match(/^(\d{3})(\d{3})(\d{4})$/);
+					document.getElementById("txtHotlineUpdate").value = (!h) ? null : "(" + h[1] + ") " + h[2] + "-" + h[3];
+				}
+			
+				var confNum = orgs[i][7];	
+				if(confNum !== null) {	
+					confNum = confNum.replace(/[^\/\d]/g,'');
+					
+					var formattedConfNum = (""+ confNum).replace(/\D/g, '');
+					var c = formattedConfNum.match(/^(\d{3})(\d{3})(\d{4})$/);
+					document.getElementById("txtConfPhoneUpdate").value = (!c) ? null : "(" + c[1] + ") " + c[2] + "-" + c[3];
+				}
+			
+			
+				if(orgs[i][8] == 1 && orgs[i][9] == 1 && orgs[i][10] == 1) {
+				
+					document.getElementById("cbHousingAllUpdate").checked = true;
+					document.getElementById("cbShelterUpdate").checked = true;
+					document.getElementById("cbTransitionalHousingUpdate").checked = true;
+					document.getElementById("cbAssistLocateHousingUpdate").checked = true;
+					document.getElementById("cbShelterUpdate").disabled = true;
+					document.getElementById("cbTransitionalHousingUpdate").disabled = true;
+					document.getElementById("cbAssistLocateHousingUpdate").disabled = true;
+					
+				}
+				else {
+					if(orgs[i][8] == 1) {
+						document.getElementById("cbShelterUpdate").checked = true;
+					}
+					if(orgs[i][9] == 1) {
+						document.getElementById("cbTransitionalHousingUpdate").checked = true;
+					}
+					if(orgs[i][10] == 1) {
+						document.getElementById("cbAssistLocateHousingUpdate").checked = true;
+					}
+				}
+				
+			
+				document.getElementById("txtAssociatedFeeUpdate").value = orgs[i][11];
+
+				document.getElementById("ddlFaithUpdate").value = orgs[i][12];
+		
+				document.getElementById("txtNoteUpdate").value = orgs[i][13];
+				document.getElementById("txtConfidentialNoteUpdate").value = orgs[i][14];
+	
+			
 			}
 			
-			document.getElementById("txtOrgNameUpdate").value = organizationData[1];
-			document.getElementById("txtOrgProgramUpdate").value = organizationData[18];
-			document.getElementById("txtMissionStatementUpdate").value = organizationData[3];
-			document.getElementById("txtOrgWebsiteUpdate").value = organizationData[4];
-			document.getElementById("txtOrgEmailUpdate").value = organizationData[5];
-			document.getElementById("txtMainPhoneUpdate").value = organizationData[6];   
-			document.getElementById("txtHotlineUpdate").value = organizationData[7];
-			document.getElementById("txtConfPhoneUpdate").value = organizationData[8];   
 			
-			if (organizationData[9] == 1) {
-				document.getElementById("cbShelterUpdate").checked = true;
-			}
-			else {
-				document.getElementById("cbShelterUpdate").checked = false;
-			}
-			
-			if (organizationData[10] == 1) {
-				document.getElementById("cbTransitionalHousingUpdate").checked = true;
-			}
-			else {
-				document.getElementById("cbTransitionalHousingUpdate").checked = false;
-			}
-			
-			if (organizationData[11] == 1) {
-				document.getElementById("cbAssistLocateHousingUpdate").checked = true;
-			}
-			else {
-				document.getElementById("cbAssistLocateHousingUpdate").checked = false;
-			}
-			
-			document.getElementById("txtAssociatedFeeUpdate").value = organizationData[12];
-			document.getElementById("ddlFaithUpdate").value = organizationData[13];
-			document.getElementById("txtNoteUpdate").value = organizationData[14];
-			document.getElementById("txtConfidentialNoteUpdate").value = organizationData[15];
-			document.getElementById("txtMainPhoneExtUpdate").value = organizationData[19];
-			document.getElementById("txtConfExtUpdate").value = organizationData[20];
+
 		}
 	}); 
-*/
-	/*load race table
+
+	//load race table
 
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
@@ -1666,40 +2025,63 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var raceData = parsedData;
 			
-			for (i; i < raceData.length; i++){
-				if (raceData[i] == "ALL") {
+			document.getElementById("cbRaceAllUpdate").checked = false;
+			document.getElementById("cbWhiteUpdate").checked = false;
+			document.getElementById("cbBlackUpdate").checked = false;
+			document.getElementById("cbAsianUpdate").checked = false;
+			document.getElementById("cbIslandUpdate").checked = false;
+			document.getElementById("cbNativeUpdate").checked = false;
+			document.getElementById("cbRaceAllUpdate").disabled = false;
+			document.getElementById("cbWhiteUpdate").disabled = false;
+			document.getElementById("cbBlackUpdate").disabled = false;
+			document.getElementById("cbAsianUpdate").disabled = false;
+			document.getElementById("cbIslandUpdate").disabled = false;
+			document.getElementById("cbNativeUpdate").disabled = false;
+			
+			
+				console.log("race data: " + raceData[i]);
+			for (i = 0; i < raceData.length; i++){
+				
+				if (raceData[i] == "All") {
 					document.getElementById("cbRaceAllUpdate").checked = true;
 					document.getElementById("cbWhiteUpdate").checked = true;
 					document.getElementById("cbBlackUpdate").checked = true;
 					document.getElementById("cbAsianUpdate").checked = true;
 					document.getElementById("cbIslandUpdate").checked = true;
 					document.getElementById("cbNativeUpdate").checked = true;
+					document.getElementById("cbWhiteUpdate").disabled= true;
+					document.getElementById("cbBlackUpdate").disabled= true;
+					document.getElementById("cbAsianUpdate").disabled= true;
+					document.getElementById("cbIslandUpdate").disabled = true;
+					document.getElementById("cbNativeUpdate").disabled = true;
 					break;
 				}
-				
-				if (nationality[i] == "White") {
+				else {
+					
+					if (raceData[i] == "White") {
 					document.getElementById("cbWhiteUpdate").checked = true;
-				}
+					}
 				
-				if (nationality[i] == "Black or African American") {
+					if (raceData[i] == "Black or African American") {
 					document.getElementById("cbBlackUpdate").checked = true;
-				}
+					}
 				
-				if (nationality[i] == "Asian") {
+					if (raceData[i] == "Asian") {
 					document.getElementById("cbAsianUpdate").checked = true;
-				}
-				if (nationality[i] == "Native Hawaiian or Other Pacific Islander") {
+					}
+					if (raceData[i] == "Native Hawaiian or Other Pacific Islander") {
 					document.getElementById("cbIslandUpdate").checked = true;
-				}
-				if (nationality[i] == "American Indian or Alaska Native") {
+					}
+					if (raceData[i] == "American Indian or Alaska Native") {
 					document.getElementById("cbNativeUpdate").checked = true;
-				}
+					}
 			}
 		}
-	}); */
+		}
+	}); 
 
 	/* load requirements table */
-/*
+
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -1712,31 +2094,51 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var requirementsData = parsedData;
 			
+			document.getElementById("cbMembershipUpdate").checked = false;
+			document.getElementById("txtMembershipUpdate").value = "";
+			document.getElementById("cbTrainingUpdate").checked = false;
+			document.getElementById("txtTrainingUpdate").value = false;
+			document.getElementById("cbApplicationUpdate").checked = false;
+			document.getElementById("txtApplicationUpdate").value = "";
+			document.getElementById("cbRestrictionUpdate").checked = false;
+			document.getElementById("txtRestrictionUpdate").value = "";
+			
 			for (i = 0; i < requirementsData.length; i++) {
 				
 				if (requirementsData[i][0] == "Membership") {
 					document.getElementById("cbMembershipUpdate").checked = true;
-					document.getElementById("txtMembershipUpdate").value = requirementsData[i][1];
+					if (requirementsData[i][1] != null && requirementsData[i][1] != "") {
+						document.getElementById("txtMembershipUpdate").value = requirementsData[i][1];
+					}
+					
 				}
 				
 				if (requirementsData[i][0] == "Training") {
 					document.getElementById("cbTrainingUpdate").checked = true;
-					document.getElementById("txtTrainingUpdate").value = requirementsData[i][1];
+					if (requirementsData[i][1] != null && requirementsData[i][1] != "") {
+						document.getElementById("txtTrainingUpdate").value = requirementsData[i][1];
+					}
+					
 				}
 				
 				if (requirementsData[i][0] == "Application") {
 					document.getElementById("cbApplicationUpdate").checked = true;
-					document.getElementById("txtApplicationUpdate").value = requirementsData[i][1];
+					if (requirementsData[i][1] != null && requirementsData[i][1] != "") {
+						document.getElementById("txtApplicationUpdate").value = requirementsData[i][1];
+					}
+					
 				}
 				
 				if (requirementsData[i][0] == "Possible Waiting List/Referral Required/Other Entry Restrictions") {
 					document.getElementById("cbRestrictionUpdate").checked = true;
-					document.getElementById("txtRestrictionUpdate").value = requirementsData[i][1];
+					if (requirementsData[i][1] != null && requirementsData[i][1] != ""){
+						document.getElementById("txtRestrictionUpdate").value = requirementsData[i][1];
+					}
 				}
 			}
 		}
 	}); 
-*/
+
 	/* load service table */
 	
 		$.ajax({
@@ -1751,6 +2153,119 @@ function loadUpdateModalData(orgId) {
 				var parsedData = JSON.parse(data);
 				var serviceData = parsedData;
 				
+				document.getElementById("cbClothingAllUpdate").checked = false;
+				document.getElementById("cbClothingServUpdate").checked = false;
+				document.getElementById("cbClothingSupplyUpdate").checked = false;
+				document.getElementById("cbClothingEmergRespUpdate").checked = false;
+				document.getElementById("cbClothingServUpdate").disabled = false;
+				document.getElementById("cbClothingSupplyUpdate").disabled = false;
+				document.getElementById("cbClothingEmergRespUpdate").disabled = false;
+				document.getElementById("cbFoodAllUpdate").checked = false
+				document.getElementById("cbFoodServUpdate").checked = false;
+				document.getElementById("cbFoodSupplyUpdate").checked = false;
+				document.getElementById("cbFoodEmergRespUpdate").checked = false;
+				document.getElementById("cbFoodServUpdate").disabled = false;
+				document.getElementById("cbFoodSupplyUpdate").disabled = false;
+				document.getElementById("cbFoodEmergRespUpdate").disabled = false;
+				document.getElementById("cbEmploymentAllUpdate").checked = false;
+				document.getElementById("cbEmploymentServUpdate").checked = false;
+				document.getElementById("cbEmploymentSupplyUpdate").checked = false;
+				document.getElementById("cbEmploymentEmergRespUpdate").checked = false;
+				document.getElementById("cbEmploymentServUpdate").disabled = false;
+				document.getElementById("cbEmploymentSupplyUpdate").disabled = false;
+				document.getElementById("cbEmploymentEmergRespUpdate").disabled = false;
+				document.getElementById("cbMentoringAllUpdate").checked = false;
+				document.getElementById("cbMentoringServUpdate").checked = false;
+				document.getElementById("cbMentoringSupplyUpdate").checked = false;
+				document.getElementById("cbMentoringEmergRespUpdate").checked = false;
+				document.getElementById("cbMentoringServUpdate").disabled = false;
+				document.getElementById("cbMentoringSupplyUpdate").disabled = false;
+				document.getElementById("cbMentoringEmergRespUpdate").disabled = false;
+				document.getElementById("cbCounselAllUpdate").checked = false;
+				document.getElementById("cbCounselServUpdate").checked = false;
+				document.getElementById("cbCounselSupplyUpdate").checked = false;
+				document.getElementById("cbCounselEmergRespUpdate").checked = false;
+				document.getElementById("cbCounselServUpdate").disabled = false;
+				document.getElementById("cbCounselSupplyUpdate").disabled = false;
+				document.getElementById("cbCounselEmergRespUpdate").disabled = false;
+				document.getElementById("cbPregnancyAllUpdate").checked = false;
+				document.getElementById("cbPregnancyServUpdate").checked = false;
+				document.getElementById("cbPregnancySupplyUpdate").checked = false;
+				document.getElementById("cbPregnancyEmergRespUpdate").checked = false;
+				document.getElementById("cbPregnancyServUpdate").disabled = false;
+				document.getElementById("cbPregnancySupplyUpdate").disabled = false;
+				document.getElementById("cbPregnancyEmergRespUpdate").disabled = false;
+				document.getElementById("cbMedicalAllUpdate").checked = false;
+				document.getElementById("cbMedicalServUpdate").checked = false;
+				document.getElementById("cbMedicalSupplyUpdate").checked = false;
+				document.getElementById("cbMedicalEmergRespUpdate").checked = false;
+				document.getElementById("cbMedicalServUpdate").disabled = false;
+				document.getElementById("cbMedicalSupplyUpdate").disabled = false;
+				document.getElementById("cbMedicalEmergRespUpdate").disabled = false;
+				document.getElementById("cbLegalAllUpdate").checked = false;
+				document.getElementById("cbLegalServUpdate").checked = false;
+				document.getElementById("cbLegalSupplyUpdate").checked = false;
+				document.getElementById("cbLegalEmergRespUpdate").checked = false;
+				document.getElementById("cbLegalServUpdate").disabled = false;
+				document.getElementById("cbLegalSupplyUpdate").disabled = false;
+				document.getElementById("cbLegalEmergRespUpdate").disabled = false;
+				document.getElementById("cbGovAllUpdate").checked = false;
+				document.getElementById("cbGovServUpdate").checked = false;
+				document.getElementById("cbGovSupplyUpdate").checked = false;
+				document.getElementById("cbGovEmergRespUpdate").checked = false;
+				document.getElementById("cbGovServUpdate").disabled = false;
+				document.getElementById("cbGovSupplyUpdate").disabled = false;
+				document.getElementById("cbGovEmergRespUpdate").disabled = false;
+				document.getElementById("cbInvestigationAllUpdate").checked = false;
+				document.getElementById("cbInvestigationServUpdate").checked = false;
+				document.getElementById("cbInvestigationSupplyUpdate").checked = false;
+				document.getElementById("cbInvestigationEmergRespUpdate").checked = false;
+				document.getElementById("cbInvestigationServUpdate").disabled = false;
+				document.getElementById("cbInvestigationSupplyUpdate").disabled = false;
+				document.getElementById("cbInvestigationEmergRespUpdate").disabled = false;
+				document.getElementById("cbFosterAllUpdate").checked = false;
+				document.getElementById("cbFosterServUpdate").checked = false;
+				document.getElementById("cbFosterSupplyUpdate").checked = false;
+				document.getElementById("cbFosterEmergRespUpdate").checked = false;
+				document.getElementById("cbFosterServUpdate").disabled = false;
+				document.getElementById("cbFosterSupplyUpdate").disabled = false;
+				document.getElementById("cbFosterEmergRespUpdate").disabled = false;
+				document.getElementById("cbAwarenessEdAllUpdate").checked = false;
+				document.getElementById("cbAwarenessEdServUpdate").checked = false;
+				document.getElementById("cbAwarenessEdSupplyUpdate").checked = false;
+				document.getElementById("cbAwarenessEdEmergRespUpdate").checked = false;
+				document.getElementById("cbAwarenessEdServUpdate").disabled = false;
+				document.getElementById("cbAwarenessEdSupplyUpdate").disabled = false;
+				document.getElementById("cbAwarenessEdEmergRespUpdate").disabled = false;
+				document.getElementById("cbResponseTrainAllUpdate").checked = false;
+				document.getElementById("cbResponseTrainServUpdate").checked = false;
+				document.getElementById("cbResponseTrainSupplyUpdate").checked = false;
+				document.getElementById("cbResponseTrainEmergRespUpdate").checked = false;
+				document.getElementById("cbResponseTrainServUpdate").disabled = false;
+				document.getElementById("cbResponseTrainSupplyUpdate").disabled = false;
+				document.getElementById("cbResponseTrainEmergRespUpdate").disabled = false;
+				document.getElementById("cbSubstanceAbuseAllUpdate").checked = false;
+				document.getElementById("cbSubstanceAbuseServUpdate").checked = false;
+				document.getElementById("cbSubstanceAbuseSupplyUpdate").checked = false;
+				document.getElementById("cbSubstanceAbuseEmergRespUpdate").checked = false;
+				document.getElementById("cbSubstanceAbuseServUpdate").disabled = false;
+				document.getElementById("cbSubstanceAbuseSupplyUpdate").disabled = false;
+				document.getElementById("cbSubstanceAbuseEmergRespUpdate").disabled = false;
+				document.getElementById("cbAdvocacyAllUpdate").checked = false;
+				document.getElementById("cbAdvocacyServUpdate").checked = false;
+				document.getElementById("cbAdvocacySupplyUpdate").checked = false;
+				document.getElementById("cbAdvocacyEmergRespUpdate").checked = false;
+				document.getElementById("cbAdvocacyServUpdate").disabled = false;
+				document.getElementById("cbAdvocacySupplyUpdate").disabled = false;
+				document.getElementById("cbAdvocacyEmergRespUpdate").disabled = false;
+				document.getElementById("cbOtherAllUpdate").checked = false;
+				document.getElementById("cbOtherServUpdate").checked = false;
+				document.getElementById("cbOtherSupplyUpdate").checked = false;
+				document.getElementById("cbOtherEmergRespUpdate").checked = false;
+				document.getElementById("cbOtherServUpdate").disabled = false;
+				document.getElementById("cbOtherSupplyUpdate").disabled = false;
+				document.getElementById("cbOtherEmergRespUpdate").disabled = false;
+				
 				for (i = 0; i < serviceData.length; i++) {
 					
 					if (serviceData[i][1] == "Clothing") {
@@ -1761,6 +2276,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbClothingServUpdate").checked = true;
 							document.getElementById("cbClothingSupplyUpdate").checked = true;
 							document.getElementById("cbClothingEmergRespUpdate").checked = true;
+							document.getElementById("cbClothingServUpdate").disabled = true;
+							document.getElementById("cbClothingSupplyUpdate").disabled = true;
+							document.getElementById("cbClothingEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1789,6 +2307,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbFoodServUpdate").checked = true;
 							document.getElementById("cbFoodSupplyUpdate").checked = true;
 							document.getElementById("cbFoodEmergRespUpdate").checked = true;
+							document.getElementById("cbFoodServUpdate").disabled = true;
+							document.getElementById("cbFoodSupplyUpdate").disabled = true;
+							document.getElementById("cbFoodEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1816,6 +2337,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbEmploymentServUpdate").checked = true;
 							document.getElementById("cbEmploymentSupplyUpdate").checked = true;
 							document.getElementById("cbEmploymentEmergRespUpdate").checked = true;
+							document.getElementById("cbEmploymentServUpdate").disabled = true;
+							document.getElementById("cbEmploymentSupplyUpdate").disabled = true;
+							document.getElementById("cbEmploymentEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1843,6 +2367,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbMentoringServUpdate").checked = true;
 							document.getElementById("cbMentoringSupplyUpdate").checked = true;
 							document.getElementById("cbMentoringEmergRespUpdate").checked = true;
+							document.getElementById("cbMentoringServUpdate").disabled = true;
+							document.getElementById("cbMentoringSupplyUpdate").disabled = true;
+							document.getElementById("cbMentoringEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1869,6 +2396,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbCounselServUpdate").checked = true;
 							document.getElementById("cbCounselSupplyUpdate").checked = true;
 							document.getElementById("cbCounselEmergRespUpdate").checked = true;
+							document.getElementById("cbCounselServUpdate").disabled = true;
+							document.getElementById("cbCounselSupplyUpdate").disabled = true;
+							document.getElementById("cbCounselEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1895,6 +2425,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbPregnancyServUpdate").checked = true;
 							document.getElementById("cbPregnancySupplyUpdate").checked = true;
 							document.getElementById("cbPregnancyEmergRespUpdate").checked = true;
+							document.getElementById("cbPregnancyServUpdate").disabled = true;
+							document.getElementById("cbPregnancySupplyUpdate").disabled = true;
+							document.getElementById("cbPregnancyEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1921,6 +2454,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbMedicalServUpdate").checked = true;
 							document.getElementById("cbMedicalSupplyUpdate").checked = true;
 							document.getElementById("cbMedicalEmergRespUpdate").checked = true;
+							document.getElementById("cbMedicalServUpdate").disabled = true;
+							document.getElementById("cbMedicalSupplyUpdate").disabled = true;
+							document.getElementById("cbMedicalEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1947,6 +2483,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbLegalServUpdate").checked = true;
 							document.getElementById("cbLegalSupplyUpdate").checked = true;
 							document.getElementById("cbLegalEmergRespUpdate").checked = true;
+							document.getElementById("cbLegalServUpdate").disabled = true;
+							document.getElementById("cbLegalSupplyUpdate").disabled = true;
+							document.getElementById("cbLegalEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1973,6 +2512,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbGovServUpdate").checked = true;
 							document.getElementById("cbGovSupplyUpdate").checked = true;
 							document.getElementById("cbGovEmergRespUpdate").checked = true;
+							document.getElementById("cbGovServUpdate").disabled = true;
+							document.getElementById("cbGovSupplyUpdate").disabled = true;
+							document.getElementById("cbGovEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -1999,6 +2541,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbInvestigationServUpdate").checked = true;
 							document.getElementById("cbInvestigationSupplyUpdate").checked = true;
 							document.getElementById("cbInvestigationEmergRespUpdate").checked = true;
+							document.getElementById("cbInvestigationServUpdate").disabled = true;
+							document.getElementById("cbInvestigationSupplyUpdate").disabled = true;
+							document.getElementById("cbInvestigationEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -2025,6 +2570,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbFosterServUpdate").checked = true;
 							document.getElementById("cbFosterSupplyUpdate").checked = true;
 							document.getElementById("cbFosterEmergRespUpdate").checked = true;
+							document.getElementById("cbFosterServUpdate").disabled = true;
+							document.getElementById("cbFosterSupplyUpdate").disabled = true;
+							document.getElementById("cbFosterEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -2051,6 +2599,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbAwarenessEdServUpdate").checked = true;
 							document.getElementById("cbAwarenessEdSupplyUpdate").checked = true;
 							document.getElementById("cbAwarenessEdEmergRespUpdate").checked = true;
+							document.getElementById("cbAwarenessEdServUpdate").disabled = true;
+							document.getElementById("cbAwarenessEdSupplyUpdate").disabled = true;
+							document.getElementById("cbAwarenessEdEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -2077,6 +2628,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbResponseTrainServUpdate").checked = true;
 							document.getElementById("cbResponseTrainSupplyUpdate").checked = true;
 							document.getElementById("cbResponseTrainEmergRespUpdate").checked = true;
+							document.getElementById("cbResponseTrainServUpdate").disabled = true;
+							document.getElementById("cbResponseTrainSupplyUpdate").disabled = true;
+							document.getElementById("cbResponseTrainEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -2103,6 +2657,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbSubstanceAbuseServUpdate").checked = true;
 							document.getElementById("cbSubstanceAbuseSupplyUpdate").checked = true;
 							document.getElementById("cbSubstanceAbuseEmergRespUpdate").checked = true;
+							document.getElementById("cbSubstanceAbuseServUpdate").disabled = true;
+							document.getElementById("cbSubstanceAbuseSupplyUpdate").disabled = true;
+							document.getElementById("cbSubstanceAbuseEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -2129,6 +2686,9 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbOtherServUpdate").checked = true;
 							document.getElementById("cbOtherSupplyUpdate").checked = true;
 							document.getElementById("cbOtherEmergRespUpdate").checked = true;
+							document.getElementById("cbOtherServUpdate").disabled = true;
+							document.getElementById("cbOtherSupplyUpdate").disabled = true;
+							document.getElementById("cbOtherEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
@@ -2155,22 +2715,25 @@ function loadUpdateModalData(orgId) {
 							document.getElementById("cbAdvocacyServUpdate").checked = true;
 							document.getElementById("cbAdvocacySupplyUpdate").checked = true;
 							document.getElementById("cbAdvocacyEmergRespUpdate").checked = true;
+							document.getElementById("cbAdvocacyServUpdate").disabled = true;
+							document.getElementById("cbAdvocacySupplyUpdate").disabled = true;
+							document.getElementById("cbAdvocacyEmergRespUpdate").disabled = true;
 						}
 						
 						if (serviceData[i][2] == 1) {
-							document.getElementById("cbAdvocacServUpdate").checked = true;
+							document.getElementById("cbAdvocacyServUpdate").checked = true;
 						}
 						
 						if (serviceData[i][3] == 1) {
-							document.getElementById("cbAdvocacSupplyUpdate").checked = true;
+							document.getElementById("cbAdvocacySupplyUpdate").checked = true;
 						}
 						
 						if (serviceData[i][4] == 1) {
-							document.getElementById("cbAdvocacEmergRespUpdate").checked = true;
+							document.getElementById("cbAdvocacyEmergRespUpdate").checked = true;
 						}
 						
 						if (serviceData[i][5] != null && serviceData[i][5] != "") {
-							document.getElementById("txtAdvocacDescUpdate").value = serviceData[i][5];
+							document.getElementById("txtAdvocacyDescUpdate").value = serviceData[i][5];
 						}
 					}
 				}
@@ -2952,26 +3515,6 @@ function checkAllDisableUpdate() {
     });
 }
 
-function disableFee(){
-	$("#cbFreeCreate").click(function(){
-		if(this.checked){
-			$("#txtAssociatedFeeCreate").prop('disabled',true);
-		}	
-		else{
-			$("#txtAssociatedFeeCreate").prop('disabled',false);
-		}
-	});
-	
-	$("#cbFreeUpdate").click(function(){
-		if(this.checked){
-			$("#txtAssociatedFeeUpdate").prop('disabled',true);
-		}	
-		else{
-			$("#txtAssociatedFeeUpdatee").prop('disabled',false);
-		}
-	});
-}
-
 function displayUpdateModal() {
 	$.ajax({
   url: '/HTML/Modals/updateModal.html',
@@ -3006,7 +3549,6 @@ function onLoadFunctions() {
 	displayCreateModal();
 	displayUpdateModal();
 	displayLoginModal();
-	disableFee();
 	checkAllDisableCreate();
 	checkAllDisableUpdate();
 	checkHoursCreate();
@@ -3015,24 +3557,16 @@ function onLoadFunctions() {
 	populateCreateFaiths();
 	populateUpdateStates();
 	populateUpdateFaiths();
+	document.getElementById("allSearch").style.display = 'block';
+	document.getElementById("orgInfoResults").style.display= 'none';
 }
 
 function getComplexData(orgId) {
 
-	var addresses;
-	var ages;
-	var contacts;
-	var ethnicities;
-	var genders;
-	var hours;
-	var nationalities;
-	var organizations;
-	var races;
-	var requirements;
-	var services;
-	var stateName;
+	document.getElementById("allSearch").style.display = 'none';
+	document.getElementById("orgInfoResults").style.display= 'block';
 	
-	/*load addresses table*/
+			/*load addresses table*/
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3041,13 +3575,36 @@ function getComplexData(orgId) {
 			orgId: orgId
 		},
 		success: function(data) {
-			console.log("addresses: " + data);
+			console.log("addressses: " + data);
 			var parsedData = JSON.parse(data);
-			addresses = parsedData;
+			var addresses = parsedData;
 			
+			document.getElementById("orgInfoAddressConf").innerHTML = "";
+			document.getElementById("orgInfoAddress2").innerHTML = "";
+			document.getElementById("orgInfoAddress1").innerHTML = "";
+			
+			aLen = addresses.length;
 		
+			for (i = 0; i < aLen; i++) {
+				if(addresses[i][5] == 1) {
+					document.getElementById("orgInfoAddressConf").innerHTML = "<p>Confidential Addresses: " + addresses[i][0] + ", " + addresses[i][1] + ", " + addresses[i][4] + " " + addresses[i][2] + "</p>";
+				}
+				else {
+					if(i >= 1) {
+						document.getElementById("orgInfoAddress2").innerHTML = "<p>Secondary Address: " + addresses[i][0] + ", " + addresses[i][1] + ", " + addresses[i][4] + " " + addresses[i][2] + "</p>";
+						 
+					}
+					else {
+						document.getElementById("orgInfoAddress1").innerHTML = "<h5>Primary Address: " + addresses[i][0] + ", " + addresses[i][1] + ", " + addresses[i][4] + " " + addresses[i][2] + "</h5>";
+				}
+	
+			
+			}
+			
+			
+			}
 		}
-	});
+	}); 
 
 	/*load age table*/
 
@@ -3061,7 +3618,37 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("ages: " + data);
 			var parsedData = JSON.parse(data);
-			ages = parsedData;
+			var ages = parsedData;
+			
+				document.getElementById("orgInfoAges").innerHTML = "";	
+					
+				aLen = ages.length;
+				
+				for (i = 0; i < aLen; i++) { 
+					if (ages[i][0] == "All") {
+						document.getElementById("orgInfoAges").innerHTML = "<p>All</p>";
+					}
+					else {
+						var text = "<ul>";
+						if(ages[i][0] == "Infants/Toddlers") {
+							text += "<li>Infants/Toddlers (0-4)</li>";
+						}
+						if(ages[i][0] == "Children") {
+							text += "<li>Children (5-12)</li>";
+						}
+						if(ages[i][0] == "Youth/Young Adults") {
+							text += "<li>Youth/Young Adults (13-17)</li>";
+						}
+						if(ages[i][0] == "Adults") {
+							text += "<li>Adults (18+)</li>";
+						}
+						text += "</ul>";
+						document.getElementById("orgInfoAges").innerHTML = text;
+					}
+				}
+				
+			
+			
 		}
 	});
 
@@ -3077,7 +3664,61 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("contacts: " + data);
 			var parsedData = JSON.parse(data);
-			contacts = parsedData;
+			var contacts = parsedData;
+			
+			document.getElementById("orgInfoContactEmail").innerHTML = "";
+			document.getElementById("orgInfoContactName").innerHTML = "";
+			document.getElementById("orgInfoContactPosition").innerHTML = "";
+			document.getElementById("orgInfoContactPhone").innerHTML = "";
+		
+				
+				cLen = contacts.length;
+				
+				for (i = 0; i < cLen; i++) { 
+					
+					var email = contacts[i][1];
+					var firstname = contacts[i][2];
+					var lastname = contacts[i][3];
+					var position = contacts[i][4];
+					var phone = contacts[i][5];
+					var ext = "Ext. " + contacts[i][7];
+					
+					
+					if(email == null || email == "") {
+						email = "N/A";
+					}
+					if((firstname == null || firstname == "") && (lastname == null || lastname == "")) {
+						name = "N/A";
+					}
+					if(position == null || position == "") {
+						position = "N/A";
+					}
+					if(phone == null || phone == "") {
+						phone = "N/A";
+					}
+					if(ext == "Ext. null") {
+						ext = "";
+					}
+					
+					if(phone !== "N/A")
+						phone = phone.replace(/[^\/\d]/g,'');
+					
+						var formattedPhone = (""+ phone).replace(/\D/g, '');
+						var m = formattedPhone.match(/^(\d{3})(\d{3})(\d{4})$/);
+						phone = (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+					
+	
+					document.getElementById("orgInfoContactEmail").innerHTML = "<p>Email: " + email + "</p>";
+					document.getElementById("orgInfoContactName").innerHTML = "<p>Name: " + firstname + " " + lastname + "</p>";
+					document.getElementById("orgInfoContactPosition").innerHTML = "<p>Position: " + position + "</p>";
+					document.getElementById("orgInfoContactPhone").innerHTML = "<p>Phone: " + phone + " " + ext + "</p>";
+				
+				
+
+
+				}
+				
+			
 		}
 	});
 
@@ -3093,7 +3734,7 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("ethnicity: " + data);
 			var parsedData = JSON.parse(data);
-			ethnicities = parsedData;
+			var ethnicities = parsedData;
 		}
 	});
 
@@ -3109,7 +3750,7 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("gender: " + data);
 			var parsedData = JSON.parse(data);
-			genders = parsedData;
+			var genders = parsedData;
 		}
 	});
 
@@ -3125,7 +3766,7 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("hours: " + data);
 			var parsedData = JSON.parse(data);
-			hours = parsedData;
+			var hours = parsedData;
 		}
 	});
 
@@ -3141,7 +3782,7 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("nationality: " + data);
 			var parsedData = JSON.parse(data);
-			nationalities = parsedData;
+			var nationalities = parsedData;
 						
 		} 
 	});
@@ -3158,7 +3799,7 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("organizations: " + data);
 			var parsedData = JSON.parse(data);
-			organizations = parsedData;
+			var organizations = parsedData;
 			
 			
 
@@ -3177,7 +3818,7 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("race: " + data);
 			var parsedData = JSON.parse(data);
-			races = parsedData;
+			var races = parsedData;
 
 			
 
@@ -3187,16 +3828,16 @@ function getComplexData(orgId) {
 	/*load requirements table*/
 
 	$.ajax({
-		url: '/PHP/loadUpdateData.php',
+		url: '/PHP/loadComplexData.php',
 		type: 'POST',
 		data: {
-			method: "getRequirementsUpdateData",
+			method: "getRequirementsComplexData",
 			orgId: orgId
 		},
 		success: function(data) {
 			console.log("requirements: " + data);
 			var parsedData = JSON.parse(data);
-			requirements = parsedData;
+			var requirements = parsedData;
 		}
 	});
 
@@ -3212,129 +3853,9 @@ function getComplexData(orgId) {
 		success: function(data) {
 			console.log("service: " + data);
 			var parsedData = JSON.parse(data);
-			services = parsedData;
+			var services = parsedData;
 
 			}
 		}); 
-		
-	/*load the state name*/
-	$.ajax({
-		url: '/PHP/loadUpdateData.php',
-		type: 'POST',
-		data: {
-			method: "getStateData",
-			orgId: orgId
-		},
-		success: function(data) {
-			console.log("state: " + data);
-			var parsedData = JSON.parse(data);
-			stateName = parsedData;
-
-			}
-		});
-	
-	//setComplexData(addresses, ages, etc...);
-	
 }
-
-
-function setComplexData(addresses, ages, contacts, ethnicities, genders, hours, nationalities, organizations, races, requirements, services, stateName){
-	
-	text = "";
-	
-	text += "<div class=\"panel\" id=\"indiPanel\">";
-	text += "<div class=\"row\">";
-	text += "<div class=\"col-md-4 col-md-offset-2\">";
-	text += "<h2>" + organizations[0][1] + "</h2>";
-	text += "<a href=\"" + organizations[0][4] + "\" target=\"_blank\">" + organizations[0][4] + "</a>";
-	text += "</div>";
-	text += "</div>";
-	text += "<div class=\"row\">";
-	text += "<div class=\"col-md-4 col-md-offset-2\" id=\"OrgInfoResult\">";
-	
-	//populates the addresses
-	aLength = addresses.length();
-	for(i = 0; i < aLength; i++){
-	text += "<h4>" + addresses[i][0] + ", " + addresses[i][1] + ", " + stateName[i][0] + " " + addresses[i][2] + "</h4>";
-	}
-	
-	text += "<br>";
-	text += "<p>HOURS OF OPERATION</p>";
-	
-	//populate hours of operation
-	//assumption made is that hours[i][0] will be regular hours, and hours[i][1] will be additional
-	if(hours[0][1] == 1){
-		text += "<p>Open 24 Hours</p>";
-	}
-	//if all weekdays match, prints a condensed version
-	else if(hours[0][2] == 0 & hours[0][3] == hours[0][5] & hours[0][3] == hours[0][7] & hours[0][3] == hours[0][9] & hours[0][3] == hours[0][11]  
-			& hours[0][4] == hours[0][6] & hours[0][4] == hours[0][8] & hours[0][4] == hours[0][10] & hours[0][4] == hours[0][12]){
-		text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
-		text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
-		
-		if(hours[0][13] != null){
-			text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
-		}
-		if(hours[0][15] != null){
-			text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
-		}
-	}
-	//if times don't match, print all days seperately, does not print days without any hours[0]
-	else if(hours[0][2] == 0){
-		if(hours[0][3] != null){
-			text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday)</p>";
-		}
-		if(hours[0][5] != null){
-			text += "<p>" + hours[0][5] + " - " + hours[0][6] + "(Tuesday)</p>";
-		}
-		if(hours[0][7] != null){
-			text += "<p>" + hours[0][7] + " - " + hours[0][7] + "(Wednesday)</p>";
-		}
-		if(hours[0][9] != null){
-			text += "<p>" + hours[0][9] + " - " + hours[0][10] + "(Thursday)</p>";
-		}
-		if(hours[0][11] != null){
-			text += "<p>" + hours[0][11] + " - " + hours[0][12] + "(Friday)</p>";
-		}
-		if(hours[0][13] != null){
-			text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
-		}
-		if(hours[0][15] != null){
-			text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
-		}
-	}
-	//prints additional hours if present
-	if(hours[1][0] != null){
-		if(hours[1][17] != null){
-			text += "<p>Additional Hours: " + hours[1][17] + "</p>"
-		}
-		if(hours[1][3] != null){
-			text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday)</p>";
-		}
-		if(hours[1][5] != null){
-			text += "<p>" + hours[0][5] + " - " + hours[0][6] + "(Tuesday)</p>";
-		}
-		if(hours[1][7] != null){
-			text += "<p>" + hours[0][7] + " - " + hours[0][7] + "(Wednesday)</p>";
-		}
-		if(hours[1][9] != null){
-			text += "<p>" + hours[0][9] + " - " + hours[0][10] + "(Thursday)</p>";
-		}
-		if(hours[1][11] != null){
-			text += "<p>" + hours[0][11] + " - " + hours[0][12] + "(Friday)</p>";
-		}
-		if(hours[1][13] != null){
-			text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
-		}
-		if(hours[1][15] != null){
-			text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
-		}
-		
-	
-	}
-	
-	
-}
-
-
 

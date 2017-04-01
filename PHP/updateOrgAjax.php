@@ -1133,7 +1133,7 @@ function updateOrganization () {
     			$advocacyID = $id;
     		}
     		
-    		$getNoneResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Advocacy';");
+    		$getNoneResourceID = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'None';");
     		$getNoneResourceID->execute();
     		$getNoneResourceID->bind_result($id);
     		

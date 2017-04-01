@@ -70,12 +70,12 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Main Phone </label>
-                                                            <input id="txtMainPhoneCreate" type="text" placeholder="main phone (555)555-5555" class="form-control bfh-phone" data-country="US" />
-                                                            <input class="form-control" id="txtMainPhoneExtCreate" type="text" placeholder="main phone ext." />
+                                                            <input id="txtConfPhoneCreate" type="text" placeholder="(555)555-5555" class="form-control" />
+                                                            <input class="form-control" id="txtMainPhoneExtCreate" type="text" placeholder="55555" />
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label>Hotline Number </label>
-                                                            <input id="txtHotlineCreate" type="text" placeholder="hotline (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input id="txtHotlineCreate" type="text" placeholder="(555)555-5555" class="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -95,8 +95,8 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input id="txtConfPhoneCreate" type="text" placeholder="confidential phone (555)555-5555" class="form-control bfh-phone" data-country="US" />
-                                                            <input class="form-control" id="txtConfPhoneExtCreate" type="text" placeholder="confidential phone ext." />
+                                                            <input id="txtConfPhoneCreate" type="text" placeholder="(555)555-5555" class="form-control"  />
+                                                            <input class="form-control" id="txtConfPhoneExtCreate" type="text" placeholder="55555" />
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -136,7 +136,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input id="txtPrimaryContactPhoneCreate" type="text" placeholder="phone number (555)555-5555" class="form-control bfh-phone" data-country="US" />
+                                                            <input id="txtPrimaryContactPhoneCreate" type="text" class="form-control bfh-phone" data-country="US" />
                                                             <input class="form-control" id="txtPrimaryContactExtCreate" type="text" placeholder="contact phone ext." />
                                                         </div>
                                                         <div class="col-md-3">
@@ -2758,14 +2758,7 @@
                                         </div>
                                         <div id="collapse22" class="panel-collapse collapse in">
                                             <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-md-1">
-                                                        <label>Free: &nbsp;</label>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" id="cbFreeCreate" onclick="disableFee()">
-                                                    </div>
-                                                </div>
+                                      
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label>Associated Fee:</label>
@@ -2790,7 +2783,7 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group form-inline">
-                                                            <label>Associated Faith (if faith-based): <select class="form-control" id="ddlFaithCreate"></select></label>
+                                                            <label>Associated Faith: <select class="form-control" id="ddlFaithCreate"></select></label>
                                                         </div>
                                                     </div>
                                                 </div>

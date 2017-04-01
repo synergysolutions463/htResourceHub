@@ -62,7 +62,8 @@
  <button type="button" class="btn btn-primary btn-lg" onclick="loadUpdateModalData(181);">
                            test update modal data 
                         </button>
-
+                 
+<div id="allSearch" style="display:block">
     <div class="container simpleSearchBar">
         <div class="row text-center">
             <label class="btn btn-default">Counseling <input type="checkbox" id="counseling" class="badgebox" onclick="simpleSearchOrgs()"><span class="badge">&check;</span></label>
@@ -253,7 +254,90 @@
 
         </div>
     </div>
+</div>
 
+ <div class="container orgresults" id="orgInfoResults" style="display:block">
+        <div class="panel" id="complexOrgResultPanel"> 
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                    <div id="orgInfoTitle"></div>
+                    <div id="orgInfoWebLink"></div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2" id="OrgInfoResult">
+                    <div id="orgInfoAddress1"></div>
+                    <div id="orgInfoAddress2"></div>
+                    <div id="orgInfoAddressConf"></div>
+                    <br>
+                    <h5>HOURS OF OPERATION</h5>
+                    <div id="orgInfoHours"></div>
+                    <br>
+                    <h5>CONTACT INFORMATION</h5>
+                    <div id="orgInfoPhone"></div>
+                    <div id="orgInfoHotline"></div>
+                    <div id="orgInfoConfPhone"></div>
+                    <div id="orgInfoEmail"></div>
+                    <br>
+                    <h5>Genders Served:</h5>
+                    <div id="orgInfoGenders"></div>
+                    <h5>Races Served:</h5>
+                    <div id="orgInfoRaces"></div>
+                    <h5>Nationalities Served:</h5>
+                    <div id="orgInfoNationalities"></div>
+                </div>
+                <div class="col-md-2" id="contactPrimary1">
+                    <br>
+                    <h5>PRIMARY CONTACT</h5>
+                    <div id="orgInfoContactName"></div>
+                    <div id="orgInfoContactPhone"></div>
+                    <br>
+                    <h5>Denomination:</h5>
+                    <div id="orgInfoFaith"></div>
+                    <br>
+                    <h5>Ages Served:</h5>
+                    <div id="orgInfoAges"></div>
+                    <br>
+                    <h5>Fee:</h5>
+                    <div id="orgInfoFee"></div>
+                </div>
+                <div class="col-md-2" id="contactPrimary2">
+                    <br>
+                    <br>
+                    <br>
+                    <div id="orgInfoContactPosition"></div>
+                    <div id="orgInfoContactEmail"></div>
+                    <br>
+                    <h5>REQUIREMENTS</h5>
+                    <div id="orgInfoRequirements"></div>
+                </div>
+                <hr>
+                <div class="col-md-6 col-md-offset-2" id="OrgMission">
+                    <h4>Mission Statement</h4>
+                    <div id="orgInfoMissionStatement"></div>
+                    <br>
+                    <h3>Notes</h3>
+                    <div id="orgInfoNotes"></div>
+                    <br>
+                    <h3>Confidential Notes</h3>
+                    <div id="orgInfoConfNotes"></div>
+                </div>
+                <div class="col-md-4" id="OrgResourceList">
+                    <br>
+                    <h5>OFFERED RESOURCES</h5>
+                    <div id="orgInfoServices"></div>
+                    <br>
+                </div>
+            </div>
+            <hr> 
+        </div>
+    </div>
+
+    
+
+ 
+    
 
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myLoginModal">

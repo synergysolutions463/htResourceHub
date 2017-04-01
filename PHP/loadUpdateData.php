@@ -186,15 +186,15 @@ function getOrganizationUpdateData() {
     
     $orgId = $_POST['orgId'];
     
-    $organizationQuery = $connLibrary->prepare("SELECT OrgID, OrgName, AgencyID, ProgramStatement, WebLink, Email, PhoneNum, HotlineNum, ConfNum, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees, ft.FaithType, Notes, ConfNotes, isConf, isApproved, AgencyName, phoneExt, confPhoneExt FROM Organizations o
+    $organizationQuery = $connLibrary->prepare("SELECT OrgID, OrgName, ProgramStatement, WebLink, Email, PhoneNum, HotlineNum, ConfNum, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees, ft.FaithType, Notes, ConfNotes, isConf, isApproved, AgencyName, phoneExt, confPhoneExt FROM Organizations o
                                                 JOIN FaithTypes ft on (ft.FaithID = o.FaithID)
                                                 WHERE OrgID = " . $orgId . ";");
     $organizationQuery->execute();
-    $organizationQuery->bind_result($ID, $orgName, $agencyID, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt); 
+    $organizationQuery->bind_result($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt); 
     $orgsData = array();
     
     while($organizationQuery->fetch()){
-        $orgsData[] = array($ID, $orgName, $agencyID, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt);
+        $orgsData[] = array($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt);
     }
     
     echo json_encode($orgsData);
@@ -212,12 +212,12 @@ function getRaceUpdateData() {
                                         JOIN RaceTypes rt on (rt.RaceID = r.RaceID)
                                         WHERE OrgID = " . $orgId . ";");
     $raceQuery->execute();
-    $raceQuery->bind_result($raceID);
+    $raceQuery->bind_result($raceType);
     
     $racesData = array();
     
     while($raceQuery->fetch()){
-        $racesData[] = array($raceID);
+        $racesData[] = array($raceType);
     }
     
     echo json_encode($racesData);
@@ -270,29 +270,5 @@ function getServiceUpdateData() {
     echo json_encode($servicesData);
 }
 
-function getStateData(){
-    $connLibrary = db_connect();
-    if($connLibrary == null || $connLibrary == null) {
-          die("There was an error connecting to the database");
-    }
-    
-    $orgId = $_POST['orgId'];
-    
-    $stateQuery = $connLibrary->prepare("SELECT StateName
-                                        FROM Organizations o
-                                        JOIN Addresses ON (o.OrgID = Addresses.OrgID)
-                                        JOIN States ON (Addresses.StateID = States.StateID)
-                                        WHERE o.OrgID = " . $orgId);
-    $stateQuery->execute();
-    $stateQuery->bind_result($stateName);
-    
-    $stateData = array();
-    
-    while($stateQuery->fetch()){
-        $stateData[] = array($stateName);
-    }
-    
-    echo json_encode($stateData);
-}
 
 ?>
