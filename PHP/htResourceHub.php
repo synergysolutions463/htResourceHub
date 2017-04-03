@@ -197,7 +197,7 @@ function advSearchOrgs() {
     $educationRsc = $_POST['educationRsc'];
     $responseTrainingRsc = $_POST['responseTrainingRsc'];
     $substanceAbuseRsc = $_POST['substanceAbuseRsc'];
-    $clothingRsc = $_POST['clothingRsc'];
+    $advocacyRsc = $_POST['advocacyRsc'];
     $cityTxt = $_POST['cityTxt'];
     $searchTxt = $_POST['searchTxt'];
     $hours247 = $_POST['hours247'];
@@ -217,7 +217,8 @@ function advSearchOrgs() {
     $shelterHsg = $_POST['shelterHsg'];
     
     //Stops the query if there are ever no results found
-    $resOrgAppend = resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $clothingRsc);
+    $resOrgAppend = resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $advocacyRsc);
+    return $resOrgAppend;
     if ($resOrgAppend != "") {
          $natOrgAppend = nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgAppend);
    
@@ -287,7 +288,7 @@ function advSearchOrgs() {
     }
     
 //returns Org ID's to append to end of nationality query    
-function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $clothingRsc) {
+function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $advocacyRsc) {
      
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -435,6 +436,15 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
          $nothingSelect = false;
      }
    
+   if ($advocacyRsc == "true") {
+         if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
+             $resourcesQueryString = $resourcesQueryString . "16";
+         }
+         else {
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=16)";
+         }
+         $nothingSelect = false;
+     }
     if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
        $resourcesQueryString = "SELECT Service.OrgID FROM Service GROUP BY OrgID;";
    }

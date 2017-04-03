@@ -13,7 +13,9 @@ INSERT INTO ServiceTypes (SerType) VALUES ("Foster Care");
 INSERT INTO ServiceTypes (SerType) VALUES ("Awareness/Education");
 INSERT INTO ServiceTypes (SerType) VALUES ("Response Training");
 INSERT INTO ServiceTypes (SerType) VALUES ("Substance Abuse");
+INSERT INTO ServiceTypes (SerType) VALUES ("Advocacy")
 INSERT INTO ServiceTypes (SerType) VALUES ("Other");
+INSERT INTO ServiceTypes (SerType) VALUES ("None");
 
 /** Faith Types Inserts **/
 INSERT into FaithTypes (FaithType) VALUES ("All");
@@ -23,21 +25,12 @@ INSERT into FaithTypes (FaithType) VALUES ("Catholicism");
 INSERT into FaithTypes (FaithType) VALUES ("Hinduism");
 INSERT into FaithTypes (FaithType) VALUES ("Agnosticism");
 
-/** Day Types **/
-INSERT INTO DayTypes (DayType) VALUES ('All');
-INSERT INTO DayTypes (DayType) VALUES ('Sunday');
-INSERT INTO DayTypes (DayType) VALUES ('Monday');
-INSERT INTO DayTypes (DayType) VALUES ('Tuesday');
-INSERT INTO DayTypes (DayType) VALUES ('Wednesday');
-INSERT INTO DayTypes (DayType) VALUES ('Thursday');
-INSERT INTO DayTypes (DayType) VALUES ('Friday');
-INSERT INTO DayTypes (DayType) VALUES ('Saturday');
-
 /** Requirements Types Inserts **/
-INSERT INTO RequirementsTypes (ReqType) VALUES ('Membership');
+INSERT INTO RequirementsTypes (ReqType) VALUES ('Some or All Services Restricted to Existing Clients');
 INSERT INTO RequirementsTypes (ReqType) VALUES ('Training');
 INSERT INTO RequirementsTypes (ReqType) VALUES ('Application');
 INSERT INTO RequirementsTypes (ReqType) VALUES ('Possible Waiting List/Referral Required/Other Entry Restrictions');
+INSERT INTO RequirementsTypes (ReqType) VALUES ('None');
 
 /** Gender Types Inserts **/
 INSERT INTO GenderTypes (GenType) VALUES ('All');
@@ -66,11 +59,12 @@ INSERT INTO NationalityTypes (NatType) VALUES ('Undocumented');
 
 /** Race Types Inserts **/
 INSERT INTO RaceTypes (RaceType) VALUES ('All');
-INSERT INTO RaceTypes (RaceType) VALUES ('American Indian or Alaska Native');
-INSERT INTO RaceTypes (RaceType) VALUES ('Asian');
 INSERT INTO RaceTypes (RaceType) VALUES ('Black or African American');
-INSERT INTO RaceTypes (RaceType) VALUES ('Native Hawaiian or Other Pacific Islander');
+INSERT INTO RaceTypes (RaceType) VALUES ('Asian');
 INSERT INTO RaceTypes (RaceType) VALUES ('White');
+INSERT INTO RaceTypes (RaceType) VALUES ('Hispanic/Latino');
+INSERT INTO RaceTypes (RaceType) VALUES ('American Indian or Alaska Native');
+INSERT INTO RaceTypes (RaceType) VALUES ('Multi-Racial');
 
 /** State Inserts **/
 INSERT INTO States (StateName) VALUES ('Alabama');

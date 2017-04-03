@@ -94,6 +94,7 @@ function advSearchOrgs() {
 	var educationRsc = document.getElementById("educationResourceCB").checked;
 	var responseTrainingRsc = document.getElementById("responseTrainingResourceCB").checked;
 	var substanceAbuseRsc = document.getElementById("substanceAbuseResourceCB").checked;
+	var advocacyRsc = document.getElementById("advocacyResourceCB").checked;
 	var shelterHsg = document.getElementById("shelterHousingCB").checked;
 	var transitionalHsg = document.getElementById("transitionalHousingCB").checked;
 	var asstLocHsg = document.getElementById("assistanceHousingCB").checked;
@@ -111,7 +112,6 @@ function advSearchOrgs() {
 	var hours247 = document.getElementById("hoursCB").checked;
 	var searchTxt = document.getElementById("advSearchTxt").value;
 	var cityTxt = document.getElementById("citySearchTxt").value;
-
 
 	console.log("adv search beginning worked")
 	$.ajax({
@@ -133,6 +133,7 @@ function advSearchOrgs() {
 			educationRsc: educationRsc.toString(),
 			responseTrainingRsc: responseTrainingRsc.toString(),
 			substanceAbuseRsc: substanceAbuseRsc.toString(),
+			advocacyRsc: advocacyRsc.toString(),
 			cityTxt: cityTxt,
 			searchTxt: searchTxt,
 			hours247: hours247.toString(),
@@ -308,6 +309,7 @@ function loadSimpleData(orgs) {
 
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\">Update</button>";
 		text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
+		
 
 
 
@@ -1286,6 +1288,9 @@ function populateCreateStates() {
 		/*	$("#ddlAddress1StateCreate").get(0).options.length = 0;
 			$("#ddlAddress2StateCreate").get(0).options.length = 0;
 			$("#ddlConfAddressStateCreate").get(0).options.length = 0; */
+			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress1StateCreate");
+			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress2StateCreate");
+			$('<option/>').val("-----").html("-----").appendTo("#ddlConfAddressStateCreate");
 
 			for (i = 0; i < states.length; i++) {
 				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress1StateCreate");
@@ -1330,6 +1335,10 @@ function populateUpdateStates() {
 	/*		$("#ddlAddress1StateUpdate").get(0).options.length = 0;
 			$("#ddlAddress2StateUpdate").get(0).options.length = 0;
 			$("#ddlConfAddressStateUpdate").get(0).options.length = 0; */
+			
+			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress1StateUpdate");
+			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress2StateUpdate");
+			$('<option/>').val("-----").html("-----").appendTo("#ddlConfAddressStateUpdate");
 
 			for (i = 0; i < states.length; i++) {
 				$('<option/>').val(states[i]).html(states[i]).appendTo("#ddlAddress1StateUpdate");
@@ -3200,6 +3209,8 @@ function checkAllDisableCreate() {
             $("#cbAsianCreate").prop('checked', true).prop('disabled', true);
             $("#cbIslandCreate").prop('checked', true).prop('disabled', true);
             $("#cbNativeCreate").prop('checked', true).prop('disabled', true);
+            $("#cbHispanicLatinoCreate").prop('checked', true).prop('disabled', true);
+            $("#cbMultiRacialCreate").prop('checked', true).prop('disabled', true);
         }
         else{
            $("#cbWhiteCreate").prop('disabled',false).prop('checked', false);
@@ -3207,6 +3218,8 @@ function checkAllDisableCreate() {
            $("#cbAsianCreate").prop('disabled',false).prop('checked', false);
            $("#cbIslandCreate").prop('disabled',false).prop('checked', false);
            $("#cbNativeCreate").prop('disabled',false).prop('checked', false);
+           $("#cbHispanicLatinoCreate").prop('disabled',false).prop('checked', false);
+           $("#cbMultiRacialCreate").prop('disabled',false).prop('checked', false);
         }
     });
     
@@ -3492,6 +3505,8 @@ function checkAllDisableUpdate() {
             $("#cbAsianUpdate").prop('checked', true).prop('disabled', true);
             $("#cbIslandUpdate").prop('checked', true).prop('disabled', true);
             $("#cbNativeUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbHispanicLatinoUpdate").prop('checked', true).prop('disabled', true);
+            $("#cbMultiRacialUpdate").prop('checked', true).prop('disabled', true);
         }
         else{
            $("#cbWhiteUpdate").prop('disabled',false).prop('checked', false);
@@ -3499,6 +3514,8 @@ function checkAllDisableUpdate() {
            $("#cbAsianUpdate").prop('disabled',false).prop('checked', false);
            $("#cbIslandUpdate").prop('disabled',false).prop('checked', false);
            $("#cbNativeUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbHispanicLatinoUpdate").prop('disabled',false).prop('checked', false);
+           $("#cbMultiRacialUpdate").prop('disabled',false).prop('checked', false);
         }
     });
     
@@ -3627,20 +3644,19 @@ function getComplexData(orgId) {
 						document.getElementById("orgInfoAges").innerHTML = "<p>All</p>";
 					}
 					else {
-						var text = "<ul>";
+						var text = "";
 						if(ages[i][0] == "Infants/Toddlers") {
-							text += "<li>Infants/Toddlers (0-4)</li>";
+							text += "<p>Infants/Toddlers (0-4)</p>";
 						}
 						if(ages[i][0] == "Children") {
-							text += "<li>Children (5-12)</li>";
+							text += "<p>Children (5-12)</p>";
 						}
 						if(ages[i][0] == "Youth/Young Adults") {
-							text += "<li>Youth/Young Adults (13-17)</li>";
+							text += "<p>Youth/Young Adults (13-17)</p>";
 						}
 						if(ages[i][0] == "Adults") {
-							text += "<li>Adults (18+)</li>";
+							text += "<p>Adults (18+)</p>";
 						}
-						text += "</ul>";
 						document.getElementById("orgInfoAges").innerHTML = text;
 					}
 				}
