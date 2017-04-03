@@ -948,7 +948,7 @@ function insertOrganization () {
             		$insertWaitingRequirements ->close();
 			}
 			
-			if($waiting == "false" && $application == "false" && $training == "false" && $membership == false) {
+			if($waiting == "false" && $application == "false" && $training == "false" && $membership == "false") {
 					$insertNoneRequirements = $connLibrary->prepare("INSERT INTO Requirements (OrgID, ReqID) VALUES (" . $orgId . ", " . $noneId . ");");
             		$insertNoneRequirements ->execute();
             		$insertNoneRequirements ->close();
