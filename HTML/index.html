@@ -29,7 +29,7 @@
 </head>
 
 <body onload="readAllOrgs(), show('advSearch'), onLoadFunctions();">
-
+    <div class="bodyWrapper">
     <header>
         <div class="example3">
             <nav class="navbar navbar-inverse navbar-static-top">
@@ -260,6 +260,15 @@
  <div class="container orgresults" id="orgInfoResults" style="display:block">
         <div class="panel" id="complexOrgResultPanel"> 
             <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                     <button type="button" class="btn btn-default" aria-label="Left Align" onclick="backToSearch();">
+                      <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+                      Back to Search
+                    </button>
+                </div>
+            </div>
+            
+            <div class="row">
                 <div class="col-md-4 col-md-offset-2">
                     <div id="orgInfoTitle"></div>
                     <div id="orgInfoWebLink"></div>
@@ -374,10 +383,11 @@
                 </div>
             </div>
         </div>
+        
     </div>
     
 
-            <div id="insertCreateModal">
+        <div id="insertCreateModal">
             
         </div>
 
@@ -389,14 +399,16 @@
         <div id="insertLoginModal">
             
         </div>
-        
-    <footer class="footer">
-        <div class="container" id="footerContainer">
-            <p>Copyright 2017, Kent County Human Trafficking Task Force</p>
-        </div>
-    </footer>
-
-
+        <div class="push"></div>
+    </div>
+    
+    <div class="footerContainer">
+        <footer class="footer" id="homeFooter">
+            <div class="footerTextContainer">
+                <p>Copyright 2017, Kent County Human Trafficking Task Force</p>
+            </div>
+        </footer>
+    </div>
 
 </body>
 

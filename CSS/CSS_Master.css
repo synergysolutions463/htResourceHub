@@ -21,6 +21,12 @@ body {
     background-color: #f2eff5;
 }
 
+html, body{
+    height: 100%;
+    margin: 0;
+    position: relative;
+}
+
 a{
     color: #990c0c;
 }
@@ -114,15 +120,21 @@ hr{
     margin: 3px;
 }
 
-.footer{
+.footer, .push{
+    height: 40px;
+}
+
+#homeFooter{
     background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
     color: #ffffff;
     width: 100%;
-    position: absolute;
-    bottom: 0;
-    
 }
 
-#footerContainer{
-    vertical-align: text-top;
+#rscAppFooter{
+    background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
+

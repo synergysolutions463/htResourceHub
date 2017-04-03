@@ -850,8 +850,9 @@ function updateOrganization () {
             		$insertMultiRace ->close();
 				}
 			}
+			
+			
 				
-    		
     		/**Requirements Insert**/
     	
     		$membership = $_POST['membership'];
@@ -869,6 +870,7 @@ function updateOrganization () {
 				$trainingId = 0;
 				$applicationId = 0;
 				$waitingId = 0;
+				$noReqId = 0;
 				
 				/**get membership id**/
 		
@@ -909,6 +911,17 @@ function updateOrganization () {
 				while($getWaitingId->fetch()){
         			$waitingId = $id;
 				}
+				
+						
+				/**get noreq id**/
+		
+				$getNoReqId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'None';");
+				$getNoReqId ->execute();
+				$getNoReqId->bind_result($id);
+				
+				while($getNoReqId->fetch()){
+        			$noReqId = $id;
+				}
 			
 			if($membership == "true") {
 					$insertMembershipRequirements = $connLibrary->prepare("INSERT INTO Requirements (OrgID, ReqID, Description) VALUES (" . $orgId . ", " . $membershipId . ", '" . $membershipDesc . "');");
@@ -939,6 +952,11 @@ function updateOrganization () {
             		$insertWaitingRequirements ->close();
 			}
 			
+			if($waiting == "false" && $application == "false" && $training == "false" && $membership == "false") {
+					$insertNoneRequirements = $connLibrary->prepare("INSERT INTO Requirements (OrgID, ReqID) VALUES (" . $orgId . ", " . $noneId . ");");
+            		$insertNoneRequirements ->execute();
+            		$insertNoneRequirements ->close();
+			}
     		
     		
     		/**Service Insert**/

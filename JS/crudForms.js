@@ -19,6 +19,11 @@ function testAjax() {
 	});
 }
 
+function backToSearch() {
+	document.getElementById("allSearch").style.display = 'block';
+	document.getElementById("orgInfoResults").style.display= 'none';
+}
+
 function readAllOrgs() {
 	console.log("read all orgs beginning worked")
 	$.ajax({
@@ -308,9 +313,10 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"col-md-2\">";
 		text += "<div class=\"vcenter\">";
 
-		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicons glyphicons-edit\"></span>Update</button>";
-		text += "<button id=" + orgs[i][0] + " type=\"button\"><span class=\"glyphicons glyphicons-delete\"></span>Delete</button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-sm\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
 		
+
 
 
 
@@ -353,461 +359,464 @@ function loadComplexData() {
 
 function insertOrganization() {
 
-	/**Organization Table Insert Data **/
-
-	var orgName = document.getElementById("txtOrgNameCreate").value;
-	var agencyName = document.getElementById("txtOrgProgramCreate").value;
-	var missionStmt = document.getElementById("txtMissionStatementCreate").value;
-	var weblink = document.getElementById("txtOrgWebsiteCreate").value;
-	var email = document.getElementById("txtOrgEmailCreate").value;
-	var phoneNum = document.getElementById("txtMainPhoneCreate").value;
-	var phoneExt = document.getElementById("txtMainPhoneExtCreate").value;
-	var hotlineNum = document.getElementById("txtHotlineCreate").value;
-	var confNum = document.getElementById("txtConfPhoneCreate").value;
-	var confExt = document.getElementById("txtConfPhoneExtCreate").value;
-	var isShelter = document.getElementById("cbShelterCreate").checked;
-	var isTransHousing = document.getElementById("cbTransitionalHousingCreate").checked;
-	var isAsstLoc = document.getElementById("cbAssistLocateHousingCreate").checked;
-	var fee = document.getElementById("txtAssociatedFeeCreate").value;
-	var faith = document.getElementById("ddlFaithCreate").value;
-	var notes = document.getElementById("txtNoteCreate").value;
-	var confNotes = document.getElementById("txtConfidentialNoteCreate").value;
-	var isConf = document.getElementById("cbIsConfCreate").checked;
-
-
-	/**Addresses Table Insert Data**/
-	var streetInfo1 = document.getElementById("txtAddress1StreetCreate").value;
-	var city1 = document.getElementById("txtAddress1CityCreate").value;
-	var zipcode1 = document.getElementById("txtAddress1ZipCreate").value;
-	var county1 = document.getElementById("txtAddress1CountyCreate").value;
-	var state1 = document.getElementById("ddlAddress1StateCreate").value;
-
-	var streetInfo2 = document.getElementById("txtAddress2StreetCreate").value;
-	var city2 = document.getElementById("txtAddress2CityCreate").value;
-	var zipcode2 = document.getElementById("txtAddress2ZipCreate").value;
-	var county2 = document.getElementById("txtAddress2CountyCreate").value;
-	var state2 = document.getElementById("ddlAddress2StateCreate").value;
-
-	var streetInfo3 = document.getElementById("txtConfAddressStreetCreate").value;
-	var city3 = document.getElementById("txtConfAddressCityCreate").value;
-	var zipcode3 = document.getElementById("txtConfAddressZipCreate").value;
-	var county3 = document.getElementById("txtConfAddressCountyCreate").value;
-	var state3 = document.getElementById("ddlConfAddressStateCreate").value;
-
-
-	/**Age Table Insert Data**/
-	var infantsAge = document.getElementById("cbInfantCreate").checked;
-	var childrenAge = document.getElementById("cbChildCreate").checked;
-	var youthAge = document.getElementById("cbYouthCreate").checked;
-	var adultsAge = document.getElementById("cbAdultCreate").checked;
-
-	/**Contact Table Insert Data**/
-	var contactEmail = document.getElementById("txtPrimaryContactEmailCreate").value;
-	var firstName = document.getElementById("txtPrimaryContactFirstNameCreate").value;
-	var lastName = document.getElementById("txtPrimaryContactLastNameCreate").value;
-	var position = document.getElementById("txtPrimaryContactPosCreate").value;
-	var contactPhoneNum = document.getElementById("txtPrimaryContactPhoneCreate").value;
-	var contactPhoneExt = document.getElementById("txtPrimaryContactExtCreate").value;
-	var contactIsConf = document.getElementById("cbContactIsConfCreate").checked;
-
-	/**Ethnicity Table Insert Data**/
-	var hispanic = document.getElementById("cbHispanicCreate").checked;
-	var nonhispanic = document.getElementById("cbNonHispanicCreate").checked;
-
-	/**Gender Table Insert Data**/
-	var male = document.getElementById("cbMaleCreate").checked;
-	var female = document.getElementById("cbFemaleCreate").checked;
-	var transgender = document.getElementById("cbTransCreate").checked;
-
-	/**Hours Table Insert Data**/
-	var is24Hours = document.getElementById("cbIs247Create").checked;
-
-	var mondayToFridayFullOpen = document.getElementById("ddlGenFullWeekStartTimeCreate").value;
-	var mondayToFridayFullClose = document.getElementById("ddlGenFullWeekEndTimeCreate").value;
-	var saturdayFullOpen = document.getElementById("ddlGenFullWeekSatStartTimeCreate").value;
-	var saturdayFullClose = document.getElementById("ddlGenFullWeekSatEndTimeCreate").value;
-	var sundayFullOpen = document.getElementById("ddlGenFullWeekSunStartTimeCreate").value;
-	var sundayFullClose = document.getElementById("ddlGenFullWeekSunEndTimeCreate").value;
-	var mondaySingleOpen = document.getElementById("ddlGenMondayStartTimeCreate").value;
-	var mondaySingleClose = document.getElementById("ddlGenMondayEndTimeCreate").value;
-	var tuesdaySingleOpen = document.getElementById("ddlGenTuesdayStartTimeCreate").value;
-	var tuesdaySingleClose = document.getElementById("ddlGenTuesdayEndTimeCreate").value;
-	var wednesdaySingleOpen = document.getElementById("ddlGenWednesdayStartTimeCreate").value;
-	var wednesdaySingleClose = document.getElementById("ddlGenWednesdayEndTimeCreate").value;
-	var thursdaySingleOpen = document.getElementById("ddlGenThursdayStartTimeCreate").value;
-	var thursdaySingleClose = document.getElementById("ddlGenThursdayEndTimeCreate").value;
-	var fridaySingleOpen = document.getElementById("ddlGenFridayStartTimeCreate").value;
-	var fridaySingleClose = document.getElementById("ddlGenFridayEndTimeCreate").value;
-	var saturdaySingleOpen = document.getElementById("ddlGenSaturdayStartTimeCreate").value;
-	var saturdaySingleClose = document.getElementById("ddlGenSaturdayEndTimeCreate").value;
-	var sundaySingleOpen = document.getElementById("ddlGenSundayStartTimeCreate").value;
-	var sundaySingleClose = document.getElementById("ddlGenSundayEndTimeCreate").value;
-
-	var mondayToFridayFullOpenAdd = document.getElementById("ddlAddFullWeekStartTimeCreate").value;
-	var mondayToFridayFullCloseAdd = document.getElementById("ddlAddFullWeekEndTimeCreate").value;
-	var saturdayFullOpenAdd = document.getElementById("ddlAddFullWeekSatStartTimeCreate").value;
-	var saturdayFullCloseAdd = document.getElementById("ddlAddFullWeekSatEndTimeCreate").value;
-	var sundayFullOpenAdd = document.getElementById("ddlAddFullWeekSunStartTimeCreate").value;
-	var sundayFullCloseAdd = document.getElementById("ddlAddFullWeekSunEndTimeCreate").value;
-	var mondaySingleOpenAdd = document.getElementById("ddlAddMondayStartTimeCreate").value;
-	var mondaySingleCloseAdd = document.getElementById("ddlAddMondayEndTimeCreate").value;
-	var tuesdaySingleOpenAdd = document.getElementById("ddlAddTuesdayStartTimeCreate").value;
-	var tuesdaySingleCloseAdd = document.getElementById("ddlAddTuesdayEndTimeCreate").value;
-	var wednesdaySingleOpenAdd = document.getElementById("ddlAddWednesdayStartTimeCreate").value;
-	var wednesdaySingleCloseAdd = document.getElementById("ddlAddWednesdayEndTimeCreate").value;
-	var thursdaySingleOpenAdd = document.getElementById("ddlAddThursdayStartTimeCreate").value;
-	var thursdaySingleCloseAdd = document.getElementById("ddlAddThursdayEndTimeCreate").value;
-	var fridaySingleOpenAdd = document.getElementById("ddlAddFridayStartTimeCreate").value;
-	var fridaySingleCloseAdd = document.getElementById("ddlAddFridayEndTimeCreate").value;
-	var saturdaySingleOpenAdd = document.getElementById("ddlAddSaturdayStartTimeCreate").value;
-	var saturdaySingleCloseAdd = document.getElementById("ddlAddSaturdayEndTimeCreate").value;
-	var sundaySingleOpenAdd = document.getElementById("ddlAddSundayStartTimeCreate").value;
-	var sundaySingleCloseAdd = document.getElementById("ddlAddSundayEndTimeCreate").value;
-	var addHoursDesc = document.getElementById("txtAddHoursDescCreate").value;
-
-
-	/**Nationality Table Insert Data **/
-	var domesticBorn = document.getElementById("cbDomesticCreate").checked;
-	var foreignBorn = document.getElementById("cbForeignCreate").checked;
-	var undocumented = document.getElementById("cbUndocumentedCreate").checked;
-
-	/**Race Table Insert Data **/
-	var black = document.getElementById("cbBlackCreate").checked;
-	var asian = document.getElementById("cbAsianCreate").checked;
-	var white = document.getElementById("cbWhiteCreate").checked;
-	var hispanic = document.getElementById("cbHispanicLatinoCreate").checked;
-	var native = document.getElementById("cbNativeCreate").checked;
-	var multi = document.getElementById("cbMultiRacialCreate").checked;
-
-	/**Requirements Table Insert Data **/
-	var membership = document.getElementById("cbMembershipCreate").checked;
-	var membershipDesc = document.getElementById("txtMembershipCreate").value;
-	var training = document.getElementById("cbTrainingCreate").checked;
-	var trainingDesc = document.getElementById("txtTrainingCreate").value;
-	var application = document.getElementById("cbApplicationCreate").checked;
-	var applicationDesc = document.getElementById("txtApplicationCreate").value;
-	var waiting = document.getElementById("cbRestrictionCreate").checked;
-	var waitingDesc = document.getElementById("txtRestrictionCreate").value;
-
-	/**Service Table Insert Data **/
-
-	var providesClothingService = document.getElementById("cbClothingServCreate").checked;
-	var providesClothingSupply = document.getElementById("cbClothingSupplyCreate").checked;
-	var providesClothingEmergResp = document.getElementById("cbClothingEmergRespCreate").checked;
-	var providesClothingDesc = document.getElementById("txtClothingDescCreate").value;
-
-	var providesFoodService = document.getElementById("cbFoodServCreate").checked;
-	var providesFoodSupply = document.getElementById("cbFoodSupplyCreate").checked;
-	var providesFoodEmergResp = document.getElementById("cbFoodEmergRespCreate").checked;
-	var providesFoodDesc = document.getElementById("txtFoodDescCreate").value;
-
-	var providesEmploymentService = document.getElementById("cbEmploymentServCreate").checked;
-	var providesEmploymentSupply = document.getElementById("cbEmploymentSupplyCreate").checked;
-	var providesEmploymentEmergResp = document.getElementById("cbEmploymentEmergRespCreate").checked;
-	var providesEmploymentDesc = document.getElementById("txtEmploymentDescCreate").value;
-
-	var providesMentoringService = document.getElementById("cbMentoringServCreate").checked;
-	var providesMentoringSupply = document.getElementById("cbMentoringSupplyCreate").checked;
-	var providesMentoringEmergResp = document.getElementById("cbMentoringEmergRespCreate").checked;
-	var providesMentoringDesc = document.getElementById("txtMentoringDescCreate").value;
-
-	var providesCounsTherapyService = document.getElementById("cbCounselServCreate").checked;
-	var providesCounsTherapySupply = document.getElementById("cbCounselServCreate").checked;
-	var providesCounsTherapyEmergResp = document.getElementById("cbCounselServCreate").checked;
-	var providesCounsTherapyDesc = document.getElementById("txtCounselDescCreate").value;
-
-	var providesPregnancyService = document.getElementById("cbPregnancyServCreate").checked;
-	var providesPregnancySupply = document.getElementById("cbPregnancySupplyCreate").checked;
-	var providesPregnancyEmergResp = document.getElementById("cbPregnancyEmergRespCreate").checked;
-	var providesPregnancyDesc = document.getElementById("txtPregnancyDescCreate").value;
-
-	var providesMedicalService = document.getElementById("cbMedicalServCreate").checked;
-	var providesMedicalSupply = document.getElementById("cbMedicalSupplyCreate").checked;
-	var providesMedicalEmergResp = document.getElementById("cbMedicalEmergRespCreate").checked;
-	var providesMedicalDesc = document.getElementById("txtMedicalDescCreate").value;
-
-	var providesLegalService = document.getElementById("cbLegalServCreate").checked;
-	var providesLegalSupply = document.getElementById("cbLegalSupplyCreate").checked;
-	var providesLegalEmergResp = document.getElementById("cbLegalEmergRespCreate").checked;
-	var providesLegalDesc = document.getElementById("txtLegalDescCreate").value;
-
-	var providesGovService = document.getElementById("cbGovServCreate").checked;
-	var providesGovSupply = document.getElementById("cbGovSupplyCreate").checked;
-	var providesGovEmergResp = document.getElementById("cbGovEmergRespCreate").checked;
-	var providesGovDesc = document.getElementById("txtGovDescCreate").value;
-
-	var providesInvestigationService = document.getElementById("cbInvestigationServCreate").checked;
-	var providesInvestigationSupply = document.getElementById("cbInvestigationSupplyCreate").checked;
-	var providesInvestigationEmergResp = document.getElementById("cbInvestigationEmergRespCreate").checked;
-	var providesInvestigationDesc = document.getElementById("txtInvestigationDescCreate").value;
-
-	var providesFosterService = document.getElementById("cbFosterServCreate").checked;
-	var providesFosterSupply = document.getElementById("cbFosterSupplyCreate").checked;
-	var providesFosterEmergResp = document.getElementById("cbFosterEmergRespCreate").checked;
-	var providesFosterDesc = document.getElementById("txtFosterDescCreate").value;
-
-	var providesAwarenessService = document.getElementById("cbAwarenessEdServCreate").checked;
-	var providesAwarenessSupply = document.getElementById("cbAwarenessEdSupplyCreate").checked;
-	var providesAwarenessEmergResp = document.getElementById("cbAwarenessEdEmergRespCreate").checked;
-	var providesAwarenessDesc = document.getElementById("txtAwarenessEdDescCreate").value;
-
-	var providesResponseTrainingService = document.getElementById("cbResponseTrainServCreate").checked;
-	var providesResponseTrainingSupply = document.getElementById("cbResponseTrainSupplyCreate").checked;
-	var providesResponseTrainingEmergResp = document.getElementById("cbResponseTrainEmergRespCreate").checked;
-	var providesResponseTrainingDesc = document.getElementById("txtResponseTrainDescCreate").value;
-
-	var substanceAbuseService = document.getElementById("cbSubstanceAbuseServCreate").checked;
-	var substanceAbuseSupply = document.getElementById("cbSubstanceAbuseSupplyCreate").checked;
-	var substanceAbuseEmergResp = document.getElementById("cbSubstanceAbuseEmergRespCreate").checked;
-	var substanceAbuseDesc = document.getElementById("txtSubstanceAbuseDescCreate").value;
-
-	var advocacyService = document.getElementById("cbAdvocacyServCreate").checked;
-	var advocacySupply = document.getElementById("cbAdvocacySupplyCreate").checked;
-	var advocacyEmergResp = document.getElementById("cbAdvocacyEmergRespCreate").checked;
-	var advocacyDesc = document.getElementById("txtAdvocacyDescCreate").value;
-
-	var otherService = document.getElementById("cbOtherServCreate").checked;
-	var otherSupply = document.getElementById("cbOtherSupplyCreate").checked;
-	var otherEmergResp = document.getElementById("cbOtherEmergRespCreate").checked;
-	var otherDesc = document.getElementById("txtOtherDescCreate").value;
-
-
-
-
-
-	console.log("simple search beginning worked")
-	$.ajax({
-		url: '/PHP/createOrgAjax.php',
-		type: 'POST',
-		data: {
-			method: "insertOrganization",
-
-			/**Organization Table Data**/
-
-			orgName: orgName,
-			agencyName: agencyName,
-			missionStmt: missionStmt,
-			weblink: weblink,
-			email: email,
-			phoneNum: phoneNum,
-			phoneExt: phoneExt,
-			hotlineNum: hotlineNum,
-			confNum: confNum,
-			confExt: confExt,
-			isShelter: isShelter.toString(),
-			isTransHousing: isTransHousing.toString(),
-			isAsstLoc: isAsstLoc.toString(),
-			fee: fee,
-			faith: faith,
-			notes: notes,
-			confNotes: confNotes,
-			isConf: isConf.toString(),
-
-			/**Addresses Table Insert Data**/
-			streetInfo1: streetInfo1,
-			city1: city1,
-			zipcode1: zipcode1,
-			county1: county1,
-			state1: state1,
-
-			streetInfo2: streetInfo2,
-			city2: city2,
-			zipcode2: zipcode2,
-			county2: county2,
-			state2: state2,
-
-			streetInfo3: streetInfo3,
-			city3: city3,
-			zipcode3: zipcode3,
-			county3: county3,
-			state3: state3,
-
-
-			/**Age Table Insert Data**/
-			infantsAge: infantsAge.toString(),
-			childrenAge: childrenAge.toString(),
-			youthAge: youthAge.toString(),
-			adultsAge: adultsAge.toString(),
-
-			/**Contact Table Insert Data**/
-			contactEmail: contactEmail,
-			firstName: firstName,
-			lastName: lastName,
-			position: position,
-			contactPhoneNum: contactPhoneNum,
-			contactPhoneExt: contactPhoneExt,
-			contactIsConf: contactIsConf.toString(),
-
-			/**Ethnicity Table Insert Data**/
-			hispanic: hispanic.toString(),
-			nonhispanic: nonhispanic.toString(),
-
-			/**Gender Table Insert Data**/
-			male: male.toString(),
-			female: female.toString(),
-			transgender: transgender.toString(),
-
-			/**Hours Table Insert Data**/
-			is24Hours: is24Hours.toString(),
-
-			mondayToFridayFullOpen: mondayToFridayFullOpen,
-			mondayToFridayFullClose: mondayToFridayFullClose,
-			saturdayFullOpen: saturdayFullOpen,
-			saturdayFullClose: saturdayFullClose,
-			sundayFullOpen: sundayFullOpen,
-			sundayFullClose: sundayFullClose,
-			mondaySingleOpen: mondaySingleOpen,
-			mondaySingleClose: mondaySingleClose,
-			tuesdaySingleOpen: tuesdaySingleOpen,
-			tuesdaySingleClose: tuesdaySingleClose,
-			wednesdaySingleOpen: wednesdaySingleOpen,
-			wednesdaySingleClose: wednesdaySingleClose,
-			thursdaySingleOpen: thursdaySingleOpen,
-			thursdaySingleClose: thursdaySingleClose,
-			fridaySingleOpen: fridaySingleOpen,
-			fridaySingleClose: fridaySingleClose,
-			saturdaySingleOpen: saturdaySingleOpen,
-			saturdaySingleClose: saturdaySingleClose,
-			sundaySingleOpen: sundaySingleOpen,
-			sundaySingleClose: sundaySingleClose,
-
-			mondayToFridayFullOpenAdd: mondayToFridayFullOpenAdd,
-			mondayToFridayFullCloseAdd: mondayToFridayFullCloseAdd,
-			saturdayFullOpenAdd: saturdayFullOpenAdd,
-			saturdayFullCloseAdd: saturdayFullCloseAdd,
-			sundayFullOpenAdd: sundayFullOpenAdd,
-			sundayFullCloseAdd: sundayFullOpenAdd,
-			mondaySingleOpenAdd: mondaySingleOpenAdd,
-			mondaySingleCloseAdd: mondaySingleCloseAdd,
-			tuesdaySingleOpenAdd: tuesdaySingleOpenAdd,
-			tuesdaySingleCloseAdd: tuesdaySingleCloseAdd,
-			wednesdaySingleOpenAdd: wednesdaySingleOpenAdd,
-			wednesdaySingleCloseAdd: wednesdaySingleCloseAdd,
-			thursdaySingleOpenAdd: thursdaySingleOpenAdd,
-			thursdaySingleCloseAdd: thursdaySingleCloseAdd,
-			fridaySingleOpenAdd: fridaySingleOpenAdd,
-			fridaySingleCloseAdd: fridaySingleCloseAdd,
-			saturdaySingleOpenAdd: saturdaySingleOpenAdd,
-			saturdaySingleCloseAdd: saturdaySingleCloseAdd,
-			sundaySingleOpenAdd: sundaySingleOpenAdd,
-			sundaySingleCloseAdd: sundaySingleCloseAdd,
-			addHoursDesc: addHoursDesc,
-
-
-
-			/**Nationality Table Insert Data **/
-			domesticBorn: domesticBorn.toString(),
-			foreignBorn: foreignBorn.toString(),
-			undocumented: undocumented.toString(),
-
-			/**Race Table Insert Data **/
-			black: black.toString(),
-			asian: asian.toString(),
-			white: white.toString(),
-			hispanic: hispanic.toString(),
-			native: native.toString(),
-			multi: multi.toStrint(),
-			
-
-			/**Requirements Table Insert Data **/
-			membership: membership.toString(),
-			membershipDesc: membershipDesc,
-			training: training.toString(),
-			trainingDesc: trainingDesc,
-			application: application.toString(),
-			applicationDesc: applicationDesc,
-			waiting: waiting.toString(),
-			waitingDesc: waitingDesc,
-
-			/**Service Table Insert Data **/
-
-			providesClothingService: providesClothingService.toString(),
-			providesClothingSupply: providesClothingSupply.toString(),
-			providesClothingEmergResp: providesClothingEmergResp.toString(),
-			providesClothingDesc: providesClothingDesc,
-
-			providesFoodService: providesFoodService.toString(),
-			providesFoodSupply: providesFoodSupply.toString(),
-			providesFoodEmergResp: providesFoodEmergResp.toString(),
-			providesFoodDesc: providesFoodDesc,
-
-			providesEmploymentService: providesEmploymentService.toString(),
-			providesEmploymentSupply: providesEmploymentSupply.toString(),
-			providesEmploymentEmergResp: providesEmploymentEmergResp.toString(),
-			providesEmploymentDesc: providesEmploymentDesc,
-
-			providesMentoringService: providesMentoringService.toString(),
-			providesMentoringSupply: providesMentoringSupply.toString(),
-			providesMentoringEmergResp: providesMentoringEmergResp.toString(),
-			providesMentoringDesc: providesMentoringDesc,
-
-			providesCounsTherapyService: providesCounsTherapyService.toString(),
-			providesCounsTherapySupply: providesCounsTherapySupply.toString(),
-			providesCounsTherapyEmergResp: providesCounsTherapyEmergResp.toString(),
-			providesCounsTherapyDesc: providesCounsTherapyDesc,
-
-			providesPregnancyService: providesPregnancyService.toString(),
-			providesPregnancySupply: providesPregnancySupply.toString(),
-			providesPregnancyEmergResp: providesPregnancyEmergResp.toString(),
-			providesPregnancyDesc: providesPregnancyDesc,
-
-			providesMedicalService: providesMedicalService.toString(),
-			providesMedicalSupply: providesMedicalSupply.toString(),
-			providesMedicalEmergResp: providesMedicalEmergResp.toString(),
-			providesMedicalDesc: providesMedicalDesc,
-
-			providesLegalService: providesLegalService.toString(),
-			providesLegalSupply: providesLegalSupply.toString(),
-			providesLegalEmergResp: providesLegalEmergResp.toString(),
-			providesLegalDesc: providesLegalDesc,
-
-			providesGovService: providesGovService.toString(),
-			providesGovSupply: providesGovSupply.toString(),
-			providesGovEmergResp: providesGovEmergResp.toString(),
-			providesGovDesc: providesGovDesc,
-
-			providesInvestigationService: providesInvestigationService.toString(),
-			providesInvestigationSupply: providesInvestigationSupply.toString(),
-			providesInvestigationEmergResp: providesInvestigationEmergResp.toString(),
-			providesInvestigationDesc: providesInvestigationDesc,
-
-			providesFosterService: providesFosterService.toString(),
-			providesFosterSupply: providesFosterSupply.toString(),
-			providesFosterEmergResp: providesFosterEmergResp.toString(),
-			providesFosterDesc: providesFosterDesc,
-
-			providesAwarenessService: providesAwarenessService.toString(),
-			providesAwarenessSupply: providesAwarenessSupply.toString(),
-			providesAwarenessEmergResp: providesAwarenessEmergResp.toString(),
-			providesAwarenessDesc: providesAwarenessDesc,
-
-			providesResponseTrainingService: providesResponseTrainingService.toString(),
-			providesResponseTrainingSupply: providesResponseTrainingSupply.toString(),
-			providesResponseTrainingEmergResp: providesResponseTrainingEmergResp.toString(),
-			providesResponseTrainingDesc: providesResponseTrainingDesc,
-
-			substanceAbuseService: substanceAbuseService.toString(),
-			substanceAbuseSupply: substanceAbuseSupply.toString(),
-			substanceAbuseEmergResp: substanceAbuseEmergResp.toString(),
-			substanceAbuseDesc: substanceAbuseDesc,
-
-			advocacyService: advocacyService.toString(),
-			advocacySupply: advocacySupply.toString(),
-			advocacyEmergResp: advocacyEmergResp.toString(),
-			advocacyDesc: advocacyDesc,
-
-			otherService: otherService.toString(),
-			otherSupply: otherSupply.toString(),
-			otherEmergResp: otherEmergResp.toString(),
-			otherDesc: otherDesc
-		},
-		success: function(data) {
-			console.log("connection to php for insert working");
-			console.log(data);
-
-		}
-	});
-
+	//test the input
+	if(createFormValidation()){
+		
+		/**Organization Table Insert Data **/
+	
+		var orgName = document.getElementById("txtOrgNameCreate").value;
+		var agencyName = document.getElementById("txtOrgProgramCreate").value;
+		var missionStmt = document.getElementById("txtMissionStatementCreate").value;
+		var weblink = document.getElementById("txtOrgWebsiteCreate").value;
+		var email = document.getElementById("txtOrgEmailCreate").value;
+		var phoneNum = document.getElementById("txtMainPhoneCreate").value;
+		var phoneExt = document.getElementById("txtMainPhoneExtCreate").value;
+		var hotlineNum = document.getElementById("txtHotlineCreate").value;
+		var confNum = document.getElementById("txtConfPhoneCreate").value;
+		var confExt = document.getElementById("txtConfPhoneExtCreate").value;
+		var isShelter = document.getElementById("cbShelterCreate").checked;
+		var isTransHousing = document.getElementById("cbTransitionalHousingCreate").checked;
+		var isAsstLoc = document.getElementById("cbAssistLocateHousingCreate").checked;
+		var fee = document.getElementById("txtAssociatedFeeCreate").value;
+		var faith = document.getElementById("ddlFaithCreate").value;
+		var notes = document.getElementById("txtNoteCreate").value;
+		var confNotes = document.getElementById("txtConfidentialNoteCreate").value;
+		var isConf = document.getElementById("cbIsConfCreate").checked;
+	
+	
+		/**Addresses Table Insert Data**/
+		var streetInfo1 = document.getElementById("txtAddress1StreetCreate").value;
+		var city1 = document.getElementById("txtAddress1CityCreate").value;
+		var zipcode1 = document.getElementById("txtAddress1ZipCreate").value;
+		var county1 = document.getElementById("txtAddress1CountyCreate").value;
+		var state1 = document.getElementById("ddlAddress1StateCreate").value;
+	
+		var streetInfo2 = document.getElementById("txtAddress2StreetCreate").value;
+		var city2 = document.getElementById("txtAddress2CityCreate").value;
+		var zipcode2 = document.getElementById("txtAddress2ZipCreate").value;
+		var county2 = document.getElementById("txtAddress2CountyCreate").value;
+		var state2 = document.getElementById("ddlAddress2StateCreate").value;
+	
+		var streetInfo3 = document.getElementById("txtConfAddressStreetCreate").value;
+		var city3 = document.getElementById("txtConfAddressCityCreate").value;
+		var zipcode3 = document.getElementById("txtConfAddressZipCreate").value;
+		var county3 = document.getElementById("txtConfAddressCountyCreate").value;
+		var state3 = document.getElementById("ddlConfAddressStateCreate").value;
+	
+	
+		/**Age Table Insert Data**/
+		var infantsAge = document.getElementById("cbInfantCreate").checked;
+		var childrenAge = document.getElementById("cbChildCreate").checked;
+		var youthAge = document.getElementById("cbYouthCreate").checked;
+		var adultsAge = document.getElementById("cbAdultCreate").checked;
+	
+		/**Contact Table Insert Data**/
+		var contactEmail = document.getElementById("txtPrimaryContactEmailCreate").value;
+		var firstName = document.getElementById("txtPrimaryContactFirstNameCreate").value;
+		var lastName = document.getElementById("txtPrimaryContactLastNameCreate").value;
+		var position = document.getElementById("txtPrimaryContactPosCreate").value;
+		var contactPhoneNum = document.getElementById("txtPrimaryContactPhoneCreate").value;
+		var contactPhoneExt = document.getElementById("txtPrimaryContactExtCreate").value;
+		var contactIsConf = document.getElementById("cbContactIsConfCreate").checked;
+	
+		/**Ethnicity Table Insert Data**/
+		var hispanic = document.getElementById("cbHispanicCreate").checked;
+		var nonhispanic = document.getElementById("cbNonHispanicCreate").checked;
+	
+		/**Gender Table Insert Data**/
+		var male = document.getElementById("cbMaleCreate").checked;
+		var female = document.getElementById("cbFemaleCreate").checked;
+		var transgender = document.getElementById("cbTransCreate").checked;
+	
+		/**Hours Table Insert Data**/
+		var is24Hours = document.getElementById("cbIs247Create").checked;
+	
+		var mondayToFridayFullOpen = document.getElementById("ddlGenFullWeekStartTimeCreate").value;
+		var mondayToFridayFullClose = document.getElementById("ddlGenFullWeekEndTimeCreate").value;
+		var saturdayFullOpen = document.getElementById("ddlGenFullWeekSatStartTimeCreate").value;
+		var saturdayFullClose = document.getElementById("ddlGenFullWeekSatEndTimeCreate").value;
+		var sundayFullOpen = document.getElementById("ddlGenFullWeekSunStartTimeCreate").value;
+		var sundayFullClose = document.getElementById("ddlGenFullWeekSunEndTimeCreate").value;
+		var mondaySingleOpen = document.getElementById("ddlGenMondayStartTimeCreate").value;
+		var mondaySingleClose = document.getElementById("ddlGenMondayEndTimeCreate").value;
+		var tuesdaySingleOpen = document.getElementById("ddlGenTuesdayStartTimeCreate").value;
+		var tuesdaySingleClose = document.getElementById("ddlGenTuesdayEndTimeCreate").value;
+		var wednesdaySingleOpen = document.getElementById("ddlGenWednesdayStartTimeCreate").value;
+		var wednesdaySingleClose = document.getElementById("ddlGenWednesdayEndTimeCreate").value;
+		var thursdaySingleOpen = document.getElementById("ddlGenThursdayStartTimeCreate").value;
+		var thursdaySingleClose = document.getElementById("ddlGenThursdayEndTimeCreate").value;
+		var fridaySingleOpen = document.getElementById("ddlGenFridayStartTimeCreate").value;
+		var fridaySingleClose = document.getElementById("ddlGenFridayEndTimeCreate").value;
+		var saturdaySingleOpen = document.getElementById("ddlGenSaturdayStartTimeCreate").value;
+		var saturdaySingleClose = document.getElementById("ddlGenSaturdayEndTimeCreate").value;
+		var sundaySingleOpen = document.getElementById("ddlGenSundayStartTimeCreate").value;
+		var sundaySingleClose = document.getElementById("ddlGenSundayEndTimeCreate").value;
+	
+		var mondayToFridayFullOpenAdd = document.getElementById("ddlAddFullWeekStartTimeCreate").value;
+		var mondayToFridayFullCloseAdd = document.getElementById("ddlAddFullWeekEndTimeCreate").value;
+		var saturdayFullOpenAdd = document.getElementById("ddlAddFullWeekSatStartTimeCreate").value;
+		var saturdayFullCloseAdd = document.getElementById("ddlAddFullWeekSatEndTimeCreate").value;
+		var sundayFullOpenAdd = document.getElementById("ddlAddFullWeekSunStartTimeCreate").value;
+		var sundayFullCloseAdd = document.getElementById("ddlAddFullWeekSunEndTimeCreate").value;
+		var mondaySingleOpenAdd = document.getElementById("ddlAddMondayStartTimeCreate").value;
+		var mondaySingleCloseAdd = document.getElementById("ddlAddMondayEndTimeCreate").value;
+		var tuesdaySingleOpenAdd = document.getElementById("ddlAddTuesdayStartTimeCreate").value;
+		var tuesdaySingleCloseAdd = document.getElementById("ddlAddTuesdayEndTimeCreate").value;
+		var wednesdaySingleOpenAdd = document.getElementById("ddlAddWednesdayStartTimeCreate").value;
+		var wednesdaySingleCloseAdd = document.getElementById("ddlAddWednesdayEndTimeCreate").value;
+		var thursdaySingleOpenAdd = document.getElementById("ddlAddThursdayStartTimeCreate").value;
+		var thursdaySingleCloseAdd = document.getElementById("ddlAddThursdayEndTimeCreate").value;
+		var fridaySingleOpenAdd = document.getElementById("ddlAddFridayStartTimeCreate").value;
+		var fridaySingleCloseAdd = document.getElementById("ddlAddFridayEndTimeCreate").value;
+		var saturdaySingleOpenAdd = document.getElementById("ddlAddSaturdayStartTimeCreate").value;
+		var saturdaySingleCloseAdd = document.getElementById("ddlAddSaturdayEndTimeCreate").value;
+		var sundaySingleOpenAdd = document.getElementById("ddlAddSundayStartTimeCreate").value;
+		var sundaySingleCloseAdd = document.getElementById("ddlAddSundayEndTimeCreate").value;
+		var addHoursDesc = document.getElementById("txtAddHoursDescCreate").value;
+	
+	
+		/**Nationality Table Insert Data **/
+		var domesticBorn = document.getElementById("cbDomesticCreate").checked;
+		var foreignBorn = document.getElementById("cbForeignCreate").checked;
+		var undocumented = document.getElementById("cbUndocumentedCreate").checked;
+	
+		/**Race Table Insert Data **/
+		var black = document.getElementById("cbBlackCreate").checked;
+		var asian = document.getElementById("cbAsianCreate").checked;
+		var white = document.getElementById("cbWhiteCreate").checked;
+		var hispanic = document.getElementById("cbHispanicLatinoCreate").checked;
+		var native = document.getElementById("cbNativeCreate").checked;
+		var multi = document.getElementById("cbMultiRacialCreate").checked;
+	
+		/**Requirements Table Insert Data **/
+		var membership = document.getElementById("cbMembershipCreate").checked;
+		var membershipDesc = document.getElementById("txtMembershipCreate").value;
+		var training = document.getElementById("cbTrainingCreate").checked;
+		var trainingDesc = document.getElementById("txtTrainingCreate").value;
+		var application = document.getElementById("cbApplicationCreate").checked;
+		var applicationDesc = document.getElementById("txtApplicationCreate").value;
+		var waiting = document.getElementById("cbRestrictionCreate").checked;
+		var waitingDesc = document.getElementById("txtRestrictionCreate").value;
+	
+		/**Service Table Insert Data **/
+	
+		var providesClothingService = document.getElementById("cbClothingServCreate").checked;
+		var providesClothingSupply = document.getElementById("cbClothingSupplyCreate").checked;
+		var providesClothingEmergResp = document.getElementById("cbClothingEmergRespCreate").checked;
+		var providesClothingDesc = document.getElementById("txtClothingDescCreate").value;
+	
+		var providesFoodService = document.getElementById("cbFoodServCreate").checked;
+		var providesFoodSupply = document.getElementById("cbFoodSupplyCreate").checked;
+		var providesFoodEmergResp = document.getElementById("cbFoodEmergRespCreate").checked;
+		var providesFoodDesc = document.getElementById("txtFoodDescCreate").value;
+	
+		var providesEmploymentService = document.getElementById("cbEmploymentServCreate").checked;
+		var providesEmploymentSupply = document.getElementById("cbEmploymentSupplyCreate").checked;
+		var providesEmploymentEmergResp = document.getElementById("cbEmploymentEmergRespCreate").checked;
+		var providesEmploymentDesc = document.getElementById("txtEmploymentDescCreate").value;
+	
+		var providesMentoringService = document.getElementById("cbMentoringServCreate").checked;
+		var providesMentoringSupply = document.getElementById("cbMentoringSupplyCreate").checked;
+		var providesMentoringEmergResp = document.getElementById("cbMentoringEmergRespCreate").checked;
+		var providesMentoringDesc = document.getElementById("txtMentoringDescCreate").value;
+	
+		var providesCounsTherapyService = document.getElementById("cbCounselServCreate").checked;
+		var providesCounsTherapySupply = document.getElementById("cbCounselServCreate").checked;
+		var providesCounsTherapyEmergResp = document.getElementById("cbCounselServCreate").checked;
+		var providesCounsTherapyDesc = document.getElementById("txtCounselDescCreate").value;
+	
+		var providesPregnancyService = document.getElementById("cbPregnancyServCreate").checked;
+		var providesPregnancySupply = document.getElementById("cbPregnancySupplyCreate").checked;
+		var providesPregnancyEmergResp = document.getElementById("cbPregnancyEmergRespCreate").checked;
+		var providesPregnancyDesc = document.getElementById("txtPregnancyDescCreate").value;
+	
+		var providesMedicalService = document.getElementById("cbMedicalServCreate").checked;
+		var providesMedicalSupply = document.getElementById("cbMedicalSupplyCreate").checked;
+		var providesMedicalEmergResp = document.getElementById("cbMedicalEmergRespCreate").checked;
+		var providesMedicalDesc = document.getElementById("txtMedicalDescCreate").value;
+	
+		var providesLegalService = document.getElementById("cbLegalServCreate").checked;
+		var providesLegalSupply = document.getElementById("cbLegalSupplyCreate").checked;
+		var providesLegalEmergResp = document.getElementById("cbLegalEmergRespCreate").checked;
+		var providesLegalDesc = document.getElementById("txtLegalDescCreate").value;
+	
+		var providesGovService = document.getElementById("cbGovServCreate").checked;
+		var providesGovSupply = document.getElementById("cbGovSupplyCreate").checked;
+		var providesGovEmergResp = document.getElementById("cbGovEmergRespCreate").checked;
+		var providesGovDesc = document.getElementById("txtGovDescCreate").value;
+	
+		var providesInvestigationService = document.getElementById("cbInvestigationServCreate").checked;
+		var providesInvestigationSupply = document.getElementById("cbInvestigationSupplyCreate").checked;
+		var providesInvestigationEmergResp = document.getElementById("cbInvestigationEmergRespCreate").checked;
+		var providesInvestigationDesc = document.getElementById("txtInvestigationDescCreate").value;
+	
+		var providesFosterService = document.getElementById("cbFosterServCreate").checked;
+		var providesFosterSupply = document.getElementById("cbFosterSupplyCreate").checked;
+		var providesFosterEmergResp = document.getElementById("cbFosterEmergRespCreate").checked;
+		var providesFosterDesc = document.getElementById("txtFosterDescCreate").value;
+	
+		var providesAwarenessService = document.getElementById("cbAwarenessEdServCreate").checked;
+		var providesAwarenessSupply = document.getElementById("cbAwarenessEdSupplyCreate").checked;
+		var providesAwarenessEmergResp = document.getElementById("cbAwarenessEdEmergRespCreate").checked;
+		var providesAwarenessDesc = document.getElementById("txtAwarenessEdDescCreate").value;
+	
+		var providesResponseTrainingService = document.getElementById("cbResponseTrainServCreate").checked;
+		var providesResponseTrainingSupply = document.getElementById("cbResponseTrainSupplyCreate").checked;
+		var providesResponseTrainingEmergResp = document.getElementById("cbResponseTrainEmergRespCreate").checked;
+		var providesResponseTrainingDesc = document.getElementById("txtResponseTrainDescCreate").value;
+	
+		var substanceAbuseService = document.getElementById("cbSubstanceAbuseServCreate").checked;
+		var substanceAbuseSupply = document.getElementById("cbSubstanceAbuseSupplyCreate").checked;
+		var substanceAbuseEmergResp = document.getElementById("cbSubstanceAbuseEmergRespCreate").checked;
+		var substanceAbuseDesc = document.getElementById("txtSubstanceAbuseDescCreate").value;
+	
+		var advocacyService = document.getElementById("cbAdvocacyServCreate").checked;
+		var advocacySupply = document.getElementById("cbAdvocacySupplyCreate").checked;
+		var advocacyEmergResp = document.getElementById("cbAdvocacyEmergRespCreate").checked;
+		var advocacyDesc = document.getElementById("txtAdvocacyDescCreate").value;
+	
+		var otherService = document.getElementById("cbOtherServCreate").checked;
+		var otherSupply = document.getElementById("cbOtherSupplyCreate").checked;
+		var otherEmergResp = document.getElementById("cbOtherEmergRespCreate").checked;
+		var otherDesc = document.getElementById("txtOtherDescCreate").value;
+	
+	
+	
+	
+	
+		console.log("simple search beginning worked")
+		$.ajax({
+			url: '/PHP/createOrgAjax.php',
+			type: 'POST',
+			data: {
+				method: "insertOrganization",
+	
+				/**Organization Table Data**/
+	
+				orgName: orgName,
+				agencyName: agencyName,
+				missionStmt: missionStmt,
+				weblink: weblink,
+				email: email,
+				phoneNum: phoneNum,
+				phoneExt: phoneExt,
+				hotlineNum: hotlineNum,
+				confNum: confNum,
+				confExt: confExt,
+				isShelter: isShelter.toString(),
+				isTransHousing: isTransHousing.toString(),
+				isAsstLoc: isAsstLoc.toString(),
+				fee: fee,
+				faith: faith,
+				notes: notes,
+				confNotes: confNotes,
+				isConf: isConf.toString(),
+	
+				/**Addresses Table Insert Data**/
+				streetInfo1: streetInfo1,
+				city1: city1,
+				zipcode1: zipcode1,
+				county1: county1,
+				state1: state1,
+	
+				streetInfo2: streetInfo2,
+				city2: city2,
+				zipcode2: zipcode2,
+				county2: county2,
+				state2: state2,
+	
+				streetInfo3: streetInfo3,
+				city3: city3,
+				zipcode3: zipcode3,
+				county3: county3,
+				state3: state3,
+	
+	
+				/**Age Table Insert Data**/
+				infantsAge: infantsAge.toString(),
+				childrenAge: childrenAge.toString(),
+				youthAge: youthAge.toString(),
+				adultsAge: adultsAge.toString(),
+	
+				/**Contact Table Insert Data**/
+				contactEmail: contactEmail,
+				firstName: firstName,
+				lastName: lastName,
+				position: position,
+				contactPhoneNum: contactPhoneNum,
+				contactPhoneExt: contactPhoneExt,
+				contactIsConf: contactIsConf.toString(),
+	
+				/**Ethnicity Table Insert Data**/
+				hispanic: hispanic.toString(),
+				nonhispanic: nonhispanic.toString(),
+	
+				/**Gender Table Insert Data**/
+				male: male.toString(),
+				female: female.toString(),
+				transgender: transgender.toString(),
+	
+				/**Hours Table Insert Data**/
+				is24Hours: is24Hours.toString(),
+	
+				mondayToFridayFullOpen: mondayToFridayFullOpen,
+				mondayToFridayFullClose: mondayToFridayFullClose,
+				saturdayFullOpen: saturdayFullOpen,
+				saturdayFullClose: saturdayFullClose,
+				sundayFullOpen: sundayFullOpen,
+				sundayFullClose: sundayFullClose,
+				mondaySingleOpen: mondaySingleOpen,
+				mondaySingleClose: mondaySingleClose,
+				tuesdaySingleOpen: tuesdaySingleOpen,
+				tuesdaySingleClose: tuesdaySingleClose,
+				wednesdaySingleOpen: wednesdaySingleOpen,
+				wednesdaySingleClose: wednesdaySingleClose,
+				thursdaySingleOpen: thursdaySingleOpen,
+				thursdaySingleClose: thursdaySingleClose,
+				fridaySingleOpen: fridaySingleOpen,
+				fridaySingleClose: fridaySingleClose,
+				saturdaySingleOpen: saturdaySingleOpen,
+				saturdaySingleClose: saturdaySingleClose,
+				sundaySingleOpen: sundaySingleOpen,
+				sundaySingleClose: sundaySingleClose,
+	
+				mondayToFridayFullOpenAdd: mondayToFridayFullOpenAdd,
+				mondayToFridayFullCloseAdd: mondayToFridayFullCloseAdd,
+				saturdayFullOpenAdd: saturdayFullOpenAdd,
+				saturdayFullCloseAdd: saturdayFullCloseAdd,
+				sundayFullOpenAdd: sundayFullOpenAdd,
+				sundayFullCloseAdd: sundayFullOpenAdd,
+				mondaySingleOpenAdd: mondaySingleOpenAdd,
+				mondaySingleCloseAdd: mondaySingleCloseAdd,
+				tuesdaySingleOpenAdd: tuesdaySingleOpenAdd,
+				tuesdaySingleCloseAdd: tuesdaySingleCloseAdd,
+				wednesdaySingleOpenAdd: wednesdaySingleOpenAdd,
+				wednesdaySingleCloseAdd: wednesdaySingleCloseAdd,
+				thursdaySingleOpenAdd: thursdaySingleOpenAdd,
+				thursdaySingleCloseAdd: thursdaySingleCloseAdd,
+				fridaySingleOpenAdd: fridaySingleOpenAdd,
+				fridaySingleCloseAdd: fridaySingleCloseAdd,
+				saturdaySingleOpenAdd: saturdaySingleOpenAdd,
+				saturdaySingleCloseAdd: saturdaySingleCloseAdd,
+				sundaySingleOpenAdd: sundaySingleOpenAdd,
+				sundaySingleCloseAdd: sundaySingleCloseAdd,
+				addHoursDesc: addHoursDesc,
+	
+	
+	
+				/**Nationality Table Insert Data **/
+				domesticBorn: domesticBorn.toString(),
+				foreignBorn: foreignBorn.toString(),
+				undocumented: undocumented.toString(),
+	
+				/**Race Table Insert Data **/
+				black: black.toString(),
+				asian: asian.toString(),
+				white: white.toString(),
+				hispanic: hispanic.toString(),
+				native: native.toString(),
+				multi: multi.toStrint(),
+				
+	
+				/**Requirements Table Insert Data **/
+				membership: membership.toString(),
+				membershipDesc: membershipDesc,
+				training: training.toString(),
+				trainingDesc: trainingDesc,
+				application: application.toString(),
+				applicationDesc: applicationDesc,
+				waiting: waiting.toString(),
+				waitingDesc: waitingDesc,
+	
+				/**Service Table Insert Data **/
+	
+				providesClothingService: providesClothingService.toString(),
+				providesClothingSupply: providesClothingSupply.toString(),
+				providesClothingEmergResp: providesClothingEmergResp.toString(),
+				providesClothingDesc: providesClothingDesc,
+	
+				providesFoodService: providesFoodService.toString(),
+				providesFoodSupply: providesFoodSupply.toString(),
+				providesFoodEmergResp: providesFoodEmergResp.toString(),
+				providesFoodDesc: providesFoodDesc,
+	
+				providesEmploymentService: providesEmploymentService.toString(),
+				providesEmploymentSupply: providesEmploymentSupply.toString(),
+				providesEmploymentEmergResp: providesEmploymentEmergResp.toString(),
+				providesEmploymentDesc: providesEmploymentDesc,
+	
+				providesMentoringService: providesMentoringService.toString(),
+				providesMentoringSupply: providesMentoringSupply.toString(),
+				providesMentoringEmergResp: providesMentoringEmergResp.toString(),
+				providesMentoringDesc: providesMentoringDesc,
+	
+				providesCounsTherapyService: providesCounsTherapyService.toString(),
+				providesCounsTherapySupply: providesCounsTherapySupply.toString(),
+				providesCounsTherapyEmergResp: providesCounsTherapyEmergResp.toString(),
+				providesCounsTherapyDesc: providesCounsTherapyDesc,
+	
+				providesPregnancyService: providesPregnancyService.toString(),
+				providesPregnancySupply: providesPregnancySupply.toString(),
+				providesPregnancyEmergResp: providesPregnancyEmergResp.toString(),
+				providesPregnancyDesc: providesPregnancyDesc,
+	
+				providesMedicalService: providesMedicalService.toString(),
+				providesMedicalSupply: providesMedicalSupply.toString(),
+				providesMedicalEmergResp: providesMedicalEmergResp.toString(),
+				providesMedicalDesc: providesMedicalDesc,
+	
+				providesLegalService: providesLegalService.toString(),
+				providesLegalSupply: providesLegalSupply.toString(),
+				providesLegalEmergResp: providesLegalEmergResp.toString(),
+				providesLegalDesc: providesLegalDesc,
+	
+				providesGovService: providesGovService.toString(),
+				providesGovSupply: providesGovSupply.toString(),
+				providesGovEmergResp: providesGovEmergResp.toString(),
+				providesGovDesc: providesGovDesc,
+	
+				providesInvestigationService: providesInvestigationService.toString(),
+				providesInvestigationSupply: providesInvestigationSupply.toString(),
+				providesInvestigationEmergResp: providesInvestigationEmergResp.toString(),
+				providesInvestigationDesc: providesInvestigationDesc,
+	
+				providesFosterService: providesFosterService.toString(),
+				providesFosterSupply: providesFosterSupply.toString(),
+				providesFosterEmergResp: providesFosterEmergResp.toString(),
+				providesFosterDesc: providesFosterDesc,
+	
+				providesAwarenessService: providesAwarenessService.toString(),
+				providesAwarenessSupply: providesAwarenessSupply.toString(),
+				providesAwarenessEmergResp: providesAwarenessEmergResp.toString(),
+				providesAwarenessDesc: providesAwarenessDesc,
+	
+				providesResponseTrainingService: providesResponseTrainingService.toString(),
+				providesResponseTrainingSupply: providesResponseTrainingSupply.toString(),
+				providesResponseTrainingEmergResp: providesResponseTrainingEmergResp.toString(),
+				providesResponseTrainingDesc: providesResponseTrainingDesc,
+	
+				substanceAbuseService: substanceAbuseService.toString(),
+				substanceAbuseSupply: substanceAbuseSupply.toString(),
+				substanceAbuseEmergResp: substanceAbuseEmergResp.toString(),
+				substanceAbuseDesc: substanceAbuseDesc,
+	
+				advocacyService: advocacyService.toString(),
+				advocacySupply: advocacySupply.toString(),
+				advocacyEmergResp: advocacyEmergResp.toString(),
+				advocacyDesc: advocacyDesc,
+	
+				otherService: otherService.toString(),
+				otherSupply: otherSupply.toString(),
+				otherEmergResp: otherEmergResp.toString(),
+				otherDesc: otherDesc
+			},
+			success: function(data) {
+				console.log("connection to php for insert working");
+				console.log(data);
+	
+			}
+		});
+	}
 
 
 
@@ -2044,14 +2053,16 @@ function loadUpdateModalData(orgId) {
 			document.getElementById("cbWhiteUpdate").checked = false;
 			document.getElementById("cbBlackUpdate").checked = false;
 			document.getElementById("cbAsianUpdate").checked = false;
-			document.getElementById("cbIslandUpdate").checked = false;
+			document.getElementById("cbHispanicLatinoUpdate").checked = false;
 			document.getElementById("cbNativeUpdate").checked = false;
+			document.getElementById("cbMultiRacialUpdate").checked = false;
 			document.getElementById("cbRaceAllUpdate").disabled = false;
 			document.getElementById("cbWhiteUpdate").disabled = false;
 			document.getElementById("cbBlackUpdate").disabled = false;
 			document.getElementById("cbAsianUpdate").disabled = false;
-			document.getElementById("cbIslandUpdate").disabled = false;
+			document.getElementById("cbHispanicLatinoUpdate").disabled = false;
 			document.getElementById("cbNativeUpdate").disabled = false;
+			document.getElementById("cbMultiRacialUpdate").disabled = false;
 			
 			
 				console.log("race data: " + raceData[i]);
@@ -3822,62 +3833,62 @@ function getComplexData(orgId) {
 				text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
 				text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
 				
-				if(hours[0][13] != null){
+				if(hours[0][13] != "-----"){
 					text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
 				}
-				if(hours[0][15] != null){
+				if(hours[0][15] != "-----"){
 					text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
 				}
 			}
 			//if times don't match, print all days seperately, does not print days without any hours[0]
 			else if(hours[0][2] == 0){
-				if(hours[0][3] != null){
+				if(hours[0][3] != "-----"){
 					text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday)</p>";
 				}
-				if(hours[0][5] != null){
+				if(hours[0][5] != "-----"){
 					text += "<p>" + hours[0][5] + " - " + hours[0][6] + "(Tuesday)</p>";
 				}
-				if(hours[0][7] != null){
+				if(hours[0][7] != "-----"){
 					text += "<p>" + hours[0][7] + " - " + hours[0][7] + "(Wednesday)</p>";
 				}
-				if(hours[0][9] != null){
+				if(hours[0][9] != "-----"){
 					text += "<p>" + hours[0][9] + " - " + hours[0][10] + "(Thursday)</p>";
 				}
-				if(hours[0][11] != null){
+				if(hours[0][11] != "-----"){
 					text += "<p>" + hours[0][11] + " - " + hours[0][12] + "(Friday)</p>";
 				}
-				if(hours[0][13] != null){
+				if(hours[0][13] != "-----"){
 					text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
 				}
-				if(hours[0][15] != null){
+				if(hours[0][15] != "-----"){
 					text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
 				}
 			}
 			//prints additional hours if present
 			try{
 				if(hours[1][0] != null){
-					if(hours[1][17] != null){
+					if(hours[1][17] != "-----"){
 						text += "<p>Additional Hours: " + hours[1][17] + "</p>"
 					}
-					if(hours[1][3] != null){
+					if(hours[1][3] != "-----"){
 						text += "<p>" + hours[1][3] + " - " + hours[1][4] + "(Monday)</p>";
 					}
-					if(hours[1][5] != null){
+					if(hours[1][5] != "-----"){
 						text += "<p>" + hours[1][5] + " - " + hours[1][6] + "(Tuesday)</p>";
 					}
-					if(hours[1][7] != null){
+					if(hours[1][7] != "-----"){
 						text += "<p>" + hours[1][7] + " - " + hours[1][8] + "(Wednesday)</p>";
 					}
-					if(hours[1][9] != null){
+					if(hours[1][9] != "-----"){
 						text += "<p>" + hours[1][9] + " - " + hours[1][10] + "(Thursday)</p>";
 					}
-					if(hours[1][11] != null){
+					if(hours[1][11] != "-----"){
 						text += "<p>" + hours[1][11] + " - " + hours[1][12] + "(Friday)</p>";
 					}
-					if(hours[1][13] != null){
+					if(hours[1][13] != "-----"){
 						text += "<p>" + hours[1][13] + " - " + hours[1][14] + "(Saturday)</p>";
 					}
-					if(hours[1][15] != null){
+					if(hours[1][15] != "-----"){
 						text += "<p>" + hours[1][15] + " - " + hours[1][16] + "(Sunday)</p>";
 					}
 				}
@@ -4145,14 +4156,87 @@ function getComplexData(orgId) {
 function createFormValidation(){
 	//General Organization Information
 	var genInfoError = "";
-	if(document.getElementById("txtOrgNameCreate").value == null){
+	if(document.getElementById("txtOrgNameCreate").value == ""){
 		genInfoError = "Please enter an Organization name.";
+		document.getElementById("orgInfoErrorText").innerHTML = genInfoError;
+		return false;
 	}
-	document.getElementById("orgInfoErrorText").innerHTML = "<p>" + genInfoError + "</p>";
-	
+
 	//Contact Information
-	var contactError = "";
-	if(document.getElementByID("")){
-		
-	}
+	
 }
+
+function btnOrganizationInfoOnClick() {
+	$('#updateModalTabs a[href="#orgInfoUpdate"]').tab('show');
+	document.getElementById("txtOrgNameUpdate").focus();
+}
+
+function btnResourcesOfferedOnClick() {
+    $('#updateModalTabs a[href="#orgResourcesUpdate"]').tab('show');
+	document.getElementById("cbHousingAllUpdate").focus();
+}
+
+function btnAdditionalConsiderationsOnClick(){
+	$('#updateModalTabs a[href="#orgAddConsiderationsUpdate"]').tab('show');
+	document.getElementById("txtAssociatedFeeUpdate").focus();
+}
+
+function btnDemographicsServedOnClick() {
+	$('#updateModalTabs a[href="#orgDemographicsServedUpdate"]').tab('show');
+	document.getElementById("cbGenderAllUpdate").focus();
+}
+
+function btnNotesOnClick() {
+		$('#updateModalTabs a[href="#orgNotesUpdate"]').tab('show');
+		document.getElementById("txtNoteUpdate").focus();
+}
+
+
+
+
+        /*
+        
+        
+        $('#btnOrgInfo').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        $('#btnAdditionalConsiderationsForward').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+        
+        $('#btnResourcesOfferedBack').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        $('#btnDemographicsServedForward').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+        
+        $('#btnAdditionalConsiderationsBack').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        $('#btnNotes').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+        
+        $('#btnDemographicsServedBack').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+} */
