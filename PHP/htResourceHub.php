@@ -218,7 +218,6 @@ function advSearchOrgs() {
     
     //Stops the query if there are ever no results found
     $resOrgAppend = resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $advocacyRsc);
-    return $resOrgAppend;
     if ($resOrgAppend != "") {
          $natOrgAppend = nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgAppend);
    
@@ -244,7 +243,6 @@ function advSearchOrgs() {
                       
                             if($orgNameAppend != "") {
                                 $housingResourcesAppend = housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNameAppend);
-
                                 if($housingResourcesAppend !="") {
                                     $freeFeeAppend = freeFeeIDs($feeFree, $housingResourcesAppend);
                                     
@@ -252,7 +250,7 @@ function advSearchOrgs() {
                                     
                                      $advSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                                            st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
+                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
                                         FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                         JOIN States st ON (st.StateID = a.StateID)
                                         JOIN Service se ON (se.OrgId = o.OrgId)
@@ -261,15 +259,12 @@ function advSearchOrgs() {
                                         " GROUP BY o.OrgID;"); 
                         $advSearchQuery->execute();
                         $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
-
     $advSearchData = array();
     while($advSearchQuery->fetch()){
         $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
-
     echo json_encode($advSearchData); 
     } 
-
                                     
                                 } 
                             } 
@@ -284,7 +279,6 @@ function advSearchOrgs() {
         echo "No results found.";
     }
     
-
     }
     
 //returns Org ID's to append to end of nationality query    
@@ -298,7 +292,6 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
      $resourcesQueryString = "SELECT Service.OrgID FROM Service WHERE Service.SerID = ";
      $nothingSelected = true;
     
-
     
      if ($clothingRsc == "true") {
          $resourcesQueryString = $resourcesQueryString . "1";
@@ -435,8 +428,8 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
          }
          $nothingSelect = false;
      }
-   
-   if ($advocacyRsc == "true") {
+     
+    if ($advocacyRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
              $resourcesQueryString = $resourcesQueryString . "16";
          }
@@ -445,6 +438,7 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
          }
          $nothingSelect = false;
      }
+   
     if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
        $resourcesQueryString = "SELECT Service.OrgID FROM Service GROUP BY OrgID;";
    }
@@ -457,8 +451,6 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
     $resourcesOrgQuery = $connLibrary->prepare($resourcesQueryString); 
     $resourcesOrgQuery->execute();
     $resourcesOrgQuery->bind_result($resOrgID);
-
-
     $resOrgAppend = " (";
     while($resourcesOrgQuery->fetch()){
        
@@ -479,7 +471,6 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
         }
     
     return $resOrgAppend;
-
      
      
    
@@ -518,11 +509,9 @@ function nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgA
         
          if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = 1 OR (") {
               $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=4)";
-
          }
          else {
               $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=4)";
-
          }
             
     }
@@ -533,14 +522,10 @@ function nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgA
     else {
           $natQueryString = $natQueryString . ")) AND " . $resOrgAppend . " GROUP BY Nationality.OrgID;";
     }
-
-
     
     $natOrgQuery = $connLibrary->prepare($natQueryString); 
     $natOrgQuery->execute();
     $natOrgQuery->bind_result($natOrgID);
-
-
     $natOrgAppend = " (";
     while($natOrgQuery->fetch()){
        
@@ -562,9 +547,7 @@ function nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgA
     }
     
     return $natOrgAppend;
-
 }
-
 //returns Org ID's to append to address query
 function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppend){
    $connLibrary = db_connect();
@@ -583,7 +566,6 @@ function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppe
          }
         
      }
-
       
      if ($childrenAge == "true") {
           if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (") {
@@ -647,7 +629,6 @@ function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppe
      
      
 }
-
 //returns Org ID's to append to gender query
 function addressOrgIDs($cityTxt, $ageOrgAppend){
     $connLibrary = db_connect();
@@ -688,7 +669,6 @@ function addressOrgIDs($cityTxt, $ageOrgAppend){
     
      return $addressOrgAppend;
 }
-
 //returns Org ID's to append to hours query
 function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
     $connLibrary = db_connect();
@@ -758,7 +738,6 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
     
      return $genderOrgAppend;
 }
-
 //returns OrgID's to append to organization query
 function hoursOrgIDs($hours247, $genderOrgAppend){
     $connLibrary = db_connect();
@@ -801,7 +780,6 @@ function hoursOrgIDs($hours247, $genderOrgAppend){
   
      return $hoursOrgAppend;
 }
-
 function orgNameIDs($searchTxt, $hoursOrgAppend) {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -817,7 +795,6 @@ function orgNameIDs($searchTxt, $hoursOrgAppend) {
     else{
         $orgNameQueryString = "SELECT OrgID FROM Organizations WHERE " . $hoursOrgAppend . ";";
     }
-
     
      $orgNameQuery = $connLibrary->prepare($orgNameQueryString); 
      $orgNameQuery->execute();
@@ -846,7 +823,6 @@ function orgNameIDs($searchTxt, $hoursOrgAppend) {
      return $orgNameAppend; 
      
 }
-
 function housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNameAppend) {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -919,7 +895,6 @@ function housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNam
   
      return $housingOrgAppend; 
 }
-
 function freeFeeIDs($feeFree, $housingResourcesAppend) {
      $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {

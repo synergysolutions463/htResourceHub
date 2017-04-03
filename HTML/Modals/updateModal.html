@@ -10,7 +10,7 @@
                     <div class="modal-body">
                         <div class="tabbable">
                             <!-- Only required for left/right tabs -->
-                            <ul class="nav nav-tabs">
+                            <ul id="updateModalTabs" class="nav nav-tabs">
                                 <li class="active"><a href="#orgInfoUpdate" data-toggle="tab">Organization Info</a></li>
                                 <li><a href="#orgResourcesUpdate" data-toggle="tab">Resources Offered</a></li>
                                 <li><a href="#orgAddConsiderationsUpdate" data-toggle="tab">Additional Considerations</a></li>
@@ -1773,7 +1773,7 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-9">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnResourcesOfferedForward">
                                                 Services Offered  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -2759,12 +2759,12 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnOrgInfo">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Organization Info  
                                             </button>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-5">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnAdditionalConsiderationsForward">
                                                 Additional Considerations  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -2938,12 +2938,12 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnResourcesOfferedBack">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Resources Offered  
                                             </button>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-5">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnDemographicsServedForward">
                                                 Demographics Served  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -3204,12 +3204,12 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnAdditionalConsiderationsBack">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Additional Considerations  
                                             </button>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-">
-                                            <button type="button" class="btn btn-default btn-md">
+                                            <button type="button" class="btn btn-default btn-md" id="btnNotes">
                                                 Notes <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -3240,19 +3240,19 @@
                                             </div>
                                             <div id="collapse34u" class="panel-collapse collapse in">
                                                 <div class="panel-body">
-                                                    <textarea class="form-control" rows="10" id="txtConfidentialNoteUpdate" id="txtConfidentialNoteUpdate"></textarea>
+                                                    <textarea class="form-control" rows="10" id="txtConfidentialNoteUpdate"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class = "row">
+                                        <div class="col-sm-2 col-sm-offset-1">
+                                            <button type="button" class="btn btn-default btn-md" id="btnDemographicsServedBack">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Demographics Served  
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class = "row">
-                            <div class="col-sm-2 col-sm-offset-1">
-                                <button type="button" class="btn btn-default btn-md">
-                                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Demographics Served  
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -3299,3 +3299,66 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    /*
+    $(function(){
+
+    $('#changetabbutton').click(function(e){
+    	e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+    })
+
+})
+   */ 
+    $(function(){
+        $('#btnResourcesOfferedForward').click(function(e){
+        e.preventDefault();
+        $('#updateModalTabs a[href="#orgResourcesUpdate"]').tab('show');
+        })
+    })
+        
+        
+        
+        
+        $('#btnOrgInfo').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        $('#btnAdditionalConsiderationsForward').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+        
+        $('#btnResourcesOfferedBack').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        $('#btnDemographicsServedForward').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+        
+        $('#btnAdditionalConsiderationsBack').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        $('#btnNotes').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+        
+        
+        
+        $('#btnDemographicsServedBack').click(function(e){
+        e.preventDefault();
+        $('#mytabs a[href="#second"]').tab('show');
+        })
+    </script>

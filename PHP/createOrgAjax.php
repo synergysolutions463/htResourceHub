@@ -716,12 +716,15 @@ function insertOrganization () {
     		
     		
     		/**Race Insert**/
-    	
-    		$white = $_POST['white'];
+     	
+    
+			
 			$black = $_POST['black'];
 			$asian = $_POST['asian'];
-			$hawaiian = $_POST['hawaiian'];
+			$white = $_POST['white'];
+			$hispanic = $_POST['hispanic'];
 			$native = $_POST['native'];
+			$multi = $_POST['multi'];
 			
 				/**set race type ids**/
 		
@@ -729,8 +732,9 @@ function insertOrganization () {
 				$whiteId = 0;
 				$blackId = 0;
 				$asianId = 0;
-				$hawaiianId = 0;
+				$hispanicId = 0;
 				$nativeId = 0;
+				$multiId = 0;
 				
 				/**get all race id**/
 		
@@ -772,14 +776,24 @@ function insertOrganization () {
         			$asianId = $id;
 				}
 				
-				/**get hawaiian race id**/
+				/**get hispainc race id**/
 		
-				$getHawaiianRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Native Hawaiian or Other Pacific Islander';");
-				$getHawaiianRaceId->execute();
-				$getHawaiianRaceId->bind_result($id);
+				$getHispanicRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Hispanic/Latino';");
+				$getHispanicRaceId->execute();
+				$getHispanicRaceId->bind_result($id);
 				
-				while($getHawaiianRaceId->fetch()){
-        			$hawaiianId = $id;
+				while($getHispanicRaceId->fetch()){
+        			$hispanicId = $id;
+				}
+				
+				/**get multi race id**/
+		
+				$getMultiRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Multi-Racial';");
+				$getMultiRaceId->execute();
+				$getMultiRaceId->bind_result($id);
+				
+				while($getMultiRaceId->fetch()){
+        			$multiId = $id;
 				}
 				
 				/**get native race id**/
@@ -792,8 +806,12 @@ function insertOrganization () {
         			$nativeId = $id;
 				}
 				
+				
+	
+
+	
 		
-			if($white == "true" && $black == "true" && $asian == "true" && $hawaiian == "true" && $native == "true") {
+			if($white == "true" && $black == "true" && $asian == "true" && $hispanic == "true" && $native == "true" && $multi == "true") {
 					$insertAllRace = $connLibrary->prepare("INSERT INTO Race (OrgID, RaceID) VALUES (" . $orgId . ", " . $allRaceId . ");");
             		$insertAllRace ->execute();
             		$insertAllRace ->close();
@@ -815,19 +833,22 @@ function insertOrganization () {
             		$insertAsianRace ->execute();
             		$insertAsianRace ->close();
 				}
-				if($hawaiian == "true") {
-					$insertHawaiianRace = $connLibrary->prepare("INSERT INTO Race (OrgID, RaceID) VALUES (" . $orgId . ", " . $hawaiianId . ");");
-            		$insertHawaiianRace ->execute();
-            		$insertHawaiianRace ->close();
+				if($hispanic == "true") {
+					$insertHispanicRace = $connLibrary->prepare("INSERT INTO Race (OrgID, RaceID) VALUES (" . $orgId . ", " . $hispanicId . ");");
+            		$insertHispanicRace ->execute();
+            		$insertHispanicRace ->close();
 				}
 				if($native == "true") {
 					$insertNativeRace = $connLibrary->prepare("INSERT INTO Race (OrgID, RaceID) VALUES (" . $orgId . ", " . $nativeId . ");");
             		$insertNativeRace ->execute();
             		$insertNativeRace ->close();
 				}
-			}
-				
-    		
+				if($multi == "true") {
+					$insertMultiRace = $connLibrary->prepare("INSERT INTO Race (OrgID, RaceID) VALUES (" . $orgId . ", " . $multiId . ");");
+            		$insertMultiRace ->execute();
+            		$insertMultiRace ->close();
+				}
+			}		
     		/**Requirements Insert**/
     	
     		$membership = $_POST['membership'];

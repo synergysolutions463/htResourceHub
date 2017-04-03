@@ -113,6 +113,7 @@ function advSearchOrgs() {
 	var searchTxt = document.getElementById("advSearchTxt").value;
 	var cityTxt = document.getElementById("citySearchTxt").value;
 
+
 	console.log("adv search beginning worked")
 	$.ajax({
 		url: '/PHP/htResourceHub.php',
@@ -307,8 +308,8 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"col-md-2\">";
 		text += "<div class=\"vcenter\">";
 
-		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\">Update</button>";
-		text += "<button id=" + orgs[i][0] + " type=\"button\">Delete</button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicons glyphicons-edit\"></span>Update</button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\"><span class=\"glyphicons glyphicons-delete\"></span>Delete</button>";
 		
 
 
@@ -471,11 +472,12 @@ function insertOrganization() {
 	var undocumented = document.getElementById("cbUndocumentedCreate").checked;
 
 	/**Race Table Insert Data **/
-	var white = document.getElementById("cbWhiteCreate").checked;
 	var black = document.getElementById("cbBlackCreate").checked;
 	var asian = document.getElementById("cbAsianCreate").checked;
-	var hawaiian = document.getElementById("cbIslandCreate").checked;
+	var white = document.getElementById("cbWhiteCreate").checked;
+	var hispanic = document.getElementById("cbHispanicLatinoCreate").checked;
 	var native = document.getElementById("cbNativeCreate").checked;
+	var multi = document.getElementById("cbMultiRacialCreate").checked;
 
 	/**Requirements Table Insert Data **/
 	var membership = document.getElementById("cbMembershipCreate").checked;
@@ -699,11 +701,13 @@ function insertOrganization() {
 			undocumented: undocumented.toString(),
 
 			/**Race Table Insert Data **/
-			white: white.toString(),
 			black: black.toString(),
 			asian: asian.toString(),
-			hawaiian: hawaiian.toString(),
+			white: white.toString(),
+			hispanic: hispanic.toString(),
 			native: native.toString(),
+			multi: multi.toStrint(),
+			
 
 			/**Requirements Table Insert Data **/
 			membership: membership.toString(),
@@ -933,11 +937,12 @@ function updateOrganization() {
 	var undocumented = document.getElementById("cbUndocumentedUpdate").checked;
 
 	/**Race Table Insert Data **/
-	var white = document.getElementById("cbWhiteUpdate").checked;
 	var black = document.getElementById("cbBlackUpdate").checked;
 	var asian = document.getElementById("cbAsianUpdate").checked;
-	var hawaiian = document.getElementById("cbIslandUpdate").checked;
+	var white = document.getElementById("cbWhiteUpdate").checked;
+	var hispanic = document.getElementById("cbHispanicLatinoUpdate").checked;
 	var native = document.getElementById("cbNativeUpdate").checked;
+	var multi = document.getElementById("cbMultiRacialUpdate").checked;
 
 	/**Requirements Table Insert Data **/
 	var membership = document.getElementById("cbMembershipUpdate").checked;
@@ -1161,11 +1166,12 @@ function updateOrganization() {
 			undocumented: undocumented.toString(),
 
 			/**Race Table Insert Data **/
-			white: white.toString(),
 			black: black.toString(),
 			asian: asian.toString(),
-			hawaiian: hawaiian.toString(),
+			white: white.toString(),
+			hispanic: hispanic.toString(),
 			native: native.toString(),
+			multi: multi.toStrint(),
 
 			/**Requirements Table Insert Data **/
 			membership: membership.toString(),
@@ -3207,7 +3213,6 @@ function checkAllDisableCreate() {
             $("#cbWhiteCreate").prop('checked', true).prop('disabled', true);
             $("#cbBlackCreate").prop('checked', true).prop('disabled', true);
             $("#cbAsianCreate").prop('checked', true).prop('disabled', true);
-            $("#cbIslandCreate").prop('checked', true).prop('disabled', true);
             $("#cbNativeCreate").prop('checked', true).prop('disabled', true);
             $("#cbHispanicLatinoCreate").prop('checked', true).prop('disabled', true);
             $("#cbMultiRacialCreate").prop('checked', true).prop('disabled', true);
@@ -3216,7 +3221,6 @@ function checkAllDisableCreate() {
            $("#cbWhiteCreate").prop('disabled',false).prop('checked', false);
            $("#cbBlackCreate").prop('disabled',false).prop('checked', false);
            $("#cbAsianCreate").prop('disabled',false).prop('checked', false);
-           $("#cbIslandCreate").prop('disabled',false).prop('checked', false);
            $("#cbNativeCreate").prop('disabled',false).prop('checked', false);
            $("#cbHispanicLatinoCreate").prop('disabled',false).prop('checked', false);
            $("#cbMultiRacialCreate").prop('disabled',false).prop('checked', false);
@@ -3503,7 +3507,6 @@ function checkAllDisableUpdate() {
             $("#cbWhiteUpdate").prop('checked', true).prop('disabled', true);
             $("#cbBlackUpdate").prop('checked', true).prop('disabled', true);
             $("#cbAsianUpdate").prop('checked', true).prop('disabled', true);
-            $("#cbIslandUpdate").prop('checked', true).prop('disabled', true);
             $("#cbNativeUpdate").prop('checked', true).prop('disabled', true);
             $("#cbHispanicLatinoUpdate").prop('checked', true).prop('disabled', true);
             $("#cbMultiRacialUpdate").prop('checked', true).prop('disabled', true);
@@ -3512,7 +3515,6 @@ function checkAllDisableUpdate() {
            $("#cbWhiteUpdate").prop('disabled',false).prop('checked', false);
            $("#cbBlackUpdate").prop('disabled',false).prop('checked', false);
            $("#cbAsianUpdate").prop('disabled',false).prop('checked', false);
-           $("#cbIslandUpdate").prop('disabled',false).prop('checked', false);
            $("#cbNativeUpdate").prop('disabled',false).prop('checked', false);
            $("#cbHispanicLatinoUpdate").prop('disabled',false).prop('checked', false);
            $("#cbMultiRacialUpdate").prop('disabled',false).prop('checked', false);
@@ -3573,7 +3575,7 @@ function onLoadFunctions() {
 	populateCreateFaiths();
 	populateUpdateStates();
 	populateUpdateFaiths();
-	document.getElementById("allSearch").style.display = 'block';
+	document.getElementById("allSearch").style.display= 'block';
 	document.getElementById("orgInfoResults").style.display= 'none';
 }
 
@@ -4140,3 +4142,17 @@ function getComplexData(orgId) {
 		}); 
 }
 
+function createFormValidation(){
+	//General Organization Information
+	var genInfoError = "";
+	if(document.getElementById("txtOrgNameCreate").value == null){
+		genInfoError = "Please enter an Organization name.";
+	}
+	document.getElementById("orgInfoErrorText").innerHTML = "<p>" + genInfoError + "</p>";
+	
+	//Contact Information
+	var contactError = "";
+	if(document.getElementByID("")){
+		
+	}
+}

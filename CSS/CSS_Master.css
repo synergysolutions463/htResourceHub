@@ -113,3 +113,16 @@ a:active {
 hr{
     margin: 3px;
 }
+
+.footer{
+    background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+    color: #ffffff;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    
+}
+
+#footerContainer{
+    vertical-align: text-top;
+}
