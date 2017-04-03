@@ -2936,7 +2936,6 @@ function checkAllDisableCreate() {
             $("#cbShelterCreate").prop('checked', true).prop('disabled', true);
             $("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);
             $("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);
-            
         }
         else{
            $("#cbShelterCreate").prop('disabled',false).prop('checked', false);
@@ -3566,7 +3565,7 @@ function getComplexData(orgId) {
 	document.getElementById("allSearch").style.display = 'none';
 	document.getElementById("orgInfoResults").style.display= 'block';
 	
-			/*load addresses table*/
+	/*load addresses table*/
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3607,7 +3606,6 @@ function getComplexData(orgId) {
 	}); 
 
 	/*load age table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3653,7 +3651,6 @@ function getComplexData(orgId) {
 	});
 
 	/*load contacts table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3723,7 +3720,6 @@ function getComplexData(orgId) {
 	});
 
 	/*load ethnicity table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3735,11 +3731,24 @@ function getComplexData(orgId) {
 			console.log("ethnicity: " + data);
 			var parsedData = JSON.parse(data);
 			var ethnicities = parsedData;
+			
+			document.getElementById("orgInfoEthnicities").innerHTML = "";
+			var text = "<p>";
+			for(i = 0; ethnicities[0][i] != null; i++){
+				if(text == "<p>"){
+					text += ethnicities[0][i];
+				}
+				else{
+					text+= ", " + ethnicities[0][i];
+				}
+			}
+			text += "</p>";
+			
+			document.getElementById("orgInfoEthnicities").innerHTML = text;
 		}
 	});
 
 	/*load gender table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3751,11 +3760,24 @@ function getComplexData(orgId) {
 			console.log("gender: " + data);
 			var parsedData = JSON.parse(data);
 			var genders = parsedData;
+			
+			document.getElementById("orgInfoGenders").innerHTML = "";
+			var text = "<p>";
+			for(i = 0; genders[0][i] != null; i++){
+				if(text == "<p>"){
+					text += genders[0][i];
+				}
+				else{
+					text+= ", " + genders[0][i];
+				}
+			}
+			text += "</p>";
+			
+			document.getElementById("orgInfoGenders").innerHTML = text;
 		}
 	});
 
 	/*load hours table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3767,11 +3789,90 @@ function getComplexData(orgId) {
 			console.log("hours: " + data);
 			var parsedData = JSON.parse(data);
 			var hours = parsedData;
+			
+			document.getElementById("orgInfoHours").innerHTML = "";
+			var text = "";
+			
+			//populate hours of operation
+			//assumption made is that hours[i][0] will be regular hours, and hours[i][1] will be additional
+			if(hours[0][1] == 1){
+				text += "<p>Open 24 Hours</p>";
+			}
+			//if all weekdays match, prints a condensed version
+			else if(hours[0][2] == 0 & hours[0][3] == hours[0][5] & hours[0][3] == hours[0][7] & hours[0][3] == hours[0][9] & hours[0][3] == hours[0][11]  
+					& hours[0][4] == hours[0][6] & hours[0][4] == hours[0][8] & hours[0][4] == hours[0][10] & hours[0][4] == hours[0][12]){
+				text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
+				text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday - Friday)</p>";
+				
+				if(hours[0][13] != null){
+					text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
+				}
+				if(hours[0][15] != null){
+					text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
+				}
+			}
+			//if times don't match, print all days seperately, does not print days without any hours[0]
+			else if(hours[0][2] == 0){
+				if(hours[0][3] != null){
+					text += "<p>" + hours[0][3] + " - " + hours[0][4] + "(Monday)</p>";
+				}
+				if(hours[0][5] != null){
+					text += "<p>" + hours[0][5] + " - " + hours[0][6] + "(Tuesday)</p>";
+				}
+				if(hours[0][7] != null){
+					text += "<p>" + hours[0][7] + " - " + hours[0][7] + "(Wednesday)</p>";
+				}
+				if(hours[0][9] != null){
+					text += "<p>" + hours[0][9] + " - " + hours[0][10] + "(Thursday)</p>";
+				}
+				if(hours[0][11] != null){
+					text += "<p>" + hours[0][11] + " - " + hours[0][12] + "(Friday)</p>";
+				}
+				if(hours[0][13] != null){
+					text += "<p>" + hours[0][13] + " - " + hours[0][14] + "(Saturday)</p>";
+				}
+				if(hours[0][15] != null){
+					text += "<p>" + hours[0][15] + " - " + hours[0][16] + "(Sunday)</p>";
+				}
+			}
+			//prints additional hours if present
+			try{
+				if(hours[1][0] != null){
+					if(hours[1][17] != null){
+						text += "<p>Additional Hours: " + hours[1][17] + "</p>"
+					}
+					if(hours[1][3] != null){
+						text += "<p>" + hours[1][3] + " - " + hours[1][4] + "(Monday)</p>";
+					}
+					if(hours[1][5] != null){
+						text += "<p>" + hours[1][5] + " - " + hours[1][6] + "(Tuesday)</p>";
+					}
+					if(hours[1][7] != null){
+						text += "<p>" + hours[1][7] + " - " + hours[1][8] + "(Wednesday)</p>";
+					}
+					if(hours[1][9] != null){
+						text += "<p>" + hours[1][9] + " - " + hours[1][10] + "(Thursday)</p>";
+					}
+					if(hours[1][11] != null){
+						text += "<p>" + hours[1][11] + " - " + hours[1][12] + "(Friday)</p>";
+					}
+					if(hours[1][13] != null){
+						text += "<p>" + hours[1][13] + " - " + hours[1][14] + "(Saturday)</p>";
+					}
+					if(hours[1][15] != null){
+						text += "<p>" + hours[1][15] + " - " + hours[1][16] + "(Sunday)</p>";
+					}
+				}
+			}
+			catch(err){
+				
+			}
+
+			document.getElementById("orgInfoHours").innerHTML = text;
 		}
 	});
 
 	/*load nationality table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3783,12 +3884,24 @@ function getComplexData(orgId) {
 			console.log("nationality: " + data);
 			var parsedData = JSON.parse(data);
 			var nationalities = parsedData;
-						
+			
+			document.getElementById("orgInfoNationalities").innerHTML = "";
+			var text = "<p>";
+			for(i = 0; nationalities[0][i] != null; i++){
+				if(text == "<p>"){
+					text += nationalities[0][i];
+				}
+				else{
+					text+= ", " + nationalitites[0][i];
+				}
+			}
+			text += "</p>";
+			
+			document.getElementById("orgInfoNationalities").innerHTML = text;			
 		} 
 	});
 
 	/*load organizations table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3801,13 +3914,91 @@ function getComplexData(orgId) {
 			var parsedData = JSON.parse(data);
 			var organizations = parsedData;
 			
-			
-
+		document.getElementById("orgInfoTitle").innerHTML = "";
+		document.getElementById("orgInfoWebLink").innerHTML = "";
+		document.getElementById("orgInfoPhone").innerHTML = "";
+		document.getElementById("orgInfoHotline").innerHTML = "";
+		document.getElementById("orgInfoConfPhone").innerHTML = "";
+		document.getElementById("orgInfoEmail").innerHTML = "";
+		document.getElementById("orgInfoFaith").innerHTML = "";
+		document.getElementById("orgInfoFee").innerHTML = "";
+		document.getElementById("orgInfoMissionStatement").innerHTML = "";
+		document.getElementById("orgInfoNotes").innerHTML = "";
+		document.getElementById("orgInfoConfNotes").innerHTML = "";
+		document.getElementById("orgInfoServicesFromOrgTable").innerHTML = "";
+		
+		document.getElementById("orgInfoTitle").innerHTML = "<h2>" + organizations[0][1] + "</h2>";
+		
+		if(organizations[0][3] != null){
+			document.getElementById("orgInfoWebLink").innerHTML = "<a href=\"" + organizations[0][3] + "\" target=\"_blank\">" + organizations[0][3] + "</a>";
+		}
+		if(organizations[0][2] != null){
+			document.getElementById("orgInfoEmail").innerHTML = "Email: " + organizations[0][4];
+		}
+		
+		document.getElementById("orgInfoFaith").innerHTML = "<p>" + organizations[0][12] + "</p>";
+		document.getElementById("orgInfoFee").innerHTML = "<p>$" + organizations[0][11] + "</p>";
+		
+		document.getElementById("orgInfoMissionStatement").innerHTML = "<p>" + organizations[0][2] + "</p>";
+		document.getElementById("orgInfoNotes").innerHTML = "<p>" + organizations[0][13] + "</p>";;
+		document.getElementById("orgInfoConfNotes").innerHTML = "<p>" + organizations[0][14] + "</p>";;
+		
+		//main phone
+		var phone = organizations[0][5]
+		if(phone !== null){
+						phone = phone.replace(/[^\/\d]/g,'');
+					
+						var formattedPhone = (""+ phone).replace(/\D/g, '');
+						var m = formattedPhone.match(/^(\d{3})(\d{3})(\d{4})$/);
+						phone = (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+						
+						document.getElementById("orgInfoPhone").innerHTML = "<p>Phone: " + phone + "</p>";
+		}
+		
+		
+		//hotline
+		phone = organizations[0][6]
+		if(phone !== null){
+						phone = phone.replace(/[^\/\d]/g,'');
+					
+						var formattedPhone = (""+ phone).replace(/\D/g, '');
+						var m = formattedPhone.match(/^(\d{3})(\d{3})(\d{4})$/);
+						phone = (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+						
+						document.getElementById("orgInfoHotline").innerHTML = "<p>Hotline: " + phone + "</p>";
+		}
+		
+		
+		//conf phone
+		phone = organizations[0][7]
+		if(phone !== null){
+						phone = phone.replace(/[^\/\d]/g,'');
+					
+						var formattedPhone = (""+ phone).replace(/\D/g, '');
+						var m = formattedPhone.match(/^(\d{3})(\d{3})(\d{4})$/);
+						phone = (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+						
+						document.getElementById("orgInfoConfPhone").innerHTML = "<p>Confidential Phone: " + phone + "</p>";
+		}
+		
+		//add services from org table
+		var text = "<ul>";
+		if(organizations[0][8] == 1){
+			text += "<li>Shelter</li>";
+		}
+		if(organizations[0][9] == 1){
+			text += "<li>Transitional Housing</li>";
+		}
+		if(organizations[0][10] == 1){
+			text += "<li>Assistance Locating Housing</li>";
+		}
+		text += "</ul>";
+		document.getElementById("orgInfoServicesFromOrgTable").innerHTML = text;
+		
 		}
 	});
 
 	/*load race table*/
-
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3820,13 +4011,24 @@ function getComplexData(orgId) {
 			var parsedData = JSON.parse(data);
 			var races = parsedData;
 
+			document.getElementById("orgInfoRaces").innerHTML = "";
+			var text = "<p>";
+			for(i = 0; races[0][i] != null; i++){
+				if(text == "<p>"){
+					text += races[0][i];
+				}
+				else{
+					text+= ", " + races[0][i];
+				}
+			}
+			text += "</p>";
 			
+			document.getElementById("orgInfoRaces").innerHTML = text;
 
 		}
 	});
 
 	/*load requirements table*/
-
 	$.ajax({
 		url: '/PHP/loadComplexData.php',
 		type: 'POST',
@@ -3838,11 +4040,28 @@ function getComplexData(orgId) {
 			console.log("requirements: " + data);
 			var parsedData = JSON.parse(data);
 			var requirements = parsedData;
+			
+			document.getElementById("orgInfoRequirements").innerHTML = "";
+			var text = "";
+			
+			text = "<ul>";
+			rlength = requirements.length;
+			
+			for(i = 0; i < rlength; i ++){
+				if(requirements[i][1] != null){
+					text += "<li>" + requirements[i][0] + ": " + requirements[i][1] + "</li>";
+				}
+				else{
+					text += "<li>" + requirements[i][0] + "</li>";
+				}
+			}
+			text += "</ul>";
+			document.getElementById("orgInfoRequirements").innerHTML = text;
+			
 		}
 	});
 
 	/*load service table*/
-	
 	$.ajax({
 		url: '/PHP/loadUpdateData.php',
 		type: 'POST',
@@ -3855,6 +4074,52 @@ function getComplexData(orgId) {
 			var parsedData = JSON.parse(data);
 			var services = parsedData;
 
+			document.getElementById("orgInfoServices").innerHTML = "";
+			var text = "<ul>";
+			var sLength = services.length;
+			
+			for(i = 0; i < sLength; i++){
+				var count = 0;
+				text += "<li>" + services[i][1];
+				
+				//adds description
+				if(services[i][5] != null){
+					text += ": " + services[i][5];
+				}
+				
+				//checks each service type
+				if(services[i][2] != null){
+					if(count == 0){
+						text += " (Service";
+						count ++;
+					}
+					else{
+						text += ", Service";
+					}
+				}
+				if(services[i][3] != null){
+					if(count == 0){
+						text += " (Supply";
+						count ++;
+					}
+					else{
+						text += ", Supply";
+					}
+				}
+				if(services[i][4] != null){
+					if(count == 0){
+						text += " (Emergency";
+						count ++;
+					}
+					else{
+						text += ", Emergency";
+					}
+				}
+				text += ")</li>";
+			}
+			text += "</ul>";
+			document.getElementById("orgInfoServices").innerHTML = text;
+			
 			}
 		}); 
 }
