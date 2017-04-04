@@ -802,6 +802,7 @@ function insertOrganization() {
 function updateOrganization() {
 	/**Organization Table Insert Data **/
 
+	var orgId = document.getElementById("updateId").value;
 	var orgName = document.getElementById("txtOrgNameUpdate").value;
 	var agencyName = document.getElementById("txtOrgProgramUpdate").value;
 	var missionStmt = document.getElementById("txtMissionStatementUpdate").value;
@@ -817,7 +818,7 @@ function updateOrganization() {
 	var isAsstLoc = document.getElementById("cbAssistLocateHousingUpdate").checked;
 	var fee = document.getElementById("txtAssociatedFeeUpdate").value;
 	/*change to faith dropdown */
-	var faith = document.getElementById("txtFaithUpdate").value;
+	var faith = document.getElementById("ddlFaithUpdate").value;
 	var notes = document.getElementById("txtNoteUpdate").value;
 	var confNotes = document.getElementById("txtConfidentialNoteUpdate").value;
 	var isConf = document.getElementById("cbIsConfUpdate").checked;
@@ -828,19 +829,19 @@ function updateOrganization() {
 	var city1 = document.getElementById("txtAddress1CityUpdate").value;
 	var zipcode1 = document.getElementById("txtAddress1ZipUpdate").value;
 	var county1 = document.getElementById("txtAddress1CountyUpdate").value;
-	var state1 = document.getElementById("txtAddress1StateUpdate").value;
+	var state1 = document.getElementById("ddlAddress1StateUpdate").value;
 
 	var streetInfo2 = document.getElementById("txtAddress2StreetUpdate").value;
 	var city2 = document.getElementById("txtAddress2CityUpdate").value;
 	var zipcode2 = document.getElementById("txtAddress2ZipUpdate").value;
 	var county2 = document.getElementById("txtAddress2CountyUpdate").value;
-	var state2 = document.getElementById("txtAddress2StateUpdate").value;
+	var state2 = document.getElementById("ddlAddress2StateUpdate").value;
 
 	var streetInfo3 = document.getElementById("txtConfAddressStreetUpdate").value;
 	var city3 = document.getElementById("txtConfAddressCityUpdate").value;
 	var zipcode3 = document.getElementById("txtConfAddressZipUpdate").value;
 	var county3 = document.getElementById("txtConfAddressCountyUpdate").value;
-	var state3 = document.getElementById("txtConfAddressStateUpdate").value;
+	var state3 = document.getElementById("ddlConfAddressStateUpdate").value;
 
 
 	/**Age Table Insert Data**/
@@ -1031,7 +1032,7 @@ function updateOrganization() {
 			method: "updateOrganization",
 
 			/**Organization Table Data**/
-
+			orgId : orgId,
 			orgName: orgName,
 			agencyName: agencyName,
 			missionStmt: missionStmt,
@@ -1154,7 +1155,7 @@ function updateOrganization() {
 			white: white.toString(),
 			hispanic: hispanic.toString(),
 			native: native.toString(),
-			multi: multi.toStrint(),
+			multi: multi.toString(),
 
 			/**Requirements Table Insert Data **/
 			membership: membership.toString(),
@@ -1955,6 +1956,7 @@ function loadUpdateModalData(orgId) {
 			var parsedData = JSON.parse(data);
 			var orgs = parsedData;
 			
+			document.getElementById("updateId").value = "";
 			document.getElementById("cbIsConfUpdate").checked = false;
 			
 			document.getElementById("txtOrgNameUpdate").value = "";
@@ -1986,6 +1988,8 @@ function loadUpdateModalData(orgId) {
 			
 			oLen = orgs.length;
 			for (i = 0; i < oLen; i++) {
+				
+				document.getElementById("updateId").value = orgs[i][0];
 				
 				if(orgs[i][15] == 1) {
 					document.getElementById("cbIsConfUpdate").checked = true;
@@ -3120,7 +3124,7 @@ function checkAllDisableCreate() {
         $("#cbFosterEmergRespCreate").prop('disabled',false).prop('checked', false);
     };
 
-	if(document.getElementById("cbAwarenessAllCreate").checked){
+	if(document.getElementById("cbAwarenessEdAllCreate").checked){
         $("#cbAwarenessEdServCreate").prop('checked', true).prop('disabled', true);
         $("#cbAwarenessEdSupplyCreate").prop('checked', true).prop('disabled', true);
         $("#cbAwarenessEdEmergRespCreate").prop('checked', true).prop('disabled', true);

@@ -11,9 +11,9 @@ function updateOrganization () {
           die("There was an error connecting to the database");
     }
     
-    		$rgId = 176;
+    		$orgId = $_POST['orgId'];
     		
-    		$deleteOrgQuery = $connLibrary->prepare("DELETE FROM Organizations WHERE OrgID = " . $oldOrgId . ";");
+    		$deleteOrgQuery = $connLibrary->prepare("DELETE FROM Organizations WHERE OrgID = " . $orgId . ";");
             $deleteOrgQuery->execute();
             $deleteOrgQuery->close();
     		
@@ -209,8 +209,8 @@ function updateOrganization () {
 			$allAgeId = 0;
 			$infantsId = 0;
 			$childrensId = 0;
-			$youthId = 0;
-			$adultId = 0;
+			$youthsId = 0;
+			$adultsId = 0;
 			
 			/**get all age type id**/
 	
@@ -247,7 +247,7 @@ function updateOrganization () {
 			
 		
     		while($getChildrensAgeId->fetch()){
-        			$childrenId = $id;
+        			$childrensId = $id;
     			}
     		
 			
@@ -260,7 +260,7 @@ function updateOrganization () {
 			
 		
     		while($getYouthAgeId->fetch()){
-        			$youthId = $id;
+        			$youthsId = $id;
     			}
 			
 		
@@ -273,7 +273,7 @@ function updateOrganization () {
 			
 		
     		while($getAdultsAgeId->fetch()){
-        			$adultId = $id;
+        			$adultsId = $id;
     			}
 			
 
@@ -295,26 +295,27 @@ function updateOrganization () {
 				}
 				if($childrenAge == "true") {
 				
-					$insertChildrenAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $childrenId . ");");
+					$insertChildrenAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $childrensId . ");");
             		$insertChildrenAges->execute();
             		$insertChildrenAges->close();
 				
 				}
 				if($youthAge == "true") {
 				
-					$insertYouthAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $youthId . ");");
+					$insertYouthAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $youthsId . ");");
             		$insertYouthAges->execute();
             		$insertYouthAges->close();
 				
 				}
 				if($adultsAge == "true") {
 				
-					$insertAdultAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $adultId . ");");
+					$insertAdultAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $adultsId . ");");
             		$insertAdultAges->execute();
             		$insertAdultAges->close();
 				
 				}
 			}
+
     	
     		/**Contact Insert**/
     	
@@ -1660,7 +1661,7 @@ function updateOrganization () {
 				$insertNoneResource->close();
     			
     		}
-			
+	 $connLibrary->close();			
 }
 
 ?>

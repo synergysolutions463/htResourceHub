@@ -18,7 +18,7 @@
 
 body {
     /*background-color: #f2f2f2;*/
-    background-color: #f2eff5;
+    background-color: #e5dfeb;
     display: table;
 }
 
@@ -95,6 +95,10 @@ a:active {
     padding-top: 50%;
 }
 
+.modal-lg{
+    max-width: 900px;
+}
+
 /*button formatting*/
 
 .btn-primary {
@@ -146,4 +150,37 @@ hr{
 
 .footerTextContainer{
     margin: 10px 0px 10px;
+}
+
+@media screen and (max-width: 992px){
+    
+    #indiPanel{
+        padding-left: 10px;
+    }
+    
+    .vcenter{
+        padding: 0;
+    }
+    
+    .modal-lg {
+        width: 900px;
+    }
+}
+
+@media (min-width: 917px) {
+   .modal-lg {
+    width: 100%;
+  } 
+}
+
+@media (min-width: 768px) {
+   .modal-lg {
+    width: 100%;
+  } 
+}
+
+@media (max-width: 768px) {
+   .modal-lg {
+    width: 100%;
+  } 
 }

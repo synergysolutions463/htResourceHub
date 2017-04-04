@@ -29,7 +29,7 @@ function getAddressUpdateData() {
     }
     
     
-    
+     $connLibrary->close();
     echo json_encode($addressData);
     
 }
@@ -52,7 +52,7 @@ function getAgeUpdateData() {
     while( $getAgeUpdateQuery->fetch()){
         $ageData[] = array($ageType);
     }
-    
+     $connLibrary->close();
     echo json_encode($ageData);
 
 }
@@ -73,7 +73,7 @@ function getContactsUpdateData() {
     while( $getContactsUpdateQuery->fetch()){
         $contactData[] = array($orgId, $email, $firstName, $lastName, $position, $phoneNum, $isConf, $phoneExt);
     }
-    
+     $connLibrary->close();
     echo json_encode($contactData);
     
 }
@@ -95,7 +95,7 @@ function getEthnicityUpdateData() {
     while( $getEthnicityUpdateQuery->fetch()){
         $ethnicityData[] = array($ethType);
     }
-    
+     $connLibrary->close();
     echo json_encode($ethnicityData);
     
 }
@@ -117,7 +117,7 @@ function getGenderUpdateData() {
     while( $getGenderUpdateQuery->fetch()){
         $genderData[] = array($genType);
     }
-    
+     $connLibrary->close();
     echo json_encode($genderData);
     
 }
@@ -149,7 +149,7 @@ function getHoursUpdateData() {
     }
     
     
-    
+     $connLibrary->close();
     echo json_encode($hoursData);
     
 }
@@ -173,7 +173,7 @@ function getNationalityUpdateData() {
     while($nationalityQuery->fetch()){
         $natsData[] = array($natID);
     }
-    
+     $connLibrary->close();
     echo json_encode($natsData);
     
 }
@@ -196,7 +196,7 @@ function getOrganizationUpdateData() {
     while($organizationQuery->fetch()){
         $orgsData[] = array($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt);
     }
-    
+     $connLibrary->close();
     echo json_encode($orgsData);
 }
 
@@ -219,7 +219,7 @@ function getRaceUpdateData() {
     while($raceQuery->fetch()){
         $racesData[] = array($raceType);
     }
-    
+     $connLibrary->close();
     echo json_encode($racesData);
 }
 
@@ -242,7 +242,7 @@ function getRequirementsUpdateData() {
     while($requirementsQuery->fetch()){
         $reqsData[] = array($reqID);
     }
-    
+     $connLibrary->close();
     echo json_encode($reqsData);
     
 }
@@ -266,7 +266,7 @@ function getServiceUpdateData() {
     while($serviceQuery->fetch()){
         $servicesData[] = array($ID, $serID, $service, $supply, $emergency, $serDesc);
     }
-    
+     $connLibrary->close();
     echo json_encode($servicesData);
 }
 

@@ -208,8 +208,8 @@ function insertOrganization () {
 			$allAgeId = 0;
 			$infantsId = 0;
 			$childrensId = 0;
-			$youthId = 0;
-			$adultId = 0;
+			$youthsId = 0;
+			$adultsId = 0;
 			
 			/**get all age type id**/
 	
@@ -246,7 +246,7 @@ function insertOrganization () {
 			
 		
     		while($getChildrensAgeId->fetch()){
-        			$childrenId = $id;
+        			$childrensId = $id;
     			}
     		
 			
@@ -259,7 +259,7 @@ function insertOrganization () {
 			
 		
     		while($getYouthAgeId->fetch()){
-        			$youthId = $id;
+        			$youthsId = $id;
     			}
 			
 		
@@ -272,7 +272,7 @@ function insertOrganization () {
 			
 		
     		while($getAdultsAgeId->fetch()){
-        			$adultId = $id;
+        			$adultsId = $id;
     			}
 			
 
@@ -294,21 +294,21 @@ function insertOrganization () {
 				}
 				if($childrenAge == "true") {
 				
-					$insertChildrenAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $childrenId . ");");
+					$insertChildrenAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $childrensId . ");");
             		$insertChildrenAges->execute();
             		$insertChildrenAges->close();
 				
 				}
 				if($youthAge == "true") {
 				
-					$insertYouthAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $youthId . ");");
+					$insertYouthAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $youthsId . ");");
             		$insertYouthAges->execute();
             		$insertYouthAges->close();
 				
 				}
 				if($adultsAge == "true") {
 				
-					$insertAdultAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $adultId . ");");
+					$insertAdultAges = $connLibrary->prepare("INSERT INTO Age (OrgID, AgeID) VALUES (" . $orgId . ", " . $adultsId . ");");
             		$insertAdultAges->execute();
             		$insertAdultAges->close();
 				
@@ -1657,7 +1657,7 @@ function insertOrganization () {
 				$insertNoneResource->close();
     			
     		}
-			
+	 $connLibrary->close();		
 }
 
 ?>

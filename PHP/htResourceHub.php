@@ -23,7 +23,7 @@ function readTest() {
     }
     
     echo json_encode($data);
-    
+    $connLibrary->close();
 }
 
 function readAllOrgs() {
@@ -50,7 +50,7 @@ function readAllOrgs() {
         $allOrgData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
     
-    
+    $connLibrary->close();
     
     echo json_encode($allOrgData);
 }
@@ -224,6 +224,7 @@ function simpleSearchOrgs() {
         $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
 
+    $connLibrary->close();
 
   echo json_encode($simpleSearchData); 
         
@@ -334,6 +335,7 @@ function advSearchOrgs() {
     else {
         echo "No results found.";
     }
+    $connLibrary->close();
     
     }
     
@@ -697,6 +699,8 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
         $resOrgAppend = $resOrgAppend . ")";
         }
     
+    $connLibrary->close();
+    
     return $resOrgAppend;
      
      
@@ -823,7 +827,11 @@ function nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgA
         $natOrgAppend = $natOrgAppend . ")";
     }
     
+    $connLibrary->close();
+    
     return $natOrgAppend;
+    
+    
 }
 
 //returns Org ID's to append to address query
@@ -832,47 +840,120 @@ function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppe
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
     }
+    
+    		/**get age type id's**/
+
+			$allAgeId = 0;
+			$infantsId = 0;
+			$childrensId = 0;
+			$youthsId = 0;
+			$adultsId = 0;
+			
+			/**get all age type id**/
+	
+			$getAllAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'All';");
+			$getAllAgeId->execute();
+			$getAllAgeId->bind_result($id);
+			
+		
+    		while($getAllAgeId->fetch()){
+        			$allAgeId = $id;
+    			}
+			
+			
+			
+				/**get infants age type id**/
+				
+
+			$getInfantsAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Infants/Toddlers';");
+			$getInfantsAgeId->execute();
+			$getInfantsAgeId->bind_result($id);
+			
+		
+    		while($getInfantsAgeId->fetch()){
+        			$infantsId = $id;
+    			}
+			
+		
+			
+				/**get childrens age type id**/
+	
+			$getChildrensAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Children';");
+			$getChildrensAgeId->execute();
+			$getChildrensAgeId->bind_result($id);
+			
+		
+    		while($getChildrensAgeId->fetch()){
+        			$childrensId = $id;
+    			}
+    		
+			
+		
+				/**get youth age type id**/
+	
+			$getYouthAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Youth/Young Adults';");
+			$getYouthAgeId->execute();
+			$getYouthAgeId->bind_result($id);
+			
+		
+    		while($getYouthAgeId->fetch()){
+        			$youthsId = $id;
+    			}
+			
+		
+			
+				/**get adults age type id**/
+				
+			$getAdultsAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'Adults';");
+			$getAdultsAgeId->execute();
+			$getAdultsAgeId->bind_result($id);
+			
+		
+    		while($getAdultsAgeId->fetch()){
+        			$adultsId = $id;
+    			}
+			
    
-    $ageQueryString = "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (";
+    $ageQueryString = "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = " . $allAgeId . " OR (";
      
      if ($infantsAge == "true") {
-         if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (") {
-             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=2) ";
+         if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = " . $allAgeId . " OR (") {
+             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $infantsId . ") ";
          }
          else {
-              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=2)";
+              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $infantsId . ")";
          }
         
      }
       
      if ($childrenAge == "true") {
-          if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (") {
-             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=3) ";
+          if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = " . $allAgeId . " OR (") {
+             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $childrensId . ") ";
          }
          else {
-              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=3)";
+              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $childrensId . ")";
          }
      }
       
 	 if ($youthAge == "true") {
-          if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (") {
-             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=4) ";
+          if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = " . $allAgeId . " OR (") {
+             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $youthsId . ") ";
          }
          else {
-              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=4)";
-         }
+              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $youthsId . ")";
+         } 
      }
       
 	 if ($adultsAge == "true") {
-         if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (") {
-             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=5) ";
+         if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = " . $allAgeId . " OR (") {
+             $ageQueryString = $ageQueryString . "Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $adultsId . ") ";
          }
          else {
-              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID=5)";
+              $ageQueryString = $ageQueryString . " AND Age.OrgID IN (SELECT Age.orgID FROM Age WHERE Age.AgeID = " . $adultsId . ")";
          }
      }
      
-      if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = 1 OR (") {
+      if($ageQueryString == "SELECT Age.OrgID FROM Age WHERE (Age.AgeID = " . $allAgeId . " OR (") {
         $ageQueryString = "SELECT Age.OrgID FROM Age WHERE " . $natOrgAppend . " GROUP BY Age.OrgID;";
     }
     else {
@@ -905,7 +986,7 @@ function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppe
     
      return $ageOrgAppend;
      
-     
+     $connLibrary->close();
 }
 
 //returns Org ID's to append to gender query
@@ -945,8 +1026,10 @@ function addressOrgIDs($cityTxt, $ageOrgAppend){
      else {
         $addressOrgAppend = $addressOrgAppend . ")";
      }
+     $connLibrary->close();
     
      return $addressOrgAppend;
+     
 }
 
 //returns Org ID's to append to hours query
@@ -956,36 +1039,83 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
           die("There was an error connecting to the database");
     }
     
-    $genderQueryString = "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = 1 OR (";
+    	/**set gender type ids**/
+		
+				$allGenderId = 0;
+				$maleId = 0;
+				$femaleId = 0;
+				$transgenderId = 0;
+			
+				/**get all gender type id **/
+			
+				$getAllGenderId = $connLibrary->prepare("SELECT GenID from GenderTypes WHERE GenType like 'All';");
+				$getAllGenderId ->execute();
+				$getAllGenderId ->bind_result($id);
+				
+				while($getAllGenderId->fetch()){
+        			$allGenderId = $id;
+    			}
+				
+				/**get male type id **/
+				
+				$getMaleGenderId = $connLibrary->prepare("SELECT GenID from GenderTypes WHERE GenType like 'Male';");
+				$getMaleGenderId ->execute();
+				$getMaleGenderId->bind_result($id);
+				
+				while($getMaleGenderId->fetch()){
+        			$maleId = $id;
+    			}
+				
+				/**get female type id **/
+				
+				$getFemaleGenderId = $connLibrary->prepare("SELECT GenID from GenderTypes WHERE GenType like 'Female';");
+				$getFemaleGenderId ->execute();
+				$getFemaleGenderId->bind_result($id);
+				
+				while($getFemaleGenderId->fetch()){
+        			$femaleId = $id;
+    			}
+				
+				/**get transgender type id **/
+				
+				$getTransGenderId = $connLibrary->prepare("SELECT GenID from GenderTypes WHERE GenType like 'Transgender';");
+				$getTransGenderId ->execute();
+				$getTransGenderId->bind_result($id);
+				
+				while($getTransGenderId->fetch()){
+        			$transgenderId = $id;
+    			}
+    
+    $genderQueryString = "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = " . $allGenderId . " OR (";
     
      if ($maleGdr == "true") {
-         if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = 1 OR ("){
-             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID=2)";
+         if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = " . $allGenderId . " OR ("){
+             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $maleId . ")";
          }
          else{
-             $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID=2)";
+             $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $maleId . ")";
          }
      }
       
      if ($femaleGdr == "true") {
-         if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = 1 OR ("){
-             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenderID=3)";
+         if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = " . $allGenderId . " OR ("){
+             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenderID = " . $femaleId . ")";
          }
          else{
-             $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID=3)";
+             $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $femaleId . ")";
          }
      }
       
      if ($transGdr == "true") {
-         if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = 1 OR ("){
-             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID=4)";
+         if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = " . $allGenderId . " OR ("){
+             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $transgenderId . ")";
          }
          else{
-             $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID=4)";
+             $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $transgenderId . ")";
          };
      }
      
-     if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = 1 OR ("){
+     if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = " . $allGenderId . " OR ("){
          $genderQueryString = "SELECT Gender.OrgID FROM Gender WHERE" . $addressOrgAppend . "GROUP BY Gender.OrgID;";
      }
 	 else{
@@ -1015,6 +1145,8 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
      else {
         $genderOrgAppend = $genderOrgAppend . ")";
      }
+    
+    $connLibrary->close();
     
      return $genderOrgAppend;
 }
@@ -1059,6 +1191,8 @@ function hoursOrgIDs($hours247, $genderOrgAppend){
         $hoursOrgAppend = $hoursOrgAppend . ")";
      }
   
+  $connLibrary->close();
+  
      return $hoursOrgAppend;
 }
 
@@ -1101,6 +1235,8 @@ function orgNameIDs($searchTxt, $hoursOrgAppend) {
      else {
         $orgNameAppend = $orgNameAppend . ")";
      }
+     
+     $connLibrary->close();
     
      return $orgNameAppend; 
      
@@ -1175,6 +1311,8 @@ function housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNam
      else {
        $housingOrgAppend = $housingOrgAppend . ")";
      }
+     
+     $connLibrary->close();
   
      return $housingOrgAppend; 
 }
@@ -1217,6 +1355,8 @@ function freeFeeIDs($feeFree, $housingResourcesAppend) {
      else {
          $feesOrgAppend =  $feesOrgAppend . ")";
      }
+     
+     $connLibrary->close();
   
      return  $feesOrgAppend;
 }
@@ -1273,6 +1413,8 @@ function complexSingleOrg($orgId) {
         $data[] = array($ID, $natType);
     }
     
+    $connLibrary->close();
+    
     echo json_encode($data);
     
 }
@@ -1304,10 +1446,12 @@ function login() {
         $_SESSION['username'] = $username;
     }
     
+    $connLibrary->close();
+    
 }
 
 function logout() {
-    
+    $connLibrary->close();
 }
 
 function getStates() {
@@ -1326,7 +1470,7 @@ function getStates() {
     while($statesQuery->fetch()){
         $statesData[] = array($stateName);
     }
-        
+        $connLibrary->close();
     echo json_encode($statesData);
 }
 
@@ -1346,7 +1490,7 @@ function getFaiths() {
     while($faithsQuery->fetch()){
         $faithsData[] = array($faithType);
     }
-    
+    $connLibrary->close();
     echo json_encode($faithsData);
 }
 

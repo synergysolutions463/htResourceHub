@@ -24,6 +24,7 @@ function getRequirementsComplexData() {
     }
     
     echo json_encode($reqsData);
+    $connLibrary->close();
     
 }
 
