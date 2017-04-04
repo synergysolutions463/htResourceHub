@@ -152,7 +152,17 @@ hr{
     margin: 10px 0px 10px;
 }
 
-@media screen and (max-width: 992px){
+.footerLink:link{
+    color: #ffffff !important;
+    margin-left: 3em;
+    text-decoration: underline;
+}
+
+.spacedLabel{
+    margin-right: 1px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
     
     #indiPanel{
         padding-left: 10px;
@@ -165,22 +175,44 @@ hr{
     .modal-lg {
         width: 900px;
     }
+    
+    #advSearchTxt, #citySearchTxt{
+        padding-right: 0;
+        width: 100%;
+    }
 }
 
 @media (min-width: 917px) {
    .modal-lg {
-    width: 100%;
-  } 
+        width: 100%;
+    } 
 }
 
 @media (min-width: 768px) {
    .modal-lg {
-    width: 100%;
-  } 
+        width: 100%;
+    } 
 }
 
-@media (max-width: 768px) {
+/*@media (min-width: 768px) and (max-width: 910px){
+   .nav nav-tabs nav-justified li a:link{
+        font-size: 8px;
+   }
+}*/
+
+
+@media (min-width: 480px) and (max-width: 768px) {
    .modal-lg {
     width: 100%;
   } 
+  
+  .vcenter{
+      padding: 0;
+  }
+}
+
+@media (max-width: 480px){
+    .vcenter{
+        padding: 0;
+    }
 }
