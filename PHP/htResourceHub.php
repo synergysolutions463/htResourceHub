@@ -69,46 +69,103 @@ function simpleSearchOrgs() {
      $shelter = $_POST['shelter'];
      $substanceAbuse = $_POST['substanceAbuse'];
      
+     $counselingId = 0;
+     $employmentId = 0;
+     $legalId = 0;
+     $medicalId = 0;
+     $substanceAbuseId = 0;
+     
+     		/**get counselingId id **/
+			
+				$getCounselingId = $connLibrary->prepare("SELECT SerId from ServiceTypes where SerType = 'Counseling/Therapy';");
+				$getCounselingId ->execute();
+				$getCounselingId ->bind_result($id);
+				
+				while($getCounselingId->fetch()){
+        			$counselingId = $id;
+    			}
+    			
+    	    /**get employmentId id **/
+			
+				$getEmploymentId = $connLibrary->prepare("SELECT SerId from ServiceTypes where SerType = 'Employment';");
+				$getEmploymentId ->execute();
+			    $getEmploymentId ->bind_result($id);
+				
+				while($getEmploymentId->fetch()){
+        			$employmentId = $id;
+    			}
+    			
+    		/**get legalId id **/
+			
+				$getLegalId = $connLibrary->prepare("SELECT SerId from ServiceTypes where SerType = 'Legal';");
+				$getLegalId ->execute();
+			    $getLegalId ->bind_result($id);
+				
+				while($getLegalId->fetch()){
+        			$legalId = $id;
+    			}
+    			
+    		/**get medicalId id **/
+			
+				$getMedicalId = $connLibrary->prepare("SELECT SerId from ServiceTypes where SerType = 'Medical';");
+		    	$getMedicalId ->execute();
+			    $getMedicalId ->bind_result($id);
+				
+				while($getMedicalId->fetch()){
+        			$medicalId = $id;
+    			}
+    			
+    		/**get substanceAbuseId id **/
+			
+				$getSubstanceAbuseId = $connLibrary->prepare("SELECT SerId from ServiceTypes where SerType = 'Substance Abuse';");
+		    	$getSubstanceAbuseId ->execute();
+			    $getSubstanceAbuseId ->bind_result($id);
+				
+				while($getSubstanceAbuseId->fetch()){
+        			$substanceAbuseId = $id;
+    			}
+    			
+     
      $queryString = "SELECT Service.OrgID FROM Service WHERE Service.SerID = ";
      
      if ($employment == "true") {
-         $queryString = $queryString . "3";
+         $queryString = $queryString . $employmentId;
      }
     
      if ($counseling == "true") {
          if($queryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $queryString = $queryString . "5";
+             $queryString = $queryString . $counselingId;
          }
          else {
-             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=5)";
+             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $counselingId . ")";
          }
      }
       
      
     if ($medical == "true") {
          if($queryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $queryString = $queryString . "7";
+             $queryString = $queryString . $medicalId;
          }
          else {
-             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=7)";
+             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $medicalId . ")";
          }
      }
      
      
     if ($legal == "true") {
          if($queryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $queryString = $queryString . "8";
+             $queryString = $queryString . $legalId;
          }
          else {
-             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=8)";
+             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $legalId . ")";
          }
      }
     if ($substanceAbuse == "true") {
          if($queryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $queryString = $queryString . "14";
+             $queryString = $queryString . $substanceAbuseId;
          }
          else {
-             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=14)";
+             $queryString = $queryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $substanceAbuseId . ")";
          }
      }
      elseif($queryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
@@ -249,7 +306,7 @@ function advSearchOrgs() {
                                     
                                      $advSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
-                                            st.StateName, GROUP_CONCAT(sert.SerType) AS SerType, h.is24Hours
+                                            st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
                                         FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                         JOIN States st ON (st.StateID = a.StateID)
                                         JOIN Service se ON (se.OrgId = o.OrgId)
@@ -288,31 +345,202 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
           die("There was an error connecting to the database");
     }
     
+    	    $clothingId = 0;
+			$foodId = 0;
+			$employmentId = 0;
+			$mentoringId = 0;
+			$counselingId = 0;
+			$pregnancyId = 0;
+			$medicalId = 0;
+			$legalId = 0;
+			$govId = 0;
+			$investigationId = 0;
+			$fosterId = 0;
+			$awarenessEdId = 0;
+			$responseTrainingId = 0;
+			$substanceAbuseId = 0;
+			$advocacyId = 0;
+
+  			
+  				/**get clothing rsc id **/
+  				
+    		    $getClothingResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Clothing';");
+    		    $getClothingResourceId->execute();
+    		    $getClothingResourceId->bind_result($id);
+    		
+    		    while ($getClothingResourceId->fetch()) {
+    		    	$clothingId = $id;
+    		    }
+    		
+    		    /**get food rsc id **/
+    		    
+    		    $getFoodResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Food';");
+    		    $getFoodResourceId->execute();
+    		    $getFoodResourceId->bind_result($id);
+    		
+    		    while ($getFoodResourceId->fetch()) {
+    			    $foodId = $id;
+    	        }
+    	
+    		    /**get employment rsc id **/
+    		    
+    		    $getEmploymentResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Employment';");
+    		    $getEmploymentResourceId->execute();
+    		    $getEmploymentResourceId->bind_result($id);
+    		
+    		    while ($getEmploymentResourceId->fetch()) {
+    			    $employmentId = $id;
+    		    }
+    		
+    		    /**get mentoring rsc id **/
+    	
+    	    	$getMentoringResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Mentoring';");
+    	    	$getMentoringResourceId->execute();
+    	    	$getMentoringResourceId->bind_result($id);
+    		
+    	    	while ($getMentoringResourceId->fetch()) {
+    	    		$mentoringId = $id;
+    	    	}
+    	    	
+    	    	/**get counseling rsc id **/
+    	    	
+    		    $getCounselingResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Counseling/Therapy';");
+    		    $getCounselingResourceId->execute();
+    		    $getCounselingResourceId->bind_result($id);
+    		
+    		    while ($getCounselingResourceId->fetch()) {
+    		    	$counselingId = $id;
+    	    	}
+    		
+    		    /**get pregnancy rsc id **/
+    		
+    	    	$getPregnancyResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Pregnancy';");
+    	    	$getPregnancyResourceId->execute();
+    	    	$getPregnancyResourceId->bind_result($id);
+    		
+    	    	while ($getPregnancyResourceId->fetch()) {
+    	    		$pregnancyId = $id;
+    	    	}
+    		
+    		    /**get medical rsc id **/
+    	    	$getMedicalResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Medical';");
+    	    	$getMedicalResourceId->execute();
+    	    	$getMedicalResourceId->bind_result($id);
+    		
+    	    	while ($getMedicalResourceId->fetch()) {
+    	    		$medicalId = $id;
+    	    	}
+    		
+    		    /** get legal rsc id **/
+    		    
+    	    	$getLegalResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Legal';");
+    	    	$getLegalResourceId->execute();
+    	    	$getLegalResourceId->bind_result($id);
+    		
+    	    	while ($getLegalResourceId->fetch()) {
+    	    		$legalId = $id;
+    	    	}
+    		
+    		    /** get gov rsc id **/
+    		    
+    	    	$getGovResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Governmental';");
+    	    	$getGovResourceId->execute();
+    	    	$getGovResourceId->bind_result($id);
+    		
+    	    	while ($getGovResourceId->fetch()) {
+    	    		$govId = $id;
+    	    	}
+    		
+    		    /** get investigations rsc id **/
+    		    
+    	    	$getInvestigationResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Investigation';");
+    	    	$getInvestigationResourceId->execute();
+    		    $getInvestigationResourceId->bind_result($id);
+    		
+    	    	while ($getInvestigationResourceId->fetch()) {
+    		    	$investigationId = $id;
+    		    }
+    		
+    		    /** get foster rsc id **/
+    		    
+    	    	$getFosterResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Foster Care';");
+    	    	$getFosterResourceId->execute();
+    	    	$getFosterResourceId->bind_result($id);
+    		
+    	    	while ($getFosterResourceId->fetch()) {
+    	    		$fosterId = $id;
+    	    	}
+    		
+    		    /** get awareness ed rsc id **/
+    		    
+    	    	$getAwarenessEdResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Awareness/Education';");
+    	    	$getAwarenessEdResourceId->execute();
+    	    	$getAwarenessEdResourceId->bind_result($id);
+    		
+    	    	while ($getAwarenessEdResourceId->fetch()) {
+    		    	$awarenessEdId = $id;
+    	    	}
+    		
+    		    /** get response training rsc id **/
+    		    
+    	    	$getResponseTrainingResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Response Training';");
+    		    $getResponseTrainingResourceId->execute();
+    		    $getResponseTrainingResourceId->bind_result($id);
+    		
+    	    	while ($getResponseTrainingResourceId->fetch()) {
+    		    	$responseTrainingId = $id;
+    		    }
+    		    
+    		    /** get substance abuse rsc id **/
+    		
+    		    $getSubstanceAbuseResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Substance Abuse';");
+    		    $getSubstanceAbuseResourceId->execute();
+    		    $getSubstanceAbuseResourceId->bind_result($id);
+    		
+        		while ($getSubstanceAbuseResourceId->fetch()) {
+    	    		$substanceAbuseId = $id;
+    		    }
+    		
+    		    /** get advocacy rsc id **/
+    		    
+    	    	$getAdvocacyResourceId = $connLibrary->prepare("SELECT SerID FROM ServiceTypes WHERE SerType LIKE 'Advocacy';");
+    	    	$getAdvocacyResourceId->execute();
+    	    	$getAdvocacyResourceId->bind_result($id);
+    		
+    	    	while ($getAdvocacyResourceId->fetch()) {
+    	    		$advocacyId = $id;
+    	    	}
+    		
+
+
+    
+    
+    
      $resourcesQueryString = "SELECT Service.OrgID FROM Service WHERE Service.SerID = ";
      $nothingSelected = true;
     
     
      if ($clothingRsc == "true") {
-         $resourcesQueryString = $resourcesQueryString . "1";
+         $resourcesQueryString = $resourcesQueryString . $clothingId;
          $nothingSelect = false;
      }
      
     if ($foodRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "2";
+             $resourcesQueryString = $resourcesQueryString . $foodId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=2)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $foodId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($employmentRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "3";
+             $resourcesQueryString = $resourcesQueryString . $employmentId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=3)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $employmentId . ")";
          }
          $nothingSelect = false;
      }
@@ -320,120 +548,120 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
      
     if ($mentoringRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "4";
+             $resourcesQueryString = $resourcesQueryString . $mentoringId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=4)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $mentoringId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($counselingRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "5";
+             $resourcesQueryString = $resourcesQueryString . $counselingId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=5)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $counselingId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($pregnancyRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "6";
+             $resourcesQueryString = $resourcesQueryString . $pregnancyId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=6)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $pregnancyId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($medicalRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "7";
+             $resourcesQueryString = $resourcesQueryString . $medicalId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=7)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $medicalId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($legalRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "8";
+             $resourcesQueryString = $resourcesQueryString . $legalId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=8)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $legalId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($governmentalRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "9";
+             $resourcesQueryString = $resourcesQueryString . $govId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=9)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $govId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($investigationRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "10";
+             $resourcesQueryString = $resourcesQueryString . $investigationId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=10)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $investigationId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($fosterCareRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "11";
+             $resourcesQueryString = $resourcesQueryString . $fosterId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=11)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $fosterId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($educationRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "12";
+             $resourcesQueryString = $resourcesQueryString . $awarenessEdId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=12)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $awarenessEdId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($responseTrainingRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "13";
+             $resourcesQueryString = $resourcesQueryString . $responseTrainingId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=13)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $responseTrainingId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($substanceAbuseRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "14";
+             $resourcesQueryString = $resourcesQueryString . $substanceAbuseId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=14)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $substanceAbuseId . ")";
          }
          $nothingSelect = false;
      }
      
     if ($advocacyRsc == "true") {
          if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
-             $resourcesQueryString = $resourcesQueryString . "16";
+             $resourcesQueryString = $resourcesQueryString . $advocacyId;
          }
          else {
-             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID=16)";
+             $resourcesQueryString = $resourcesQueryString . " AND Service.OrgID IN (SELECT Service.orgID FROM Service WHERE Service.SerID = " . $advocacyId . ")";
          }
          $nothingSelect = false;
      }
@@ -482,40 +710,90 @@ function nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgA
           die("There was an error connecting to the database");
     }
     
-    $natQueryString = "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = 1 OR (";
+    	/**set nationality type ids**/
+		
+				$allNatId = 0;
+				$domesticBornId = 0;
+				$foreignBornId = 0;
+				$undocumentedId = 0;
+				
+				/**get all nationality id**/
+		
+				$getAllNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'All';");
+				$getAllNationalityId ->execute();
+				$getAllNationalityId->bind_result($id);
+				
+				while($getAllNationalityId->fetch()){
+        			$allNatId = $id;
+    			}
+				
+				
+				/**get domestic born nationality id**/
+		
+				$getDomesticNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Domestic-Born';");
+				$getDomesticNationalityId  ->execute();
+				$getDomesticNationalityId ->bind_result($id);
+				
+				while($getDomesticNationalityId ->fetch()){
+        			$domesticBornId = $id;
+    			}
+				
+				/**get foreign nationality id**/
+		
+				$getForeignNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Foreign-Born';");
+				$getForeignNationalityId ->execute();
+				$getForeignNationalityId->bind_result($id);
+				
+				while($getForeignNationalityId->fetch()){
+        			$foreignBornId = $id;
+    			}
+				
+				/**get undocumented nationality id**/
+		
+				$getUndocumentedNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Undocumented';");
+				$getUndocumentedNationalityId  ->execute();
+				$getUndocumentedNationalityId ->bind_result($id);
+				
+				while($getUndocumentedNationalityId ->fetch()){
+        			$undocumentedId = $id;
+    			}
+    			
+    
+    
+    $natQueryString = "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = " . $allNatId . " OR (";
     
    
     if ($domesticNat == "true") {
-        if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = 1 OR (") {
-            $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=2)";
+        if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = " . $allNatId . " OR (") {
+            $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID = " . $domesticBornId . ")";
         }
         else {
-           $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=2)";  
+           $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID = " . $domesticBornId . ")";  
         } 
      }
      
     if ($foreignNat == "true") {
-         if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = 1 OR (") {
-              $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=3)";   
+         if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = " . $allNatId . " OR (") {
+              $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID = " . $foreignBornId . ")";   
          }
          else {
-            $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=3)";   
+            $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID = " . $foreignBornId . ")";   
          }
        
      }
      
     if ($undocumentedNat == "true") {
         
-         if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = 1 OR (") {
-              $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=4)";
+         if ($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = " . $allNatId . " OR (") {
+              $natQueryString = $natQueryString . "Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID = " . $undocumentedId . ")";
          }
          else {
-              $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID=4)";
+              $natQueryString = $natQueryString . " AND Nationality.OrgID IN (SELECT Nationality.orgID FROM Nationality WHERE Nationality.NatID = " . $undocumentedId . ")";
          }
             
     }
     
-    if($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = 1 OR (") {
+    if($natQueryString == "SELECT Nationality.OrgID FROM Nationality WHERE (Nationality.NatID = " . $allNatId . " OR (") {
         $natQueryString = "SELECT Nationality.OrgID FROM Nationality WHERE " . $resOrgAppend . " GROUP BY Nationality.OrgID;";
     }
     else {
