@@ -1,0 +1,21 @@
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Delete Organization</h4>
+      </div>
+      <div class="modal-body">
+
+        <input type="number" id="deleteID" style="display:none;" />
+        <h5 id="deleteText"></h5>
+        <div id="deleteSuccessMsg"></div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="deleteBtn" class="btn btn-primary" onclick="deleteOrganization()">Yes, Delete Organization</button>
+      </div>
+    </div>
+  </div>
+</div>

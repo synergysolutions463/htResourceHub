@@ -313,8 +313,8 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"col-md-2\">";
 		text += "<div class=\"vcenter\">";
 
-		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-sm\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
-		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
 		
 
 
@@ -360,7 +360,7 @@ function loadComplexData() {
 function insertOrganization() {
 
 	//test the input
-	if(createFormValidation()){
+//	if(createFormValidation()){
 		
 		/**Organization Table Insert Data **/
 	
@@ -816,7 +816,7 @@ function insertOrganization() {
 	
 			}
 		});
-	}
+//	}
 
 
 
@@ -1287,6 +1287,65 @@ function updateOrganization() {
 
 
 
+}
+
+function deleteOrganization() {
+	  var orgId = document.getElementById('deleteID').value;
+  
+  	 $.ajax ({
+		url: '/PHP/deleteOrg.php',
+		type: 'POST',
+		data: {method: "deleteOrganization", orgId: orgId},
+		success: function(data){
+	           console.log(data);
+	     if(data == "Deleted") {
+	    	document.getElementById("deleteText").style.display = "none";
+			document.getElementById("deleteBtn").disabled = true;
+			text = "<h5>Delete successful</h5>";
+			document.getElementById("deleteSuccessMsg").style.display = "block";
+			document.getElementById("deleteSuccessMsg").innerHTML = text;
+			readAllOrgs();
+	     }
+	     if(data == "Not Deleted") {
+	    	document.getElementById("deleteText").style.display = "none";
+			document.getElementById("deleteBtn").disabled = true;
+			text = "<h5>Problem with deleting organization. Please try again later.</h5>";
+			document.getElementById("deleteSuccessMsg").style.display = "block";
+			document.getElementById("deleteSuccessMsg").innerHTML = text;
+			readAllOrgs();
+	     }
+}
+});
+	
+
+}
+
+function loadDeleteData(orgId) {
+		document.getElementById("deleteText").style.display = "block";
+		document.getElementById("deleteBtn").disabled = false;
+		document.getElementById("deleteSuccessMsg").style.display = "none";
+	
+	console.log(orgId);
+	
+	$.ajax ({
+		url: '/PHP/deleteOrg.php',
+		type: 'POST',
+		data: {method: "readDeleteOrgId", orgId: orgId},
+		success: function(data){
+	           console.log(data);
+	           
+	               
+      var parsedData = JSON.parse(data);
+      var orgs = parsedData;
+    
+    document.getElementById('deleteID').value = orgs[0][0];
+    
+	text = "Are you sure you want to delete " + orgs[0][1] + "?";
+	document.getElementById("deleteText").innerHTML = text;
+
+		}
+	});
+	
 }
 
 function populateCreateStates() {
@@ -3574,10 +3633,21 @@ function displayLoginModal() {
 });
 }
 
+function displayDeleteModal() {
+	$.ajax({
+  url: '/HTML/Modals/deleteModal.html',
+  dataType: 'text',
+  success: function(data) {
+	document.getElementById("insertDeleteModal").innerHTML = data;
+  }
+});
+}
+
 function onLoadFunctions() {
 	displayCreateModal();
 	displayUpdateModal();
 	displayLoginModal();
+	displayDeleteModal()
 	checkAllDisableCreate();
 	checkAllDisableUpdate();
 	checkHoursCreate();
@@ -4023,6 +4093,12 @@ function getComplexData(orgId) {
 		}
 		text += "</ul>";
 		document.getElementById("orgInfoServicesFromOrgTable").innerHTML = text;
+		
+		document.getElementById("updDelBtns").innerHTML = "<button id=" + organizations[0][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>" +
+		"<button id=" + organizations[0][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
+		
+
+	
 		
 		}
 	});

@@ -176,7 +176,6 @@ function simpleSearchOrgs() {
 
 }
 
-
 function advSearchOrgs() {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -548,6 +547,7 @@ function nationalityOrgIDs($undocumentedNat, $foreignNat, $domesticNat, $resOrgA
     
     return $natOrgAppend;
 }
+
 //returns Org ID's to append to address query
 function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppend){
    $connLibrary = db_connect();
@@ -629,6 +629,7 @@ function ageOrgIDs($adultsAge, $youthAge, $childrenAge, $infantsAge, $natOrgAppe
      
      
 }
+
 //returns Org ID's to append to gender query
 function addressOrgIDs($cityTxt, $ageOrgAppend){
     $connLibrary = db_connect();
@@ -669,6 +670,7 @@ function addressOrgIDs($cityTxt, $ageOrgAppend){
     
      return $addressOrgAppend;
 }
+
 //returns Org ID's to append to hours query
 function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
     $connLibrary = db_connect();
@@ -738,6 +740,7 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
     
      return $genderOrgAppend;
 }
+
 //returns OrgID's to append to organization query
 function hoursOrgIDs($hours247, $genderOrgAppend){
     $connLibrary = db_connect();
@@ -780,6 +783,7 @@ function hoursOrgIDs($hours247, $genderOrgAppend){
   
      return $hoursOrgAppend;
 }
+
 function orgNameIDs($searchTxt, $hoursOrgAppend) {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -823,6 +827,7 @@ function orgNameIDs($searchTxt, $hoursOrgAppend) {
      return $orgNameAppend; 
      
 }
+
 function housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNameAppend) {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -895,6 +900,7 @@ function housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNam
   
      return $housingOrgAppend; 
 }
+
 function freeFeeIDs($feeFree, $housingResourcesAppend) {
      $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
