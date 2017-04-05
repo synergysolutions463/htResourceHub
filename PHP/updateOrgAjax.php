@@ -3,21 +3,22 @@
 include 'dbConnect.php';
 
 echo $_POST["method"]();
-session_start();
+
+
 
 function updateOrganization () {
-    
+ session_start();   
      $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
     }
+    
     
     		$orgId = $_POST['orgId'];
     		
     		$deleteOrgQuery = $connLibrary->prepare("DELETE FROM Organizations WHERE OrgID = " . $orgId . ";");
             $deleteOrgQuery->execute();
             $deleteOrgQuery->close();
-    		
 
 
 			/** Organization Table Insert **/
@@ -40,6 +41,8 @@ function updateOrganization () {
 			$notes = $_POST['notes'];
 			$confNotes = $_POST['confNotes'];
 			$isConf = $_POST['isConf'];
+	
+
 			
 			if ($isShelter == "true") {
 			    $isShelter = 1;
@@ -81,21 +84,20 @@ function updateOrganization () {
 	
 			$insertOrgQuery = $connLibrary->prepare("INSERT INTO Organizations (OrgId, OrgName, AgencyName, ProgramStatement, WebLink, Email, PhoneNum, phoneExt,
 			                                           HotlineNum, ConfNum, confPhoneExt, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees,
-			                                           FaithID, Notes, ConfNotes, isConf) VALUES (" . $orgId . ",'" . $orgName . "','" . $agencyName . "','"
+			                                           FaithID, Notes, ConfNotes, isConf) VALUES (" . $orgId . ", '" . $orgName . "','" . $agencyName . "','"
 			                                            . $missionStmt . "','" . $weblink . "','" . $email . "','" . $phoneNum . "','" . $phoneExt . "','"
 			                                             . $hotlineNum . "','" . $confNum . "','" . $confExt . "'," . $isShelter . "," . $isTransHousing . ","
 			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ");");
             $insertOrgQuery->execute();
             $insertOrgQuery->close();
-            
-            
-            $selectOrgQuery = $connLibrary->prepare("SELECT LAST_INSERT_ID();");
-            $selectOrgQuery->execute();
-            $selectOrgQuery->bind_result($id);
+        
 			
+	
     		
+    	
+   		
     		/**Addresses Insert**/
-    		
+   		
     		
     		$streetInfo1 = $_POST['streetInfo1'];
 			$city1 = $_POST['city1'];
@@ -213,9 +215,9 @@ function updateOrganization () {
 			$youthsId = 0;
 			$adultsId = 0;
 			
-			/**get all age type id**/
+		/**get all age type id**/
 	
-			$getAllAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'All';");
+		$getAllAgeId = $connLibrary->prepare("SELECT AgeID from AgeTypes WHERE AgeType like 'All';");
 			$getAllAgeId->execute();
 			$getAllAgeId->bind_result($id);
 			
@@ -316,10 +318,9 @@ function updateOrganization () {
 				
 				}
 			}
-
-    	
+    
     		/**Contact Insert**/
-    	
+   	
     		$contactEmail = $_POST['contactEmail'];
 			$firstName = $_POST['firstName'];
 			$lastName = $_POST['lastName'];
@@ -328,13 +329,15 @@ function updateOrganization () {
 			$contactPhoneExt = $_POST['contactPhoneExt'];
 			$contactIsConf = $_POST['contactIsConf'];
 			
+			
+
+			
 			if($contactIsConf == "false") {
 				$contactIsConf = 0;
 			}
 			else {
 				$contactIsConf = 1;
 			}
-			
 			
 			$insertContactQuery = $connLibrary->prepare("INSERT INTO Contacts (OrgID, Email, FirstName, LastName, Position, PhoneNum, phoneExt,IsConf)
 														VALUES (" . $orgId . ", '" . $contactEmail . "' , '" . $firstName . "' , '" . 
@@ -343,14 +346,12 @@ function updateOrganization () {
             $insertContactQuery->execute();
             $insertContactQuery->close();
 
-			
-    		
     		/**Ethnicity Insert**/
 
     		$hispanic = $_POST['hispanic'];
 			$nonhispanic = $_POST['nonhispanic'];
 			
-		
+	
 				/**set ethnicity type ids**/
 		
 				$allEthnicityId = 0;
@@ -435,7 +436,7 @@ function updateOrganization () {
 				
 				while($getAllGenderId->fetch()){
         			$allGenderId = $id;
-    			}
+  			}
 				
 				/**get male type id **/
 				
@@ -498,7 +499,7 @@ function updateOrganization () {
     		}
     		
     		/**Hours Insert**/
-    	
+   	
     		$is24Hours = $_POST['is24Hours'];
 
 			$mondayToFridayFullOpen = $_POST['mondayToFridayFullOpen'];
@@ -640,7 +641,7 @@ function updateOrganization () {
     		$domesticBorn = $_POST['domesticBorn'];
 			$foreignBorn = $_POST['foreignBorn'];
 			$undocumented = $_POST['undocumented'];
-			
+		
 			
 				/**set nationality type ids**/
 		
@@ -669,9 +670,9 @@ function updateOrganization () {
 				while($getDomesticNationalityId ->fetch()){
         			$domesticBornId = $id;
     			}
-				
+			
 				/**get foreign nationality id**/
-		
+			
 				$getForeignNationalityId = $connLibrary->prepare("SELECT NatID from NationalityTypes WHERE NatType like 'Foreign-Born';");
 				$getForeignNationalityId ->execute();
 				$getForeignNationalityId->bind_result($id);
@@ -719,7 +720,7 @@ function updateOrganization () {
     		
     		
     		/**Race Insert**/
-    	
+     	
     
 			
 			$black = $_POST['black'];
@@ -728,9 +729,9 @@ function updateOrganization () {
 			$hispanic = $_POST['hispanic'];
 			$native = $_POST['native'];
 			$multi = $_POST['multi'];
-			
-				/**set race type ids**/
 		
+				/**set race type ids**/
+	
 				$allRaceId = 0;
 				$whiteId = 0;
 				$blackId = 0;
@@ -738,8 +739,8 @@ function updateOrganization () {
 				$hispanicId = 0;
 				$nativeId = 0;
 				$multiId = 0;
-				
-				/**get all race id**/
+		
+		/**get all race id**/
 		
 				$getAllRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'All';");
 				$getAllRaceId ->execute();
@@ -769,7 +770,7 @@ function updateOrganization () {
         			$blackId = $id;
 				}
 				
-				/**get asian race id**/
+			/**get asian race id**/
 		
 				$getAsianRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Asian';");
 				$getAsianRaceId ->execute();
@@ -778,9 +779,8 @@ function updateOrganization () {
 				while($getAsianRaceId->fetch()){
         			$asianId = $id;
 				}
-				
-				/**get hispainc race id**/
-		
+			
+			/**get hispainc race id**/
 				$getHispanicRaceId = $connLibrary->prepare("SELECT RaceID from RaceTypes WHERE RaceType like 'Hispanic/Latino';");
 				$getHispanicRaceId->execute();
 				$getHispanicRaceId->bind_result($id);
@@ -796,8 +796,7 @@ function updateOrganization () {
 				$getMultiRaceId->bind_result($id);
 				
 				while($getMultiRaceId->fetch()){
-        			$multiId = $id;
-				}
+        			$multiId = $id;				}
 				
 				/**get native race id**/
 		
@@ -851,10 +850,10 @@ function updateOrganization () {
             		$insertMultiRace ->execute();
             		$insertMultiRace ->close();
 				}
-			}
+			}	
 			
 			
-				
+	
     		/**Requirements Insert**/
     	
     		$membership = $_POST['membership'];
@@ -873,7 +872,7 @@ function updateOrganization () {
 				$applicationId = 0;
 				$waitingId = 0;
 				$noReqId = 0;
-				
+			
 				/**get membership id**/
 		
 				$getMembershipId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Membership';");
@@ -895,7 +894,6 @@ function updateOrganization () {
 				}
 				
 				/**get application id**/
-		
 				$getApplicationId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Application';");
 				$getApplicationId ->execute();
 				$getApplicationId->bind_result($id);
@@ -916,7 +914,7 @@ function updateOrganization () {
 				
 						
 				/**get noreq id**/
-		
+	
 				$getNoReqId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'None';");
 				$getNoReqId ->execute();
 				$getNoReqId->bind_result($id);
@@ -955,10 +953,11 @@ function updateOrganization () {
 			}
 			
 			if($waiting == "false" && $application == "false" && $training == "false" && $membership == "false") {
-					$insertNoneRequirements = $connLibrary->prepare("INSERT INTO Requirements (OrgID, ReqID) VALUES (" . $orgId . ", " . $noneId . ");");
+					$insertNoneRequirements = $connLibrary->prepare("INSERT INTO Requirements (OrgID, ReqID) VALUES (" . $orgId . ", " . $noReqId . ");");
             		$insertNoneRequirements ->execute();
             		$insertNoneRequirements ->close();
 			}
+			
     		
     		
     		/**Service Insert**/
@@ -1662,7 +1661,16 @@ function updateOrganization () {
 				$insertNoneResource->close();
     			
     		}
-	 $connLibrary->close();			
+    		
+    		
+	 $connLibrary->close();	  
 }
 
 ?>
+
+
+
+
+
+
+

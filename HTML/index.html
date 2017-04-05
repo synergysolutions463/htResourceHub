@@ -28,7 +28,7 @@
 
 </head>
 
-<body onload="readAllOrgs(), show('advSearch'), onLoadFunctions();">
+<body onload="onLoadFunctions(), indexLoad();">
     <div class="bodyWrapper">
     <header id="navbar">
                     <div class="example3">
@@ -59,13 +59,7 @@
         </div>
 
     </header>
-    <button type="button" class="btn btn-primary btn-lg"  onclick="checkIfLoggedIn()">
-                            check if logged in
-                        </button>   
-                        
-       <button type="button" class="btn btn-primary btn-lg"  onclick="logout()">
-                           log out
-                        </button>
+
                         
 <div id="allSearch" style="display:block">
     <div class="container simpleSearchBar">
@@ -392,7 +386,7 @@
     <div class="footerContainer">
         <footer class="footer" id="homeFooter">
             <div class="footerTextContainer">
-                <p>Copyright 2017, Kent County Human Trafficking Task Force <a href="" class="footerLink">Privacy</a> <a class="footerLink" href="">Contact</a></p>
+                <p><span class="copyrightFoot">Copyright 2017, Kent County Human Trafficking Task Force </span> <a href="" class="footerLink">Privacy</a> <a class="footerLink" href="">Contact</a></p>
             </div>
         </footer>
     </div>

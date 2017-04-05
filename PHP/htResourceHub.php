@@ -4,6 +4,25 @@ include 'dbConnect.php';
 
 echo $_POST["method"]();
 
+function insertButtons () {
+    
+        if(checkIfLoggedIn() == "admin1") {
+            echo "<button id=\" + orgs[i][0] + \" type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" 
+            data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();
+            loadUpdateModalData(\" + orgs[i][0] + \");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>
+            <button id=\" + orgs[i][0] + \" type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" 
+            data-target=\"#deleteModal\" onclick=\"loadDeleteData(\" + orgs[i][0] + \");\"><span class=\"glyphicon glyphicon-trash\" 
+            aria-hidden=\"true\"></span></button>";
+        }
+        else {
+            echo "";
+        }
+
+		
+	
+		 
+}
+
 function readTest() {
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -229,34 +248,37 @@ function simpleSearchOrgs() {
         }
     }
     
+    
+    
     if ($simpleQueryString == "" || $simpleQueryString == ") AND o.isShelter = 1 ") {
          echo "No results found";
     
     }
     else {
         if(checkIfLoggedIn() == "admin1" || checkIfLoggedIn() == "admin2") {
-                   $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
+                   $simpleSearchLoggedInQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
                                             st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
                                             FROM Organizations o JOIN Addresses a ON (o.OrgID = a.OrgID)
                                             JOIN States st ON (st.StateID = a.StateID)
                                             JOIN Service se ON (se.OrgId = o.OrgId)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
-                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID)" . $simpleQueryString .
-                                            "GROUP BY o.OrgID;"); 
-    $simpleSearchQuery->execute();
-    $simpleSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID) " . $simpleQueryString .
+                                            " GROUP BY o.OrgID;"); 
+     $simpleSearchLoggedInQuery->execute();
+     $simpleSearchLoggedInQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
     $simpleSearchData = array();
-    while($simpleSearchQuery->fetch()){
+    while( $simpleSearchLoggedInQuery->fetch()){
         $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
 
-    $connLibrary->close();
+ 
 
   echo json_encode($simpleSearchData);    
         }
         else {
+
                                $simpleSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
                                             st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
@@ -264,8 +286,8 @@ function simpleSearchOrgs() {
                                             JOIN States st ON (st.StateID = a.StateID)
                                             JOIN Service se ON (se.OrgId = o.OrgId)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
-                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID)" . $simpleQueryString .
-                                            "WHERE o.isConf = 0
+                                            JOIN ServiceTypes sert ON (sert.SerID = se.SerID) " . $simpleQueryString .
+                                            " AND o.isConf = 0
                                             GROUP BY o.OrgID;"); 
     $simpleSearchQuery->execute();
     $simpleSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
@@ -275,16 +297,16 @@ function simpleSearchOrgs() {
         $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
     }
 
-    $connLibrary->close();
+  
 
-  echo json_encode($simpleSearchData);   
+  echo json_encode($simpleSearchData);  
         }
   
         
     }
 
 
-
+  $connLibrary->close();
 }
 
 function advSearchOrgs() {

@@ -32,12 +32,13 @@
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <label>Entire Program is Confidential: &nbsp;</label><input type="checkbox" value="" id="cbIsConfCreate">
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> = Required Field</label>
                                                         </div>
                                                     </div>
                                                     <br/>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <label>Organization Name</label>
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Organization Name</label>
                                                             <input class="form-control" type="text" placeholder="organization name" id="txtOrgNameCreate" />
                                                         </div>
                                                         <div class="col-md-3">
@@ -71,7 +72,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <label>Main Phone </label>
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Main Phone </label>
                                                             <input id="txtMainPhoneCreate" type="text" placeholder="(555)555-5555" class="form-control" />
                                                             <input class="form-control" id="txtMainPhoneExtCreate" type="text" placeholder="55555" />
                                                         </div>
@@ -175,10 +176,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <label>Street</label>
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Street</label>
                                                         </div>
                                                         <div class="col-md-2 col-md-offset-1">
-                                                            <label>City</label>
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>City</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -194,10 +195,10 @@
                                                             <label>County</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <label>State</label>
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>State</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <label>Zip</label>
+                                                            <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Zip</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1778,7 +1779,7 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-9">
-                                            <button type="button" onclick="btnResourcesOfferedOnClick()" class="btn btn-default btn-md" id="btnResourcesOfferedBack">
+                                            <button type="button" onclick="btnResourcesOfferedOnClick('create')" class="btn btn-default btn-md" id="btnResourcesOfferedForwardCreate">
                                                 Services Offered  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -2766,12 +2767,12 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md" id="btnOrgInfo" onclick="btnOrganizationInfoOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnOrgInfoCreate" onclick="btnOrganizationInfoOnClick()">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Organization Info  
                                             </button>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-5">
-                                            <button type="button" class="btn btn-default btn-md" id="btnAdditionalConsiderationsForward" onclick="btnAdditionalConsiderationsOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnAdditionalConsiderationsForwardCreate" onclick="btnAdditionalConsiderationsOnClick('create')">
                                                 Additional Considerations  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -2793,7 +2794,7 @@
                                       
                                                     <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>Associated Fee:</label>
+                                                        <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Associated Fee:</label>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">$</span>
                                                             <input type="number" value="0" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="txtAssociatedFeeCreate" />
@@ -2863,7 +2864,7 @@
                                                         <div class="col-md-1">
                                                             <label>Training: </label>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-1 col-md-offset-1">
                                                             <input type="checkbox" value="" id="cbTrainingCreate">
                                                         </div>
                                                     </div>
@@ -2893,7 +2894,7 @@
                                                         <div class="col-md-1">
                                                             <label>Application: </label>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-1 col-md-offset-1">
                                                             <input type="checkbox" value="" id="cbApplicationCreate">
                                                         </div>
                                                     </div>
@@ -2940,12 +2941,12 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md" id="btnResourcesOfferedBack" onclick="btnResourcesOfferedOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnResourcesOfferedBackCreate" onclick="btnResourcesOfferedOnClick('create')">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Resources Offered  
                                             </button>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-5">
-                                            <button type="button" class="btn btn-default btn-md" id="btnDemographicsServedForward" onclick="btnDemographicsServedOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnDemographicsServedForwardCreate" onclick="btnDemographicsServedOnClick('create')">
                                                 Demographics Served  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -3211,12 +3212,12 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md" id="btnAdditionalConsiderationsBack" onclick="btnAdditionalConsiderationsOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnAdditionalConsiderationsBackCreate" onclick="btnAdditionalConsiderationsOnClick('create')">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Additional Considerations  
                                             </button>
                                         </div>
                                         <div class="col-sm-2 col-sm-offset-6">
-                                            <button type="button" class="btn btn-default btn-md" id="btnNotes" onclick="btnNotesOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnNotesCreate" onclick="btnNotesOnClick('create')">
                                                 Notes <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                             </button>
                                         </div>
@@ -3254,7 +3255,7 @@
                                     </div>
                                     <div class = "row">
                                         <div class="col-sm-2 col-sm-offset-1">
-                                            <button type="button" class="btn btn-default btn-md" id="btnDemographicsServedBack" onclick="btnDemographicsServedOnClick()">
+                                            <button type="button" class="btn btn-default btn-md" id="btnDemographicsServedBackCreate" onclick="btnDemographicsServedOnClick('create')">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>  Demographics Served  
                                             </button>
                                         </div>
@@ -3271,67 +3272,3 @@
             </div>
         </div>
     </div>
-
- 
-    <script>
-    /*
-    $(function(){
-
-    $('#changetabbutton').click(function(e){
-    	e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-    })
-
-})
-   */ 
-    $(function(){
-        $('#btnResourcesOfferedForward').click(function(e){
-        e.preventDefault();
-        $('#CreateModalTabs a[href="#orgResourcesCreate"]').tab('show');
-        })
-    })
-        
-        
-        
-        
-        $('#btnOrgInfo').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        $('#btnAdditionalConsiderationsForward').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        
-        
-        $('#btnResourcesOfferedBack').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        $('#btnDemographicsServedForward').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        
-        
-        $('#btnAdditionalConsiderationsBack').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        $('#btnNotes').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        
-        
-        $('#btnDemographicsServedBack').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-    </script>

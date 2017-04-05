@@ -152,10 +152,19 @@ hr{
     margin: 10px 0px 10px;
 }
 
-.footerLink:link{
-    color: #ffffff !important;
-    margin-left: 3em;
+.footerTextContainer p{
+    padding-left: 2em;
+    padding-right: 3em;
+    width: auto;
+    text-align: center;
+}
+
+.footerTextContainer a{
+    color: #ffffff;
     text-decoration: underline;
+    width: auto;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 .spacedLabel{
@@ -194,12 +203,35 @@ hr{
     } 
 }
 
-/*@media (min-width: 768px) and (max-width: 910px){
-   .nav nav-tabs nav-justified li a:link{
-        font-size: 8px;
-   }
-}*/
+@media (min-width: 465px) and (max-width: 650px){
+    .footer{
+        height: 50px;
+    }
+    
+    .footerTextContainer{
+        margin: 0;
+    }
+}
 
+@media (max-width: 464px){
+    .footer{
+        height: 55px;
+    }
+    
+    .copyrightFoot{
+        font-size: 12px;
+        vertical-align: text-top;
+    }
+    
+    .footerTextContainer{
+        margin: 0;
+    }
+    
+    .footerTextContainer p{
+        font-size: 12px;
+        margin: 0;
+    }
+}
 
 @media (min-width: 480px) and (max-width: 768px) {
    .modal-lg {
@@ -209,10 +241,19 @@ hr{
   .vcenter{
       padding: 0;
   }
+  
+  #indiPanel{
+      padding-left: 10px;
+  }
 }
+
 
 @media (max-width: 480px){
     .vcenter{
         padding: 0;
+    }
+    
+    #indiPanel{
+        margin-left: 10px;
     }
 }

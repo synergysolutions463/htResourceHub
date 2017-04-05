@@ -1,3 +1,5 @@
+var loggedIn = "";
+
 function testAjax() {
 	console.log("test ajax worked")
 	$.ajax({
@@ -23,7 +25,7 @@ function backToSearch() {
 }
 
 function readAllOrgs() {
-	console.log("read all orgs beginning worked")
+	checkIfLoggedIn();
 	$.ajax({
 		url: '/PHP/htResourceHub.php',
 		type: 'POST',
@@ -232,16 +234,6 @@ function logout() {
 			method: "logout",
 		},
 		success: function(data) {
-			console.log(data);
-			if (data == "false") {
-				loggedIn = false;
-			}
-			else {
-				loggedIn = true;
-				username = data;
-			} 
-
-			console.log(loggedIn); 
 		}
 	});
 	
@@ -249,6 +241,7 @@ function logout() {
 }
 
 function checkIfLoggedIn() {
+
 		$.ajax({
 		url: '/PHP/htResourceHub.php',
 		type: 'POST',
@@ -256,18 +249,17 @@ function checkIfLoggedIn() {
 			method: "checkIfLoggedIn"
 		},
 		success: function(data) {
-			console.log(data);
 			if (data == "false") {
-	//			loggedIn = false;
+				loggedIn = "false";
 				document.getElementById("loginNav").innerHTML = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#loginModal\" onclick=\"resetLogin()\">Login</a>";
 			}
 			else {
-	//			loggedIn = true;
+				loggedIn = "true";
 				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\">Admin</a>";
 			} 
 		}
 	});
-//	console.log("outside of ajax: " + loggedIn);
+
 }
 
 function loadSimpleData(orgs) {
@@ -371,17 +363,25 @@ function loadSimpleData(orgs) {
 		text += "</ul>";
 		text += "</div> </div>";
 
+	
+		
+
 		text += "<div class=\"col-md-2\">";
 		text += "<div class=\"vcenter\">";
+		
+		if(loggedIn == "true") {
 
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
 		
+		}
+		
+		text += "</div> </div>";
 
 
 
 
-		text += "</div> </div> </div> </div>";
+		text += "</div> </div>";
 
 		document.getElementById("resultPanel").innerHTML = text;
 
@@ -395,7 +395,7 @@ function loadSimpleData(orgs) {
 function insertOrganization() {
 
 	//test the input
-	if(createFormValidation()){
+
 		
 		/**Organization Table Insert Data **/
 	
@@ -617,7 +617,7 @@ function insertOrganization() {
 	
 	
 	
-	
+		if(createFormValidation()){
 	
 		console.log("simple search beginning worked")
 		$.ajax({
@@ -846,6 +846,8 @@ function insertOrganization() {
 				otherDesc: otherDesc
 			},
 			success: function(data) {
+				
+				showCreateMessage();
 				console.log("connection to php for insert working");
 				console.log(data);
 	
@@ -1311,6 +1313,8 @@ function updateOrganization() {
 			otherDesc: otherDesc
 		},
 		success: function(data) {
+			
+			showUpdateMessage();
 			console.log("connection to php for insert working");
 			console.log(data);
 
@@ -3592,7 +3596,6 @@ function displayDeleteModal() {
 });
 }
 
-
 function onLoadFunctions() {
 	checkIfLoggedIn();
 	displayCreateModal();
@@ -3603,9 +3606,13 @@ function onLoadFunctions() {
 	populateCreateFaiths();
 	populateUpdateStates();
 	populateUpdateFaiths();
-	document.getElementById("allSearch").style.display= 'block';
-	document.getElementById("orgInfoResults").style.display= 'none';
-	
+}
+
+function indexLoad() {
+		document.getElementById("allSearch").style.display= 'block';
+		document.getElementById("orgInfoResults").style.display= 'none';
+		readAllOrgs();
+		show('advSearch');
 }
 
 function getComplexData(orgId) {
@@ -3632,31 +3639,9 @@ function getComplexData(orgId) {
 			
 			aLen = addresses.length;
 			
-			if(checkIfLoggedIn() == "false") {
-				for (i = 0; i < aLen; i++) {
-				if(addresses[i][5] == 1) {
-					document.getElementById("orgInfoAddressConf").innerHTML = "<p></p>";
-				}
-				else {
-					if(i >= 1) {
-						document.getElementById("orgInfoAddress2").innerHTML = "<p>Secondary Address: " + addresses[i][0] + ", " + addresses[i][1] + ", " + addresses[i][4] + " " + addresses[i][2] + "</p>";
-						 
-					}
-					else {
-						document.getElementById("orgInfoAddress1").innerHTML = "<h5>Primary Address: " + addresses[i][0] + ", " + addresses[i][1] + ", " + addresses[i][4] + " " + addresses[i][2] + "</h5>";
-				}
+			
 	
-			
-			}
-			
-			
-			}
-			}
-		
-
-			
-			else {
-							for (i = 0; i < aLen; i++) {
+			for (i = 0; i < aLen; i++) {
 				if(addresses[i][5] == 1) {
 					document.getElementById("orgInfoAddressConf").innerHTML = "<p>Confidential Addresses: " + addresses[i][0] + ", " + addresses[i][1] + ", " + addresses[i][4] + " " + addresses[i][2] + "</p>";
 				}
@@ -3675,7 +3660,7 @@ function getComplexData(orgId) {
 			
 			}
 				
-			}
+			
 		}
 	}); 
 
@@ -4075,9 +4060,10 @@ function getComplexData(orgId) {
 		text += "</ul>";
 		document.getElementById("orgInfoServicesFromOrgTable").innerHTML = text;
 		
+		if(loggedIn == "true") {
 		document.getElementById("updDelBtns").innerHTML = "<button id=" + organizations[0][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>" +
 		"<button id=" + organizations[0][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
-		
+		}
 
 	
 		
@@ -4243,7 +4229,7 @@ function createFormValidation(){
 	var addressInfoError = "";
 	
 	//Check for one full address
-	if(document.getElementById("txtAddress1StreetCreate").value == "" || document.getElementById("txtAddress1CityCreate").value == "" || document.getElementById("txtAddress1ZipCreate").value == "" || document.getElementById("txtAddress1StateCreate").value == "-----" ){
+	if(document.getElementById("txtAddress1StreetCreate").value == "" || document.getElementById("txtAddress1CityCreate").value == "" || document.getElementById("txtAddress1ZipCreate").value == "" || document.getElementById("ddlAddress1StateCreate").value == "-----" ){
 		addressInfoError = "Please enter at least one full address"
 		document.getElementById("txtAddress1StreetCreate").focus();
 		addressErrorFound = true;
@@ -4714,10 +4700,8 @@ function createFormValidation(){
 		document.getElementById("cbEthnicityAllCreate").focus();
 	}
 	
-	
-	
 	//Populate all error messages if any have been found
-	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resoureceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound){
+	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resourceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound){
 		document.getElementById("orgInfoErrorText").innerHTML = genInfoError;
 		document.getElementById("contactErrorText").innerHTML = contactInfoError
 		document.getElementById("addressErrorText").innerHTML = addressInfoError;
@@ -4735,77 +4719,84 @@ function createFormValidation(){
 	}
 }
 
-function btnOrganizationInfoOnClick() {
-	$('#updateModalTabs a[href="#orgInfoUpdate"]').tab('show');
-	document.getElementById("txtOrgNameUpdate").focus();
+function btnOrganizationInfoOnClick(modal) {
+	
+	if (modal == "update") {
+		$('#updateModalTabs a[href="#orgInfoUpdate"]').tab('show');
+		document.getElementById("txtOrgNameUpdate").focus();
+	}
+	else {
+		$('#CreateModalTabs a[href="#orgInfoCreate"]').tab('show');
+		document.getElementById("txtOrgNameCreate").focus();
+	}
 }
 
-function btnResourcesOfferedOnClick() {
-    $('#updateModalTabs a[href="#orgResourcesUpdate"]').tab('show');
-	document.getElementById("cbHousingAllUpdate").focus();
+function btnResourcesOfferedOnClick(modal) {
+	
+   if (modal == "update") {
+    	$('#updateModalTabs a[href="#orgResourcesUpdate"]').tab('show');
+		document.getElementById("cbHousingAllUpdate").focus();
+    }
+    else {
+    	$('#CreateModalTabs a[href="#orgResourcesCreate"]').tab('show');
+		document.getElementById("cbHousingAllCreate").focus();
+    }
+    
 }
 
-function btnAdditionalConsiderationsOnClick(){
-	$('#updateModalTabs a[href="#orgAddConsiderationsUpdate"]').tab('show');
-	document.getElementById("txtAssociatedFeeUpdate").focus();
+function btnAdditionalConsiderationsOnClick(modal){
+	
+	if (modal == "update") {
+    	$('#updateModalTabs a[href="#orgAddConsiderationsUpdate"]').tab('show');
+		document.getElementById("txtAssociatedFeeUpdate").focus();
+    }
+    else {
+    	$('#CreateModalTabs a[href="#orgAddConsiderationsCreate"]').tab('show');
+		document.getElementById("txtAssociatedFeeCreate").focus();
+    }
+	
 }
 
-function btnDemographicsServedOnClick() {
-	$('#updateModalTabs a[href="#orgDemographicsServedUpdate"]').tab('show');
-	document.getElementById("cbGenderAllUpdate").focus();
+function btnDemographicsServedOnClick(modal) {
+	
+	if (modal == "update") {
+    	$('#updateModalTabs a[href="#orgDemographicsServedUpdate"]').tab('show');
+		document.getElementById("cbGenderAllUpdate").focus();
+    }
+    else {
+    	$('#CreateModalTabs a[href="#orgDemographicsServedCreate"]').tab('show');
+		document.getElementById("cbGenderAllCreate").focus();
+    }
+	
 }
 
-function btnNotesOnClick() {
-		$('#updateModalTabs a[href="#orgNotesUpdate"]').tab('show');
+function btnNotesOnClick(modal) {
+	
+	if (modal == "update") {
+    	$('#updateModalTabs a[href="#orgNotesUpdate"]').tab('show');
 		document.getElementById("txtNoteUpdate").focus();
+	}
+    else {
+    	$('#CreateModalTabs a[href="#orgNotesCreate"]').tab('show');
+		document.getElementById("txtNoteCreate").focus();
+    }
+	
+}
+
+function showCreateMessage() {
+	
+}
+
+function showUpdateMessage() {
+	
 }
 
 
 
 
-        /*
-        
-        
-        $('#btnOrgInfo').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        $('#btnAdditionalConsiderationsForward').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
         
         
         
-        $('#btnResourcesOfferedBack').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        $('#btnDemographicsServedForward').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
         
         
         
-        $('#btnAdditionalConsiderationsBack').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        $('#btnNotes').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        
-        
-        $('#btnDemographicsServedBack').click(function(e){
-        e.preventDefault();
-        $('#mytabs a[href="#second"]').tab('show');
-        })
-        
-        
-} */
