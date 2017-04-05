@@ -1,6 +1,7 @@
 <?php
 
 include 'dbConnect.php';
+session_start();
 
 //needed to also get the description for requirements
 function getRequirementsComplexData() {

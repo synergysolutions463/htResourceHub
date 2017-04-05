@@ -3,6 +3,8 @@
 include 'dbConnect.php';
 
 echo $_POST["method"]();
+session_start();
+
 
 function insertOrganization () {
     

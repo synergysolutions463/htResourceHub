@@ -1,13 +1,14 @@
 <?php
 
 include 'dbConnect.php';
-
+session_start();
 
 
 echo $_POST["method"]();
 
 
 function getAddressUpdateData() {
+    session_start();
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
@@ -15,8 +16,8 @@ function getAddressUpdateData() {
     
     
    $orgId = $_POST['orgId'];
-
-    $getAddressUpdateQuery = $connLibrary->prepare("SELECT a.StreetInfo, a.City, a.ZipCode, a.County, 
+    if($_SESSION['loggedIn'] == "true") {
+            $getAddressUpdateQuery = $connLibrary->prepare("SELECT a.StreetInfo, a.City, a.ZipCode, a.County, 
                                                     s.StateName, a.isConf FROM Addresses a
                                                     JOIN States s ON (s.StateID = a.StateID)
                                                     WHERE OrgID = " . $orgId . ";");
@@ -31,7 +32,24 @@ function getAddressUpdateData() {
     
      $connLibrary->close();
     echo json_encode($addressData);
+    }
+    else {
+    $getAddressUpdateQuery = $connLibrary->prepare("SELECT a.StreetInfo, a.City, a.ZipCode, a.County, 
+                                                    s.StateName, a.isConf FROM Addresses a
+                                                    JOIN States s ON (s.StateID = a.StateID)
+                                                    WHERE OrgID = " . $orgId . " AND a.isConf = 0;");
+    $getAddressUpdateQuery->execute();
+     $getAddressUpdateQuery->bind_result($streetInfo, $city, $zipcode, $county, $stateName, $isConf);
+
+     $addressData = array();
+    while( $getAddressUpdateQuery->fetch()){
+        $addressData[] = array($streetInfo, $city, $zipcode, $county, $stateName, $isConf);
+    }
     
+    
+     $connLibrary->close();
+    echo json_encode($addressData);
+    }
 }
 
 function getAgeUpdateData() { 

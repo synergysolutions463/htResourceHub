@@ -28,7 +28,7 @@
 
 </head>
 
-<body onload="readAllOrgs(), show('advSearch'), indexOnLoadFunctions();">
+<body onload="readAllOrgs(), show('advSearch'), onLoadFunctions();">
     <div class="bodyWrapper">
     <header>
         <div class="example3">
@@ -59,7 +59,14 @@
         </div>
 
     </header>
-                 
+    <button type="button" class="btn btn-primary btn-lg"  onclick="checkIfLoggedIn()">
+                            check if logged in
+                        </button>   
+                        
+       <button type="button" class="btn btn-primary btn-lg"  onclick="logout()">
+                           log out
+                        </button>
+                        
 <div id="allSearch" style="display:block">
     <div class="container simpleSearchBar">
         <div class="row text-center">
