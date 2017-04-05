@@ -16,6 +16,7 @@ function getAddressUpdateData() {
     
     
    $orgId = $_POST['orgId'];
+   
     if($_SESSION['loggedIn'] == "true") {
             $getAddressUpdateQuery = $connLibrary->prepare("SELECT a.StreetInfo, a.City, a.ZipCode, a.County, 
                                                     s.StateName, a.isConf FROM Addresses a

@@ -1,5 +1,3 @@
-var loggedIn = true;
-
 function testAjax() {
 	console.log("test ajax worked")
 	$.ajax({
@@ -178,6 +176,16 @@ function show(target) {
 	document.getElementById(target).style.display = 'block';
 }
 
+function resetLogin() {
+		document.getElementById("loginInputs").style.display = 'block';
+		document.getElementById("loginMessage").style.display = 'none';
+		document.getElementById("loginMessage").innerHTML = "";
+		document.getElementById("usernameTxt").value = "";
+		document.getElementById("passwordTxt").value = "";
+		document.getElementById("btnLogin").disabled = false;
+		
+}
+
 function login() {
 	var username = document.getElementById("usernameTxt").value;
 	var password = document.getElementById("passwordTxt").value;
@@ -192,14 +200,25 @@ function login() {
 		},
 		success: function(data) {
 			console.log(data);
-		/*	if (data == "logged in") {
-				loggedIn = true;
+			if (data == "false") {
+				document.getElementById("loginInputs").style.display = 'none';
+				document.getElementById("loginMessage").style.display = 'block';
+				document.getElementById("loginMessage").innerHTML = "<h5>Login unsuccessful</h5><button type=\"button\" class=\"btn btn-default\" onclick=\"resetLogin()\">Retry</button>"
+				document.getElementById("btnLogin").disabled = true;
+				checkIfLoggedIn();
+				
 			}
 			else {
-				loggedIn = false;
+				document.getElementById("loginInputs").style.display = 'none';
+				document.getElementById("loginMessage").style.display = 'block';
+				document.getElementById("loginMessage").innerHTML = "<h5>Login successful, hello " + data + "!</h5>";
+				document.getElementById("btnLogin").disabled = true;
+				checkIfLoggedIn();
+				location.reload();
+				
 			} 
 
-			console.log(loggedIn); */
+			
 		}
 	});
 
@@ -214,14 +233,15 @@ function logout() {
 		},
 		success: function(data) {
 			console.log(data);
-		/*	if (data == "logged in") {
-				loggedIn = true;
+			if (data == "false") {
+				loggedIn = false;
 			}
 			else {
-				loggedIn = false;
+				loggedIn = true;
+				username = data;
 			} 
 
-			console.log(loggedIn); */
+			console.log(loggedIn); 
 		}
 	});
 	
@@ -237,16 +257,17 @@ function checkIfLoggedIn() {
 		},
 		success: function(data) {
 			console.log(data);
-		/*	if (data == "logged in") {
-				loggedIn = true;
+			if (data == "false") {
+	//			loggedIn = false;
+				document.getElementById("loginNav").innerHTML = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#loginModal\" onclick=\"resetLogin()\">Login</a>";
 			}
 			else {
-				loggedIn = false;
+	//			loggedIn = true;
+				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\">Admin</a>";
 			} 
-
-			console.log(loggedIn); */
 		}
 	});
+//	console.log("outside of ajax: " + loggedIn);
 }
 
 function loadSimpleData(orgs) {
@@ -3571,7 +3592,9 @@ function displayDeleteModal() {
 });
 }
 
+
 function onLoadFunctions() {
+	checkIfLoggedIn();
 	displayCreateModal();
 	displayUpdateModal();
 	displayLoginModal();
@@ -3582,6 +3605,7 @@ function onLoadFunctions() {
 	populateUpdateFaiths();
 	document.getElementById("allSearch").style.display= 'block';
 	document.getElementById("orgInfoResults").style.display= 'none';
+	
 }
 
 function getComplexData(orgId) {

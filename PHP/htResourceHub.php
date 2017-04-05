@@ -1499,10 +1499,6 @@ function login() {
   
   $usernameInput = $_POST['username'];
   $passwordInput = $_POST['password'];
-  
-  $_SESSION['loggedIn'] = "false";
-  $_SESSION['username'] = "";
-  session_start();
 
    $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
@@ -1520,14 +1516,20 @@ function login() {
     }
 
     while($loginQuery->fetch()){
+        session_start();
         $_SESSION['username'] = $username;
         $_SESSION['loggedIn'] = "true";
         
     }
-  
-    echo $_SESSION['username'] . " " . $_SESSION['loggedIn'];
+
+    if($_SESSION['loggedIn'] == "true") {
+        echo $_SESSION['username'];
+    }
+    else {
+        echo "false";
+    }
     
-    $connLibrary->close();
+    $connLibrary->close(); 
     
 }
 
