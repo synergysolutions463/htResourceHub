@@ -3,6 +3,7 @@
 include 'dbConnect.php';
 
 
+
 echo $_POST["method"]();
 
 
@@ -84,24 +85,7 @@ function getContactsUpdateData() {
     
    $orgId = $_POST['orgId'];
 
-    if($_SESSION['loggedIn'] == "true") {
-        
-             $getContactsUpdateQuery = $connLibrary->prepare("SELECT * from Contacts WHERE OrgID = " . $orgId . ";");
-        $getContactsUpdateQuery->execute();
-        $getContactsUpdateQuery->bind_result($orgId, $email, $firstName, $lastName, $position, $phoneNum, $isConf, $phoneExt);
-
-        $contactData = array();
-            while( $getContactsUpdateQuery->fetch()){
-                $contactData[] = array($orgId, $email, $firstName, $lastName, $position, $phoneNum, $isConf, $phoneExt);
-            }
-        
-        $connLibrary->close();
-        echo json_encode($contactData);
-        
-    }
-    else {
-    
-              
+    if($_SESSION['loggedIn'] == "false") {
         $getContactsUpdateQuery = $connLibrary->prepare("SELECT * from Contacts WHERE OrgID = " . $orgId . " AND isConf = 0;");
         $getContactsUpdateQuery->execute();
         $getContactsUpdateQuery->bind_result($orgId, $email, $firstName, $lastName, $position, $phoneNum, $isConf, $phoneExt);
@@ -114,6 +98,20 @@ function getContactsUpdateData() {
         $connLibrary->close();
         echo json_encode($contactData);
     
+    }
+    else {
+    
+        $getContactsUpdateQuery = $connLibrary->prepare("SELECT * from Contacts WHERE OrgID = " . $orgId . ";");
+        $getContactsUpdateQuery->execute();
+        $getContactsUpdateQuery->bind_result($orgId, $email, $firstName, $lastName, $position, $phoneNum, $isConf, $phoneExt);
+
+        $contactData = array();
+            while( $getContactsUpdateQuery->fetch()){
+                $contactData[] = array($orgId, $email, $firstName, $lastName, $position, $phoneNum, $isConf, $phoneExt);
+            }
+        
+        $connLibrary->close();
+        echo json_encode($contactData);
     }
     
 }
@@ -227,25 +225,7 @@ function getOrganizationUpdateData() {
     
     $orgId = $_POST['orgId'];
     
-    if($_SESSION['loggedIn'] == "true") {
-        
-              $organizationQuery = $connLibrary->prepare("SELECT OrgID, OrgName, ProgramStatement, WebLink, Email, PhoneNum, HotlineNum, ConfNum, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees, ft.FaithType, Notes, ConfNotes, isConf, isApproved, AgencyName, phoneExt, confPhoneExt FROM Organizations o
-                                                JOIN FaithTypes ft on (ft.FaithID = o.FaithID)
-                                                WHERE OrgID = " . $orgId . ";");
-    $organizationQuery->execute();
-    $organizationQuery->bind_result($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt); 
-    $orgsData = array();
-    
-    while($organizationQuery->fetch()){
-        $orgsData[] = array($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt);
-    }
-     $connLibrary->close();
-    echo json_encode($orgsData);
-        
-    }
-    
-    else {
-              
+    if($_SESSION['loggedIn'] == "false") {
     
     $organizationQuery = $connLibrary->prepare("SELECT OrgID, OrgName, ProgramStatement, WebLink, Email, PhoneNum, HotlineNum, ConfNum, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees, ft.FaithType, Notes, ConfNotes, isConf, isApproved, AgencyName, phoneExt, confPhoneExt FROM Organizations o
                                                 JOIN FaithTypes ft on (ft.FaithID = o.FaithID)
@@ -256,6 +236,21 @@ function getOrganizationUpdateData() {
     
     while($organizationQuery->fetch()){
         $orgsData[] = array($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, "N/A" , $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt);
+    }
+     $connLibrary->close();
+    echo json_encode($orgsData);
+    }
+    
+    else {
+      $organizationQuery = $connLibrary->prepare("SELECT OrgID, OrgName, ProgramStatement, WebLink, Email, PhoneNum, HotlineNum, ConfNum, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees, ft.FaithType, Notes, ConfNotes, isConf, isApproved, AgencyName, phoneExt, confPhoneExt FROM Organizations o
+                                                JOIN FaithTypes ft on (ft.FaithID = o.FaithID)
+                                                WHERE OrgID = " . $orgId . ";");
+    $organizationQuery->execute();
+    $organizationQuery->bind_result($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt); 
+    $orgsData = array();
+    
+    while($organizationQuery->fetch()){
+        $orgsData[] = array($ID, $orgName, $programStatement, $webLink, $email, $phoneNum, $hotline, $confNum, $isShelter, $isTransitionalHousing, $isAsstLoc, $fees, $faithID, $notes, $confNotes, $isConf, $isApproved, $agencyName, $phoneExt, $confPhoneExt);
     }
      $connLibrary->close();
     echo json_encode($orgsData);
