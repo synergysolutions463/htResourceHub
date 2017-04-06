@@ -19,6 +19,26 @@ function testAjax() {
 	});
 }
 
+function insertUser() {
+		$.ajax({
+		url: '/PHP/testLogin.php',
+		type: 'POST',
+		data: {
+			method: "insertUser",
+			username: "admin2",
+			password: "admin2"
+		},
+		success: function(data) {
+
+
+		}
+	});
+}
+
+function changePassword() {
+	
+}
+
 function backToSearch() {
 	document.getElementById("allSearch").style.display = 'block';
 	document.getElementById("orgInfoResults").style.display= 'none';
@@ -160,12 +180,15 @@ function advSearchOrgs() {
 		},
 		success: function(data) {
 			console.log(data);
-
-			var parsedData = JSON.parse(data);
-			var orgs = parsedData;
-
-			loadSimpleData(orgs);
-
+			if (data == "") {
+				var text = "<h2>No results found</h2>";
+				document.getElementById("resultPanel").innerHTML = text;
+			}
+			else {
+				var parsedData = JSON.parse(data);
+				var orgs = parsedData;
+				loadSimpleData(orgs);
+			}
 		}
 	});
 }
@@ -252,10 +275,12 @@ function checkIfLoggedIn() {
 			if (data == "false") {
 				loggedIn = "false";
 				document.getElementById("loginNav").innerHTML = "<a href=\"#\" data-toggle=\"modal\" data-target=\"#loginModal\" onclick=\"resetLogin()\">Login</a>";
+				document.getElementById("isApprovedCreate").style.display = 'none';
 			}
 			else {
 				loggedIn = "true";
 				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\">Admin</a>";
+				document.getElementById("isApprovedCreate").style.display = 'block';
 			} 
 		}
 	});
@@ -371,7 +396,7 @@ function loadSimpleData(orgs) {
 		
 		if(loggedIn == "true") {
 
-		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
+		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
 		
 		}
@@ -614,11 +639,27 @@ function insertOrganization() {
 		var otherSupply = document.getElementById("cbOtherSupplyCreate").checked;
 		var otherEmergResp = document.getElementById("cbOtherEmergRespCreate").checked;
 		var otherDesc = document.getElementById("txtOtherDescCreate").value;
+		
+		var isApproved = document.getElementById("cbIsApprovedCreate").checked;
 	
 	
 	
-		if(createFormValidation()){
+	//	if(createFormValidation()){
 	
+	
+		/**format phone nums**/
+
+		
+					
+					contactPhoneNum = contactPhoneNum.replace(/[^\/\d]/g,'');
+					contactPhoneExt = contactPhoneExt.replace(/[^\/\d]/g,'');
+					phoneNum = phoneNum.replace(/[^\/\d]/g,'');
+					phoneExt = phoneExt.replace(/[^\/\d]/g,'');
+					hotlineNum = hotlineNum.replace(/[^\/\d]/g,'');
+					confNum = confNum.replace(/[^\/\d]/g,'');
+					confExt = confExt.replace(/[^\/\d]/g,'');
+
+		
 		console.log("simple search beginning worked")
 		$.ajax({
 			url: '/PHP/createOrgAjax.php',
@@ -843,17 +884,20 @@ function insertOrganization() {
 				otherService: otherService.toString(),
 				otherSupply: otherSupply.toString(),
 				otherEmergResp: otherEmergResp.toString(),
-				otherDesc: otherDesc
+				otherDesc: otherDesc,
+				
+				isApproved: isApproved.toString()
+				
 			},
 			success: function(data) {
 				
 				showCreateMessage();
 				console.log("connection to php for insert working");
-				console.log(data);
+				console.log("org id for tyler: " + data);
 	
 			}
 		});
-	}
+//	}
 
 
 
@@ -1083,10 +1127,16 @@ function updateOrganization() {
 	var otherEmergResp = document.getElementById("cbOtherEmergRespUpdate").checked;
 	var otherDesc = document.getElementById("txtOtherDescUpdate").value;
 
+	var isApproved = document.getElementById("cbIsApprovedUpdate").checked;
 
 
-
-
+					contactPhoneNum = contactPhoneNum.replace(/[^\/\d]/g,'');
+					contactPhoneExt = contactPhoneExt.replace(/[^\/\d]/g,'');
+					phoneNum = phoneNum.replace(/[^\/\d]/g,'');
+					phoneExt = phoneExt.replace(/[^\/\d]/g,'');
+					hotlineNum = hotlineNum.replace(/[^\/\d]/g,'');
+					confNum = confNum.replace(/[^\/\d]/g,'');
+					confExt = confExt.replace(/[^\/\d]/g,'');
 	console.log("simple search beginning worked")
 	$.ajax({
 		url: '/PHP/updateOrgAjax.php',
@@ -1310,7 +1360,9 @@ function updateOrganization() {
 			otherService: otherService.toString(),
 			otherSupply: otherSupply.toString(),
 			otherEmergResp: otherEmergResp.toString(),
-			otherDesc: otherDesc
+			otherDesc: otherDesc,
+			
+			isApproved: isApproved.toString()
 		},
 		success: function(data) {
 			
@@ -2051,6 +2103,10 @@ function loadUpdateModalData(orgId) {
 			document.getElementById("txtNoteUpdate").value = "";
 			document.getElementById("txtConfidentialNoteUpdate").value = "";
 			
+			document.getElementById("cbIsApprovedUpdate").checked = false;
+			
+			
+			
 			oLen = orgs.length;
 			for (i = 0; i < oLen; i++) {
 				
@@ -2128,6 +2184,12 @@ function loadUpdateModalData(orgId) {
 		
 				document.getElementById("txtNoteUpdate").value = orgs[i][13];
 				document.getElementById("txtConfidentialNoteUpdate").value = orgs[i][14];
+				
+				if(orgs[i][16] == 1) {
+						document.getElementById("cbIsApprovedUpdate").checked = true;
+				}
+		
+			
 	
 			
 			}
@@ -3056,504 +3118,115 @@ function checkHoursUpdate() {
 	};
 }
 
-function checkAllDisableCreate() {
-    if(document.getElementById("cbHousingAllCreate").checked){
-        $("#cbShelterCreate").prop('checked', true).prop('disabled', true);
-        $("#cbTransitionalHousingCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAssistLocateHousingCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbShelterCreate").prop('disabled',false).prop('checked', false);
-        $("#cbTransitionalHousingCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAssistLocateHousingCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbClothingAllCreate").checked){
-        $("#cbClothingServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbClothingSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbClothingEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-       $("#cbClothingServCreate").prop('disabled',false).prop('checked', false);
-       $("#cbClothingSupplyCreate").prop('disabled',false).prop('checked', false);
-       $("#cbClothingEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
+function disableRegularHours() {
+	var x = document.getElementById("ddlGenFullWeekStartTimeCreate").SelectedIndex;
+		if (x != -1 || x != 0){
+		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenMondayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenMondayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenThursdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenThursdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenFridayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFridayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenSundayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenSundayEndTimeUpdate").prop("disabled", true);
 
-	if(document.getElementById("cbFoodAllCreate").checked){
-        $("#cbFoodServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbFoodSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbFoodEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-       $("#cbFoodServCreate").prop('disabled',false).prop('checked', false);
-       $("#cbFoodSupplyCreate").prop('disabled',false).prop('checked', false);
-       $("#cbFoodEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-        
-	if(document.getElementById("cbMentoringAllCreate").checked){
-        $("#cbMentoringServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbMentoringSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbMentoringEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-       $("#cbMentoringServCreate").prop('disabled',false).prop('checked', false);
-       $("#cbMentoringSupplyCreate").prop('disabled',false).prop('checked', false);
-       $("#cbMentoringEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
+		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddMondayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddMondayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddThursdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddThursdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddFridayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFridayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddSundayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddSundayEndTimeUpdate").prop("disabled", true);
+	}
+	else {
+		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenMondayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenMondayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenThursdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenThursdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFridayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFridayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenSundayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenSundayEndTimeUpdate").prop("disabled", false);
 
-	if(document.getElementById("cbEmploymentAllCreate").checked){
-        $("#cbEmploymentServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbEmploymentSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbEmploymentEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbEmploymentServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbEmploymentSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbEmploymentEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbCounselAllCreate").checked){
-        $("#cbCounselServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbCounselSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbCounselEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbCounselServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbCounselSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbCounselEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbPregnancyAllCreate").checked){
-        $("#cbPregnancyServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbPregnancySupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbPregnancyEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbPregnancyServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbPregnancySupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbPregnancyEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbMedicalAllCreate").checked){
-        $("#cbMedicalServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbMedicalSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbMedicalEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbMedicalServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbMedicalSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbMedicalEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbLegalAllCreate").checked){
-        $("#cbLegalServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbLegalSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbLegalEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbLegalServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbLegalSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbLegalEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbGovAllCreate").checked){
-        $("#cbGovServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbGovSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbGovEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbGovServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbGovSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbGovEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbInvestigationAllCreate").checked){
-        $("#cbInvestigationServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbInvestigationSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbInvestigationEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbInvestigationServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbInvestigationSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbInvestigationEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbFosterAllCreate").checked){
-        $("#cbFosterServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbFosterSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbFosterEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbFosterServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbFosterSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbFosterEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbAwarenessEdAllCreate").checked){
-        $("#cbAwarenessEdServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAwarenessEdSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAwarenessEdEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbAwarenessEdServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAwarenessEdSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAwarenessEdEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbResponseTrainAllCreate").checked){
-        $("#cbResponseTrainServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbResponseTrainSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbResponseTrainEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbResponseTrainServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbResponseTrainSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbResponseTrainEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbSubstanceAbuseAllCreate").checked){
-        $("#cbSubstanceAbuseServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbSubstanceAbuseSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbSubstanceAbuseEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbSubstanceAbuseServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbSubstanceAbuseSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbSubstanceAbuseEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbAdvocacyAllCreate").checked){
-        $("#cbAdvocacyServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAdvocacySupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAdvocacyEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbAdvocacyServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAdvocacySupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAdvocacyEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbOtherAllCreate").checked){
-        $("#cbOtherServCreate").prop('checked', true).prop('disabled', true);
-        $("#cbOtherSupplyCreate").prop('checked', true).prop('disabled', true);
-        $("#cbOtherEmergRespCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbOtherServCreate").prop('disabled',false).prop('checked', false);
-        $("#cbOtherSupplyCreate").prop('disabled',false).prop('checked', false);
-        $("#cbOtherEmergRespCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbGenderAllCreate").checked){
-        $("#cbMaleCreate").prop('checked', true).prop('disabled', true);
-        $("#cbFemaleCreate").prop('checked', true).prop('disabled', true);
-        $("#cbTransCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbMaleCreate").prop('disabled',false).prop('checked', false);
-        $("#cbFemaleCreate").prop('disabled',false).prop('checked', false);
-        $("#cbTransCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbAgeAllCreate").checked){
-        $("#cbInfantCreate").prop('checked', true).prop('disabled', true);
-        $("#cbChildCreate").prop('checked', true).prop('disabled', true);
-        $("#cbYouthCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAdultCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbInfantCreate").prop('disabled',false).prop('checked', false);
-        $("#cbChildCreate").prop('disabled',false).prop('checked', false);
-        $("#cbYouthCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAdultCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbNatAllCreate").checked){
-        $("#cbDomesticCreate").prop('checked', true).prop('disabled', true);
-        $("#cbForeignCreate").prop('checked', true).prop('disabled', true);
-        $("#cbUndocumentedCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbDomesticCreate").prop('disabled',false).prop('checked', false);
-        $("#cbForeignCreate").prop('disabled',false).prop('checked', false);
-        $("#cbUndocumentedCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbRaceAllCreate").checked){
-        $("#cbWhiteCreate").prop('checked', true).prop('disabled', true);
-        $("#cbBlackCreate").prop('checked', true).prop('disabled', true);
-        $("#cbAsianCreate").prop('checked', true).prop('disabled', true);
-        $("#cbNativeCreate").prop('checked', true).prop('disabled', true);
-        $("#cbHispanicLatinoCreate").prop('checked', true).prop('disabled', true);
-        $("#cbMultiRacialCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbWhiteCreate").prop('disabled',false).prop('checked', false);
-        $("#cbBlackCreate").prop('disabled',false).prop('checked', false);
-        $("#cbAsianCreate").prop('disabled',false).prop('checked', false);
-        $("#cbNativeCreate").prop('disabled',false).prop('checked', false);
-        $("#cbHispanicLatinoCreate").prop('disabled',false).prop('checked', false);
-        $("#cbMultiRacialCreate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbEthnicityAllCreate").checked){
-        $("#cbHispanicCreate").prop('checked', true).prop('disabled', true);
-        $("#cbNonHispanicCreate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbHispanicCreate").prop('disabled',false).prop('checked', false);
-        $("#cbNonHispanicCreate").prop('disabled',false).prop('checked', false);
-    };
+		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddMondayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddMondayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddThursdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddThursdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFridayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFridayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddSundayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddSundayEndTimeUpdate").prop("disabled", false);
+	};
+	
 }
 
-function checkAllDisableUpdate() {
-    if(document.getElementById("cbHousingAllUpdate").checked){
-        $("#cbShelterUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbTransitionalHousingUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAssistLocateHousingUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbShelterUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbTransitionalHousingUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAssistLocateHousingUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbClothingAllUpdate").checked){
-        $("#cbClothingServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbClothingSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbClothingEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-       $("#cbClothingServUpdate").prop('disabled',false).prop('checked', false);
-       $("#cbClothingSupplyUpdate").prop('disabled',false).prop('checked', false);
-       $("#cbClothingEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
+function checkAllDisableCreate(source) {
+	var checkAlls = document.getElementsByTagName('input');
+        for (var i=0;i<checkAlls.length;i++) {
+            if (checkAlls[i] != source && checkAlls[i].className == source.className) {
+                checkAlls[i].disabled = source.checked;
+                checkAlls[i].checked = source.checked;
+            }
+    	}
+}
 
-	if(document.getElementById("cbFoodAllUpdate").checked){
-        $("#cbFoodServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbFoodSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbFoodEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-       $("#cbFoodServUpdate").prop('disabled',false).prop('checked', false);
-       $("#cbFoodSupplyUpdate").prop('disabled',false).prop('checked', false);
-       $("#cbFoodEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-        
-	if(document.getElementById("cbMentoringAllUpdate").checked){
-        $("#cbMentoringServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbMentoringSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbMentoringEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-       $("#cbMentoringServUpdate").prop('disabled',false).prop('checked', false);
-       $("#cbMentoringSupplyUpdate").prop('disabled',false).prop('checked', false);
-       $("#cbMentoringEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbEmploymentAllUpdate").checked){
-        $("#cbEmploymentServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbEmploymentSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbEmploymentEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbEmploymentServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbEmploymentSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbEmploymentEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbCounselAllUpdate").checked){
-        $("#cbCounselServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbCounselSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbCounselEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbCounselServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbCounselSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbCounselEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbPregnancyAllUpdate").checked){
-        $("#cbPregnancyServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbPregnancySupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbPregnancyEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbPregnancyServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbPregnancySupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbPregnancyEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbMedicalAllUpdate").checked){
-        $("#cbMedicalServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbMedicalSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbMedicalEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbMedicalServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbMedicalSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbMedicalEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbLegalAllUpdate").checked){
-        $("#cbLegalServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbLegalSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbLegalEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbLegalServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbLegalSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbLegalEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbGovAllUpdate").checked){
-        $("#cbGovServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbGovSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbGovEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbGovServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbGovSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbGovEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbInvestigationAllUpdate").checked){
-        $("#cbInvestigationServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbInvestigationSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbInvestigationEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbInvestigationServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbInvestigationSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbInvestigationEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbFosterAllUpdate").checked){
-        $("#cbFosterServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbFosterSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbFosterEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbFosterServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbFosterSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbFosterEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbAwarenessEdAllUpdate").checked){
-        $("#cbAwarenessEdServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAwarenessEdSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAwarenessEdEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbAwarenessEdServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAwarenessEdSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAwarenessEdEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbResponseTrainAllUpdate").checked){
-        $("#cbResponseTrainServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbResponseTrainSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbResponseTrainEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbResponseTrainServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbResponseTrainSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbResponseTrainEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbSubstanceAbuseAllUpdate").checked){
-        $("#cbSubstanceAbuseServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbSubstanceAbuseSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbSubstanceAbuseEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbSubstanceAbuseServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbSubstanceAbuseSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbSubstanceAbuseEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-
-	if(document.getElementById("cbAdvocacyAllUpdate").checked){
-        $("#cbAdvocacyServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAdvocacySupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAdvocacyEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbAdvocacyServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAdvocacySupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAdvocacyEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbOtherAllUpdate").checked){
-        $("#cbOtherServUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbOtherSupplyUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbOtherEmergRespUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbOtherServUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbOtherSupplyUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbOtherEmergRespUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbGenderAllUpdate").checked){
-        $("#cbMaleUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbFemaleUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbTransUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbMaleUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbFemaleUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbTransUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbAgeAllUpdate").checked){
-        $("#cbInfantUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbChildUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbYouthUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAdultUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbInfantUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbChildUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbYouthUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAdultUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbNatAllUpdate").checked){
-        $("#cbDomesticUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbForeignUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbUndocumentedUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbDomesticUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbForeignUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbUndocumentedUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbRaceAllUpdate").checked){
-        $("#cbWhiteUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbBlackUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbAsianUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbNativeUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbHispanicLatinoUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbMultiRacialUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbWhiteUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbBlackUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbAsianUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbNativeUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbHispanicLatinoUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbMultiRacialUpdate").prop('disabled',false).prop('checked', false);
-    };
-    
-    if(document.getElementById("cbEthnicityAllUpdate").checked){
-        $("#cbHispanicUpdate").prop('checked', true).prop('disabled', true);
-        $("#cbNonHispanicUpdate").prop('checked', true).prop('disabled', true);
-    }
-    else{
-        $("#cbHispanicUpdate").prop('disabled',false).prop('checked', false);
-        $("#cbNonHispanicUpdate").prop('disabled',false).prop('checked', false);
-    };
+function checkAllDisableUpdate(source) {
+	
+	var checkAlls = document.getElementsByTagName('input');
+        for (var i=0;i<checkAlls.length;i++) {
+            if (checkAlls[i] != source && checkAlls[i].className == source.className) {
+                checkAlls[i].disabled = source.checked;
+                checkAlls[i].checked = source.checked;
+            }
+    	}
 }
 
 function displayUpdateModal() {
@@ -3597,7 +3270,6 @@ function displayDeleteModal() {
 }
 
 function onLoadFunctions() {
-	checkIfLoggedIn();
 	displayCreateModal();
 	displayUpdateModal();
 	displayLoginModal();
@@ -3606,6 +3278,7 @@ function onLoadFunctions() {
 	populateCreateFaiths();
 	populateUpdateStates();
 	populateUpdateFaiths();
+	checkIfLoggedIn();
 }
 
 function indexLoad() {
@@ -4061,7 +3734,7 @@ function getComplexData(orgId) {
 		document.getElementById("orgInfoServicesFromOrgTable").innerHTML = text;
 		
 		if(loggedIn == "true") {
-		document.getElementById("updDelBtns").innerHTML = "<button id=" + organizations[0][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();loadUpdateModalData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>" +
+		document.getElementById("updDelBtns").innerHTML = "<button id=" + organizations[0][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>" +
 		"<button id=" + organizations[0][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
 		}
 
@@ -4784,11 +4457,23 @@ function btnNotesOnClick(modal) {
 }
 
 function showCreateMessage() {
-	
+	document.getElementById("formControlBodyCreate").style.display = 'none';
+	document.getElementById("createMessageBodyCreate").style.display = 'block';
 }
 
 function showUpdateMessage() {
-	
+	document.getElementById("formControlBodyUpdate").style.display = 'none';
+	document.getElementById("updateMessageBodyUpdate").style.display = 'block';
+}
+
+function hideCreateMessage() {
+	document.getElementById("formControlBodyCreate").style.display = 'block';
+	document.getElementById("createMessageBodyCreate").style.display = 'none';
+}
+
+function hideUpdateMessage() {
+	document.getElementById("formControlBodyUpdate").style.display = 'block';
+	document.getElementById("updateMessageBodyUpdate").style.display = 'none';
 }
 
 

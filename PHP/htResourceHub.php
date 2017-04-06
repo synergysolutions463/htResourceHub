@@ -60,6 +60,7 @@ function readAllOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
+                                            WHERE o.isApproved = 1
                                             GROUP BY o.OrgID;"); 
     $allOrgQuery->execute();
     $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
@@ -83,7 +84,7 @@ function readAllOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
-                                            WHERE o.isConf = 0
+                                            WHERE o.isConf = 0 AND o.isApproved = 1
                                             GROUP BY o.OrgID;"); 
     $allOrgQuery->execute();
     $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
@@ -270,8 +271,11 @@ function simpleSearchOrgs() {
 
     $simpleSearchData = array();
     while( $simpleSearchLoggedInQuery->fetch()){
-        $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+        if($isApproved == 1) {
+         $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+        }
     }
+    
 
  
 
@@ -294,8 +298,9 @@ function simpleSearchOrgs() {
 
     $simpleSearchData = array();
     while($simpleSearchQuery->fetch()){
-        $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
-    }
+       if($isApproved == 1) {
+         $simpleSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+        }    }
 
   
 
@@ -394,8 +399,12 @@ function advSearchOrgs() {
                                         $advSearchData = array();
     
                                         while($advSearchQuery->fetch()){
-                                        $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+                                            if($isApproved == 1) {
+                                            $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+                                            }
                                         }
+                                        
+                                        
                                         echo json_encode($advSearchData); 
                                 } 
                                 
@@ -409,14 +418,16 @@ function advSearchOrgs() {
                                         JOIN Service se ON (se.OrgId = o.OrgId)
                                         JOIN Hours h ON (h.OrgID = o.OrgID)
                                         JOIN ServiceTypes sert ON (sert.SerID = se.SerID) WHERE " . $freeFeeAppend .
-                                        " GROUP BY o.OrgID;"); 
+                                        " AND o.isConf = 0 GROUP BY o.OrgID;"); 
                         $advSearchQuery->execute();
                         $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
                         $advSearchData = array();
     
-                        while($advSearchQuery->fetch()){
-                        $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
-                         }
+                         while($advSearchQuery->fetch()){
+                                            if($isApproved == 1) {
+                                            $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
+                                            }
+                                        }
                          echo json_encode($advSearchData); 
                          }
                                 }
@@ -460,6 +471,7 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
 			$responseTrainingId = 0;
 			$substanceAbuseId = 0;
 			$advocacyId = 0;
+
 
   			
   				/**get clothing rsc id **/
@@ -765,6 +777,10 @@ function resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $
          }
          $nothingSelect = false;
      }
+     
+
+     
+     
    
     if($resourcesQueryString == "SELECT Service.OrgID FROM Service WHERE Service.SerID = ") {
        $resourcesQueryString = "SELECT Service.OrgID FROM Service GROUP BY OrgID;";
@@ -1528,7 +1544,7 @@ function login() {
     }
 
 
-    $loginQuery = $connLibrary->prepare("SELECT username from Login WHERE username = '". $usernameInput ."' AND  BINARY password = '". $passwordInput . "';");
+    $loginQuery = $connLibrary->prepare("SELECT username from Login WHERE username = '". $usernameInput ."' AND password = '". sha1($passwordInput) . "';");
     $loginQuery->execute();
     $loginQuery->bind_result($username);
     

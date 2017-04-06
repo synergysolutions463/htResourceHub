@@ -2,6 +2,7 @@
 
 include 'dbConnect.php';
 
+
 echo $_POST["method"]();
 
 
@@ -77,10 +78,10 @@ function insertOrganization () {
 	
 			$insertOrgQuery = $connLibrary->prepare("INSERT INTO Organizations (OrgName, AgencyName, ProgramStatement, WebLink, Email, PhoneNum, phoneExt,
 			                                           HotlineNum, ConfNum, confPhoneExt, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees,
-			                                           FaithID, Notes, ConfNotes, isConf) VALUES ('" . $orgName . "','" . $agencyName . "','"
+			                                           FaithID, Notes, ConfNotes, isConf, isApproved) VALUES ('" . $orgName . "','" . $agencyName . "','"
 			                                            . $missionStmt . "','" . $weblink . "','" . $email . "','" . $phoneNum . "','" . $phoneExt . "','"
 			                                             . $hotlineNum . "','" . $confNum . "','" . $confExt . "'," . $isShelter . "," . $isTransHousing . ","
-			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ");");
+			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ",0);");
             $insertOrgQuery->execute();
             $insertOrgQuery->close();
             
@@ -95,6 +96,7 @@ function insertOrganization () {
     		}
     		
     	
+   		
    		
     		/**Addresses Insert**/
    		
@@ -121,7 +123,7 @@ function insertOrganization () {
 			$state2Id = 0;
 			$state3Id = 0;
 			
-			if($state1 != "" || $state1 != null) {
+			if($state1 != "-----" || $state1 != null) {
 				
 				$getState1Query = $connLibrary->prepare("SELECT StateID from States WHERE StateName like '" . $state1 . "';");
 				$getState1Query->execute();
@@ -134,7 +136,7 @@ function insertOrganization () {
 			}
 		
 			
-			if($state2 != "" || $state2 != null) {
+			if($state2 != "-----" || $state2 != null) {
 				
 				$getState2Query = $connLibrary->prepare("SELECT StateID from States WHERE StateName like '" . $state2 . "';");
 				$getState2Query->execute();
@@ -147,7 +149,7 @@ function insertOrganization () {
 			}
 		
 			
-			if($state3 != "" || $state3 != null) {
+			if($state3 != "-----" || $state3 != null) {
 				
 				$getState3Query = $connLibrary->prepare("SELECT StateID from States WHERE StateName like '" . $state3 . "';");
 				$getState3Query->execute();
@@ -875,7 +877,7 @@ function insertOrganization () {
 			
 				/**get membership id**/
 		
-				$getMembershipId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Membership';");
+				$getMembershipId = $connLibrary->prepare("SELECT ReqID from RequirementsTypes WHERE ReqType like 'Some or All Services Restricted to Existing Clients';");
 				$getMembershipId ->execute();
 				$getMembershipId->bind_result($id);
 				
@@ -1662,6 +1664,18 @@ function insertOrganization () {
     			
     		}
     		
+    	/**is approved**/
+	  	if($_SESSION['username'] == "admin1") {
+    		
+    		$isApproved = $_POST['isApproved'];
+    		if($isApproved == "true") {
+    			$insertNoneResource = $connLibrary->prepare("UPDATE Organizations SET isApproved = 1 WHERE OrgId = " . $orgId . ";");
+				
+				$insertNoneResource->execute();
+				$insertNoneResource->close();
+    		}
+	  	}
+    
     		
 	 $connLibrary->close();	  
 }

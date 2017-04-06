@@ -5,6 +5,7 @@ DROP TABLE Addresses;
 DROP TABLE Contacts;
 DROP TABLE RequirementsTypes;
 DROP TABLE Requirements;
+DROP TABLE Gender;
 DROP TABLE GenderTypes;
 DROP TABLE EthnicityTypes;
 DROP TABLE Ethnicity;

@@ -37,7 +37,6 @@ CREATE TABLE Organizations (
     isConf TINYINT,
     isApproved TINYINT,
     PRIMARY KEY(OrgID),
-    ON DELETE CASCADE,
     FOREIGN KEY (FaithID)
     REFERENCES FaithTypes(FaithID)
     ON DELETE CASCADE
@@ -262,7 +261,7 @@ CREATE TABLE Hours (
 
 USE htResourceHub
 CREATE TABLE Login ( 
-    username VARCHAR(15) NOT NULL,
-    password VARCHAR(20) NOT NULL, 
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(200) NOT NULL, 
     PRIMARY KEY(username)
 );

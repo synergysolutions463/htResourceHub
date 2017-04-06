@@ -13,7 +13,7 @@ INSERT INTO ServiceTypes (SerType) VALUES ("Foster Care");
 INSERT INTO ServiceTypes (SerType) VALUES ("Awareness/Education");
 INSERT INTO ServiceTypes (SerType) VALUES ("Response Training");
 INSERT INTO ServiceTypes (SerType) VALUES ("Substance Abuse");
-INSERT INTO ServiceTypes (SerType) VALUES ("Advocacy")
+INSERT INTO ServiceTypes (SerType) VALUES ("Advocacy");
 INSERT INTO ServiceTypes (SerType) VALUES ("Other");
 INSERT INTO ServiceTypes (SerType) VALUES ("None");
 

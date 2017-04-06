@@ -7,7 +7,11 @@ echo $_POST["method"]();
 
 
 function updateOrganization () {
- session_start();   
+ session_start(); 
+ 
+	if($_SESSION['username'] == "admin1") {
+		
+	
      $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
@@ -84,10 +88,10 @@ function updateOrganization () {
 	
 			$insertOrgQuery = $connLibrary->prepare("INSERT INTO Organizations (OrgId, OrgName, AgencyName, ProgramStatement, WebLink, Email, PhoneNum, phoneExt,
 			                                           HotlineNum, ConfNum, confPhoneExt, isShelter, isTransitionalHousing, isAssistanceLocatingHousing, Fees,
-			                                           FaithID, Notes, ConfNotes, isConf) VALUES (" . $orgId . ", '" . $orgName . "','" . $agencyName . "','"
+			                                           FaithID, Notes, ConfNotes, isConf, isApproved) VALUES (" . $orgId . ", '" . $orgName . "','" . $agencyName . "','"
 			                                            . $missionStmt . "','" . $weblink . "','" . $email . "','" . $phoneNum . "','" . $phoneExt . "','"
 			                                             . $hotlineNum . "','" . $confNum . "','" . $confExt . "'," . $isShelter . "," . $isTransHousing . ","
-			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ");");
+			                                              . $isAsstLoc . ",'" . $fee . "'," . $faithId . ",'" . $notes . "','" . $confNotes . "'," . $isConf . ",0);");
             $insertOrgQuery->execute();
             $insertOrgQuery->close();
         
@@ -1662,8 +1666,24 @@ function updateOrganization () {
     			
     		}
     		
+    			/**is approved**/
+	  	if($_SESSION['username'] == "admin1") {
     		
-	 $connLibrary->close();	  
+    		$isApproved = $_POST['isApproved'];
+    		if($isApproved == "true") {
+    			$insertNoneResource = $connLibrary->prepare("UPDATE Organizations SET isApproved = 1 WHERE OrgId = " . $orgId . ";");
+				
+				$insertNoneResource->execute();
+				$insertNoneResource->close();
+    		}
+	  	}
+    		
+    		
+	 $connLibrary->close();	 
+	}
+	else {
+		echo "Not logged in";
+	}
 }
 
 ?>

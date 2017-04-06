@@ -3,7 +3,7 @@
 include 'dbConnect.php';
 
 echo $_POST["method"]();
-session_start();
+
 
 function readDeleteOrgId() {
     
@@ -31,6 +31,11 @@ function readDeleteOrgId() {
 
 
 function deleteOrganization() {
+    session_start();
+    
+    if($_SESSION['username'] == "admin1") {
+        
+    
     $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
           die("There was an error connecting to the database");
@@ -50,5 +55,9 @@ function deleteOrganization() {
     }
 
     $connLibrary->close();
+    }
+    else {
+        echo "Not logged in";
+    }
     
 }

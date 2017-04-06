@@ -8,7 +8,8 @@
                         <h4 class="modal-title" id="lblUpdateModal">Update Organization</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="tabbable">
+                        <div id="formControlBodyUpdate">
+                            <div class="tabbable">
                             <!-- Only required for left/right tabs -->
                             <ul id="updateModalTabs" class="nav nav-tabs nav-justified">
                                 <li class="active"><a href="#orgInfoUpdate" data-toggle="tab">Organization Info</a></li>
@@ -1797,7 +1798,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" value="" id="cbHousingAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="housingUpdateCB" id="cbHousingAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -1806,7 +1807,7 @@
                                                             <label>Shelter:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-3">
-                                                            <input type="checkbox" id="cbShelterUpdate">
+                                                            <input type="checkbox" class="housingUpdateCB" id="cbShelterUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1814,7 +1815,7 @@
                                                             <label>Transitional Housing:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" id="cbTransitionalHousingUpdate">
+                                                            <input type="checkbox" class="housingUpdateCB" id="cbTransitionalHousingUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1822,7 +1823,7 @@
                                                             <label>Assistance in Locating Housing:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbAssistLocateHousingUpdate">
+                                                            <input type="checkbox" class="housingUpdateCB" id="cbAssistLocateHousingUpdate">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1875,7 +1876,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbClothingAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="clothingUpdateCB" id="cbClothingAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -1884,7 +1885,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbClothingServUpdate">
+                                                            <input type="checkbox" class="clothingUpdateCB" id="cbClothingServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1892,7 +1893,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbClothingSupplyUpdate">
+                                                            <input type="checkbox" class="clothingUpdateCB" id="cbClothingSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1900,7 +1901,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbClothingEmergRespUpdate">
+                                                            <input type="checkbox" class="clothingUpdateCB" id="cbClothingEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -1931,7 +1932,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbFoodAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="foodUpdateCB" id="cbFoodAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -1940,7 +1941,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbFoodServUpdate">
+                                                            <input type="checkbox" class="foodUpdateCB" id="cbFoodServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1948,7 +1949,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbFoodSupplyUpdate">
+                                                            <input type="checkbox" class="foodUpdateCB" id="cbFoodSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1956,7 +1957,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbFoodEmergRespUpdate">
+                                                            <input type="checkbox" class="foodUpdateCB" id="cbFoodEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -1987,7 +1988,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbMentoringAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="mentoringUpdateCB" id="cbMentoringAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -1996,7 +1997,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbMentoringServUpdate">
+                                                            <input type="checkbox" class="mentoringUpdateCB" id="cbMentoringServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2004,7 +2005,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbMentoringSupplyUpdate">
+                                                            <input type="checkbox" class="mentoringUpdateCB" id="cbMentoringSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2012,7 +2013,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbMentoringEmergRespUpdate">
+                                                            <input type="checkbox" class="mentoringUpdateCB" id="cbMentoringEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2043,7 +2044,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbEmploymentAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="employmentUpdateCB" id="cbEmploymentAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2052,7 +2053,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbEmploymentServUpdate">
+                                                            <input type="checkbox" class="employmentUpdateCB" id="cbEmploymentServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2060,7 +2061,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbEmploymentSupplyUpdate">
+                                                            <input type="checkbox" class="employmentUpdateCB" id="cbEmploymentSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2068,7 +2069,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbEmploymentEmergRespUpdate">
+                                                            <input type="checkbox" class="employmentUpdateCB" id="cbEmploymentEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2099,7 +2100,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbCounselAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="counselUpdateCB" id="cbCounselAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2108,7 +2109,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbCounselServUpdate">
+                                                            <input type="checkbox" class="counselUpdateCB" id="cbCounselServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2116,7 +2117,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbCounselSupplyUpdate">
+                                                            <input type="checkbox" class="counselUpdateCB" id="cbCounselSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2124,7 +2125,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbCounselEmergRespUpdate">
+                                                            <input type="checkbox" class="counselUpdateCB" id="cbCounselEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2155,7 +2156,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbPregnancyAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="pregnancyUpdateCB" id="cbPregnancyAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2164,7 +2165,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbPregnancyServUpdate">
+                                                            <input type="checkbox" class="pregnancyUpdateCB" id="cbPregnancyServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2172,7 +2173,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbPregnancySupplyUpdate">
+                                                            <input type="checkbox" class="pregnancyUpdateCB" id="cbPregnancySupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2180,7 +2181,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbPregnancyEmergRespUpdate">
+                                                            <input type="checkbox" class="pregnancyUpdateCB" id="cbPregnancyEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2211,7 +2212,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbMedicalAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="medicalUpdateCB" id="cbMedicalAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2220,7 +2221,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbMedicalServUpdate">
+                                                            <input type="checkbox" class="medicalUpdateCB" id="cbMedicalServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2228,7 +2229,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbMedicalSupplyUpdate">
+                                                            <input type="checkbox" class="medicalUpdateCB" id="cbMedicalSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2236,7 +2237,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbMedicalEmergRespUpdate">
+                                                            <input type="checkbox" class="medicalUpdateCB" id="cbMedicalEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2267,7 +2268,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbLegalAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="legalUpdateCB" id="cbLegalAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2276,7 +2277,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbLegalServUpdate">
+                                                            <input type="checkbox" class="legalUpdateCB" id="cbLegalServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2284,7 +2285,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbLegalSupplyUpdate">
+                                                            <input type="checkbox" class="legalUpdateCB" id="cbLegalSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2292,7 +2293,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbLegalEmergRespUpdate">
+                                                            <input type="checkbox" class="legalUpdateCB" id="cbLegalEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2323,7 +2324,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbGovAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="govUpdateCB" id="cbGovAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2332,7 +2333,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbGovServUpdate">
+                                                            <input type="checkbox" class="govUpdateCB" id="cbGovServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2340,7 +2341,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbGovSupplyUpdate">
+                                                            <input type="checkbox" class="govUpdateCB" id="cbGovSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2348,7 +2349,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbGovEmergRespUpdate">
+                                                            <input type="checkbox" class="govUpdateCB" id="cbGovEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2379,7 +2380,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbInvestigationAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="investigationUpdateCB" id="cbInvestigationAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2388,7 +2389,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbInvestigationServUpdate">
+                                                            <input type="checkbox" class="investigationUpdateCB" id="cbInvestigationServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2396,7 +2397,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbInvestigationSupplyUpdate">
+                                                            <input type="checkbox" class="investigationUpdateCB" id="cbInvestigationSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2404,7 +2405,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbInvestigationEmergRespUpdate">
+                                                            <input type="checkbox" class="investigationUpdateCB" id="cbInvestigationEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2435,7 +2436,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbFosterAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="fosterUpdateCB" id="cbFosterAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2444,7 +2445,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbFosterServUpdate">
+                                                            <input type="checkbox" class="fosterUpdateCB" id="cbFosterServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2452,7 +2453,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbFosterSupplyUpdate">
+                                                            <input type="checkbox" class="fosterUpdateCB" id="cbFosterSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2460,7 +2461,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbFosterEmergRespUpdate">
+                                                            <input type="checkbox" class="fosterUpdateCB" id="cbFosterEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2491,7 +2492,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbAwarenessEdAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="awarenessEdUpdateCB" id="cbAwarenessEdAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2500,7 +2501,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbAwarenessEdServUpdate">
+                                                            <input type="checkbox" class="awarenessEdUpdateCB" id="cbAwarenessEdServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2508,7 +2509,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbAwarenessEdSupplyUpdate">
+                                                            <input type="checkbox" class="awarenessEdUpdateCB" id="cbAwarenessEdSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2516,7 +2517,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbAwarenessEdEmergRespUpdate">
+                                                            <input type="checkbox" class="awarenessEdUpdateCB" id="cbAwarenessEdEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2547,7 +2548,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbResponseTrainAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="responseTrainUpdateCB" id="cbResponseTrainAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2556,7 +2557,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbResponseTrainServUpdate">
+                                                            <input type="checkbox" class="responseTrainUpdateCB" id="cbResponseTrainServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2564,7 +2565,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbResponseTrainSupplyUpdate">
+                                                            <input type="checkbox" class="responseTrainUpdateCB" id="cbResponseTrainSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2572,7 +2573,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbResponseTrainEmergRespUpdate">
+                                                            <input type="checkbox" class="responseTrainUpdateCB" id="cbResponseTrainEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2603,7 +2604,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbSubstanceAbuseAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="substanceAbuseUpdateCB" id="cbSubstanceAbuseAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2612,7 +2613,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbSubstanceAbuseServUpdate">
+                                                            <input type="checkbox" class="substanceAbuseUpdateCB" id="cbSubstanceAbuseServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2620,7 +2621,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbSubstanceAbuseSupplyUpdate">
+                                                            <input type="checkbox" class="substanceAbuseUpdateCB" id="cbSubstanceAbuseSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2628,7 +2629,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbSubstanceAbuseEmergRespUpdate">
+                                                            <input type="checkbox" class="substanceAbuseUpdateCB" id="cbSubstanceAbuseEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2659,7 +2660,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbAdvocacyAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="advocacyUpdateCB" id="cbAdvocacyAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2668,7 +2669,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbAdvocacyServUpdate">
+                                                            <input type="checkbox" class="advocacyUpdateCB" id="cbAdvocacyServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2676,7 +2677,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbAdvocacySupplyUpdate">
+                                                            <input type="checkbox" class="advocacyUpdateCB" id="cbAdvocacySupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2684,7 +2685,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbAdvocacyEmergRespUpdate">
+                                                            <input type="checkbox" class="advocacyUpdateCB" id="cbAdvocacyEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2715,7 +2716,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbOtherAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="otherUpdateCB" id="cbOtherAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2724,7 +2725,7 @@
                                                             <label>Service:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbOtherServUpdate">
+                                                            <input type="checkbox" class="otherUpdateCB" id="cbOtherServUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2732,7 +2733,7 @@
                                                             <label>Supply:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbOtherSupplyUpdate">
+                                                            <input type="checkbox" class="otherUpdateCB" id="cbOtherSupplyUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2740,7 +2741,7 @@
                                                             <label>Emergency Response:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbOtherEmergRespUpdate">
+                                                            <input type="checkbox" class="otherUpdateCB" id="cbOtherEmergRespUpdate">
                                                         </div>
                                                     </div>
                                                     <br/>
@@ -2961,7 +2962,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbGenderAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="genderUpdateCB" id="cbGenderAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -2970,7 +2971,7 @@
                                                             <label>Male:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbMaleUpdate">
+                                                            <input type="checkbox" class="genderUpdateCB" id="cbMaleUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2978,7 +2979,7 @@
                                                             <label>Female:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" id="cbFemaleUpdate">
+                                                            <input type="checkbox" class="genderUpdateCB" id="cbFemaleUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -2986,7 +2987,7 @@
                                                             <label>Transgender:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbTransUpdate">
+                                                            <input type="checkbox" class="genderUpdateCB" id="cbTransUpdate">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3006,7 +3007,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-2">
-                                                            <input type="checkbox" value="" id="cbAgeAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="ageUpdateCB" id="cbAgeAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -3015,7 +3016,7 @@
                                                             <label>Infants/Toddlers (Ages: Birth-4):</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbInfantUpdate">
+                                                            <input type="checkbox" class="ageUpdateCB" id="cbInfantUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3023,7 +3024,7 @@
                                                             <label>Children (Ages: 5-12):</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbChildUpdate">
+                                                            <input type="checkbox" class="ageUpdateCB" id="cbChildUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3031,7 +3032,7 @@
                                                             <label>Youth/Young Adults (Ages: 13-17):</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbYouthUpdate">
+                                                            <input type="checkbox" class="ageUpdateCB" id="cbYouthUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3039,7 +3040,7 @@
                                                             <label>Adults (Ages: 18+):</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbAdultUpdate">
+                                                            <input type="checkbox" class="ageUpdateCB" id="cbAdultUpdate">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3059,7 +3060,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbNatAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="natUpdateCB" id="cbNatAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -3068,7 +3069,7 @@
                                                             <label>Domestic-Born:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" id="cbDomesticUpdate">
+                                                            <input type="checkbox" class="natUpdateCB" id="cbDomesticUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3076,7 +3077,7 @@
                                                             <label>Foreign-Born:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" id="cbForeignUpdate">
+                                                            <input type="checkbox" class="natUpdateCB" id="cbForeignUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3084,7 +3085,7 @@
                                                             <label>Undocumented:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" id="cbUndocumentedUpdate">
+                                                            <input type="checkbox" class="natUpdateCB" id="cbUndocumentedUpdate">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3104,7 +3105,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbRaceAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbRaceAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -3113,7 +3114,7 @@
                                                             <label>African-American:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbBlackUpdate" value="African-American">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbBlackUpdate" value="African-American">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3121,7 +3122,7 @@
                                                             <label>Asian/Pacific Islander:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbAsianUpdate" value="Asian or Pacific Islander">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbAsianUpdate" value="Asian or Pacific Islander">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3129,7 +3130,7 @@
                                                             <label>Caucasian:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbWhiteUpdate" value="Caucasian">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbWhiteUpdate" value="Caucasian">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3137,7 +3138,7 @@
                                                             <label>Hispanic/Latino:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbHispanicLatinoUpdate" value="Hispanic or Latino">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbHispanicLatinoUpdate" value="Hispanic or Latino">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3145,7 +3146,7 @@
                                                             <label>Native American:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbNativeUpdate" value="Native American">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbNativeUpdate" value="Native American">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3153,7 +3154,7 @@
                                                             <label>Multi-Racial:</label>
                                                         </div>
                                                         <div class="col-md-1">
-                                                            <input type="checkbox" id="cbMultiRacialUpdate" value="Multi-Racial">
+                                                            <input type="checkbox" class="raceUpdateCB" id="cbMultiRacialUpdate" value="Multi-Racial">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3173,7 +3174,7 @@
                                                             <label class="checkAllLabel">Check All:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" value="" id="cbEthnicityAllUpdate" onclick="checkAllDisableUpdate()">
+                                                            <input type="checkbox" class="ethnicityUpdateCB" id="cbEthnicityAllUpdate" onclick="checkAllDisableUpdate(this)">
                                                         </div>
                                                     </div>
                                                     <hr class="checkAllLine">
@@ -3182,7 +3183,7 @@
                                                             <label>Hispanic:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" id="cbHispanicUpdate">
+                                                            <input type="checkbox" class="ethnicityUpdateCB" id="cbHispanicUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -3190,7 +3191,7 @@
                                                             <label>Non-Hispanic:</label>
                                                         </div>
                                                         <div class="col-md-1 col-md-offset-1">
-                                                            <input type="checkbox" id="cbNonHispanicUpdate">
+                                                            <input type="checkbox" class="ethnicityUpdateCB" id="cbNonHispanicUpdate">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3250,10 +3251,23 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        <div id="updateMessageBodyUpdate">
+                            <p>Congrats, you're in!</p>
+                        </div>
+                        
                     </div>
                     <div class="modal-footer">
+                            <div id="isApprovedUpdate">
+                                <label>Approve Organization:</label>
+                                <input type="checkbox" id="cbIsApprovedUpdate">
+                            </div>
+                        
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" onclick="updateOrganization()">Update</button>
+                            
+       
+                        </div>
                     </div>
                 </form>
             </div>
