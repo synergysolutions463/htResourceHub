@@ -279,12 +279,108 @@ function checkIfLoggedIn() {
 			}
 			else {
 				loggedIn = "true";
-				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\">Admin</a>";
+				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\" onclick=\"loadAdminPage()\">Admin</a>";
 				document.getElementById("isApprovedCreate").style.display = 'block';
 			} 
 		}
 	});
 
+}
+
+function loadApprovedOrgs() {
+	
+		$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "loadApprovedOrgs"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var orgs = parsedData;
+			oLen = orgs.length;
+			
+			if(oLen == 0) {
+				document.getElementById("orgsListBox").innerHTML = "<h4>No organizations need approval.</h4>";
+			}
+			else {
+				
+				var text = "<h4>Organizations awaiting approval:</h4>";
+				text += "<div class=\"list-group\">"
+				
+				for (i = 0; i < oLen; i++) {
+				
+					text += "<button type=\"button\" id=\"" + orgs[i][0] + "\"class=\"list-group-item\""; 
+					text += "data-toggle= \"modal\" data-target=\"#updateModal\"";
+					text += "onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + orgs[i][0] + ");\">";
+					text +=  "" + orgs[i][1] + "</button>";
+					
+				}
+				text += "</div>";
+				document.getElementById("orgsListBox").innerHTML = text;
+			}
+
+
+		}
+	});
+	
+	
+	
+/*	
+	var text = "";
+	text += "<div class=\"list-group\">"
+	text += "<button type=\"button\" class=\"list-group-item\">Cras justo odio</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Dapibus ac facilisis in</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Morbi leo risus</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Porta ac consectetur ac</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Vestibulum at eros</button>";
+	text += "</div>";
+	
+	document.getElementById("orgsListBox").innerHTML = text;
+	
+	<button type="button" id=OrgID class=\"list-group-item\" data-toggle= \"modal\" data-target=\"#updateModal\"
+	onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + orgs[i][0] + ");\">
+	ORgName</button> */
+
+}
+
+function loadAdminPage() {
+		$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "checkIfLoggedIn"
+		},
+		success: function(data) {
+			if(data == "false") {
+				document.getElementById("adminError").style.display = 'block';
+				document.getElementById("adminPanel").style.display = 'none';
+				var text = "<div class=\"panel panel-default\">";
+            		text += "<div class=\"panel-body\">";
+            		text += "<div class=\"row\"><div class=\"col-md-5 col-md-offset 1\">";
+            		text += "<h5>You are not logged in. Please login to an approved username to view this page</h5>";
+            		text += "</div></div></div></div>";
+					document.getElementById("adminError").innerHTML = text;
+			}
+			if(data == "admin1") {
+				document.getElementById("adminError").style.display = 'none';
+				document.getElementById("adminPanel").style.display = 'block';
+				document.getElementById("admin1Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view all confidential organizations in the system. To view those, please use the search option on the main page. You also have the ability to insert new organizations with an approved status. This can be done using the button to the right. You also may change the passwords to this account and also to the admin2 account, there are links at the bottom of this page to do so. Additionally, the list below are organizations that have been requested to be added to your site and need approval before they can be displayed in the search on the main page. To approve these organizations, please click the organization's name below that you wish to approve. </h5>";
+				document.getElementById("admin1CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-lg\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates()\">Insert Organization</button>";
+				document.getElementById("passwordChange").innerHTML = "<h4>Change password functionality</h4>";
+				loadApprovedOrgs();
+					
+					
+			}
+			if(data == "admin2") {
+				document.getElementById("adminError").style.display = 'none';
+				document.getElementById("adminPanel").style.display = 'block';
+				document.getElementById("admin2Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view-only all confidential organizations in the system. To view organizations, please use the search options on the main page.</h2>";
+				
+			}
+
+		}
+	});		
 }
 
 function loadSimpleData(orgs) {
@@ -901,7 +997,7 @@ function insertOrganization() {
 
 
 
-
+loadApprovedOrgs();
 
 
 }
@@ -1373,7 +1469,7 @@ function updateOrganization() {
 		}
 	});
 
-
+	loadApprovedOrgs();
 
 
 
@@ -3279,6 +3375,7 @@ function onLoadFunctions() {
 	populateUpdateStates();
 	populateUpdateFaiths();
 	checkIfLoggedIn();
+	loadAdminPage();
 }
 
 function indexLoad() {

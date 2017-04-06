@@ -74,8 +74,13 @@
                                                         <div class="col-md-3">
                                                             <label>Main Phone </label>
                                                             <input id="txtMainPhoneUpdate" type="text" placeholder="(555)555-5555" class="form-control" />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Ext.</label>
                                                             <input class="form-control" id="txtMainPhoneExtUpdate" type="text" placeholder="55555" />
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Hotline Number </label>
                                                             <input id="txtHotlineUpdate" type="text" placeholder="(555)555-5555" class="form-control"  />
@@ -92,13 +97,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label>Confidential Phone Number</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
                                                         <div class="col-md-3">
+                                                            <label>Confidential Phone</label>
                                                             <input id="txtConfPhoneUpdate" type="text" placeholder="(555)555-5555" class="form-control"  />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Ext.</label>
                                                             <input class="form-control" id="txtConfExtUpdate" type="text" placeholder="55555" />
                                                         </div>
                                                     </div>
@@ -116,43 +120,30 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>First Name</label>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Last Name</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="first name" id="txtPrimaryContactFirstNameUpdate">
                                                         </div>
                                                         <div class="col-md-3">
+                                                            <label>Last Name</label>
                                                             <input class="form-control" placeholder="last name" id="txtPrimaryContactLastNameUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Phone</label>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label>Email</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
                                                             <input id="txtPrimaryContactPhoneUpdate" type="text" placeholder="(555)555-5555" class="form-control"  />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>Ext.</label>
                                                             <input class="form-control" id="txtPrimaryContactExtUpdate" type="text" placeholder="55555" />
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-3">
+                                                            <label>Email</label>
                                                             <input class="form-control" placeholder="email" id="txtPrimaryContactEmailUpdate" placeholder="email">
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Position</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="position" id="txtPrimaryContactPosUpdate">
                                                         </div>
                                                     </div>
@@ -176,39 +167,24 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Street</label>
+                                                            <input class="form-control" placeholder="street address" id="txtAddress1StreetUpdate">
                                                         </div>
                                                         <div class="col-md-2 col-md-offset-1">
                                                             <label>City</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <input class="form-control" placeholder="street address" id="txtAddress1StreetUpdate">
-                                                        </div>
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="city" id="txtAddress1CityUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>County</label>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label>State</label>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label>Zip</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="county" id="txtAddress1CountyUpdate">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <select class="form-control" id="ddlAddress1StateUpdate">
-															</select>
-                                                        </div>    
+                                                            <label>State</label>
+                                                            <select class="form-control" id="ddlAddress1StateUpdate"></select>
+                                                        </div>
                                                         <div class="col-md-2">
+                                                            <label>Zip</label>
                                                             <input class="form-control" placeholder="zip" id="txtAddress1ZipUpdate">
                                                         </div>
                                                     </div>
@@ -221,39 +197,24 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Street</label>
+                                                            <input class="form-control" placeholder="street address" id="txtAddress2StreetUpdate">
                                                         </div>
                                                         <div class="col-md-2 col-md-offset-1">
                                                             <label>City</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <input class="form-control" placeholder="street address" id="txtAddress2StreetUpdate">
-                                                        </div>
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="city" id="txtAddress2CityUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>County</label>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label>State</label>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label>Zip</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="street address" id="txtAddress2CountyUpdate">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <select class="form-control" id="ddlAddress2StateUpdate">
-															</select>
+                                                            <label>State</label>
+                                                            <select class="form-control" id="ddlAddress2StateUpdate"></select>
                                                         </div>
                                                         <div class="col-md-2">
+                                                            <label>Zip</label>
                                                             <input class="form-control" placeholder="zip" id="txtAddress2ZipUpdate">
                                                         </div>
                                                     </div>
@@ -266,39 +227,24 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>Street</label>
+                                                            <input class="form-control" placeholder="street address" id="txtConfAddressStreetUpdate">
                                                         </div>
                                                         <div class="col-md-2 col-md-offset-1">
                                                             <label>City</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <input class="form-control" placeholder="street address" id="txtConfAddressStreetUpdate">
-                                                        </div>
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="city" id="txtConfAddressCityUpdate">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <label>County</label>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label>State</label>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label>Zip</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
                                                             <input class="form-control" placeholder="county" id="txtConfAddressCountyUpdate">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <select class="form-control" id="ddlConfAddressStateUpdate">
-															</select>
+                                                            <label>State</label>
+                                                            <select class="form-control" id="ddlConfAddressStateUpdate"></select>
                                                         </div>
                                                         <div class="col-md-2">
+                                                            <label>Zip</label>
                                                             <input class="form-control" placeholder="zip" id="txtConfAddressZipUpdate">
                                                         </div>
                                                     </div>

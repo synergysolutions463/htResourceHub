@@ -75,8 +75,13 @@
                                                             <div class="col-md-3">
                                                                 <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Main Phone </label>
                                                                 <input id="txtMainPhoneCreate" type="text" placeholder="(555)555-5555" class="form-control" />
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label>Ext.</label>
                                                                 <input class="form-control" id="txtMainPhoneExtCreate" type="text" placeholder="55555" />
                                                             </div>
+                                                        </div>
+                                                        <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>Hotline Number </label>
                                                                 <input id="txtHotlineCreate" type="text" placeholder="(555)555-5555" class="form-control"  />
@@ -93,13 +98,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Confidential Phone Number</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-md-3">
+                                                                <label>Confidential Phone</label>
                                                                 <input id="txtConfPhoneCreate" type="text" placeholder="(555)555-5555" class="form-control"  />
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label>Ext.</label>
                                                                 <input class="form-control" id="txtConfPhoneExtCreate" type="text" placeholder="55555" />
                                                             </div>
                                                         </div>
@@ -117,43 +121,30 @@
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>First Name</label>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label>Last Name</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="first name" id="txtPrimaryContactFirstNameCreate">
                                                             </div>
                                                             <div class="col-md-3">
+                                                                <label>Last Name</label>
                                                                 <input class="form-control" placeholder="last name" id="txtPrimaryContactLastNameCreate">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>Phone</label>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label>Email</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
                                                                 <input id="txtPrimaryContactPhoneCreate" type="text" placeholder="(555)555-5555" class="form-control"  />
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label>Ext.</label>
                                                                 <input class="form-control" id="txtPrimaryContactExtCreate" type="text" placeholder="55555" />
                                                             </div>
+                                                        </div>
+                                                        <div class="row">
                                                             <div class="col-md-3">
+                                                                <label>Email</label>
                                                                 <input class="form-control" placeholder="email" id="txtPrimaryContactEmailCreate" placeholder="email">
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>Position</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="position" id="txtPrimaryContactPosCreate">
                                                             </div>
                                                         </div>
@@ -176,41 +167,26 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
                                                                 <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Street</label>
+                                                                <input class="form-control" placeholder="street address" id="txtAddress1StreetCreate">
                                                             </div>
                                                             <div class="col-md-2 col-md-offset-1">
                                                                 <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>City</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <input class="form-control" placeholder="street address" id="txtAddress1StreetCreate">
-                                                            </div>
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="city" id="txtAddress1CityCreate">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>County</label>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>State</label>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Zip</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="county" id="txtAddress1CountyCreate">
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddress1StateCreate">
-    															</select>
-                                                            </div>    
+                                                                <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>State</label>
+                                                                <select class="form-control" id="ddlAddress1StateCreate"></select>
+                                                            </div>
                                                             <div class="col-md-2">
+                                                                <label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Zip</label>
                                                                 <input class="form-control" placeholder="zip" id="txtAddress1ZipCreate">
                                                             </div>
                                                         </div>
@@ -221,41 +197,26 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
                                                                 <label>Street</label>
+                                                                <input class="form-control" placeholder="street address" id="txtAddress2StreetCreate">
                                                             </div>
                                                             <div class="col-md-2 col-md-offset-1">
                                                                 <label>City</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <input class="form-control" placeholder="street address" id="txtAddress2StreetCreate">
-                                                            </div>
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="city" id="txtAddress2CityCreate">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>County</label>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <label>State</label>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <label>Zip</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="street address" id="txtAddress2CountyCreate">
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddress2StateCreate">
-    															</select>
+                                                                <label>State</label>
+                                                                <select class="form-control" id="ddlAddress2StateCreate"></select>
                                                             </div>
                                                             <div class="col-md-2">
+                                                                <label>Zip</label>
                                                                 <input class="form-control" placeholder="zip" id="txtAddress2ZipCreate">
                                                             </div>
                                                         </div>
@@ -266,41 +227,26 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
                                                                 <label>Street</label>
+                                                                <input class="form-control" placeholder="street address" id="txtConfAddressStreetCreate">
                                                             </div>
                                                             <div class="col-md-2 col-md-offset-1">
                                                                 <label>City</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <input class="form-control" placeholder="street address" id="txtConfAddressStreetCreate">
-                                                            </div>
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="city" id="txtConfAddressCityCreate">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label>County</label>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <label>State</label>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <label>Zip</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
                                                                 <input class="form-control" placeholder="county" id="txtConfAddressCountyCreate">
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlConfAddressStateCreate">
-    															</select>
+                                                                <label>State</label>
+                                                                <select class="form-control" id="ddlConfAddressStateCreate"></select>
                                                             </div>
                                                             <div class="col-md-2">
+                                                                <label>Zip</label>
                                                                 <input class="form-control" placeholder="zip" id="txtConfAddressZipCreate">
                                                             </div>
                                                         </div>

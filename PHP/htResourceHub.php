@@ -1595,7 +1595,7 @@ function checkIfLoggedIn() {
 
 function getStates() {
     $connLibrary = db_connect();
-    if($connLibrary == null || $connLibrary == null) {
+    if($connLibrary == null ||  $connLibrary == null) {
           die("There was an error connecting to the database");
           
     }
@@ -1632,5 +1632,27 @@ function getFaiths() {
     $connLibrary->close();
     echo json_encode($faithsData);
 }
+
+function loadApprovedOrgs() {
+    $connLibrary = db_connect();
+    if($connLibrary == null || $connLibrary == null) {
+          die("There was an error connecting to the database");
+          
+    }
+
+    $approveQuery = $connLibrary->prepare("SELECT OrgId, OrgName from Organizations where isApproved != 1");
+    $approveQuery->execute();
+    $approveQuery->bind_result($orgId, $orgName);
+    
+    $approvedData = array();
+    
+    while($approveQuery->fetch()){
+        $approvedData[] = array($orgId, $orgName);
+    }
+    $connLibrary->close();
+    echo json_encode($approvedData);
+}
+
+
 
 ?>
