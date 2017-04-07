@@ -279,12 +279,108 @@ function checkIfLoggedIn() {
 			}
 			else {
 				loggedIn = "true";
-				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\">Admin</a>";
+				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\" onclick=\"loadAdminPage()\">Admin</a>";
 				document.getElementById("isApprovedCreate").style.display = 'block';
 			} 
 		}
 	});
 
+}
+
+function loadApprovedOrgs() {
+	
+		$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "loadApprovedOrgs"
+		},
+		success: function(data) {
+			var parsedData = JSON.parse(data);
+			var orgs = parsedData;
+			oLen = orgs.length;
+			
+			if(oLen == 0) {
+				document.getElementById("orgsListBox").innerHTML = "<h4>No organizations need approval.</h4>";
+			}
+			else {
+				
+				var text = "<h4>Organizations awaiting approval:</h4>";
+				text += "<div class=\"list-group\">"
+				
+				for (i = 0; i < oLen; i++) {
+				
+					text += "<button type=\"button\" id=\"" + orgs[i][0] + "\"class=\"list-group-item\""; 
+					text += "data-toggle= \"modal\" data-target=\"#updateModal\"";
+					text += "onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + orgs[i][0] + ");\">";
+					text +=  "" + orgs[i][1] + "</button>";
+					
+				}
+				text += "</div>";
+				document.getElementById("orgsListBox").innerHTML = text;
+			}
+
+
+		}
+	});
+	
+	
+	
+/*	
+	var text = "";
+	text += "<div class=\"list-group\">"
+	text += "<button type=\"button\" class=\"list-group-item\">Cras justo odio</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Dapibus ac facilisis in</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Morbi leo risus</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Porta ac consectetur ac</button>";
+	text += "<button type=\"button\" class=\"list-group-item\">Vestibulum at eros</button>";
+	text += "</div>";
+	
+	document.getElementById("orgsListBox").innerHTML = text;
+	
+	<button type="button" id=OrgID class=\"list-group-item\" data-toggle= \"modal\" data-target=\"#updateModal\"
+	onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + orgs[i][0] + ");\">
+	ORgName</button> */
+
+}
+
+function loadAdminPage() {
+		$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "checkIfLoggedIn"
+		},
+		success: function(data) {
+			if(data == "false") {
+				document.getElementById("adminError").style.display = 'block';
+				document.getElementById("adminPanel").style.display = 'none';
+				var text = "<div class=\"panel panel-default\">";
+            		text += "<div class=\"panel-body\">";
+            		text += "<div class=\"row\"><div class=\"col-md-5 col-md-offset 1\">";
+            		text += "<h5>You are not logged in. Please login to an approved username to view this page</h5>";
+            		text += "</div></div></div></div>";
+					document.getElementById("adminError").innerHTML = text;
+			}
+			if(data == "admin1") {
+				document.getElementById("adminError").style.display = 'none';
+				document.getElementById("adminPanel").style.display = 'block';
+				document.getElementById("admin1Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view all confidential organizations in the system. To view those, please use the search option on the main page. You also have the ability to insert new organizations with an approved status. This can be done using the button to the right. You also may change the passwords to this account and also to the admin2 account, there are links at the bottom of this page to do so. Additionally, the list below are organizations that have been requested to be added to your site and need approval before they can be displayed in the search on the main page. To approve these organizations, please click the organization's name below that you wish to approve. </h5>";
+				document.getElementById("admin1CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-lg\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates()\">Insert Organization</button>";
+				document.getElementById("passwordChange").innerHTML = "<h4>Change password functionality</h4>";
+				loadApprovedOrgs();
+					
+					
+			}
+			if(data == "admin2") {
+				document.getElementById("adminError").style.display = 'none';
+				document.getElementById("adminPanel").style.display = 'block';
+				document.getElementById("admin2Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view-only all confidential organizations in the system. To view organizations, please use the search options on the main page.</h2>";
+				
+			}
+
+		}
+	});		
 }
 
 function loadSimpleData(orgs) {
@@ -418,6 +514,8 @@ function loadSimpleData(orgs) {
 }
 
 function insertOrganization() {
+
+	//test the input
 
 		
 		/**Organization Table Insert Data **/
@@ -641,8 +739,8 @@ function insertOrganization() {
 		var isApproved = document.getElementById("cbIsApprovedCreate").checked;
 	
 	
-		//test the input
-		if(createFormValidation()){
+	
+	//	if(createFormValidation()){
 	
 	
 		/**format phone nums**/
@@ -895,11 +993,11 @@ function insertOrganization() {
 	
 			}
 		});
-	}
+//	}
 
 
 
-
+loadApprovedOrgs();
 
 
 }
@@ -1127,11 +1225,7 @@ function updateOrganization() {
 
 	var isApproved = document.getElementById("cbIsApprovedUpdate").checked;
 
-	
-	
-	if(updateFormValidation()){
-		
-	
+
 					contactPhoneNum = contactPhoneNum.replace(/[^\/\d]/g,'');
 					contactPhoneExt = contactPhoneExt.replace(/[^\/\d]/g,'');
 					phoneNum = phoneNum.replace(/[^\/\d]/g,'');
@@ -1371,12 +1465,11 @@ function updateOrganization() {
 			showUpdateMessage();
 			console.log("connection to php for insert working");
 			console.log(data);
+			loadApprovedOrgs();
+			readAllOrgs();
 
 		}
 	});
-
-	}
-
 
 
 
@@ -3281,6 +3374,7 @@ function onLoadFunctions() {
 	populateUpdateStates();
 	populateUpdateFaiths();
 	checkIfLoggedIn();
+	loadAdminPage();
 }
 
 function indexLoad() {
@@ -3897,42 +3991,6 @@ function createFormValidation(){
 		contactErrorFound = true;
 	}
 	
-	//Checks for email, if blank must be N/A
-	if(document.getElementById("txtOrgEmailCreate").value == ""){
-		if(contactErrorFound == false){
-			contactInfoError += "Please enter N/A if there is no organization email"
-		}
-		else{
-			contactInfoError += "<br>Please enter N/A if there is no organization email"
-		}
-		document.getElementById("txtOrgEmailCreate").focus();
-		contactErrorFound = true;
-	}
-	
-	//Checks for @. in the org email
-	if(!document.getElementById("txtOrgEmailCreate").value.includes("@") & document.getElementById("txtOrgEmailCreate").value != ""){
-		if(contactErrorFound == false){
-			contactInfoError = "Please enter a valid organization email"
-		}
-		else{
-			contactInfoError += "<br>Please enter a valid organization email"
-		}
-		document.getElementById("txtOrgEmailCreate").focus();
-		contactErrorFound = true;
-	}
-	
-	//Checks for @. in the contact email
-	if(!document.getElementById("txtPrimaryContactEmailCreate").value.includes("@") & document.getElementById("txtPrimaryContactEmailCreate").value != ""){
-		if(contactErrorFound == false){
-			contactInfoError = "Please enter a valid contact email"
-		}
-		else{
-			contactInfoError += "<br>Please enter a valid contact email"
-		}
-		document.getElementById("txtPrimaryContactEmailCreate").focus();
-		contactErrorFound = true;
-	}
-	
 	
 	
 	//***Address Information***
@@ -3976,23 +4034,6 @@ function createFormValidation(){
 	//***Hours Information***
 	var hourErrorFound = false;
 	var hoursInfoError = "";
-	
-	//Checks to make sure something is selected in hours
-	if(document.getElementById("ddlGenFullWeekStartTimeCreate").value == "-----" & document.getElementById("ddlGenFullWeekEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenFullWeekSatStartTimeCreate").value == "-----" & document.getElementById("ddlGenFullWeekSatEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenFullWeekSunStartTimeCreate").value == "-----" & document.getElementById("ddlGenFullWeekSunEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenMondayStartTimeCreate").value == "-----" & document.getElementById("ddlGenMondayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenTuesdayStartTimeCreate").value == "-----" & document.getElementById("ddlGenTuesdayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenWednesdayStartTimeCreate").value == "-----" & document.getElementById("ddlGenWednesdayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenThursdayStartTimeCreate").value == "-----" & document.getElementById("ddlGenThursdayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenFridayStartTimeCreate").value == "-----" & document.getElementById("ddlGenFridayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenSaturdayStartTimeCreate").value == "-----" & document.getElementById("ddlGenSaturdayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenSundayStartTimeCreate").value == "-----" & document.getElementById("ddlGenSundayEndTimeCreate").value == "-----"){
-		
-		hoursInfoError = "Please select at least one time";
-		hoursErrorFound = true;
-		document.getElementById("ddlGenFullWeekStartTimeCreate").focus();
-	}
 	
 	//If there is a start time, there needs to be an end time, and vice versa
 	if(document.getElementById("ddlGenFullWeekStartTimeCreate").value == "-----" & document.getElementById("ddlGenFullWeekEndTimeCreate").value != "-----"){
@@ -4443,582 +4484,6 @@ function createFormValidation(){
 		document.getElementById("nationalityErrorText").innerHTML = nationalityInfoError;
 		document.getElementById("raceErrorText").innerHTML = raceInfoError;
 		document.getElementById("ethnicityErrorText").innerHTML = ethnicityInfoError;
-		return false;
-	}
-}
-
-function updateFormValidation(){
-		
-	//***General Organization Information
-	var orgErrorFound = false;
-	var genInfoError = "";
-	
-	//Check for org name
-	if(document.getElementById("txtOrgNameUpdate").value == ""){
-		genInfoError = "Please enter an Organization name.";
-		document.getElementById("txtOrgNameUpdate").focus();
-		orgErrorFound = true;
-	}
-
-
-
-	//***Contact Information***
-	var contactErrorFound = false;
-	var contactInfoError = "";
-	
-	//Check for a main phone number
-	if(document.getElementById("txtMainPhoneUpdate").value == ""){
-		contactInfoError = "Please enter a main phone number"
-		document.getElementById("txtMainPhoneUpdate").focus();
-		contactErrorFound = true;
-	}
-	
-	//Checks for email, if blank must be N/A
-	if(document.getElementById("txtOrgEmailUpdate").value == ""){
-		if(contactErrorFound == false){
-			contactInfoError += "Please enter N/A if there is no organization email"
-		}
-		else{
-			contactInfoError += "<br>Please enter N/A if there is no organization email"
-		}
-		document.getElementById("txtOrgEmailUpdate").focus();
-		contactErrorFound = true;
-	}
-	
-	//Checks for @. in the org email
-	if(!document.getElementById("txtOrgEmailUpdate").value.includes("@") & document.getElementById("txtOrgEmailUpdate").value != ""){
-		if(contactErrorFound == false){
-			contactInfoError = "Please enter a valid organization email"
-		}
-		else{
-			contactInfoError += "<br>Please enter a valid organization email"
-		}
-		document.getElementById("txtOrgEmailUpdate").focus();
-		contactErrorFound = true;
-	}
-	
-	//Checks for @. in the contact email
-	if(!document.getElementById("txtPrimaryContactEmailUpdate").value.includes("@") & document.getElementById("txtPrimaryContactEmailUpdate").value != ""){
-		if(contactErrorFound == false){
-			contactInfoError = "Please enter a valid contact email"
-		}
-		else{
-			contactInfoError += "<br>Please enter a valid contact email"
-		}
-		document.getElementById("txtPrimaryContactEmailUpdate").focus();
-		contactErrorFound = true;
-	}
-	
-	
-	
-	//***Address Information***
-	var addressErrorFound = false;
-	var addressInfoError = "";
-	
-	//Check for one full address
-	if(document.getElementById("txtAddress1StreetUpdate").value == "" || document.getElementById("txtAddress1CityUpdate").value == "" || document.getElementById("txtAddress1ZipUpdate").value == "" || document.getElementById("ddlAddress1StateUpdate").value == "-----" ){
-		addressInfoError = "Please enter at least one full address"
-		document.getElementById("txtAddress1StreetUpdate").focus();
-		addressErrorFound = true;
-	}
-	//Check zip for all numbers
-	if(isNaN(document.getElementById("txtAddress1ZipUpdate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
-		}
-		addressInfoError += "Please enter a valid Zip in Address 1"
-		document.getElementById("txtAddress1ZipUpdate").focus();
-		addressErrorFound = true;
-	}
-	if(isNaN(document.getElementById("txtAddress2ZipUpdate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
-		}
-		addressInfoError += "Please enter a valid Zip in Address 2"
-		document.getElementById("txtAddress2ZipUpdate").focus();
-		addressErrorFound = true;
-	}
-	if(isNaN(document.getElementById("txtConfAddressZipUpdate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
-		}
-		addressInfoError += "Please enter a valid Zip in confidential Address"
-		document.getElementById("txtConfAddressZipUpdate").focus();
-		addressErrorFound = true;
-	}
-	
-	
-	
-	//***Hours Information***
-	var hourErrorFound = false;
-	var hoursInfoError = "";
-	
-	//Checks to make sure something is selected in hours
-	if(document.getElementById("ddlGenFullWeekStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenMondayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenMondayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenTuesdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenTuesdayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenWednesdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenWednesdayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenThursdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenThursdayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenFridayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFridayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenSaturdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSaturdayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenSundayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSundayEndTimeUpdate").value == "-----"){
-		
-		hoursInfoError = "Please select at least one time";
-		hoursErrorFound = true;
-		document.getElementById("ddlGenFullWeekStartTimeUpdate").focus();
-	}
-	
-	//If there is a start time, there needs to be an end time, and vice versa
-	if(document.getElementById("ddlGenFullWeekStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekEndTimeUpdate").value != "-----"){
-		hoursInfoError = "Please enter a start time for Monday - Friday";
-		document.getElementById("ddlGenFullWeekStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenFullWeekEndTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Monday - Friday";
-		document.getElementById("ddlGenFullWeekEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Saturday";
-		document.getElementById("ddlGenFullWeekSatStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Saturday";
-		document.getElementById("ddlGenFullWeekSatEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Sunday";
-		document.getElementById("ddlGenFullWeekSunStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value == "-----" & document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Sunday";
-		document.getElementById("ddlGenFullWeekSunEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenMondayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenMondayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Monday";
-		document.getElementById("ddlGenMondayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenMondayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenMondayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Monday";
-		document.getElementById("ddlGenMondayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenTuesdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenTuesdayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Tuesday";
-		document.getElementById("ddlGenTuesdayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenTuesdayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenTuesdayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Tuesday";
-		document.getElementById("ddlGenTuesdayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenWednesdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenWednesdayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Wednesday";
-		document.getElementById("ddlGenWednesdayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenWednesdayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenWednesdayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Wednesday";
-		document.getElementById("ddlGenWednesdayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenThursdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenThursdayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Thursday";
-		document.getElementById("ddlGenThursdayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenThursdayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenThursdayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Thursday";
-		document.getElementById("ddlGenThursdayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenFridayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFridayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Friday";
-		document.getElementById("ddlGenFridayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenFridayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenFridayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Friday";
-		document.getElementById("ddlGenFridayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenSaturdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSaturdayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Saturday";
-		document.getElementById("ddlGenSaturdayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenSaturdayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenSaturdayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Saturday";
-		document.getElementById("ddlGenSaturdayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlGenSundayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSundayEndTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError = "Please enter a start time for Sunday";
-		document.getElementById("ddlGenSundayStartTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	if(document.getElementById("ddlGenSundayEndTimeUpdate").value == "-----" & document.getElementById("ddlGenSundayStartTimeUpdate").value != "-----"){
-		if(hourErrorFound){
-			hoursInfoError += "<br>";
-		}
-		hoursInfoError += "Please enter an end time for Sunday";
-		document.getElementById("ddlGenSundayEndTimeUpdate").focus();
-		hourErrorFound = true;
-	}
-	
-	
-	
-	//***Additional Hours Information***
-	var addHourErrorFound = false;
-	var addHoursInfoError = "";
-	
-	//If there is a start time, there needs to be an end time, and vice versa
-	if(document.getElementById("ddlAddFullWeekStartTimeUpdate").value == "-----" & document.getElementById("ddlAddFullWeekEndTimeUpdate").value != "-----"){
-		addHoursInfoError = "Please enter a start time for Monday - Friday";
-		document.getElementById("ddlAddFullWeekStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddFullWeekEndTimeUpdate").value == "-----" & document.getElementById("ddlAddFullWeekStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Monday - Friday";
-		document.getElementById("ddlAddFullWeekEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddFullWeekSatStartTimeUpdate").value == "-----" & document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Saturday";
-		document.getElementById("ddlAddFullWeekSatStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value == "-----" & document.getElementById("ddlAddFullWeekSatStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Saturday";
-		document.getElementById("ddlAddFullWeekSatEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value == "-----" & document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Sunday";
-		document.getElementById("ddlAddFullWeekSunStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value == "-----" & document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Sunday";
-		document.getElementById("ddlAddFullWeekSunEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddMondayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddMondayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Monday";
-		document.getElementById("ddlAddMondayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddMondayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddMondayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Monday";
-		document.getElementById("ddlAddMondayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddTuesdayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddTuesdayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Tuesday";
-		document.getElementById("ddlAddTuesdayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddTuesdayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddTuesdayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Tuesday";
-		document.getElementById("ddlAddTuesdayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddWednesdayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddWednesdayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Wednesday";
-		document.getElementById("ddlAddWednesdayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddWednesdayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddWednesdayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Wednesday";
-		document.getElementById("ddlAddWednesdayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddThursdayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddThursdayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Thursday";
-		document.getElementById("ddlAddThursdayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddThursdayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddThursdayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Thursday";
-		document.getElementById("ddlAddThursdayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddFridayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddFridayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Friday";
-		document.getElementById("ddlAddFridayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddFridayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddFridayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Friday";
-		document.getElementById("ddlAddFridayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddSaturdayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddSaturdayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Saturday";
-		document.getElementById("ddlAddSaturdayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddSaturdayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddSaturdayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Saturday";
-		document.getElementById("ddlAddSaturdayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	if(document.getElementById("ddlAddSundayStartTimeUpdate").value == "-----" & document.getElementById("ddlAddSundayEndTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError = "Please enter a start time for Sunday";
-		document.getElementById("ddlAddSundayStartTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	if(document.getElementById("ddlAddSundayEndTimeUpdate").value == "-----" & document.getElementById("ddlAddSundayStartTimeUpdate").value != "-----"){
-		if(addHourErrorFound){
-			addHoursInfoError += "<br>";
-		}
-		addHoursInfoError += "Please enter an end time for Sunday";
-		document.getElementById("ddlAddSundayEndTimeUpdate").focus();
-		addHourErrorFound = true;
-	}
-	
-	
-	
-	//***Resources Information***
-	var resourceErrorFound = false;
-	var resourcesInfoError = "";
-	
-	
-	
-	//***Other Resources Information***
-	var otherResourceErrorFound = false;
-	var otherResourcesInfoError = "";
-	
-	//If other is selected, it needs a description
-	if(document.getElementById("cbOtherAllUpdate").checked == true || document.getElementById("cbOtherServUpdate").checked == true || document.getElementById("cbOtherSupplyUpdate").checked == true || document.getElementById("cbOtherEmergRespUpdate").checked == true & document.getElementById("txtOtherDescUpdate").value == ""){
-		otherResourcesInfoError = "Please enter a description for other";
-		document.getElementById("txtOtherDescUpdate").focus();
-		otherResourceErrorFound = true;
-	}
-	
-	
-	
-	//***Cost Information***
-	var costErrorFound = false;
-	var costInfoError = "";
-	
-	//Check if no value is entered for cost
-	if(document.getElementById("txtAssociatedFeeUpdate").value == ""){
-		costInfoError = "Please enter an an Associated Fee"
-		costErrorFound = true;
-		document.getElementById("txtAssociatedFeeUpdate").focus();
-	}
-	
-	
-	
-	//***Gender Information***
-	var genderErrorFound = false;
-	var genderInfoError = "";
-	
-	if(document.getElementById("cbGenderAllUpdate").checked == false & document.getElementById("cbMaleUpdate").checked == false & document.getElementById("cbFemaleUpdate").checked == false & document.getElementById("cbTransUpdate").checked == false){
-		genderInfoError = "Please select a Gender";
-		genderErrorFound = true;
-		document.getElementById("cbGenderAllUpdate").focus();
-	}
-	
-	
-	
-	//***Age Information***
-	var ageErrorFound = false;
-	var ageInfoError = "";
-	
-	if(document.getElementById("cbAgeAllUpdate").checked == false & document.getElementById("cbInfantUpdate").checked == false & document.getElementById("cbChildUpdate").checked == false & document.getElementById("cbYouthUpdate").checked == false & document.getElementById("cbAdultUpdate").checked == false){
-		ageInfoError = "Please select an Age Group";
-		ageErrorFound = true;
-		document.getElementById("cbAgeAllUpdate").focus();
-	}
-	
-	
-	
-	//***Nationality Information***
-	var nationalityErrorFound = false;
-	var nationalityInfoError = "";
-	
-	if(document.getElementById("cbNatAllUpdate").checked == false & document.getElementById("cbDomesticUpdate").checked == false & document.getElementById("cbForeignUpdate").checked == false & document.getElementById("cbUndocumentedUpdate").checked == false){
-		nationalityInfoError = "Please select a Nationality"
-		nationalityErrorFound = true;
-		document.getElementById("cbNatAllUpdate").focus();
-	}
-	
-	
-	
-	//***Race Information***
-	var raceErrorFound = false;
-	var raceInfoError = "";
-	
-	if(document.getElementById("cbRaceAllUpdate").checked == false & document.getElementById("cbBlackUpdate").checked == false & document.getElementById("cbAsianUpdate").checked == false & document.getElementById("cbWhiteUpdate").checked == false & document.getElementById("cbHispanicLatinoUpdate").checked == false & document.getElementById("cbNativeUpdate").checked == false & document.getElementById("cbMultiRacialUpdate").checked == false){
-		raceInfoError = "Please select a Race";
-		raceErrorFound = true;
-		document.getElementById("cbRaceAllUpdate").focus();
-	}
-	
-	
-	
-	//***Ethnicity Information***
-	var ethnicityErrorFound = false;
-	var ethnicityInfoError = "";
-	
-	if(document.getElementById("cbEthnicityAllUpdate").checked == false & document.getElementById("cbHispanicUpdate").checked == false & document.getElementById("cbNonHispanicUpdate").checked == false){
-		ethnicityInfoError = "Please select an ethnicity";
-		ethnicityErrorFound = true;
-		document.getElementById("cbEthnicityAll").focus();
-	}
-	
-	//Populate all error messages if any have been found
-	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resourceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound){
-		document.getElementById("orgInfoErrorTextUpdate").innerHTML = genInfoError;
-		document.getElementById("contactErrorTextUpdate").innerHTML = contactInfoError
-		document.getElementById("addressErrorTextUpdate").innerHTML = addressInfoError;
-		document.getElementById("hoursErrorTextUpdate").innerHTML = hoursInfoError;
-		document.getElementById("addHoursErrorTextUpdate").innerHTML = addHoursInfoError;
-		document.getElementById("resourcesErrorTextUpdate").innerHTML = resourcesInfoError;
-		document.getElementById("otherResourcesErrorTextUpdate").innerHTML = otherResourcesInfoError;
-		document.getElementById("costErrorTextUpdate").innerHTML = costInfoError;
-		document.getElementById("genderErrorTextUpdate").innerHTML = genderInfoError;
-		document.getElementById("ageErrorTextUpdate").innerHTML = ageInfoError;
-		document.getElementById("nationalityErrorTextUpdate").innerHTML = nationalityInfoError;
-		document.getElementById("raceErrorTextUpdate").innerHTML = raceInfoError;
-		document.getElementById("ethnicityErrorTextUpdate").innerHTML = ethnicityInfoError;
 		return false;
 	}
 }
