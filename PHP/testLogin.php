@@ -11,8 +11,8 @@ function insertUser() {
           die("There was an error connecting to the database");
     }
     
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = addslashes($_POST['username']);
+    $password = addslashes($_POST['password']);
    
 
    	$insertUser = $connLibrary->prepare("INSERT INTO Login (username, password) VALUES ('" . $username . "','" . sha1($password) . "');");
@@ -27,8 +27,6 @@ function insertUser() {
     $connLibrary->close();
 } 
 
-function changePassword() {
-    
-}
+
 
 ?>

@@ -19,6 +19,8 @@ function testAjax() {
 	});
 }
 
+
+
 function insertUser() {
 		$.ajax({
 		url: '/PHP/testLogin.php',

@@ -10,7 +10,7 @@ function getRequirementsComplexData() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     $requirementsQuery = $connLibrary->prepare("SELECT rt.ReqType, r.Description FROM Requirements r
                                                 JOIN RequirementsTypes rt on (rt.ReqID = r.ReqID)

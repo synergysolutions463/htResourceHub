@@ -1,4 +1,32 @@
 ** Spot for notes about the PHP code **
 
-legal + shelter search not working
+createAjax
+    Creates Ajax connection to the database
+
+dbConnect
+    Must replace information for hosting server
+    $server = getenv("IP");
+    $username = getenv('C9_USER');
+    $pass = "";
+    $dbname = "htResourceHub";
+    $dbport = 3306;
+
+deleteOrg
+    Connect to the database and delete organization
+
+htResourceHub
+    
+
+loadComplexData
+    Load organization information for full organization page
+
+testLogin
+    
+
+testPhp
+    Get updates about organization fields. 
+
+updateOrgAjax
+    Connect to the database, load in present information about organization,
+    allow changes, and re-save organization to database
 

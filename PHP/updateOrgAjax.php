@@ -18,7 +18,7 @@ function updateOrganization () {
     }
     
     
-    		$orgId = $_POST['orgId'];
+    		$orgId = addslashes($_POST['orgId']);
     		
     		$deleteOrgQuery = $connLibrary->prepare("DELETE FROM Organizations WHERE OrgID = " . $orgId . ";");
             $deleteOrgQuery->execute();
@@ -27,24 +27,24 @@ function updateOrganization () {
 
 			/** Organization Table Insert **/
 			
-            $orgName = $_POST['orgName'];
-			$agencyName = $_POST['agencyName'];
-			$missionStmt = $_POST['missionStmt'];
-			$weblink = $_POST['weblink'];
-			$email = $_POST['email'];
-			$phoneNum = $_POST['phoneNum'];
-			$phoneExt = $_POST['phoneExt'];
-			$hotlineNum = $_POST['hotlineNum'];
-			$confNum = $_POST['confNum'];
-			$confExt = $_POST['confExt'];
-			$isShelter = $_POST['isShelter'];
-			$isTransHousing = $_POST['isTransHousing'];
-			$isAsstLoc = $_POST['isAsstLoc'];
-			$fee = $_POST['fee'];
-			$faith = $_POST['faith'];
-			$notes = $_POST['notes'];
-			$confNotes = $_POST['confNotes'];
-			$isConf = $_POST['isConf'];
+    		$orgName = addslashes($_POST['orgName']);
+			$agencyName = addslashes($_POST['agencyName']);
+			$missionStmt = addslashes($_POST['missionStmt']);
+			$weblink = addslashes($_POST['weblink']);
+			$email = addslashes($_POST['email']);
+			$phoneNum = addslashes($_POST['phoneNum']);
+			$phoneExt = addslashes($_POST['phoneExt']);
+			$hotlineNum = addslashes($_POST['hotlineNum']);
+			$confNum = addslashes($_POST['confNum']);
+			$confExt = addslashes($_POST['confExt']);
+			$isShelter = addslashes($_POST['isShelter']);
+			$isTransHousing = addslashes($_POST['isTransHousing']);
+			$isAsstLoc = addslashes($_POST['isAsstLoc']);
+			$fee = addslashes($_POST['fee']);
+			$faith = addslashes($_POST['faith']);
+			$notes = addslashes($_POST['notes']);
+			$confNotes = addslashes($_POST['confNotes']);
+			$isConf = addslashes($_POST['isConf']);
 	
 
 			
@@ -103,23 +103,23 @@ function updateOrganization () {
     		/**Addresses Insert**/
    		
     		
-    		$streetInfo1 = $_POST['streetInfo1'];
-			$city1 = $_POST['city1'];
-			$zipcode1 = $_POST['zipcode1'];
-			$county1 = $_POST['county1'];
-			$state1 = $_POST['state1'];
+    		$streetInfo1 = addslashes($_POST['streetInfo1']);
+			$city1 = addslashes($_POST['city1']);
+			$zipcode1 = addslashes($_POST['zipcode1']);
+			$county1 = addslashes($_POST['county1']);
+			$state1 = addslashes($_POST['state1']);
 
-			$streetInfo2 = $_POST['streetInfo2'];
-			$city2 = $_POST['city2'];
-			$zipcode2 = $_POST['zipcode2'];
-			$county2 = $_POST['county2'];
-			$state2 = $_POST['state2'];
+			$streetInfo2 = addslashes($_POST['streetInfo2']);
+			$city2 = addslashes($_POST['city2']);
+			$zipcode2 = addslashes($_POST['zipcode2']);
+			$county2 = addslashes($_POST['county2']);
+			$state2 = addslashes($_POST['state2']);
 
-			$streetInfo3 = $_POST['streetInfo3'];
-			$city3 = $_POST['city3'];
-			$zipcode3 = $_POST['zipcode3'];
-			$county3 = $_POST['county3'];
-			$state3 = $_POST['state3'];
+			$streetInfo3 = addslashes($_POST['streetInfo3']);
+			$city3 = addslashes($_POST['city3']);
+			$zipcode3 = addslashes($_POST['zipcode3']);
+			$county3 = addslashes($_POST['county3']);
+			$state3 = addslashes($_POST['state3']);
 			
 			$state1Id = 0;
 			$state2Id = 0;
@@ -203,10 +203,10 @@ function updateOrganization () {
     		/**Age Insert**/
     		
     		
-    		$infantsAge = $_POST['infantsAge'];
-			$childrenAge = $_POST['childrenAge'];
-			$youthAge = $_POST['youthAge'];
-			$adultsAge = $_POST['adultsAge'];
+   			$infantsAge = addslashes($_POST['infantsAge']);
+			$childrenAge = addslashes($_POST['childrenAge']);
+			$youthAge = addslashes($_POST['youthAge']);
+			$adultsAge = addslashes($_POST['adultsAge']);
 			
 		
 	
@@ -325,13 +325,13 @@ function updateOrganization () {
     
     		/**Contact Insert**/
    	
-    		$contactEmail = $_POST['contactEmail'];
-			$firstName = $_POST['firstName'];
-			$lastName = $_POST['lastName'];
-			$position = $_POST['position'];
-			$contactPhoneNum = $_POST['contactPhoneNum'];
-			$contactPhoneExt = $_POST['contactPhoneExt'];
-			$contactIsConf = $_POST['contactIsConf'];
+    		$contactEmail = addslashes($_POST['contactEmail']);
+			$firstName = addslashes($_POST['firstName']);
+			$lastName = addslashes($_POST['lastName']);
+			$position = addslashes($_POST['position']);
+			$contactPhoneNum = addslashes($_POST['contactPhoneNum']);
+			$contactPhoneExt = addslashes($_POST['contactPhoneExt']);
+			$contactIsConf = addslashes($_POST['contactIsConf']);
 			
 			
 
@@ -352,8 +352,8 @@ function updateOrganization () {
 
     		/**Ethnicity Insert**/
 
-    		$hispanic = $_POST['hispanic'];
-			$nonhispanic = $_POST['nonhispanic'];
+    		$hispanic = addslashes($_POST['hispanic']);
+			$nonhispanic = addslashes($_POST['nonhispanic']);
 			
 	
 				/**set ethnicity type ids**/
@@ -421,9 +421,9 @@ function updateOrganization () {
     		
     		/**Gender Insert**/
 
-    		$male = $_POST['male'];
-			$female = $_POST['female'];
-			$transgender = $_POST['transgender'];
+    		$male = addslashes($_POST['male']);
+			$female = addslashes($_POST['female']);
+			$transgender = addslashes($_POST['transgender']);
 	
 				/**set gender type ids**/
 		
@@ -505,50 +505,51 @@ function updateOrganization () {
     		/**Hours Insert**/
    	
     		$is24Hours = $_POST['is24Hours'];
-
-			$mondayToFridayFullOpen = $_POST['mondayToFridayFullOpen'];
-			$mondayToFridayFullClose = $_POST['mondayToFridayFullClose'];
-			$saturdayFullOpen = $_POST['saturdayFullOpen'];
-			$saturdayFullClose = $_POST['saturdayFullClose'];
-			$sundayFullOpen = $_POST['sundayFullOpen'];
-			$sundayFullClose = $_POST['sundayFullClose'];
+			
+			$mondayToFridayFullOpen = addslashes($_POST['mondayToFridayFullOpen']);
+			$mondayToFridayFullClose = addslashes($_POST['mondayToFridayFullClose']);
+			$saturdayFullOpen = addslashes($_POST['saturdayFullOpen']);
+			$saturdayFullClose = addslashes($_POST['saturdayFullClose']);
+			$sundayFullOpen = addslashes($_POST['sundayFullOpen']);
+			$sundayFullClose = addslashes($_POST['sundayFullClose']);
 		
-			$mondaySingleOpen = $_POST['mondaySingleOpen'];
-			$mondaySingleClose = $_POST['mondaySingleClose'];
-			$tuesdaySingleOpen = $_POST['tuesdaySingleOpen'];
-			$tuesdaySingleClose = $_POST['tuesdaySingleClose'];
-			$wednesdaySingleOpen = $_POST['wednesdaySingleOpen'];
-			$wednesdaySingleClose = $_POST['wednesdaySingleClose'];
-			$thursdaySingleOpen = $_POST['thursdaySingleOpen'];
-			$thursdaySingleClose = $_POST['thursdaySingleClose'];
-			$fridaySingleOpen = $_POST['fridaySingleOpen'];
-			$fridaySingleClose = $_POST['fridaySingleClose'];
-			$saturdaySingleOpen = $_POST['saturdaySingleOpen'];
-			$saturdaySingleClose = $_POST['saturdaySingleClose'];
-			$sundaySingleOpen = $_POST['sundaySingleOpen'];
-			$sundaySingleClose = $_POST['sundaySingleClose'];
+			$mondaySingleOpen = addslashes($_POST['mondaySingleOpen']);
+			$mondaySingleClose = addslashes($_POST['mondaySingleClose']);
+			$tuesdaySingleOpen = addslashes($_POST['tuesdaySingleOpen']);
+			$tuesdaySingleClose = addslashes($_POST['tuesdaySingleClose']);
+			$wednesdaySingleOpen = addslashes($_POST['wednesdaySingleOpen']);
+			$wednesdaySingleClose = addslashes($_POST['wednesdaySingleClose']);
+			$thursdaySingleOpen = addslashes($_POST['thursdaySingleOpen']);
+			$thursdaySingleClose = addslashes($_POST['thursdaySingleClose']);
+			$fridaySingleOpen = addslashes($_POST['fridaySingleOpen']);
+			$fridaySingleClose = addslashes($_POST['fridaySingleClose']);
+			$saturdaySingleOpen = addslashes($_POST['saturdaySingleOpen']);
+			$saturdaySingleClose = addslashes($_POST['saturdaySingleClose']);
+			$sundaySingleOpen = addslashes($_POST['sundaySingleOpen']);
+			$sundaySingleClose = addslashes($_POST['sundaySingleClose']);
 
-			$mondayToFridayFullOpenAdd = $_POST['mondayToFridayFullOpenAdd'];
-			$mondayToFridayFullCloseAdd = $_POST['mondayToFridayFullCloseAdd'];
-			$saturdayFullOpenAdd = $_POST['saturdayFullOpenAdd'];
-			$saturdayFullCloseAdd = $_POST['saturdayFullCloseAdd'];
-			$sundayFullOpenAdd = $_POST['sundayFullOpenAdd'];
-			$sundayFullCloseAdd = $_POST['sundayFullCloseAdd'];
+			$mondayToFridayFullOpenAdd = addslashes($_POST['mondayToFridayFullOpenAdd']);
+			$mondayToFridayFullCloseAdd = addslashes($_POST['mondayToFridayFullCloseAdd']);
+			$saturdayFullOpenAdd = addslashes($_POST['saturdayFullOpenAdd']);
+			$saturdayFullCloseAdd = addslashes($_POST['saturdayFullCloseAdd']);
+			$sundayFullOpenAdd = addslashes($_POST['sundayFullOpenAdd']);
+			$sundayFullCloseAdd = addslashes($_POST['sundayFullCloseAdd']);
 		
-			$mondaySingleOpenAdd = $_POST['mondaySingleOpenAdd'];
-			$mondaySingleCloseAdd = $_POST['mondaySingleCloseAdd'];
-			$tuesdaySingleOpenAdd = $_POST['tuesdaySingleOpenAdd'];
-			$tuesdaySingleCloseAdd = $_POST['tuesdaySingleCloseAdd'];
-			$wednesdaySingleOpenAdd = $_POST['wednesdaySingleOpenAdd'];
-			$wednesdaySingleCloseAdd = $_POST['wednesdaySingleCloseAdd'];
-			$thursdaySingleOpenAdd = $_POST['thursdaySingleOpenAdd'];
-			$thursdaySingleCloseAdd = $_POST['thursdaySingleCloseAdd'];
-			$fridaySingleOpenAdd = $_POST['fridaySingleOpenAdd'];
-			$fridaySingleCloseAdd = $_POST['fridaySingleCloseAdd'];
-			$saturdaySingleOpenAdd = $_POST['saturdaySingleOpenAdd'];
-			$saturdaySingleCloseAdd = $_POST['saturdaySingleCloseAdd'];
-			$sundaySingleOpenAdd = $_POST['sundaySingleOpenAdd'];
-			$sundaySingleCloseAdd = $_POST['sundaySingleCloseAdd'];
+			$mondaySingleOpenAdd = addslashes($_POST['mondaySingleOpenAdd']);
+			$mondaySingleCloseAdd = addslashes($_POST['mondaySingleCloseAdd']);
+			$tuesdaySingleOpenAdd = addslashes($_POST['tuesdaySingleOpenAdd']);
+			$tuesdaySingleCloseAdd = addslashes($_POST['tuesdaySingleCloseAdd']);
+			$wednesdaySingleOpenAdd = addslashes($_POST['wednesdaySingleOpenAdd']);
+			$wednesdaySingleCloseAdd = addslashes($_POST['wednesdaySingleCloseAdd']);
+			$thursdaySingleOpenAdd = addslashes($_POST['thursdaySingleOpenAdd']);
+			$thursdaySingleCloseAdd = addslashes($_POST['thursdaySingleCloseAdd']);
+			$fridaySingleOpenAdd = addslashes($_POST['fridaySingleOpenAdd']);
+			$fridaySingleCloseAdd = addslashes($_POST['fridaySingleCloseAdd']);
+			$saturdaySingleOpenAdd = addslashes($_POST['saturdaySingleOpenAdd']);
+			$saturdaySingleCloseAdd = addslashes($_POST['saturdaySingleCloseAdd']);
+			$sundaySingleOpenAdd = addslashes($_POST['sundaySingleOpenAdd']);
+			$sundaySingleCloseAdd = addslashes($_POST['sundaySingleCloseAdd']);
+			
 			
 		
 
@@ -642,9 +643,9 @@ function updateOrganization () {
   		
     		/**Nationality Insert**/
     	
-    		$domesticBorn = $_POST['domesticBorn'];
-			$foreignBorn = $_POST['foreignBorn'];
-			$undocumented = $_POST['undocumented'];
+    		$domesticBorn = addslashes($_POST['domesticBorn']);
+			$foreignBorn = addslashes($_POST['foreignBorn']);
+			$undocumented = addslashes($_POST['undocumented']);
 		
 			
 				/**set nationality type ids**/
@@ -727,12 +728,13 @@ function updateOrganization () {
      	
     
 			
-			$black = $_POST['black'];
-			$asian = $_POST['asian'];
-			$white = $_POST['white'];
-			$hispanic = $_POST['hispanic'];
-			$native = $_POST['native'];
-			$multi = $_POST['multi'];
+			$black = addslashes($_POST['black']);
+			$asian = addslashes($_POST['asian']);
+			$white = addslashes($_POST['white']);
+			$hispanic = addslashes($_POST['hispanic']);
+			$native = addslashes($_POST['native']);
+			$multi = addslashes($_POST['multi']);
+		
 		
 				/**set race type ids**/
 	
@@ -860,14 +862,14 @@ function updateOrganization () {
 	
     		/**Requirements Insert**/
     	
-    		$membership = $_POST['membership'];
-			$membershipDesc = $_POST['membershipDesc'];
-			$training = $_POST['training'];
-			$trainingDesc = $_POST['trainingDesc'];
-			$application = $_POST['application'];
-			$applicationDesc = $_POST['applicationDesc'];
-			$waiting = $_POST['waiting'];
-			$waitingDesc = $_POST['waitingDesc'];
+    		$membership = addslashes($_POST['membership']);
+			$membershipDesc = addslashes($_POST['membershipDesc']);
+			$training = addslashes($_POST['training']);
+			$trainingDesc = addslashes($_POST['trainingDesc']);
+			$application = addslashes($_POST['application']);
+			$applicationDesc = addslashes($_POST['applicationDesc']);
+			$waiting = addslashes($_POST['waiting']);
+			$waitingDesc = addslashes($_POST['waitingDesc']);
 			
 				/**set requirements ids**/
 		
@@ -966,70 +968,70 @@ function updateOrganization () {
     		
     		/**Service Insert**/
     	
-			$clothingService = $_POST["providesClothingService"];
-			$clothingSupply = $_POST["providesClothingSupply"];
-			$clothingEmergResp = $_POST["providesClothingEmergResp"];
-			$clothingDesc = $_POST["providesClothingDesc"];
-			$foodService = $_POST["providesFoodService"];
-			$foodSupply = $_POST["providesFoodSupply"];
-			$foodEmergResp = $_POST["providesFoodEmergResp"];
-			$foodDesc = $_POST["providesFoodDesc"];
-			$govService = $_POST["providesGovService"];
-			$govSupply = $_POST["providesGovSupply"];
-			$govEmergResp = $_POST["providesGovEmergResp"];
-			$govDesc = $_POST["providesGovDesc"];
-			$mentoringService = $_POST["providesMentoringService"];
-			$mentoringSupply = $_POST["providesMentoringSupply"];
-			$mentoringEmergResp = $_POST["providesMentoringEmergResp"];
-			$mentoringDesc = $_POST["providesMentoringDesc"];
-			$employmentService = $_POST["providesEmploymentService"];
-			$employmentSupply = $_POST["providesEmploymentSupply"];
-			$employmentEmergResp = $_POST["providesEmploymentEmergResp"];
-			$employmentDesc = $_POST["providesEmploymentDesc"];
-			$counselingTherapyService = $_POST["providesCounsTherapyService"];
-			$counselingTherapySupply = $_POST["providesCounsTherapySupply"];
-			$counselingTherapyEmergResp = $_POST["providesCounsTherapyEmergResp"];
-			$counselingTherapyDesc = $_POST["providesCounsTherapyDesc"];
-			$pregnancyService = $_POST["providesPregnancyService"];
-			$pregnancySupply = $_POST["providesPregnancySupply"];
-			$pregnancyEmergResp = $_POST["providesPregnancyEmergResp"];
-			$pregnancyDesc = $_POST["providesPregnancyDesc"];
-			$medicalService = $_POST["providesMedicalService"];
-			$medicalSupply = $_POST["providesMedicalSupply"];
-			$medicalEmergResp = $_POST["providesMedicalEmergResp"];
-			$medicalDesc = $_POST["providesMedicalDesc"];
-			$legalService = $_POST["providesLegalService"];
-			$legalSupply = $_POST["providesLegalSupply"];
-			$legalEmergResp = $_POST["providesLegalEmergResp"];
-			$legalDesc = $_POST["providesLegalDesc"];
-			$investigationService = $_POST["providesInvestigationService"];
-			$investigationSupply = $_POST["providesInvestigationSupply"];
-			$investigationEmergResp = $_POST["providesInvestigationEmergResp"];
-			$investigationDesc = $_POST["providesInvestigationDesc"];
-			$fosterCareService = $_POST["providesFosterService"];
-			$fosterCareSupply = $_POST["providesFosterSupply"];
-			$fosterCareEmergResp = $_POST["providesFosterEmergResp"];
-			$fosterCareDesc = $_POST["providesFosterDesc"];
-			$awarenessEdService = $_POST["providesAwarenessService"];
-			$awarenessEdSupply = $_POST["providesAwarenessSupply"];
-			$awarenessEdEmergResp = $_POST["providesAwarenessEmergResp"];
-			$awarenessEdDesc = $_POST["providesAwarenessDesc"];
-			$responseTrainingService = $_POST["providesResponseTrainingService"];
-			$responseTrainingSupply = $_POST["providesResponseTrainingSupply"];
-			$responseTrainingEmergResp = $_POST["providesResponseTrainingEmergResp"];
-			$responseTrainingDesc = $_POST["providesResponseTrainingDesc"];
-			$advocacyService = $_POST['advocacyService'];
-			$advocacySupply = $_POST['advocacySupply'];
-			$advocacyEmergResp = $_POST['advocacyEmergResp'];
-			$advocacyDesc = $_POST['advocacyDesc'];
-			$substanceAbuseService = $_POST["substanceAbuseService"];
-			$substanceAbuseSupply = $_POST["substanceAbuseSupply"];
-			$substanceAbuseEmergResp = $_POST["substanceAbuseEmergResp"];
-			$substanceAbuseDesc = $_POST["substanceAbuseDesc"];
-			$otherService = $_POST["otherService"];
-			$otherSupply = $_POST["otherSupply"];
-			$otherEmergResp = $_POST["otherEmergResp"];
-			$otherDesc = $_POST["otherDesc"];
+			$clothingService = addslashes($_POST["providesClothingService"]);
+			$clothingSupply = addslashes($_POST["providesClothingSupply"]);
+			$clothingEmergResp = addslashes($_POST["providesClothingEmergResp"]);
+			$clothingDesc = addslashes($_POST["providesClothingDesc"]);
+			$foodService = addslashes($_POST["providesFoodService"]);
+			$foodSupply = addslashes($_POST["providesFoodSupply"]);
+			$foodEmergResp = addslashes($_POST["providesFoodEmergResp"]);
+			$foodDesc = addslashes($_POST["providesFoodDesc"]);
+			$govService = addslashes($_POST["providesGovService"]);
+			$govSupply = addslashes($_POST["providesGovSupply"]);
+			$govEmergResp = addslashes($_POST["providesGovEmergResp"]);
+			$govDesc = addslashes($_POST["providesGovDesc"]);
+			$mentoringService = addslashes($_POST["providesMentoringService"]);
+			$mentoringSupply = addslashes($_POST["providesMentoringSupply"]);
+			$mentoringEmergResp = addslashes($_POST["providesMentoringEmergResp"]);
+			$mentoringDesc = addslashes($_POST["providesMentoringDesc"]);
+			$employmentService = addslashes($_POST["providesEmploymentService"]);
+			$employmentSupply = addslashes($_POST["providesEmploymentSupply"]);
+			$employmentEmergResp = addslashes($_POST["providesEmploymentEmergResp"]);
+			$employmentDesc = addslashes($_POST["providesEmploymentDesc"]);
+			$counselingTherapyService = addslashes($_POST["providesCounsTherapyService"]);
+			$counselingTherapySupply = addslashes($_POST["providesCounsTherapySupply"]);
+			$counselingTherapyEmergResp = addslashes($_POST["providesCounsTherapyEmergResp"]);
+			$counselingTherapyDesc = addslashes($_POST["providesCounsTherapyDesc"]);
+			$pregnancyService = addslashes($_POST["providesPregnancyService"]);
+			$pregnancySupply = addslashes($_POST["providesPregnancySupply"]);
+			$pregnancyEmergResp = addslashes($_POST["providesPregnancyEmergResp"]);
+			$pregnancyDesc = addslashes($_POST["providesPregnancyDesc"]);
+			$medicalService = addslashes($_POST["providesMedicalService"]);
+			$medicalSupply = addslashes($_POST["providesMedicalSupply"]);
+			$medicalEmergResp = addslashes($_POST["providesMedicalEmergResp"]);
+			$medicalDesc = addslashes($_POST["providesMedicalDesc"]);
+			$legalService = addslashes($_POST["providesLegalService"]);
+			$legalSupply = addslashes($_POST["providesLegalSupply"]);
+			$legalEmergResp = addslashes($_POST["providesLegalEmergResp"]);
+			$legalDesc = addslashes($_POST["providesLegalDesc"]);
+			$investigationService = addslashes($_POST["providesInvestigationService"]);
+			$investigationSupply = addslashes($_POST["providesInvestigationSupply"]);
+			$investigationEmergResp = addslashes($_POST["providesInvestigationEmergResp"]);
+			$investigationDesc = addslashes($_POST["providesInvestigationDesc"]);
+			$fosterCareService = addslashes($_POST["providesFosterService"]);
+			$fosterCareSupply = addslashes($_POST["providesFosterSupply"]);
+			$fosterCareEmergResp = addslashes($_POST["providesFosterEmergResp"]);
+			$fosterCareDesc = addslashes($_POST["providesFosterDesc"]);
+			$awarenessEdService = addslashes($_POST["providesAwarenessService"]);
+			$awarenessEdSupply = addslashes($_POST["providesAwarenessSupply"]);
+			$awarenessEdEmergResp = addslashes($_POST["providesAwarenessEmergResp"]);
+			$awarenessEdDesc = addslashes($_POST["providesAwarenessDesc"]);
+			$responseTrainingService = addslashes($_POST["providesResponseTrainingService"]);
+			$responseTrainingSupply = addslashes($_POST["providesResponseTrainingSupply"]);
+			$responseTrainingEmergResp = addslashes($_POST["providesResponseTrainingEmergResp"]);
+			$responseTrainingDesc = addslashes($_POST["providesResponseTrainingDesc"]);
+			$advocacyService = addslashes($_POST['advocacyService']);
+			$advocacySupply = addslashes($_POST['advocacySupply']);
+			$advocacyEmergResp = addslashes($_POST['advocacyEmergResp']);
+			$advocacyDesc = addslashes($_POST['advocacyDesc']);
+			$substanceAbuseService = addslashes($_POST["substanceAbuseService"]);
+			$substanceAbuseSupply = addslashes($_POST["substanceAbuseSupply"]);
+			$substanceAbuseEmergResp = addslashes($_POST["substanceAbuseEmergResp"]);
+			$substanceAbuseDesc = addslashes($_POST["substanceAbuseDesc"]);
+			$otherService = addslashes($_POST["otherService"]);
+			$otherSupply = addslashes($_POST["otherSupply"]);
+			$otherEmergResp = addslashes($_POST["otherEmergResp"]);
+			$otherDesc = addslashes($_POST["otherDesc"]);
 			
 			$clothingID = 0;
 			$foodID = 0;

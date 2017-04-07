@@ -12,7 +12,7 @@ function readDeleteOrgId() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     
     $queryDeleteId = $connLibrary->prepare("SELECT OrgId, OrgName from Organizations WHERE OrgId = " . $orgId . ";");
@@ -41,7 +41,7 @@ function deleteOrganization() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     $queryDeleteOrg = $connLibrary->prepare("DELETE FROM Organizations where OrgId = " . $orgId . ";");
     $queryDeleteOrg->execute();

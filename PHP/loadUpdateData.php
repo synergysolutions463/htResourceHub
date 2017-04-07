@@ -14,7 +14,7 @@ function getAddressUpdateData() {
     }
     
     
-   $orgId = $_POST['orgId'];
+   $orgId = addslashes($_POST['orgId']);
    
     if($_SESSION['loggedIn'] == "true") {
             $getAddressUpdateQuery = $connLibrary->prepare("SELECT a.StreetInfo, a.City, a.ZipCode, a.County, 
@@ -59,7 +59,7 @@ function getAgeUpdateData() {
     }
     
     
-   $orgId = $_POST['orgId'];
+   $orgId = addslashes($_POST['orgId']);
 
     $getAgeUpdateQuery = $connLibrary->prepare("SELECT at.AgeType FROM Age a JOIN AgeTypes at 
                                                 ON (at.AgeID = a.AgeID) WHERE OrgID = " . $orgId . ";");
@@ -82,7 +82,7 @@ function getContactsUpdateData() {
           die("There was an error connecting to the database");
     }
     
-   $orgId = $_POST['orgId'];
+   $orgId = addslashes($_POST['orgId']);
 
     if($_SESSION['loggedIn'] == "true") {
         
@@ -124,7 +124,7 @@ function getEthnicityUpdateData() {
           die("There was an error connecting to the database");
     }
     
-   $orgId = $_POST['orgId'];
+   $orgId = addslashes($_POST['orgId']);
 
     $getEthnicityUpdateQuery = $connLibrary->prepare("SELECT et.EthType FROM Ethnicity e JOIN EthnicityTypes et 
                                                 ON (et.EthID = e.EthID) WHERE OrgID = " . $orgId . ";");
@@ -146,7 +146,7 @@ function getGenderUpdateData() {
           die("There was an error connecting to the database");
     }
     
-   $orgId = $_POST['orgId'];
+   $orgId = addslashes($_POST['orgId']);
 
     $getGenderUpdateQuery = $connLibrary->prepare("SELECT gt.GenType FROM Gender g JOIN GenderTypes gt 
                                                 ON (gt.GenID = g.GenID) WHERE OrgID = " . $orgId . ";");
@@ -169,7 +169,7 @@ function getHoursUpdateData() {
     }
     
     
-   $orgId = $_POST['orgId'];
+   $orgId = addslashes($_POST['orgId']);
 
     $getHoursUpdateQuery = $connLibrary->prepare("SELECT * from Hours WHERE OrgID = " . $orgId . ";");
     $getHoursUpdateQuery->execute();
@@ -200,7 +200,7 @@ function getNationalityUpdateData() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
 
     $nationalityQuery = $connLibrary->prepare("SELECT nt.NatType FROM Nationality n 
                                                join NationalityTypes nt on (nt.NatID = n.NatID) 
@@ -225,7 +225,7 @@ function getOrganizationUpdateData() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     if($_SESSION['loggedIn'] == "true") {
         
@@ -268,7 +268,7 @@ function getRaceUpdateData() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     $raceQuery = $connLibrary->prepare("SELECT rt.RaceType FROM Race r
                                         JOIN RaceTypes rt on (rt.RaceID = r.RaceID)
@@ -291,7 +291,7 @@ function getRequirementsUpdateData() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     $requirementsQuery = $connLibrary->prepare("SELECT rt.ReqType FROM Requirements r
                                                 JOIN RequirementsTypes rt on (rt.ReqID = r.ReqID)
@@ -315,7 +315,7 @@ function getServiceUpdateData() {
           die("There was an error connecting to the database");
     }
     
-    $orgId = $_POST['orgId'];
+    $orgId = addslashes($_POST['orgId']);
     
     $serviceQuery = $connLibrary->prepare("SELECT s.OrgID, st.SerType, s.Service, s.Supply, s.Emergency, s.SerDesc FROM Service s 
                                            JOIN ServiceTypes st on (st.SerID = s.SerID)

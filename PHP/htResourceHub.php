@@ -4,24 +4,7 @@ include 'dbConnect.php';
 
 echo $_POST["method"]();
 
-function insertButtons () {
-    
-        if(checkIfLoggedIn() == "admin1") {
-            echo "<button id=\" + orgs[i][0] + \" type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" 
-            data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates();
-            loadUpdateModalData(\" + orgs[i][0] + \");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>
-            <button id=\" + orgs[i][0] + \" type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" 
-            data-target=\"#deleteModal\" onclick=\"loadDeleteData(\" + orgs[i][0] + \");\"><span class=\"glyphicon glyphicon-trash\" 
-            aria-hidden=\"true\"></span></button>";
-        }
-        else {
-            echo "";
-        }
 
-		
-	
-		 
-}
 
 function readTest() {
     $connLibrary = db_connect();
@@ -109,12 +92,12 @@ function simpleSearchOrgs() {
           die("There was an error connecting to the database");
     }
    
-     $counseling = $_POST['counseling'];
-     $employment = $_POST['employment'];
-     $legal = $_POST['legal'];
-     $medical = $_POST['medical'];
-     $shelter = $_POST['shelter'];
-     $substanceAbuse = $_POST['substanceAbuse'];
+     $counseling = addslashes($_POST['counseling']);
+     $employment = addslashes($_POST['employment']);
+     $legal = addslashes($_POST['legal']);
+     $medical = addslashes($_POST['medical']);
+     $shelter = addslashes($_POST['shelter']);
+     $substanceAbuse = addslashes($_POST['substanceAbuse']);
      
      $counselingId = 0;
      $employmentId = 0;
@@ -320,38 +303,38 @@ function advSearchOrgs() {
           die("There was an error connecting to the database");
     }
     
-    $clothingRsc = $_POST['clothingRsc'];
-    $foodRsc = $_POST['foodRsc'];
-    $employmentRsc = $_POST['employmentRsc'];
-    $mentoringRsc = $_POST['mentoringRsc'];
-    $counselingRsc = $_POST['counselingRsc'];
-    $pregnancyRsc = $_POST['pregnancyRsc'];
-    $medicalRsc = $_POST['medicalRsc'];
-    $legalRsc = $_POST['legalRsc'];
-    $governmentalRsc = $_POST['governmentalRsc'];
-    $investigationRsc = $_POST['investigationRsc'];
-    $fosterCareRsc = $_POST['fosterCareRsc'];
-    $educationRsc = $_POST['educationRsc'];
-    $responseTrainingRsc = $_POST['responseTrainingRsc'];
-    $substanceAbuseRsc = $_POST['substanceAbuseRsc'];
-    $advocacyRsc = $_POST['advocacyRsc'];
-    $cityTxt = $_POST['cityTxt'];
-    $searchTxt = $_POST['searchTxt'];
-    $hours247 = $_POST['hours247'];
-    $feeFree = $_POST['feeFree'];
-    $adultsAge = $_POST['adultsAge'];
-    $youthAge = $_POST['youthAge'];
-    $childrenAge = $_POST['childrenAge'];
-    $infantsAge = $_POST['infantsAge'];
-    $femaleGdr = $_POST['femaleGdr'];
-    $transGdr = $_POST['transGdr'];
-    $maleGdr = $_POST['maleGdr'];
-    $undocumentedNat = $_POST['undocumentedNat'];
-    $foreignNat = $_POST['foreignNat'];
-    $domesticNat = $_POST['domesticNat'];
-    $asstLocHsg = $_POST['asstLocHsg'];
-    $transitionalHsg = $_POST['transitionalHsg'];
-    $shelterHsg = $_POST['shelterHsg'];
+    $clothingRsc = addslashes($_POST['clothingRsc']);
+    $foodRsc = addslashes($_POST['foodRsc']);
+    $employmentRsc = addslashes($_POST['employmentRsc']);
+    $mentoringRsc = addslashes($_POST['mentoringRsc']);
+    $counselingRsc = addslashes($_POST['counselingRsc']);
+    $pregnancyRsc = addslashes($_POST['pregnancyRsc']);
+    $medicalRsc = addslashes($_POST['medicalRsc']);
+    $legalRsc = addslashes($_POST['legalRsc']);
+    $governmentalRsc = addslashes($_POST['governmentalRsc']);
+    $investigationRsc = addslashes($_POST['investigationRsc']);
+    $fosterCareRsc = addslashes($_POST['fosterCareRsc']);
+    $educationRsc = addslashes($_POST['educationRsc']);
+    $responseTrainingRsc = addslashes($_POST['responseTrainingRsc']);
+    $substanceAbuseRsc = addslashes($_POST['substanceAbuseRsc']);
+    $advocacyRsc = addslashes($_POST['advocacyRsc']);
+    $cityTxt = addslashes($_POST['cityTxt']);
+    $searchTxt = addslashes($_POST['searchTxt']);
+    $hours247 = addslashes($_POST['hours247']);
+    $feeFree = addslashes($_POST['feeFree']);
+    $adultsAge = addslashes($_POST['adultsAge']);
+    $youthAge = addslashes($_POST['youthAge']);
+    $childrenAge = addslashes($_POST['childrenAge']);
+    $infantsAge = addslashes($_POST['infantsAge']);
+    $femaleGdr = addslashes($_POST['femaleGdr']);
+    $transGdr = addslashes($_POST['transGdr']);
+    $maleGdr = addslashes($_POST['maleGdr']);
+    $undocumentedNat = addslashes($_POST['undocumentedNat']);
+    $foreignNat = addslashes($_POST['foreignNat']);
+    $domesticNat = addslashes($_POST['domesticNat']);
+    $asstLocHsg = addslashes($_POST['asstLocHsg']);
+    $transitionalHsg = addslashes($_POST['transitionalHsg']);
+    $shelterHsg = addslashes($_POST['shelterHsg']);
     
     //Stops the query if there are ever no results found
     $resOrgAppend = resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $advocacyRsc);
@@ -1535,8 +1518,8 @@ function complexSingleOrg($orgId) {
 
 function login() {
   
-  $usernameInput = $_POST['username'];
-  $passwordInput = $_POST['password'];
+  $usernameInput = addslashes($_POST['username']);
+  $passwordInput = addslashes($_POST['password']);
 
    $connLibrary = db_connect();
     if($connLibrary == null || $connLibrary == null) {
