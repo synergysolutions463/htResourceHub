@@ -289,7 +289,7 @@
                                                             <label>Opens:</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <select class="form-control" id="ddlGenFullWeekStartTimeUpdate">
+                                                            <select class="form-control" id="ddlGenFullWeekStartTimeUpdate" class="dropdownUpdate">
 																	<option value="-----">-----</option>
 																	<option value="12:00 AM">12:00 AM</option>
 																	<option value="1:00 AM">1:00 AM</option>
@@ -3221,7 +3221,7 @@
                                 <label>Approve Organization:</label>
                                 <input type="checkbox" id="cbIsApprovedUpdate">
                             </div>
-                        
+                        <div id="generalUpdateErrorText" class="bg-danger"></div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" id="updBtn" class="btn btn-primary" onclick="updateOrganization()">Update</button>
                             

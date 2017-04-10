@@ -48,7 +48,7 @@
                             <li><a href="index.html">Home</a></li>
                             <li><a href="resourceApp.html">Resource Application</a></li>
                             <li class="active" id="loginNav"><a href="#" data-toggle="modal" data-target="#loginModal" onclick="resetLogin()">Login</a></li>
-                            <li class="hotline"><a href="tel:1616726777">Hotline 1-616-726-7777</a></li>
+                          <!--  <li class="hotline"><a href="tel:1616726777">Hotline 1-616-726-7777</a></li> -->
                         </ul>
                     </div>
                     <!--/.nav-collapse -->
@@ -58,44 +58,44 @@
         </div>
 
     </header>
-    
 
-                        
-
-    
     <div class="container" id="adminPanel" style="display:block">
         <div class="panel panel-default">
              <div class="panel-body">
                  <div class="row">
                      <div class="col-md-6">
-                     <h1>Welcome.</h1>                        
+                     <h1>Welcome to your profile page!</h1>                        
                      </div>
                     <div class="col-md-2 col-md-offset-4">
                                <button type="button" class="btn btn-default btn-sm"  onclick="logout()">
-                           log out
+                           Log Out
                         </button>
                     </div>
                  </div>
                  <hr>
                  <br>
                  <div class="row" id="admin2">
-                      <div class="col-md-3" id="admin2Msg">
+                      <div class="col-md-10 col-md-offset-1" id="admin2Msg">
                          
                      </div>
                 </div>
+                <!-- move me -->
                 <div class="row">
-                     <div class="col-md-2" id="admin2CreateBtn">
+                     <div class="col-md-3 col-md-offset-1" id="admin2CreateBtn">
                          
                      </div>
                  </div>
                  <div class="row" id="admin1Info">
-                     <div class="col-md-6" id="admin1Msg">
-                         
-                     </div>
-                     <div class="col-md-3 col-md-offset-3" id="admin1CreateBtn">
+                     <div class="col-md-10 col-md-offset-1" id="admin1Msg">
                          
                      </div>
                  </div>
+                 <!-- move me -->
+                 <div class="row">
+                     <div class="col-md-3 col-md-offset-1" id="admin1CreateBtn">
+                     </div>
+                 </div>
+                 <br/>
                  <hr>
                  <div class="row" id="admin1Orgs">
                      <div class="col-md-10 col-md-offset-1" id="orgsListBox">
@@ -104,10 +104,11 @@
                  </div>
                  <hr>
                 <div class="row" id="admin1Password">
-                     <div class="col-md-6" id="passwordChange">
+                     <div class="col-md-3 col-md-offset-1" id="passwordChange">
                      </div>
                  </div>
-                    
+                 
+                
             </div>
         </div>
     </div>
@@ -167,15 +168,15 @@
 
                 </div>
                 
-        
+                
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-sm-3 col-sm-offset-1">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"  style="display:block">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"  style="display:block">Close</button>
                         </div>
                         <div class="col-sm-3">
-                    <button type="button" id="btnChangePassword" class="btn btn-primary"  style="display:block" onclick="changePassword();">Change Password</button>
-                    <button type="button" id="btnResetChangePassword" class="btn btn-primary" onclick="resetChangePassword();" style="display:none">Retry</button>
+                            <button type="button" id="btnChangePassword" class="btn btn-primary"  style="display:block" onclick="changePassword();">Change Password</button>
+                            <button type="button" id="btnResetChangePassword" class="btn btn-primary" onclick="resetChangePassword();" style="display:none">Retry</button>
                         </div>
                     </div>
                 </div>
@@ -187,7 +188,7 @@
             <div class="footerContainer">
         <footer class="footer" id="homeFooter">
             <div class="footerTextContainer">
-                <p><span class="copyrightFoot">Copyright 2017, Kent County Human Trafficking Task Force </span> <a href="" class="footerLink">Privacy</a> <a class="footerLink" href="">Contact</a></p>
+                <p><span class="copyrightFoot">Copyright 2017, Kent County Human Trafficking Task Force </span> <a href="privacyPolicy.html" target="_blank" class="footerLink">Privacy</a></p>
             </div>
         </footer>
     </div>

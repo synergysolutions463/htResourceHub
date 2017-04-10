@@ -438,9 +438,9 @@ function loadAdminPage() {
 			if(data == "admin1") {
 				document.getElementById("adminError").style.display = 'none';
 				document.getElementById("adminPanel").style.display = 'block';
-				document.getElementById("admin1Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view all confidential organizations in the system. To view those, please use the search option on the main page. You also have the ability to insert new organizations with an approved status. This can be done using the button to the right. You also may change the passwords to this account and also to the admin2 account, there are links at the bottom of this page to do so. Additionally, the list below are organizations that have been requested to be added to your site and need approval before they can be displayed in the search on the main page. To approve these organizations, please click the organization's name below that you wish to approve. </h5>";
-				document.getElementById("admin1CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates(); resetCreateModal();\">Insert Organization</button>";
-				document.getElementById("passwordChange").innerHTML = "<h4>Change password</h4><button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#changePasswordModal\" onclick=\"resetChangePassword();\">Change Password</button>";
+				document.getElementById("admin1Msg").innerHTML = "<h5>With the login credentials you provided, you have access to view all confidential organizations in the system. To view those, simply use the search feature on the homepage. You also have the ability to insert new organizations with an approved status. This can be done clicking the Insert New Organization button below. You also may change the passwords to this account as well as the admin2 account using the Change Password button near the bottom of the page. Additionally, the list below are organizations that have been requested to be added to your site and need approval before they can be displayed in the search on the main page. To approve these organizations, please click the organization's name below that you wish to approve and select the Approve Organization checkbox at the bottom of the pop-up form that gets displayed.</h5>";
+				document.getElementById("admin1CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates(); resetCreateModal();\">Insert New Organization</button>";
+				document.getElementById("passwordChange").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#changePasswordModal\" onclick=\"resetChangePassword();\">Change Password</button>";
 				loadApprovedOrgs();
 					
 					
@@ -448,8 +448,8 @@ function loadAdminPage() {
 			if(data == "admin2") {
 				document.getElementById("adminError").style.display = 'none';
 				document.getElementById("adminPanel").style.display = 'block';
-				document.getElementById("admin2Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view-only all confidential organizations in the system. To view organizations, please use the search options on the main page.</h2>";
-				document.getElementById("admin2CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates(); resetCreateModal();\">Insert Organization</button>";
+				document.getElementById("admin2Msg").innerHTML = "<h5>With the login credentials you provided, you have read-only access to all confidential organizations in the system. To view organizations, simply use the search feature on the homepage.</h2>";
+				document.getElementById("admin2CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates(); resetCreateModal();\">Insert New Organization</button>";
 			}
 
 		}
@@ -460,6 +460,12 @@ function loadSimpleData(orgs) {
 	
 
 	oLen = orgs.length;
+	
+	if(oLen == 0) {
+		var text = "<h2>No results found</h2>";
+				document.getElementById("resultPanel").innerHTML = text;
+	}
+	else{
 
 	text = "";
 
@@ -583,7 +589,7 @@ function loadSimpleData(orgs) {
 
 
 	}
-
+}
 
 
 }
@@ -1063,6 +1069,7 @@ function insertOrganization() {
 			success: function(data) {
 				
 				showCreateMessage(data);
+				document.getElementById("generalCreateErrorText").innerHTML = "";
 				console.log("connection to php for insert working");
 				console.log("org id for tyler: " + data);
 			//	resetCreateModal();
@@ -1765,6 +1772,7 @@ function updateOrganization() {
 		},
 		success: function(data) {
 			showUpdateMessage(data);
+			document.getElementById("generalUpdateErrorText").innerHTML = "";
 			console.log("connection to php for insert working");
 			console.log(data);
 			loadApprovedOrgs();
@@ -1849,9 +1857,9 @@ function populateCreateStates() {
 			var parsedData = JSON.parse(data);
 			var states = parsedData;
 
-		/*	$("#ddlAddress1StateCreate").get(0).options.length = 0;
+			$("#ddlAddress1StateCreate").get(0).options.length = 0;
 			$("#ddlAddress2StateCreate").get(0).options.length = 0;
-			$("#ddlConfAddressStateCreate").get(0).options.length = 0; */
+			$("#ddlConfAddressStateCreate").get(0).options.length = 0; 
 			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress1StateCreate");
 			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress2StateCreate");
 			$('<option/>').val("-----").html("-----").appendTo("#ddlConfAddressStateCreate");
@@ -1876,7 +1884,7 @@ function populateCreateFaiths() {
 			var parsedData = JSON.parse(data);
 			var faiths = parsedData;
 
-	//		$("#ddlFaithCreate").get(0).options.length = 0;
+			$("#ddlFaithCreate").get(0).options.length = 0;
 
 			for (i = 0; i < faiths.length; i++) {
 				$('<option/>').val(faiths[i]).html(faiths[i]).appendTo("#ddlFaithCreate");
@@ -1896,9 +1904,9 @@ function populateUpdateStates() {
 			var parsedData = JSON.parse(data);
 			var states = parsedData;
 
-	/*		$("#ddlAddress1StateUpdate").get(0).options.length = 0;
+			$("#ddlAddress1StateUpdate").get(0).options.length = 0;
 			$("#ddlAddress2StateUpdate").get(0).options.length = 0;
-			$("#ddlConfAddressStateUpdate").get(0).options.length = 0; */
+			$("#ddlConfAddressStateUpdate").get(0).options.length = 0; 
 			
 			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress1StateUpdate");
 			$('<option/>').val("-----").html("-----").appendTo("#ddlAddress2StateUpdate");
@@ -1924,7 +1932,7 @@ function populateUpdateFaiths() {
 			var parsedData = JSON.parse(data);
 			var faiths = parsedData;
 
-	//		$("#ddlFaithUpdate").get(0).options.length = 0; 
+			$("#ddlFaithUpdate").get(0).options.length = 0; 
 
 			for (i = 0; i < faiths.length; i++) {
 				$('<option/>').val(faiths[i]).html(faiths[i]).appendTo("#ddlFaithUpdate");
@@ -3426,6 +3434,7 @@ function checkHoursCreate() {
 }
 
 function checkHoursUpdate() {
+	
 	if (document.getElementById("cbIs247Update").checked){
 		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", true);
 		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", true);
@@ -3516,95 +3525,216 @@ function checkHoursUpdate() {
 	};
 }
 
-function disableRegularHours() {
-	var x = document.getElementById("ddlGenFullWeekStartTimeCreate").SelectedIndex;
-		if (x != -1 || x != 0){
-		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenMondayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenMondayEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenThursdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenThursdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenFridayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenFridayEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlGenSundayStartTimeUpdate").prop("disabled", true);
-		$("#ddlGenSundayEndTimeUpdate").prop("disabled", true);
-
-		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddMondayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddMondayEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddThursdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddThursdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddFridayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddFridayEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", true);
-		$("#ddlAddSundayStartTimeUpdate").prop("disabled", true);
-		$("#ddlAddSundayEndTimeUpdate").prop("disabled", true);
+function disableRegularHoursCreate() {
+            
+        if(document.getElementById("ddlGenFullWeekStartTimeCreate").value != "-----" || document.getElementById("ddlGenFullWeekEndTimeCreate").value != "-----") {
+		$("#ddlGenMondayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenMondayEndTimeCreate").prop("disabled", true);
+		$("#ddlGenTuesdayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenTuesdayEndTimeCreate").prop("disabled", true);
+		$("#ddlGenWednesdayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenWednesdayEndTimeCreate").prop("disabled", true);
+		$("#ddlGenThursdayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenThursdayEndTimeCreate").prop("disabled", true);
+		$("#ddlGenFridayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFridayEndTimeCreate").prop("disabled", true);
+		$("#ddlGenSaturdayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenSaturdayEndTimeCreate").prop("disabled", true);
+		$("#ddlGenSundayStartTimeCreate").prop("disabled", true);
+		$("#ddlGenSundayEndTimeCreate").prop("disabled", true);
 	}
 	else {
-		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenMondayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenMondayEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenThursdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenThursdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenFridayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenFridayEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlGenSundayStartTimeUpdate").prop("disabled", false);
-		$("#ddlGenSundayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekEndTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);
+		$("#ddlGenMondayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenMondayEndTimeCreate").prop("disabled", false);
+		$("#ddlGenTuesdayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenTuesdayEndTimeCreate").prop("disabled", false);
+		$("#ddlGenWednesdayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenWednesdayEndTimeCreate").prop("disabled", false);
+		$("#ddlGenThursdayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenThursdayEndTimeCreate").prop("disabled", false);
+		$("#ddlGenFridayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFridayEndTimeCreate").prop("disabled", false);
+		$("#ddlGenSaturdayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenSaturdayEndTimeCreate").prop("disabled", false);
+		$("#ddlGenSundayStartTimeCreate").prop("disabled", false);
+		$("#ddlGenSundayEndTimeCreate").prop("disabled", false);
+	};
+}
 
-		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddMondayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddMondayEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddThursdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddThursdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddFridayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddFridayEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", false);
-		$("#ddlAddSundayStartTimeUpdate").prop("disabled", false);
-		$("#ddlAddSundayEndTimeUpdate").prop("disabled", false);
+function disableAdditionalHoursCreate(){
+	    
+        if(document.getElementById("ddlAddFullWeekStartTimeCreate").value != "-----" || document.getElementById("ddlAddFullWeekEndTimeCreate").value != "-----") {
+		$("#ddlAddMondayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddMondayEndTimeCreate").prop("disabled", true);
+		$("#ddlAddTuesdayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddTuesdayEndTimeCreate").prop("disabled", true);
+		$("#ddlAddWednesdayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddWednesdayEndTimeCreate").prop("disabled", true);
+		$("#ddlAddThursdayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddThursdayEndTimeCreate").prop("disabled", true);
+		$("#ddlAddFridayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddFridayEndTimeCreate").prop("disabled", true);
+		$("#ddlAddSaturdayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddSaturdayEndTimeCreate").prop("disabled", true);
+		$("#ddlAddSundayStartTimeCreate").prop("disabled", true);
+		$("#ddlAddSundayEndTimeCreate").prop("disabled", true);
+		}
+		else {
+		$("#ddlAddFullWeekStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekEndTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSatStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSatEndTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSunStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSunEndTimeCreate").prop("disabled", false);
+		$("#ddlAddMondayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddMondayEndTimeCreate").prop("disabled", false);
+		$("#ddlAddTuesdayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddTuesdayEndTimeCreate").prop("disabled", false);
+		$("#ddlAddWednesdayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddWednesdayEndTimeCreate").prop("disabled", false);
+		$("#ddlAddThursdayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddThursdayEndTimeCreate").prop("disabled", false);
+		$("#ddlAddFridayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFridayEndTimeCreate").prop("disabled", false);
+		$("#ddlAddSaturdayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddSaturdayEndTimeCreate").prop("disabled", false);
+		$("#ddlAddSundayStartTimeCreate").prop("disabled", false);
+		$("#ddlAddSundayEndTimeCreate").prop("disabled", false);	
+		}
 	};
 	
-}
+function checkGenHourOverlap(){
+		if(document.getElementById("ddlGenMondayStartTimeCreate").value != "-----" || document.getElementById("ddlGenMondayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlGenTuesdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenTuesdayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlGenWednesdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenWednesdayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlGenThursdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenThursdayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlGenFridayStartTimeCreate").value != "-----" || document.getElementById("ddlGenFridayEndTimeCreate").value != "-----"){
+		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekEndTimeCreate").prop("disabled", true);
+		}else
+		{
+		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekEndTimeCreate").prop("disabled", false);	
+			}
+	};
+	
+function checkGenSatHoursOverlap(){
+	if(document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayEndTimeCreate").value != "-----"){
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
+	}else
+	{
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);	
+	}
+	
+};
+
+function checkGenSunHourOverlap(){
+	if(document.getElementById("ddlGenSundayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSundayEndTimeCreate").value != "-----"){
+		$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", true);
+	}else
+	{
+		$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);	
+	}
+};
+
+function checkAddSatHoursOverlap(){
+	if(document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayEndTimeCreate").value != "-----"){
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
+	}else
+	{
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);	
+	}
+};
+
+function checkAddSunHoursOverlap(){
+	if(document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayEndTimeCreate").value != "-----"){
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
+	}else
+	{
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);	
+	}
+};
+
+function checkAddHourOverLap(){
+		if(document.getElementById("ddlAddMondayStartTimeCreate").value != "-----" || document.getElementById("ddlAddMondayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlAddTuesdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddTuesdayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlAddWednesdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddWednesdayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlAddThursdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddThursdayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlAddFridayStartTimeCreate").value != "-----" || document.getElementById("ddlAddFridayEndTimeCreate").value != "-----"){
+		$("#ddlAddFullWeekStartTimeCreate").prop("disabled", true);
+		$("#ddlAddFullWeekEndTimeCreate").prop("disabled", true);
+		}else
+		{
+		$("#ddlAddFullWeekStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekEndTimeCreate").prop("disabled", false);	
+			}
+	};
+	
+function resetHours(){
+	
+	if (document.getElementById("cbIs247Create").checked){
+		document.getElementById("ddlGenFullWeekStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSatStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSatEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSunStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSunEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenMondayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenMondayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenTuesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenTuesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenWednesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenWednesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenThursdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenThursdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenFridayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFridayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenSaturdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenSaturdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenSundayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenSundayEndTimeCreate").value = "-----";
+		
+		 document.getElementById("ddlAddFullWeekStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSatStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSatEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSunStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSunEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddMondayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddMondayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddTuesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddTuesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddWednesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddWednesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddThursdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddThursdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddFridayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFridayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddSaturdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddSaturdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddSundayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddSundayEndTimeCreate").value = "-----";
+	}
+	else {
+	
+	}
+};
+
 
 function checkAllDisableCreate(source) {
 	var checkAlls = document.getElementsByTagName('input');
@@ -4234,7 +4364,7 @@ function getComplexData(orgId) {
 				}
 				
 				//checks each service type
-				if(services[i][2] != null){
+				if(services[i][2] != 0){
 					if(count == 0){
 						text += " (Service";
 						count ++;
@@ -4243,7 +4373,7 @@ function getComplexData(orgId) {
 						text += ", Service";
 					}
 				}
-				if(services[i][3] != null){
+				if(services[i][3] != 0){
 					if(count == 0){
 						text += " (Supply";
 						count ++;
@@ -4252,7 +4382,7 @@ function getComplexData(orgId) {
 						text += ", Supply";
 					}
 				}
-				if(services[i][4] != null){
+				if(services[i][4] != 0){
 					if(count == 0){
 						text += " (Emergency";
 						count ++;
@@ -4265,7 +4395,7 @@ function getComplexData(orgId) {
 			}
 			text += "</ul>";
 			document.getElementById("orgInfoServices").innerHTML = text;
-			
+			document.getElementById("backButton").focus();
 			}
 		}); 
 }
@@ -4295,6 +4425,16 @@ function createFormValidation(){
 		document.getElementById("txtMainPhoneCreate").focus();
 		contactErrorFound = true;
 	}
+	
+	//validate main phone
+	
+	
+	//validate hotline phone
+	
+	//validate confidential phone
+	
+	//validate contact number
+	
 	
 	
 	
@@ -4347,30 +4487,33 @@ function createFormValidation(){
 		addressErrorFound = true;
 	}
 	//Check zip for all numbers
-	if(isNaN(document.getElementById("txtAddress1ZipCreate").value)){
+	if(isNaN(document.getElementById("txtAddress1ZipCreate").value) || document.getElementById("txtAddress1ZipCreate").value.length > 5 || document.getElementById("txtAddress1ZipCreate").value.length < 5){
 		if(addressErrorFound){
 			addressInfoError += "<br>";
 		}
 		addressInfoError += "Please enter a valid Zip in Address 1"
 		document.getElementById("txtAddress1ZipCreate").focus();
 		addressErrorFound = true;
+		
 	}
-	if(isNaN(document.getElementById("txtAddress2ZipCreate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
-		}
+		if(isNaN(document.getElementById("txtAddress2ZipCreate").value) || document.getElementById("txtAddress2ZipCreate").value.length > 5){
+			if(addressErrorFound){
+				addressInfoError += "<br>";
+			}
 		addressInfoError += "Please enter a valid Zip in Address 2"
 		document.getElementById("txtAddress2ZipCreate").focus();
 		addressErrorFound = true;
-	}
-	if(isNaN(document.getElementById("txtConfAddressZipCreate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
 		}
+
+		if(isNaN(document.getElementById("txtConfAddressZipCreate").value)  ||  document.getElementById("txtConfAddressZipCreate").value.length > 5){
+			if(addressErrorFound){
+			addressInfoError += "<br>";
+			 }
 		addressInfoError += "Please enter a valid Zip in confidential Address"
 		document.getElementById("txtConfAddressZipCreate").focus();
 		addressErrorFound = true;
-	}
+		}
+	
 	
 	
 	
@@ -4388,7 +4531,8 @@ function createFormValidation(){
 		& document.getElementById("ddlGenThursdayStartTimeCreate").value == "-----" & document.getElementById("ddlGenThursdayEndTimeCreate").value == "-----"
 		& document.getElementById("ddlGenFridayStartTimeCreate").value == "-----" & document.getElementById("ddlGenFridayEndTimeCreate").value == "-----"
 		& document.getElementById("ddlGenSaturdayStartTimeCreate").value == "-----" & document.getElementById("ddlGenSaturdayEndTimeCreate").value == "-----"
-		& document.getElementById("ddlGenSundayStartTimeCreate").value == "-----" & document.getElementById("ddlGenSundayEndTimeCreate").value == "-----"){
+		& document.getElementById("ddlGenSundayStartTimeCreate").value == "-----" & document.getElementById("ddlGenSundayEndTimeCreate").value == "-----"
+		& document.getElementById("cbIs247Create").checked == false){
 		
 		hoursInfoError = "Please select at least one time";
 		hoursErrorFound = true;
@@ -4830,7 +4974,7 @@ function createFormValidation(){
 	}
 	
 	//Populate all error messages if any have been found
-	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resourceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound){
+	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resourceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound || addressErrorFound){
 		document.getElementById("orgInfoErrorText").innerHTML = genInfoError;
 		document.getElementById("contactErrorText").innerHTML = contactInfoError
 		document.getElementById("addressErrorText").innerHTML = addressInfoError;
@@ -4844,6 +4988,7 @@ function createFormValidation(){
 		document.getElementById("nationalityErrorText").innerHTML = nationalityInfoError;
 		document.getElementById("raceErrorText").innerHTML = raceInfoError;
 		document.getElementById("ethnicityErrorText").innerHTML = ethnicityInfoError;
+		document.getElementById("generalCreateErrorText").innerHTML = "<p>There are errors present in the form</p>";
 		return false;
 	}
 	return true;
@@ -4919,35 +5064,37 @@ function updateFormValidation(){
 	
 	//Check for one full address
 	if(document.getElementById("txtAddress1StreetUpdate").value == "" || document.getElementById("txtAddress1CityUpdate").value == "" || document.getElementById("txtAddress1ZipUpdate").value == "" || document.getElementById("ddlAddress1StateUpdate").value == "-----" ){
-		addressInfoError = "Please enter at least one full address"
+		addressInfoError = "Please enter at least one full address";
 		document.getElementById("txtAddress1StreetUpdate").focus();
 		addressErrorFound = true;
 	}
 	//Check zip for all numbers
-	if(isNaN(document.getElementById("txtAddress1ZipUpdate").value)){
+	if(isNaN(document.getElementById("txtAddress1ZipUpdate").value) || document.getElementById("txtAddress1ZipUpdate").value.length > 5 || document.getElementById("txtAddress1ZipUpdate").value.length < 5){
 		if(addressErrorFound){
 			addressInfoError += "<br>";
 		}
 		addressInfoError += "Please enter a valid Zip in Address 1"
 		document.getElementById("txtAddress1ZipUpdate").focus();
 		addressErrorFound = true;
+		
 	}
-	if(isNaN(document.getElementById("txtAddress2ZipUpdate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
-		}
+		if(isNaN(document.getElementById("txtAddress2ZipUpdate").value) || document.getElementById("txtAddress2ZipUpdate").value.length > 5){
+			if(addressErrorFound){
+				addressInfoError += "<br>";
+			}
 		addressInfoError += "Please enter a valid Zip in Address 2"
 		document.getElementById("txtAddress2ZipUpdate").focus();
 		addressErrorFound = true;
-	}
-	if(isNaN(document.getElementById("txtConfAddressZipUpdate").value)){
-		if(addressErrorFound){
-			addressInfoError += "<br>";
 		}
+
+		if(isNaN(document.getElementById("txtConfAddressZipUpdate").value)  ||  document.getElementById("txtConfAddressZipUpdate").value.length > 5){
+			if(addressErrorFound){
+			addressInfoError += "<br>";
+			 }
 		addressInfoError += "Please enter a valid Zip in confidential Address"
 		document.getElementById("txtConfAddressZipUpdate").focus();
 		addressErrorFound = true;
-	}
+		}
 	console.log("address passed");
 	
 	
@@ -4965,7 +5112,8 @@ function updateFormValidation(){
 		& document.getElementById("ddlGenThursdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenThursdayEndTimeUpdate").value == "-----"
 		& document.getElementById("ddlGenFridayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenFridayEndTimeUpdate").value == "-----"
 		& document.getElementById("ddlGenSaturdayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSaturdayEndTimeUpdate").value == "-----"
-		& document.getElementById("ddlGenSundayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSundayEndTimeUpdate").value == "-----"){
+		& document.getElementById("ddlGenSundayStartTimeUpdate").value == "-----" & document.getElementById("ddlGenSundayEndTimeUpdate").value == "-----"
+		& document.getElementById("cbIs247Update").checked == false){
 		
 		hoursInfoError = "Please select at least one time";
 		hoursErrorFound = true;
@@ -5410,7 +5558,7 @@ function updateFormValidation(){
 	
 	
 	//Populate all error messages if any have been found
-	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resourceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound){
+	if(orgErrorFound || contactErrorFound || hourErrorFound || addHourErrorFound || resourceErrorFound || otherResourceErrorFound || costErrorFound || genderErrorFound || ageErrorFound || nationalityErrorFound || raceErrorFound || ethnicityErrorFound || addressErrorFound){
 		document.getElementById("orgInfoErrorTextUpdate").innerHTML = genInfoError;
 		document.getElementById("contactErrorTextUpdate").innerHTML = contactInfoError
 		document.getElementById("addressErrorTextUpdate").innerHTML = addressInfoError;
@@ -5424,7 +5572,7 @@ function updateFormValidation(){
 		document.getElementById("nationalityErrorTextUpdate").innerHTML = nationalityInfoError;
 		document.getElementById("raceErrorTextUpdate").innerHTML = raceInfoError;
 		document.getElementById("ethnicityErrorTextUpdate").innerHTML = ethnicityInfoError;
-		console.log("something is false");
+		document.getElementById("generalUpdateErrorText").innerHTML = "<p>There are errors present in the form</p>";
 		return false;
 	}
 	return true;
@@ -5500,7 +5648,7 @@ function showCreateMessage(message) {
 	document.getElementById("createBtn").disabled = true;
 	document.getElementById("cbIsApprovedCreate").disabled = true;
 	if(message.replace(/\n/ig, '') == "approved") {
-		document.getElementById("createMessageBodyCreate").innerHTML = "<p>Your organization has been submitted and approved successfully.</p><button type=\"button\" class=\"btn btn-default btn-md\" id=\"resetCreate\" onclick=\"resetCreateModal()\">Insert Another</button>";
+		document.getElementById("createMessageBodyCreate").innerHTML = "<p>Your organization has been submitted and approved successfully.</p><button type=\"button\" class=\"btn btn-default btn-md\" id=\"resetCreate\" onclick=\"resetCreateModal()\"updateCreate\" >Insert Another</button>";
 	}
 	if(message.replace(/\n/ig, '') == "not approved") {
 		 document.getElementById("createMessageBodyCreate").innerHTML = "<p>Thank you for submitting your application to become part of our Resource Hub! Your organization will be notified once you have been approved. If you have any questions about the application process, please contact a YWCA associate advocate.</p><button type=\"button\" class=\"btn btn-default btn-md\" id=\"resetCreate\" onclick=\"resetCreateModal()\">Insert Another</button>";
