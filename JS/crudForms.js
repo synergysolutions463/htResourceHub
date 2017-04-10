@@ -1,4 +1,5 @@
 var loggedIn = "";
+var username = "";
 
 function testAjax() {
 	console.log("test ajax worked")
@@ -19,25 +20,90 @@ function testAjax() {
 	});
 }
 
-
-
-function insertUser() {
-		$.ajax({
-		url: '/PHP/testLogin.php',
-		type: 'POST',
-		data: {
-			method: "insertUser",
-			username: "admin2",
-			password: "admin2"
-		},
-		success: function(data) {
-
-
-		}
-	});
+function resetChangePassword() {
+		document.getElementById("passwordInputs").style.display = 'block';
+		document.getElementById("successPasswordMessage").style.display = 'none';
+		document.getElementById("successPasswordMessage").innerHTML = "";
+		document.getElementById("btnChangePassword").style.display = 'block';
+		document.getElementById("btnResetChangePassword").style.display = 'none';
+		document.getElementById("ddlUsernames").value = "admin1";
+		document.getElementById("oldPasswordTxt").value = "";
+		document.getElementById("newPasswordTxt").value = ""; 
+		document.getElementById("confirmPasswordTxt").value = "";
 }
 
 function changePassword() {
+	console.log("change password function hit"); 
+	var username = document.getElementById("ddlUsernames").value;
+	var oldPassword = document.getElementById("oldPasswordTxt").value;
+	var newPassword = document.getElementById("newPasswordTxt").value;
+	var confirmPassword = document.getElementById("confirmPasswordTxt").value;
+	
+	if (username == null || oldPassword == "" || oldPassword == null || newPassword == "" || newPassword == null || confirmPassword == "" || confirmPassword == null) {
+		console.log("a field is empty");
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>You must fill in every field</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+				document.getElementById("btnResetChangePassword").style.display = 'block';
+		
+	}
+	else if (newPassword != confirmPassword) {
+		console.log("new and confirm passwords don't match");
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>The new passwords provided do not match</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+				document.getElementById("btnResetChangePassword").style.display = 'block';
+	}
+	else {
+		console.log("data should be good. username: " + username + " old pass: " + oldPassword + " newPass: " + newPassword + " confirmpass: " + confirmPasswordTxt);
+		$.ajax({
+		url: '/PHP/htResourceHub.php',
+		type: 'POST',
+		data: {
+			method: "changePassword", username: username, oldPassword: oldPassword, newPassword: newPassword, confirmPassword: confirmPassword
+		},
+		success: function(data) {
+			console.log(data);
+			if(data == "Not logged in") {
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>Password change not successful, you aren't logged in</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+				document.getElementById("btnResetChangePassword").style.display = 'block';
+			}
+			if(data == "Not logged in as admin1") {
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>Password change not successful, you aren't logged in as admin1</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+				document.getElementById("btnResetChangePassword").style.display = 'block';
+			}
+			if(data == "invalid old pass") {
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>Password change not successful, you gave an invalid old password</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+				document.getElementById("btnResetChangePassword").style.display = 'block';
+			}
+			if(data == "invalid username") {
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>Password change not successful, selected an invalid username</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+				document.getElementById("btnResetChangePassword").style.display = 'block';
+			}
+			if(data == "change password was successful") {
+				document.getElementById("passwordInputs").style.display = 'none';
+				document.getElementById("successPasswordMessage").style.display = 'block';
+				document.getElementById("successPasswordMessage").innerHTML = "<h5>Password changed successfully</h5>";
+				document.getElementById("btnChangePassword").style.display = 'none';
+			}
+
+		}
+	});
+	}
 	
 }
 
@@ -259,6 +325,7 @@ function logout() {
 			method: "logout",
 		},
 		success: function(data) {
+			username = "";
 		}
 	});
 	
@@ -281,8 +348,12 @@ function checkIfLoggedIn() {
 			}
 			else {
 				loggedIn = "true";
+				username = data;
+				localStorage.setItem("username", username);
 				document.getElementById("loginNav").innerHTML = "<a href=\"adminPage.html\" onclick=\"loadAdminPage()\">Admin</a>";
-				document.getElementById("isApprovedCreate").style.display = 'block';
+				if(username == "admin1") {
+					document.getElementById("isApprovedCreate").style.display = 'block';
+				}
 			} 
 		}
 	});
@@ -368,8 +439,8 @@ function loadAdminPage() {
 				document.getElementById("adminError").style.display = 'none';
 				document.getElementById("adminPanel").style.display = 'block';
 				document.getElementById("admin1Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view all confidential organizations in the system. To view those, please use the search option on the main page. You also have the ability to insert new organizations with an approved status. This can be done using the button to the right. You also may change the passwords to this account and also to the admin2 account, there are links at the bottom of this page to do so. Additionally, the list below are organizations that have been requested to be added to your site and need approval before they can be displayed in the search on the main page. To approve these organizations, please click the organization's name below that you wish to approve. </h5>";
-				document.getElementById("admin1CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-lg\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates()\">Insert Organization</button>";
-				document.getElementById("passwordChange").innerHTML = "<h4>Change password functionality</h4>";
+				document.getElementById("admin1CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates(); resetCreateModal();\">Insert Organization</button>";
+				document.getElementById("passwordChange").innerHTML = "<h4>Change password</h4><button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#changePasswordModal\" onclick=\"resetChangePassword();\">Change Password</button>";
 				loadApprovedOrgs();
 					
 					
@@ -378,7 +449,7 @@ function loadAdminPage() {
 				document.getElementById("adminError").style.display = 'none';
 				document.getElementById("adminPanel").style.display = 'block';
 				document.getElementById("admin2Msg").innerHTML = "<h5>Hello. With the login credentials you provided, you have access to view-only all confidential organizations in the system. To view organizations, please use the search options on the main page.</h2>";
-				
+				document.getElementById("admin2CreateBtn").innerHTML = "<button type=\"button\" class=\"btn btn-default btn-md\" data-toggle=\"modal\" data-target=\"#createModal\" onclick=\"populateCreateFaiths(); hideCreateMessage(); populateCreateStates(); resetCreateModal();\">Insert Organization</button>";
 			}
 
 		}
@@ -492,7 +563,9 @@ function loadSimpleData(orgs) {
 		text += "<div class=\"col-md-2\">";
 		text += "<div class=\"vcenter\">";
 		
-		if(loggedIn == "true") {
+		var checkUsername = localStorage.getItem("username");
+		
+		if(loggedIn == "true" && checkUsername == "admin1") {
 
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>";
 		text += "<button id=" + orgs[i][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + orgs[i][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
@@ -989,9 +1062,10 @@ function insertOrganization() {
 			},
 			success: function(data) {
 				
-				showCreateMessage();
+				showCreateMessage(data);
 				console.log("connection to php for insert working");
 				console.log("org id for tyler: " + data);
+			//	resetCreateModal();
 	
 			}
 		});
@@ -1002,6 +1076,231 @@ function insertOrganization() {
 loadApprovedOrgs();
 
 
+}
+
+function resetCreateModal(){
+			/**Organization Table Insert Data **/
+	
+		document.getElementById("txtOrgNameCreate").value = "";
+		document.getElementById("txtOrgProgramCreate").value = "";
+		document.getElementById("txtMissionStatementCreate").value = "";
+		document.getElementById("txtOrgWebsiteCreate").value = "";
+		document.getElementById("txtOrgEmailCreate").value = "";
+		document.getElementById("txtMainPhoneCreate").value = "";
+		document.getElementById("txtMainPhoneExtCreate").value = "";
+		document.getElementById("txtHotlineCreate").value = "";
+		document.getElementById("txtConfPhoneCreate").value = "";
+		document.getElementById("txtConfPhoneExtCreate").value = "";
+		document.getElementById("cbShelterCreate").checked = false;
+		document.getElementById("cbTransitionalHousingCreate").checked = false;
+		document.getElementById("cbAssistLocateHousingCreate").checked = false;
+		document.getElementById("txtAssociatedFeeCreate").value = 0;
+		document.getElementById("ddlFaithCreate").value = "All";
+		document.getElementById("txtNoteCreate").value = "";
+		document.getElementById("txtConfidentialNoteCreate").value = "";
+		document.getElementById("cbIsConfCreate").checked = false;
+	
+	
+		/**Addresses Table Insert Data**/
+		document.getElementById("txtAddress1StreetCreate").value = "";
+		document.getElementById("txtAddress1CityCreate").value = "";
+		document.getElementById("txtAddress1ZipCreate").value = "";
+		document.getElementById("txtAddress1CountyCreate").value = "";
+		document.getElementById("ddlAddress1StateCreate").value = "-----";
+	
+		document.getElementById("txtAddress2StreetCreate").value = "";
+		document.getElementById("txtAddress2CityCreate").value = "";
+		document.getElementById("txtAddress2ZipCreate").value = "";
+		document.getElementById("txtAddress2CountyCreate").value = "";
+		document.getElementById("ddlAddress2StateCreate").value = "-----";
+	
+		document.getElementById("txtConfAddressStreetCreate").value = "";
+		document.getElementById("txtConfAddressCityCreate").value = "";
+		document.getElementById("txtConfAddressZipCreate").value = "";
+		document.getElementById("txtConfAddressCountyCreate").value = "";
+		document.getElementById("ddlConfAddressStateCreate").value = "-----";
+	
+	
+		/**Age Table Insert Data**/
+		document.getElementById("cbInfantCreate").checked = false;
+		document.getElementById("cbChildCreate").checked = false;
+		document.getElementById("cbYouthCreate").checked = false;
+		document.getElementById("cbAdultCreate").checked = false;
+	
+		/**Contact Table Insert Data**/
+		document.getElementById("txtPrimaryContactEmailCreate").value = "";
+		document.getElementById("txtPrimaryContactFirstNameCreate").value = "";
+		document.getElementById("txtPrimaryContactLastNameCreate").value = "";
+		document.getElementById("txtPrimaryContactPosCreate").value = "";
+		document.getElementById("txtPrimaryContactPhoneCreate").value = "";
+		document.getElementById("txtPrimaryContactExtCreate").value = "";
+		document.getElementById("cbContactIsConfCreate").checked = false;
+	
+		/**Ethnicity Table Insert Data**/
+		document.getElementById("cbHispanicCreate").checked = false;
+		document.getElementById("cbNonHispanicCreate").checked = false;
+	
+		/**Gender Table Insert Data**/
+		document.getElementById("cbMaleCreate").checked = false;
+		document.getElementById("cbFemaleCreate").checked = false;
+		document.getElementById("cbTransCreate").checked = false;
+	
+		/**Hours Table Insert Data**/
+		document.getElementById("cbIs247Create").checked = false;
+	
+		document.getElementById("ddlGenFullWeekStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSatStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSatEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSunStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFullWeekSunEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenMondayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenMondayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenTuesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenTuesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenWednesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenWednesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenThursdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenThursdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenFridayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenFridayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenSaturdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenSaturdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlGenSundayStartTimeCreate").value = "-----";
+		document.getElementById("ddlGenSundayEndTimeCreate").value = "-----";
+	
+		document.getElementById("ddlAddFullWeekStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSatStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSatEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSunStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFullWeekSunEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddMondayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddMondayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddTuesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddTuesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddWednesdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddWednesdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddThursdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddThursdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddFridayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddFridayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddSaturdayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddSaturdayEndTimeCreate").value = "-----";
+		document.getElementById("ddlAddSundayStartTimeCreate").value = "-----";
+		document.getElementById("ddlAddSundayEndTimeCreate").value = "-----";
+		document.getElementById("txtAddHoursDescCreate").value = "";
+	
+	
+		/**Nationality Table Insert Data **/
+		document.getElementById("cbDomesticCreate").checked = false;
+		document.getElementById("cbForeignCreate").checked = false;
+		document.getElementById("cbUndocumentedCreate").checked = false;
+	
+		/**Race Table Insert Data **/
+		document.getElementById("cbBlackCreate").checked = false;
+		document.getElementById("cbAsianCreate").checked = false;
+		document.getElementById("cbWhiteCreate").checked = false;
+		document.getElementById("cbHispanicLatinoCreate").checked = false;
+		document.getElementById("cbNativeCreate").checked = false;
+		document.getElementById("cbMultiRacialCreate").checked = false;
+	
+		/**Requirements Table Insert Data **/
+		document.getElementById("cbMembershipCreate").checked = false;
+		document.getElementById("txtMembershipCreate").value = "";
+		document.getElementById("cbTrainingCreate").checked = false;
+		document.getElementById("txtTrainingCreate").value = "";
+		document.getElementById("cbApplicationCreate").checked = false;
+		document.getElementById("txtApplicationCreate").value = "";
+		document.getElementById("cbRestrictionCreate").checked = false;
+		document.getElementById("txtRestrictionCreate").value = "";
+	
+		/**Service Table Insert Data **/
+	
+		document.getElementById("cbClothingServCreate").checked = false;
+		document.getElementById("cbClothingSupplyCreate").checked = false;
+		document.getElementById("cbClothingEmergRespCreate").checked = false;
+		document.getElementById("txtClothingDescCreate").value = "";
+	
+		document.getElementById("cbFoodServCreate").checked = false;
+		document.getElementById("cbFoodSupplyCreate").checked = false;
+		document.getElementById("cbFoodEmergRespCreate").checked = false;
+		document.getElementById("txtFoodDescCreate").value = "";
+	
+		document.getElementById("cbEmploymentServCreate").checked = false;
+		document.getElementById("cbEmploymentSupplyCreate").checked = false;
+		document.getElementById("cbEmploymentEmergRespCreate").checked = false;
+		document.getElementById("txtEmploymentDescCreate").value = "";
+	
+		document.getElementById("cbMentoringServCreate").checked = false;
+		document.getElementById("cbMentoringSupplyCreate").checked = false;
+		document.getElementById("cbMentoringEmergRespCreate").checked = false;
+		document.getElementById("txtMentoringDescCreate").value = "";
+	
+		document.getElementById("cbCounselServCreate").checked = false;
+		document.getElementById("cbCounselServCreate").checked = false;
+		document.getElementById("cbCounselServCreate").checked = false;
+		document.getElementById("txtCounselDescCreate").value = "";
+	
+		document.getElementById("cbPregnancyServCreate").checked = false;
+		document.getElementById("cbPregnancySupplyCreate").checked = false;
+		document.getElementById("cbPregnancyEmergRespCreate").checked = false;
+		document.getElementById("txtPregnancyDescCreate").value = "";
+	
+		document.getElementById("cbMedicalServCreate").checked = false;
+		document.getElementById("cbMedicalSupplyCreate").checked = false;
+		document.getElementById("cbMedicalEmergRespCreate").checked = false;
+		document.getElementById("txtMedicalDescCreate").value = "";
+	
+		document.getElementById("cbLegalServCreate").checked = false;
+		document.getElementById("cbLegalSupplyCreate").checked = false;
+		document.getElementById("cbLegalEmergRespCreate").checked = false;
+		document.getElementById("txtLegalDescCreate").value = "";
+	
+		document.getElementById("cbGovServCreate").checked = false;
+		document.getElementById("cbGovSupplyCreate").checked = false;
+		document.getElementById("cbGovEmergRespCreate").checked = false;
+		document.getElementById("txtGovDescCreate").valuev
+	
+		document.getElementById("cbInvestigationServCreate").checked = false;
+		document.getElementById("cbInvestigationSupplyCreate").checked = false;
+		document.getElementById("cbInvestigationEmergRespCreate").checked = false;
+		document.getElementById("txtInvestigationDescCreate").value = "";
+	
+		document.getElementById("cbFosterServCreate").checked = false;
+		document.getElementById("cbFosterSupplyCreate").checked = false;
+		document.getElementById("cbFosterEmergRespCreate").checked = false;
+		document.getElementById("txtFosterDescCreate").value = "";
+	
+		document.getElementById("cbAwarenessEdServCreate").checked = false;
+		document.getElementById("cbAwarenessEdSupplyCreate").checked = false;
+		document.getElementById("cbAwarenessEdEmergRespCreate").checked = false;
+		document.getElementById("txtAwarenessEdDescCreate").value = "";
+	
+		document.getElementById("cbResponseTrainServCreate").checked = false;
+		document.getElementById("cbResponseTrainSupplyCreate").checked = false;
+		document.getElementById("cbResponseTrainEmergRespCreate").checked = false;
+		document.getElementById("txtResponseTrainDescCreate").value = "";
+	
+		document.getElementById("cbSubstanceAbuseServCreate").checked = false;
+		document.getElementById("cbSubstanceAbuseSupplyCreate").checked = false;
+		document.getElementById("cbSubstanceAbuseEmergRespCreate").checked = false;
+		document.getElementById("txtSubstanceAbuseDescCreate").value = "";
+	
+		document.getElementById("cbAdvocacyServCreate").checked = false;
+		document.getElementById("cbAdvocacySupplyCreate").checked = false;
+		document.getElementById("cbAdvocacyEmergRespCreate").checked = false;
+		document.getElementById("txtAdvocacyDescCreate").value = "";
+	
+		document.getElementById("cbOtherServCreate").checked = false;
+		document.getElementById("cbOtherSupplyCreate").checked = false;
+		document.getElementById("cbOtherEmergRespCreate").checked = false;
+		document.getElementById("txtOtherDescCreate").value = "";
+		
+		document.getElementById("cbIsApprovedCreate").checked = false;
+		
+		
+		hideCreateMessage();
 }
 
 function updateOrganization() {
@@ -1465,12 +1764,12 @@ function updateOrganization() {
 			isApproved: isApproved.toString()
 		},
 		success: function(data) {
-			
-			showUpdateMessage();
+			showUpdateMessage(data);
 			console.log("connection to php for insert working");
 			console.log(data);
 			loadApprovedOrgs();
 			readAllOrgs();
+			
 
 		}
 	});
@@ -3833,7 +4132,9 @@ function getComplexData(orgId) {
 		text += "</ul>";
 		document.getElementById("orgInfoServicesFromOrgTable").innerHTML = text;
 		
-		if(loggedIn == "true") {
+		var checkUsername = localStorage.getItem("username");
+		
+		if(loggedIn == "true" && checkUsername == "admin1") {
 		document.getElementById("updDelBtns").innerHTML = "<button id=" + organizations[0][0] + " type=\"button\" class=\"updOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#updateModal\" onclick=\"populateUpdateFaiths();populateUpdateStates(); hideUpdateMessage();loadUpdateModalData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button>" +
 		"<button id=" + organizations[0][0] + " type=\"button\" class=\"delOrgButton btn btn-default btn-lg\" data-toggle= \"modal\" data-target=\"#deleteModal\" onclick=\"loadDeleteData(" + organizations[0][0] + ");\"><span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span></button>";
 		}
@@ -3994,6 +4295,8 @@ function createFormValidation(){
 		document.getElementById("txtMainPhoneCreate").focus();
 		contactErrorFound = true;
 	}
+	
+	
 	
 	//Checks for email, if blank must be N/A
 	if(document.getElementById("txtOrgEmailCreate").value == ""){
@@ -5191,24 +5494,47 @@ function btnNotesOnClick(modal) {
 	
 }
 
-function showCreateMessage() {
+function showCreateMessage(message) {
 	document.getElementById("formControlBodyCreate").style.display = 'none';
 	document.getElementById("createMessageBodyCreate").style.display = 'block';
+	document.getElementById("createBtn").disabled = true;
+	document.getElementById("cbIsApprovedCreate").disabled = true;
+	if(message.replace(/\n/ig, '') == "approved") {
+		document.getElementById("createMessageBodyCreate").innerHTML = "<p>Your organization has been submitted and approved successfully.</p><button type=\"button\" class=\"btn btn-default btn-md\" id=\"resetCreate\" onclick=\"resetCreateModal()\">Insert Another</button>";
+	}
+	if(message.replace(/\n/ig, '') == "not approved") {
+		 document.getElementById("createMessageBodyCreate").innerHTML = "<p>Thank you for submitting your application to become part of our Resource Hub! Your organization will be notified once you have been approved. If you have any questions about the application process, please contact a YWCA associate advocate.</p><button type=\"button\" class=\"btn btn-default btn-md\" id=\"resetCreate\" onclick=\"resetCreateModal()\">Insert Another</button>";
+	}
 }
 
-function showUpdateMessage() {
+function showUpdateMessage(message) {
 	document.getElementById("formControlBodyUpdate").style.display = 'none';
 	document.getElementById("updateMessageBodyUpdate").style.display = 'block';
+	document.getElementById("updBtn").disabled = true;
+	document.getElementById("cbIsApprovedUpdate").disabled = true;
+	if(message.replace(/\n/ig, '') == "success") {
+	document.getElementById("updateMessageBodyUpdate").innerHTML = "<p>Your info has been successfully updated! If you aren't seeing your changes right away, try refreshing your browser.</p>";
+	}
+	else {
+	document.getElementById("updateMessageBodyUpdate").innerHTML = "<p>Oops! Something went wrong. Please try again later</p>";
+	}
 }
 
 function hideCreateMessage() {
 	document.getElementById("formControlBodyCreate").style.display = 'block';
 	document.getElementById("createMessageBodyCreate").style.display = 'none';
+	document.getElementById("createMessageBodyCreate").innerHTML = "";
+	document.getElementById("createBtn").disabled = false;
+	document.getElementById("cbIsApprovedCreate").disabled = false;
 }
 
 function hideUpdateMessage() {
 	document.getElementById("formControlBodyUpdate").style.display = 'block';
 	document.getElementById("updateMessageBodyUpdate").style.display = 'none';
+	document.getElementById("updateMessageBodyUpdate").innerHTML = "";
+	document.getElementById("updBtn").disabled = false;
+	document.getElementById("cbIsApprovedUpdate").disabled = false;
+	
 }
 
 

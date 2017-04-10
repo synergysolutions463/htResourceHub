@@ -43,8 +43,9 @@ function readAllOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
-                                            WHERE o.isApproved = 1
-                                            GROUP BY o.OrgID;"); 
+                                            WHERE o.isApproved = 1 AND a.isPrimary = 1
+                                            GROUP BY o.OrgID
+                                            ORDER BY o.OrgName;"); 
     $allOrgQuery->execute();
     $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -67,8 +68,9 @@ function readAllOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
-                                            WHERE o.isConf = 0 AND o.isApproved = 1
-                                            GROUP BY o.OrgID;"); 
+                                            WHERE o.isConf = 0 AND o.isApproved = 1 AND a.isPrimary = 1
+                                            GROUP BY o.OrgID
+                                            ORDER BY o.OrgName;"); 
     $allOrgQuery->execute();
     $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -248,7 +250,7 @@ function simpleSearchOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgId)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID) " . $simpleQueryString .
-                                            " GROUP BY o.OrgID;"); 
+                                            " AND a.isPrimary = 1 GROUP BY o.OrgID ORDER BY o.OrgName;"); 
      $simpleSearchLoggedInQuery->execute();
      $simpleSearchLoggedInQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -274,8 +276,8 @@ function simpleSearchOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgId)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID) " . $simpleQueryString .
-                                            " AND o.isConf = 0
-                                            GROUP BY o.OrgID;"); 
+                                            " AND o.isConf = 0 AND a.isPrimary = 1
+                                            GROUP BY o.OrgID ORDER BY o.OrgName;"); 
     $simpleSearchQuery->execute();
     $simpleSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -376,7 +378,7 @@ function advSearchOrgs() {
                                         JOIN Service se ON (se.OrgId = o.OrgId)
                                         JOIN Hours h ON (h.OrgID = o.OrgID)
                                         JOIN ServiceTypes sert ON (sert.SerID = se.SerID) WHERE " . $freeFeeAppend .
-                                        " GROUP BY o.OrgID;"); 
+                                        "  AND a.isPrimary = 1 GROUP BY o.OrgID ORDER BY o.OrgName;"); 
                                         $advSearchQuery->execute();
                                         $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
                                         $advSearchData = array();
@@ -401,7 +403,7 @@ function advSearchOrgs() {
                                         JOIN Service se ON (se.OrgId = o.OrgId)
                                         JOIN Hours h ON (h.OrgID = o.OrgID)
                                         JOIN ServiceTypes sert ON (sert.SerID = se.SerID) WHERE " . $freeFeeAppend .
-                                        " AND o.isConf = 0 GROUP BY o.OrgID;"); 
+                                        " AND o.isConf = 0  AND a.isPrimary = 1 GROUP BY o.OrgID ORDER BY o.OrgName;"); 
                         $advSearchQuery->execute();
                         $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
                         $advSearchData = array();
@@ -1573,6 +1575,72 @@ function checkIfLoggedIn() {
         }   else    {
             return "false";
         }
+    
+}
+
+function changePassword() {
+    session_start();
+
+    $username = addslashes($_POST['username']);
+    $oldPassword = addslashes($_POST['oldPassword']);
+    $newPassword = addslashes($_POST['newPassword']);
+    $confirmPassword = addslashes($_POST['confirmPassword']);
+    $isCorrect = false;
+
+   $connLibrary = db_connect();
+    if($connLibrary == null || $connLibrary == null) {
+          die("There was an error connecting to the database");
+    }
+
+
+
+    if(checkIfLoggedIn() == false) {
+        echo "Not logged in";
+    }
+    elseif(checkIfLoggedIn() != "admin1") {
+        echo "Not logged in as admin1";
+    }
+    elseif(($username == "admin1" || $username == "admin2") && ($newPassword == $confirmPassword)) {
+                
+            $checkOldPass = $connLibrary->prepare("SELECT username from Login WHERE username = '". $username ."' AND password = '". sha1($oldPassword) . "';");
+            $checkOldPass ->execute();
+            $checkOldPass ->bind_result($username);
+
+
+            while($checkOldPass->fetch()){
+                $isCorrect = true;
+            }
+            
+           
+            if($isCorrect == true) {
+                      
+                $changePassQuery = $connLibrary->prepare("UPDATE Login set password = '" . sha1($confirmPassword) . "' WHERE username = '" . $username . "';");
+                $changePassQuery->execute();
+        
+                
+                $checkChangePass = $connLibrary->prepare("SELECT username from Login WHERE username = '". $username ."' AND password = '". sha1($confirmPassword) . "';");
+                $checkChangePass ->execute();
+                $checkChangePass ->bind_result($username);
+
+
+            while($checkChangePass->fetch()){
+                echo "change password was successful";
+            }
+        }
+        else {
+            echo "invalid old pass";
+        }
+    
+        $connLibrary->close(); 
+              
+          } 
+    
+    
+    else {
+        echo "invalid username";
+    }
+
+    
     
 }
 

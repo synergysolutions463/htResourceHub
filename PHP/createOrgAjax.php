@@ -165,9 +165,9 @@ function insertOrganization () {
 			if($streetInfo1 != "" || $streetInfo1 != null) {
 				
 					$insertAddress1Query = $connLibrary->prepare("INSERT INTO Addresses (OrgID, StreetInfo, City, ZipCode,
-																County, StateID, IsConf) VALUES (" . $orgId . ", '" . $streetInfo1 . "' , '"
+																County, StateID, IsConf, isPrimary) VALUES (" . $orgId . ", '" . $streetInfo1 . "' , '"
 																. $city1 . "', '" . $zipcode1 . "' , '" . $county1 . "' , " . $state1Id . ", "
-													            . "0);");
+													            . "0, 1);");
             		$insertAddress1Query->execute();
             		$insertAddress1Query->close();
 				
@@ -177,9 +177,9 @@ function insertOrganization () {
 			if($streetInfo2 != "" || $streetInfo2 != null) {
 				
 					$insertAddress2Query = $connLibrary->prepare("INSERT INTO Addresses (OrgID, StreetInfo, City, ZipCode,
-																County, StateID, IsConf) VALUES (" . $orgId . ", '" . $streetInfo2 . "' , '"
+																County, StateID, IsConf, isPrimary) VALUES (" . $orgId . ", '" . $streetInfo2 . "' , '"
 																. $city2 . "', '" . $zipcode2 . "' , '" . $county2 . "' , " . $state2Id . ", "
-													            . "0);");
+													            . "0, 0);");
             		$insertAddress2Query->execute();
             		$insertAddress2Query->close();
 				
@@ -189,9 +189,9 @@ function insertOrganization () {
 			if($streetInfo3 != "" || $streetInfo3 != null) {
 				
 					$insertAddress3Query = $connLibrary->prepare("INSERT INTO Addresses (OrgID, StreetInfo, City, ZipCode,
-																County, StateID, IsConf) VALUES (" . $orgId . ", '" . $streetInfo3 . "' , '"
+																County, StateID, IsConf, isPrimary) VALUES (" . $orgId . ", '" . $streetInfo3 . "' , '"
 																. $city3 . "', '" . $zipcode3 . "' , '" . $county3 . "' , " . $state3Id . ", "
-													            . "1);");
+													            . "1, 0);");
             		$insertAddress3Query->execute();
             		$insertAddress3Query->close();
 				
@@ -1673,6 +1673,10 @@ function insertOrganization () {
 				
 				$insertNoneResource->execute();
 				$insertNoneResource->close();
+				echo "approved";
+    		}
+    		else {
+    			echo "not approved";
     		}
 	  	}
     

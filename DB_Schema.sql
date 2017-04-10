@@ -51,6 +51,7 @@ CREATE TABLE Addresses (
     County VARCHAR(25), 
     StateID SMALLINT NOT NULL,
     IsConf TINYINT, 
+    isPrimary TINYINT,
     PRIMARY KEY(OrgID, StreetInfo),
     FOREIGN KEY (StateID)
     REFERENCES States(StateID)
