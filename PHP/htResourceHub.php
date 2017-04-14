@@ -43,7 +43,7 @@ function readAllOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
-                                            GROUP BY o.OrgID;"); 
+                                            GROUP BY o.OrgID ORDER BY  o.OrgName;"); 
     $allOrgQuery->execute();
     $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -67,7 +67,7 @@ function readAllOrgs() {
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
                                             WHERE o.isConf = 0
-                                            GROUP BY o.OrgID;"); 
+                                            GROUP BY o.OrgID ORDER BY o.OrgName;"); 
     $allOrgQuery->execute();
     $allOrgQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -248,7 +248,7 @@ function simpleSearchOrgs() {
                                             JOIN Service se ON (se.OrgId = o.OrgId)
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID) " . $simpleQueryString .
-                                            " GROUP BY o.OrgID;"); 
+                                            " GROUP BY o.OrgID ORDER BY o.OrgName;"); 
      $simpleSearchLoggedInQuery->execute();
      $simpleSearchLoggedInQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -272,7 +272,7 @@ function simpleSearchOrgs() {
                                             JOIN Hours h ON (h.OrgID = o.OrgID)
                                             JOIN ServiceTypes sert ON (sert.SerID = se.SerID) " . $simpleQueryString .
                                             " AND o.isConf = 0
-                                            GROUP BY o.OrgID;"); 
+                                            GROUP BY o.OrgID ORDER BY o.OrgName;"); 
     $simpleSearchQuery->execute();
     $simpleSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
 
@@ -332,6 +332,7 @@ function advSearchOrgs() {
     $transitionalHsg = addslashes($_POST['transitionalHsg']);
     $shelterHsg = addslashes($_POST['shelterHsg']);
     
+    
     //Stops the query if there are ever no results found
     $resOrgAppend = resourceOrgIDs($clothingRsc, $foodRsc, $employmentRsc, $mentoringRsc, $counselingRsc, $pregnancyRsc, $medicalRsc, $legalRsc, $governmentalRsc, $investigationRsc, $fosterCareRsc, $educationRsc, $responseTrainingRsc, $substanceAbuseRsc, $advocacyRsc);
     if ($resOrgAppend != "") {
@@ -359,6 +360,7 @@ function advSearchOrgs() {
                       
                             if($orgNameAppend != "") {
                                 $housingResourcesAppend = housingResourcesIDs($asstLocHsg, $transitionalHsg, $shelterHsg, $orgNameAppend);
+                                
                                 if($housingResourcesAppend !="") {
                                     $freeFeeAppend = freeFeeIDs($feeFree, $housingResourcesAppend);
                                     
@@ -388,7 +390,7 @@ function advSearchOrgs() {
                                 } 
                                 
                         else {
-                                    
+                                     
                                      $advSearchQuery = $connLibrary->prepare("SELECT o.OrgID, o.OrgName, o.PhoneNum, o.phoneExt, o.confNum, o.confPhoneExt, o.HotlineNum, o.WebLink,
                                             o.email, o.isShelter, o.isConf, o.isApproved, a.StreetInfo, a.City, a.ZipCode, a.IsConf, 
                                             st.StateName, GROUP_CONCAT(DISTINCT sert.SerType) AS SerType, h.is24Hours
@@ -398,14 +400,17 @@ function advSearchOrgs() {
                                         JOIN Hours h ON (h.OrgID = o.OrgID)
                                         JOIN ServiceTypes sert ON (sert.SerID = se.SerID) WHERE " . $freeFeeAppend .
                                         " AND o.isConf = 0  GROUP BY o.OrgID ORDER BY o.OrgName;"); 
+                                        
+    
                         $advSearchQuery->execute();
                         $advSearchQuery->bind_result($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
                         $advSearchData = array();
-    
+                        
                          while($advSearchQuery->fetch()){
                                             if($isApproved == 1) {
                                             $advSearchData[] = array($orgID, $orgName, $phoneNum, $phoneExt, $confNum, $confExt, $hotlineNum, $webLink, $email, $isShelter, $isConfOrg, $isApproved, $streetInfo, $city, $zip, $IsConfAddress, $stateName, $serType, $is24Hours);
                                             }
+                                            
                                         }
                          echo json_encode($advSearchData); 
                          }
@@ -1192,7 +1197,7 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
       
      if ($femaleGdr == "true") {
          if($genderQueryString == "SELECT Gender.OrgID FROM Gender WHERE (Gender.GenID = " . $allGenderId . " OR ("){
-             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenderID = " . $femaleId . ")";
+             $genderQueryString = $genderQueryString . " Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $femaleId . ")";
          }
          else{
              $genderQueryString = $genderQueryString . " AND Gender.OrgID IN (SELECT Gender.orgID FROM Gender WHERE Gender.GenID = " . $femaleId . ")";
@@ -1214,11 +1219,11 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
 	 else{
 	     $genderQueryString = $genderQueryString . ")) AND " . $addressOrgAppend . "GROUP BY Gender.OrgID;";
 	 }
-	 
+	
+
      $genderOrgQuery = $connLibrary->prepare($genderQueryString); 
      $genderOrgQuery->execute();
      $genderOrgQuery->bind_result($genderOrgID);
-     
      $genderOrgAppend = " (";
      while($genderOrgQuery->fetch()){
        
@@ -1240,7 +1245,7 @@ function genderOrgIDs($femaleGdr, $maleGdr, $transGdr, $addressOrgAppend){
      }
     
     $connLibrary->close();
-    
+
      return $genderOrgAppend;
 }
 
@@ -1450,7 +1455,6 @@ function freeFeeIDs($feeFree, $housingResourcesAppend) {
      }
      
      $connLibrary->close();
-  
      return  $feesOrgAppend;
 }
 

@@ -1197,6 +1197,50 @@ function resetCreateModal(){
 		document.getElementById("ddlAddSundayStartTimeCreate").value = "-----";
 		document.getElementById("ddlAddSundayEndTimeCreate").value = "-----";
 		document.getElementById("txtAddHoursDescCreate").value = "";
+		
+		document.getElementById("ddlGenFullWeekStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenFullWeekEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenFullWeekSatStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenFullWeekSatEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenFullWeekSunStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenFullWeekSunEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenMondayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenMondayEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenTuesdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenTuesdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenWednesdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenWednesdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenThursdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenThursdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenFridayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenFridayEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenSaturdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenSaturdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlGenSundayStartTimeCreate").disabled = false;
+		document.getElementById("ddlGenSundayEndTimeCreate").disabled = false;
+				
+		document.getElementById("ddlAddFullWeekStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddFullWeekEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddFullWeekSatStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddFullWeekSatEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddFullWeekSunStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddFullWeekSunEndTimeCreate").disabled = false;
+					
+		document.getElementById("ddlAddMondayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddMondayEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddTuesdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddTuesdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddWednesdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddWednesdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddThursdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddThursdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddFridayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddFridayEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddSaturdayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddSaturdayEndTimeCreate").disabled = false;
+		document.getElementById("ddlAddSundayStartTimeCreate").disabled = false;
+		document.getElementById("ddlAddSundayEndTimeCreate").disabled = false; 
+				
 	
 	
 		/**Nationality Table Insert Data **/
@@ -1305,6 +1349,30 @@ function resetCreateModal(){
 		document.getElementById("txtOtherDescCreate").value = "";
 		
 		document.getElementById("cbIsApprovedCreate").checked = false;
+		
+		/* check all check boxes disabled */
+		document.getElementById("cbClothingAllCreate").checked = false;
+		document.getElementById("cbFoodAllCreate").checked = false;
+		document.getElementById("cbHousingAllCreate").checked = false;
+		document.getElementById("cbMentoringAllCreate").checked = false;
+		document.getElementById("cbEmploymentAllCreate").checked = false;
+		document.getElementById("cbCounselAllCreate").checked = false;
+		document.getElementById("cbPregnancyAllCreate").checked = false;
+		document.getElementById("cbMedicalAllCreate").checked = false;
+		document.getElementById("cbLegalAllCreate").checked = false;
+		document.getElementById("cbGovAllCreate").checked = false;
+		document.getElementById("cbInvestigationAllCreate").checked = false;
+		document.getElementById("cbFosterAllCreate").checked = false;
+		document.getElementById("cbAwarenessEdAllCreate").checked = false;
+		document.getElementById("cbResponseTrainAllCreate").checked = false;
+		document.getElementById("cbSubstanceAbuseAllCreate").checked = false;
+		document.getElementById("cbAdvocacyAllCreate").checked = false;
+		document.getElementById("cbOtherAllCreate").checked = false;
+		document.getElementById("cbGenderAllCreate").checked = false;
+		document.getElementById("cbAgeAllCreate").checked = false;
+		document.getElementById("cbNatAllCreate").checked = false;
+		document.getElementById("cbRaceAllCreate").checked = false;
+		document.getElementById("cbEthnicityAllCreate").checked = false;
 		
 		
 		hideCreateMessage();
@@ -2316,7 +2384,7 @@ function loadUpdateModalData(orgId) {
 				document.getElementById("ddlAddSaturdayStartTimeUpdate").disabled = false;
 				document.getElementById("ddlAddSaturdayEndTimeUpdate").disabled = false;
 				document.getElementById("ddlAddSundayStartTimeUpdate").disabled = false;
-				document.getElementById("ddlAddSundayEndTimeUpdate").disabled = false;
+				document.getElementById("ddlAddSundayEndTimeUpdate").disabled = false; 
 				
 				document.getElementById("txtAddHoursDescUpdate").value = "";
 				
@@ -2327,6 +2395,49 @@ function loadUpdateModalData(orgId) {
 					
 					if(hours[i][1] == 1) {
 						document.getElementById("cbIs247Update").checked = true;
+							document.getElementById("ddlGenFullWeekStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFullWeekEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFullWeekSatStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFullWeekSatEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFullWeekSunStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFullWeekSunEndTimeUpdate").disabled = true;
+					
+				document.getElementById("ddlGenMondayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenMondayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenTuesdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenTuesdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenWednesdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenWednesdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenThursdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenThursdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFridayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenFridayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenSaturdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenSaturdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlGenSundayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlGenSundayEndTimeUpdate").disabled = true;
+				
+				document.getElementById("ddlAddFullWeekStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFullWeekEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFullWeekSatStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFullWeekSatEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFullWeekSunStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFullWeekSunEndTimeUpdate").disabled = true;
+					
+				document.getElementById("ddlAddMondayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddMondayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddTuesdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddTuesdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddWednesdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddWednesdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddThursdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddThursdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFridayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddFridayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddSaturdayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddSaturdayEndTimeUpdate").disabled = true;
+				document.getElementById("ddlAddSundayStartTimeUpdate").disabled = true;
+				document.getElementById("ddlAddSundayEndTimeUpdate").disabled = true; 
 					}
 			
 					else {
@@ -2352,6 +2463,23 @@ function loadUpdateModalData(orgId) {
 								document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value = hours[i][14];
 								document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value = hours[i][15];
 								document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value = hours[i][16];
+								
+										
+								document.getElementById("ddlGenMondayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenMondayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenTuesdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenTuesdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenWednesdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenWednesdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenThursdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenThursdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFridayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFridayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenSaturdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenSaturdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenSundayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenSundayEndTimeUpdate").disabled = true;
+								
 							}
 							else {
 								
@@ -2370,6 +2498,13 @@ function loadUpdateModalData(orgId) {
 								document.getElementById("ddlGenSundayStartTimeUpdate").value = hours[i][15];
 								document.getElementById("ddlGenSundayEndTimeUpdate").value = hours[i][16];
 								
+								document.getElementById("ddlGenFullWeekStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFullWeekEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFullWeekSatStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFullWeekSatEndTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFullWeekSunStartTimeUpdate").disabled = true;
+								document.getElementById("ddlGenFullWeekSunEndTimeUpdate").disabled = true;
+								
 							}
 							
 						}
@@ -2382,6 +2517,22 @@ function loadUpdateModalData(orgId) {
 								document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value = hours[i][14];
 								document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value = hours[i][15];
 								document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value = hours[i][16];
+								
+								
+								document.getElementById("ddlAddMondayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddMondayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddTuesdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddTuesdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddWednesdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddWednesdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddThursdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddThursdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFridayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFridayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddSaturdayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddSaturdayEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddSundayStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddSundayEndTimeUpdate").disabled = true; 
 							}
 							else {
 								
@@ -2399,6 +2550,13 @@ function loadUpdateModalData(orgId) {
 								document.getElementById("ddlAddSaturdayEndTimeUpdate").value = hours[i][14];
 								document.getElementById("ddlAddSundayStartTimeUpdate").value = hours[i][15];
 								document.getElementById("ddlAddSundayEndTimeUpdate").value = hours[i][16];
+								
+								document.getElementById("ddlAddFullWeekStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFullWeekEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFullWeekSatStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFullWeekSatEndTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFullWeekSunStartTimeUpdate").disabled = true;
+								document.getElementById("ddlAddFullWeekSunEndTimeUpdate").disabled = true;
 								
 							}
 							document.getElementById("txtAddHoursDescUpdate").value = hours[i][17];
@@ -2433,7 +2591,7 @@ function loadUpdateModalData(orgId) {
 				document.getElementById("cbDomesticUpdate").disabled = false;
 				document.getElementById("cbForeignUpdate").disabled = false;
 				document.getElementById("cbUndocumentedUpdate").disabled = false;
-			
+		
 				nLen = nationalities.length;
 			
 						
@@ -3342,6 +3500,7 @@ function loadUpdateModalData(orgId) {
 		});  
 }
 
+// Create Hours Validation
 function checkHoursCreate() {
 	if (document.getElementById("cbIs247Create").checked){
 		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", true);
@@ -3527,7 +3686,9 @@ function checkHoursUpdate() {
 
 function disableRegularHoursCreate() {
             
-        if(document.getElementById("ddlGenFullWeekStartTimeCreate").value != "-----" || document.getElementById("ddlGenFullWeekEndTimeCreate").value != "-----") {
+        if(document.getElementById("ddlGenFullWeekStartTimeCreate").value != "-----" || document.getElementById("ddlGenFullWeekEndTimeCreate").value != "-----" || 
+        document.getElementById("ddlGenFullWeekSatStartTimeCreate").value != "-----" || document.getElementById("ddlGenFullWeekSatEndTimeCreate").value != "-----" ||
+        document.getElementById("ddlGenFullWeekSunStartTimeCreate").value != "-----" || document.getElementById("ddlGenFullWeekSunEndTimeCreate").value != "-----") {
 		$("#ddlGenMondayStartTimeCreate").prop("disabled", true);
 		$("#ddlGenMondayEndTimeCreate").prop("disabled", true);
 		$("#ddlGenTuesdayStartTimeCreate").prop("disabled", true);
@@ -3570,7 +3731,9 @@ function disableRegularHoursCreate() {
 
 function disableAdditionalHoursCreate(){
 	    
-        if(document.getElementById("ddlAddFullWeekStartTimeCreate").value != "-----" || document.getElementById("ddlAddFullWeekEndTimeCreate").value != "-----") {
+        if(document.getElementById("ddlAddFullWeekStartTimeCreate").value != "-----" || document.getElementById("ddlAddFullWeekEndTimeCreate").value != "-----" || 
+        document.getElementById("ddlAddFullWeekSatStartTimeCreate").value != "-----" || document.getElementById("ddlAddFullWeekSatEndTimeCreate").value != "-----" ||
+        document.getElementById("ddlAddFullWeekSunStartTimeCreate").value != "-----" || document.getElementById("ddlAddFullWeekSunEndTimeCreate").value != "-----") {
 		$("#ddlAddMondayStartTimeCreate").prop("disabled", true);
 		$("#ddlAddMondayEndTimeCreate").prop("disabled", true);
 		$("#ddlAddTuesdayStartTimeCreate").prop("disabled", true);
@@ -3608,82 +3771,57 @@ function disableAdditionalHoursCreate(){
 		$("#ddlAddSundayStartTimeCreate").prop("disabled", false);
 		$("#ddlAddSundayEndTimeCreate").prop("disabled", false);	
 		}
-	};
+	}
 	
 function checkGenHourOverlap(){
 		if(document.getElementById("ddlGenMondayStartTimeCreate").value != "-----" || document.getElementById("ddlGenMondayEndTimeCreate").value != "-----" ||
 		document.getElementById("ddlGenTuesdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenTuesdayEndTimeCreate").value != "-----" ||
 		document.getElementById("ddlGenWednesdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenWednesdayEndTimeCreate").value != "-----" ||
 		document.getElementById("ddlGenThursdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenThursdayEndTimeCreate").value != "-----" ||
-		document.getElementById("ddlGenFridayStartTimeCreate").value != "-----" || document.getElementById("ddlGenFridayEndTimeCreate").value != "-----"){
+		document.getElementById("ddlGenFridayStartTimeCreate").value != "-----" || document.getElementById("ddlGenFridayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" ||
+		document.getElementById("ddlGenSundayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSundayEndTimeCreate").value != "-----"){
 		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", true);
 		$("#ddlGenFullWeekEndTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", true);
+		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", true);
 		}else
 		{
 		$("#ddlGenFullWeekStartTimeCreate").prop("disabled", false);
-		$("#ddlGenFullWeekEndTimeCreate").prop("disabled", false);	
-			}
-	};
-	
-function checkGenSatHoursOverlap(){
-	if(document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayEndTimeCreate").value != "-----"){
-		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
-		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
-	}else
-	{
+		$("#ddlGenFullWeekEndTimeCreate").prop("disabled", false);
 		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
-		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);	
-	}
-	
-};
-
-function checkGenSunHourOverlap(){
-	if(document.getElementById("ddlGenSundayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSundayEndTimeCreate").value != "-----"){
-		$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", true);
-		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", true);
-	}else
-	{
+		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);
 		$("#ddlGenFullWeekSunStartTimeCreate").prop("disabled", false);
-		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);	
+		$("#ddlGenFullWeekSunEndTimeCreate").prop("disabled", false);
+			}
 	}
-};
-
-function checkAddSatHoursOverlap(){
-	if(document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayEndTimeCreate").value != "-----"){
-		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
-		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
-	}else
-	{
-		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
-		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);	
-	}
-};
-
-function checkAddSunHoursOverlap(){
-	if(document.getElementById("ddlGenSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlGenSaturdayEndTimeCreate").value != "-----"){
-		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", true);
-		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", true);
-	}else
-	{
-		$("#ddlGenFullWeekSatStartTimeCreate").prop("disabled", false);
-		$("#ddlGenFullWeekSatEndTimeCreate").prop("disabled", false);	
-	}
-};
-
+	
 function checkAddHourOverLap(){
 		if(document.getElementById("ddlAddMondayStartTimeCreate").value != "-----" || document.getElementById("ddlAddMondayEndTimeCreate").value != "-----" ||
 		document.getElementById("ddlAddTuesdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddTuesdayEndTimeCreate").value != "-----" ||
 		document.getElementById("ddlAddWednesdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddWednesdayEndTimeCreate").value != "-----" ||
 		document.getElementById("ddlAddThursdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddThursdayEndTimeCreate").value != "-----" ||
-		document.getElementById("ddlAddFridayStartTimeCreate").value != "-----" || document.getElementById("ddlAddFridayEndTimeCreate").value != "-----"){
+		document.getElementById("ddlAddFridayStartTimeCreate").value != "-----" || document.getElementById("ddlAddFridayEndTimeCreate").value != "-----" ||
+		document.getElementById("ddlAddSaturdayStartTimeCreate").value != "-----" || document.getElementById("ddlAddSaturdayStartTimeCreate").value != "-----" ||
+		document.getElementById("ddlAddSundayStartTimeCreate").value != "-----" || document.getElementById("ddlAddSundayEndTimeCreate").value != "-----"){
 		$("#ddlAddFullWeekStartTimeCreate").prop("disabled", true);
 		$("#ddlAddFullWeekEndTimeCreate").prop("disabled", true);
+		$("#ddlAddFullWeekSatStartTimeCreate").prop("disabled", true);
+		$("#ddlAddFullWeekSatEndTimeCreate").prop("disabled", true);
+		$("#ddlAddFullWeekSunStartTimeCreate").prop("disabled", true);
+		$("#ddlAddFullWeekSunEndTimeCreate").prop("disabled", true);
 		}else
 		{
 		$("#ddlAddFullWeekStartTimeCreate").prop("disabled", false);
-		$("#ddlAddFullWeekEndTimeCreate").prop("disabled", false);	
+		$("#ddlAddFullWeekEndTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSatStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSatEndTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSunStartTimeCreate").prop("disabled", false);
+		$("#ddlAddFullWeekSunEndTimeCreate").prop("disabled", false);
 			}
-	};
+	}
 	
 function resetHours(){
 	
@@ -3733,8 +3871,198 @@ function resetHours(){
 	else {
 	
 	}
-};
+}
 
+//Update Hour Validation
+
+function disableRegularHoursUpdate() {
+            
+        if(document.getElementById("ddlGenFullWeekStartTimeUpdate").value != "-----" || document.getElementById("ddlGenFullWeekEndTimeUpdate").value != "-----" || 
+        document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value != "-----" || document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value != "-----" ||
+        document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value != "-----" || document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value != "-----") {
+		$("#ddlGenMondayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenMondayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenThursdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenThursdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenFridayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFridayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenSundayStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenSundayEndTimeUpdate").prop("disabled", true);
+	}
+	else {
+		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenMondayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenMondayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenTuesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenTuesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenWednesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenWednesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenThursdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenThursdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFridayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFridayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenSaturdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenSaturdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenSundayStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenSundayEndTimeUpdate").prop("disabled", false);
+	};
+}
+
+function disableAdditionalHoursUpdate(){
+	    
+        if(document.getElementById("ddlAddFullWeekStartTimeUpdate").value != "-----" || document.getElementById("ddlAddFullWeekEndTimeUpdate").value != "-----" || 
+        document.getElementById("ddlAddFullWeekSatStartTimeUpdate").value != "-----" || document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value != "-----" ||
+        document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value != "-----" || document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value != "-----") {
+		$("#ddlAddMondayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddMondayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddThursdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddThursdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddFridayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFridayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddSundayStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddSundayEndTimeUpdate").prop("disabled", true);
+		}
+		else {
+		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddMondayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddMondayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddTuesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddTuesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddWednesdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddWednesdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddThursdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddThursdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFridayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFridayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddSaturdayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddSaturdayEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddSundayStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddSundayEndTimeUpdate").prop("disabled", false);	
+		}
+	}
+	
+function checkGenHourOverlapUpdate(){
+		if(document.getElementById("ddlGenMondayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenMondayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlGenTuesdayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenTuesdayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlGenWednesdayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenWednesdayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlGenThursdayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenThursdayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlGenFridayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenFridayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlGenSaturdayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenSaturdayStartTimeUpdate").value != "-----" ||
+		document.getElementById("ddlGenSundayStartTimeUpdate").value != "-----" || document.getElementById("ddlGenSundayEndTimeUpdate").value != "-----"){
+		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", true);
+		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", true);
+		}else
+		{
+		$("#ddlGenFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSatStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSatEndTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSunStartTimeUpdate").prop("disabled", false);
+		$("#ddlGenFullWeekSunEndTimeUpdate").prop("disabled", false);
+			}
+	}
+	
+function checkAddHourOverLapUpdate(){
+		if(document.getElementById("ddlAddMondayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddMondayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlAddTuesdayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddTuesdayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlAddWednesdayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddWednesdayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlAddThursdayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddThursdayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlAddFridayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddFridayEndTimeUpdate").value != "-----" ||
+		document.getElementById("ddlAddSaturdayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddSaturdayStartTimeUpdate").value != "-----" ||
+		document.getElementById("ddlAddSundayStartTimeUpdate").value != "-----" || document.getElementById("ddlAddSundayEndTimeUpdate").value != "-----"){
+		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", true);
+		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", true);
+		}else
+		{
+		$("#ddlAddFullWeekStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSatStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSatEndTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSunStartTimeUpdate").prop("disabled", false);
+		$("#ddlAddFullWeekSunEndTimeUpdate").prop("disabled", false);
+			}
+	}
+	
+function resetHoursUpdate(){
+	
+	if (document.getElementById("cbIs247Update").checked){
+		document.getElementById("ddlGenFullWeekStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFullWeekEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFullWeekSatStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFullWeekSatEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFullWeekSunStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFullWeekSunEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenMondayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenMondayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenTuesdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenTuesdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenWednesdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenWednesdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenThursdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenThursdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFridayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenFridayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenSaturdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenSaturdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlGenSundayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlGenSundayEndTimeUpdate").value = "-----";
+		
+		 document.getElementById("ddlAddFullWeekStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFullWeekEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFullWeekSatStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFullWeekSatEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFullWeekSunStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFullWeekSunEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddMondayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddMondayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddTuesdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddTuesdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddWednesdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddWednesdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddThursdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddThursdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFridayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddFridayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddSaturdayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddSaturdayEndTimeUpdate").value = "-----";
+		document.getElementById("ddlAddSundayStartTimeUpdate").value = "-----";
+		document.getElementById("ddlAddSundayEndTimeUpdate").value = "-----";
+	}
+	else {
+	
+	}
+}
 
 function checkAllDisableCreate(source) {
 	var checkAlls = document.getElementsByTagName('input');
@@ -4451,7 +4779,7 @@ function createFormValidation(){
 	}
 	
 	//Checks for @. in the org email
-	if(!document.getElementById("txtOrgEmailCreate").value.includes("@") & document.getElementById("txtOrgEmailCreate").value != ""){
+	if(!document.getElementById("txtOrgEmailCreate").value.includes("@") & document.getElementById("txtOrgEmailCreate").value != "N/A"){
 		if(contactErrorFound == false){
 			contactInfoError = "Please enter a valid organization email"
 		}
@@ -4893,13 +5221,14 @@ function createFormValidation(){
 	var otherResourceErrorFound = false;
 	var otherResourcesInfoError = "";
 	
+	/*
 	//If other is selected, it needs a description
-	if(document.getElementById("cbOtherAllCreate").checked == true || document.getElementById("cbOtherServCreate").checked == true || document.getElementById("cbOtherSupplyCreate").checked == true || document.getElementById("cbOtherEmergRespCreate").checked == true & document.getElementById("txtOtherDescCreate").value == ""){
+	if(document.getElementById(("cbOtherAllCreate").checked == true || document.getElementById("cbOtherServCreate").checked == true || document.getElementById("cbOtherSupplyCreate").checked == true || document.getElementById("cbOtherEmergRespCreate").checked == true) & document.getElementById("txtOtherDescCreate").value == ""){
 		otherResourcesInfoError = "Please enter a description for other";
 		document.getElementById("txtOtherDescCreate").focus();
 		otherResourceErrorFound = true;
 	}
-	
+	*/
 	
 	
 	//***Cost Information***
@@ -5045,7 +5374,7 @@ function updateFormValidation(){
 	}
 	
 	//Checks for @. in the contact email
-	if(!document.getElementById("txtPrimaryContactEmailUpdate").value.includes("@") & document.getElementById("txtPrimaryContactEmailUpdate").value != ""){
+	if(!document.getElementById("txtPrimaryContactEmailUpdate").value.includes("@") & document.getElementById("txtPrimaryContactEmailUpdate").value != "N/A"){
 		if(contactErrorFound == false){
 			contactInfoError = "Please enter a valid contact email"
 		}
@@ -5474,6 +5803,7 @@ function updateFormValidation(){
 	var otherResourceErrorFound = false;
 	var otherResourcesInfoError = "";
 	
+	/*
 	//If other is selected, it needs a description
 	if(document.getElementById("cbOtherAllUpdate").checked == true || document.getElementById("cbOtherServUpdate").checked == true || document.getElementById("cbOtherSupplyUpdate").checked == true || document.getElementById("cbOtherEmergRespUpdate").checked == true & document.getElementById("txtOtherDescUpdate").value == ""){
 		otherResourcesInfoError = "Please enter a description for other";
@@ -5481,7 +5811,7 @@ function updateFormValidation(){
 		otherResourceErrorFound = true;
 	}
 	console.log("other resource passed");
-	
+	*/
 	
 	//***Cost Information***
 	var costErrorFound = false;

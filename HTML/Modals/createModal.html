@@ -359,7 +359,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenFullWeekSatStartTimeCreate">
+                                                                <select class="form-control" id="ddlGenFullWeekSatStartTimeCreate" onchange="disableRegularHoursCreate()">
     																<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -391,7 +391,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenFullWeekSatEndTimeCreate">
+                                                                <select class="form-control" id="ddlGenFullWeekSatEndTimeCreate" onchange="disableRegularHoursCreate()">
     																		<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -429,7 +429,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenFullWeekSunStartTimeCreate">
+                                                                <select class="form-control" id="ddlGenFullWeekSunStartTimeCreate" onchange="disableRegularHoursCreate(), resetHours()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -461,7 +461,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenFullWeekSunEndTimeCreate">
+                                                                <select class="form-control" id="ddlGenFullWeekSunEndTimeCreate" onchange="disableRegularHoursCreate(), resetHours()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -854,7 +854,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenSaturdayStartTimeCreate">
+                                                                <select class="form-control" id="ddlGenSaturdayStartTimeCreate" onchange="checkGenHourOverlap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -886,7 +886,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenSaturdayEndTimeCreate">
+                                                                <select class="form-control" id="ddlGenSaturdayEndTimeCreate" onchange="checkGenHourOverlap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -924,7 +924,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlGenSundayStartTimeCreate">
+                                                                <select class="form-control" id="ddlGenSundayStartTimeCreate" onchange="checkGenHourOverlap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -956,7 +956,7 @@
                                                             <label>Closes:</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <select class="form-control" id="ddlGenSundayEndTimeCreate" name="ddlGenSundayEndTimeCreate">
+                                                            <select class="form-control" id="ddlGenSundayEndTimeCreate" name="ddlGenSundayEndTimeCreate" onchange="checkGenHourOverlap()">
     										                            <option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1082,7 +1082,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddFullWeekSatStartTimeCreate">
+                                                                <select class="form-control" id="ddlAddFullWeekSatStartTimeCreate" onchange="disableAdditionalHoursCreate()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1114,7 +1114,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddFullWeekSatEndTimeCreate">
+                                                                <select class="form-control" id="ddlAddFullWeekSatEndTimeCreate" onchange="disableAdditionalHoursCreate()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1152,7 +1152,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddFullWeekSunStartTimeCreate">
+                                                                <select class="form-control" id="ddlAddFullWeekSunStartTimeCreate" onchange="disableAdditionalHoursCreate()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1184,7 +1184,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddFullWeekSunEndTimeCreate">
+                                                                <select class="form-control" id="ddlAddFullWeekSunEndTimeCreate" onchange="disableAdditionalHoursCreate()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1578,7 +1578,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddSaturdayStartTimeCreate">
+                                                                <select class="form-control" id="ddlAddSaturdayStartTimeCreate"  onchange="checkAddHourOverLap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1610,7 +1610,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddSaturdayEndTimeCreate">
+                                                                <select class="form-control" id="ddlAddSaturdayEndTimeCreate" onchange="checkAddHourOverLap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1648,7 +1648,7 @@
                                                                 <label>Opens:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddSundayStartTimeCreate">
+                                                                <select class="form-control" id="ddlAddSundayStartTimeCreate" onchange="checkAddHourOverLap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
@@ -1680,7 +1680,7 @@
                                                                 <label>Closes:</label>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="ddlAddSundayEndTimeCreate">
+                                                                <select class="form-control" id="ddlAddSundayEndTimeCreate" onchange="checkAddHourOverLap()">
     																	<option value="-----">-----</option>
     																	<option value="12:00 AM">12:00 AM</option>
     																	<option value="1:00 AM">1:00 AM</option>
